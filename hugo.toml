@@ -8,3 +8,7 @@ title = 'Unofficial EVE Frontier Development Notes'
 
 [params]
   themeVariant = "frontier-dark"
+
+[markup]
+  [markup.highlight]
+    noClasses = false

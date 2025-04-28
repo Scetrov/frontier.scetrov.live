@@ -1,7 +1,6 @@
 @import "theme-relearn-dark.css";
 
 :root {
-  /* --CODE-theme: "tokyo-night"; */
   --PRIMARY-color: #ff4700;
   --MENU-SECTION-ACTIVE-CATEGORY-color: rgba(255, 71, 0, 1);
   --MAIN-LINK-color: rgba(255, 71, 0, 1);
@@ -10,6 +9,7 @@
   --MENU-SECTIONS-BG-color: rgba(28, 28, 28, 1);
   --MENU-HOME-LINK-color: rgba(28, 28, 28, 1);
   --MAIN-TEXT-color: rgb(183, 172, 152);
+  --MENU-HEADER-color: rgba(255, 255, 255, 1);
 
   --BOX-CAUTION-color:rgba(255, 221, 0, 1);
   --BOX-INFO-color:rgba(255, 71, 0, 0.5);
@@ -20,6 +20,7 @@
   --BOX-WARNING-color:rgb(255, 4, 98);
 
   --CODE-INLINE-color: rgba(255, 221, 0, 1);
+  --CODE-theme: tokyonight-night;
 }
 
 h1, h2, h3, h4, h5, h6 {

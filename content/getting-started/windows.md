@@ -48,3 +48,32 @@ From there navigate to **Resources** → **WSL Integration** and check the slide
 ## Setting up Tools
 
 From here on the [CCP Documentation](https://docs.evefrontier.com/QuickstartGuide) works flawlessly.
+
+## Troubleshoot WSL Install Issues
+
+If you want to start over with WSL because something has gone very wrong, then you can unregister and reregister the distribution to reset it:
+
+```
+wsl -l -v
+```
+
+This will result in something like this:
+
+```
+  NAME                      STATE           VERSION
+* docker-desktop-data       Stopped         2
+  Ubuntu-24.04              Stopped         2
+  docker-desktop            Stopped         2
+```
+
+You only want to unregister the **Ubuntu-24.04** distribution with the following command:
+
+```
+wsl --unregister Ubuntu-24.04
+```
+
+You can then re-register the distribution by following [Setting Up Your Tools](https://docs.evefrontier.com/Tools) starting from:
+
+```
+wsl --install -d Ubuntu-24.04
+```
