@@ -1,0 +1,39 @@
+@import "theme-relearn-dark.css";
+
+:root {
+  --CODE-theme: monokai; /* chrome sylesheet */
+  --PRIMARY-color: rgba(255, 71, 0, 1);
+  --MENU-SECTION-ACTIVE-CATEGORY-color: rgba(255, 71, 0, 1);
+  --MAIN-LINK-color: rgba(255, 71, 0, 1);
+  --MAIN-BG-color: rgba(10, 10, 10, 1);
+  --MENU-SECTIONS-ACTIVE-BG-color: rgba(20, 20, 20, 1);
+  --MENU-SECTIONS-BG-color: rgba(28, 28, 28, 1);
+  --MENU-HOME-LINK-color: rgba(28, 28, 28, 1);
+  --MAIN-TEXT-color: rgb(183, 172, 152);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Disket Mono', monospace;
+    font-weight: bold;
+}
+
+.logo-title {
+    font-family: 'Disket Mono', monospace;
+    font-weight: bold;
+}
+
+.searchbox {
+  --s: 10px; /* the size on the corner */
+  --t: 2px;  /* the thickness of the border */
+  --g: 0px; /* the gap between the border and image */
+  
+  border-radius: 0px;
+  padding: calc(var(--g) + var(--t));
+  outline: var(--t) solid --MAIN-BG-color; /* the color here */
+  outline-offset: calc(-1*var(--t));
+  mask:
+    conic-gradient(at var(--s) var(--s),#0000 75%,#000 0)
+     0 0/calc(100% - var(--s)) calc(100% - var(--s)),
+    conic-gradient(#000 0 0) content-box;
+  background: var(--PRIMARY-color);
+}

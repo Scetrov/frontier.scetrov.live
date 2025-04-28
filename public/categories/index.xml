@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories :: Unofficial EVE Frontier Guides</title>
+    <title>Categories :: Unofficial EVE Frontier Development Notes</title>
     <link>http://localhost:1313/categories/index.html</link>
     <description></description>
     <generator>Hugo</generator>
