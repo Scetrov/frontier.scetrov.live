@@ -1,7 +1,7 @@
 +++
-title = "Debugging"
+title = "DevSecOps"
 type = "chapter"
-weight = 2
+weight = 9
 +++
 
 Debugging Mud Smart Contracts can be difficult at the best of times, it can be even more difficult to debug Smart Assemblies as the developer never sees the input parameters sent to the client.

@@ -1,8 +1,8 @@
 @import "theme-relearn-dark.css";
 
 :root {
-  --CODE-theme: monokai; /* chrome sylesheet */
-  --PRIMARY-color: rgba(255, 71, 0, 1);
+  /* --CODE-theme: "tokyo-night"; */
+  --PRIMARY-color: #ff4700;
   --MENU-SECTION-ACTIVE-CATEGORY-color: rgba(255, 71, 0, 1);
   --MAIN-LINK-color: rgba(255, 71, 0, 1);
   --MAIN-BG-color: rgba(10, 10, 10, 1);
@@ -10,6 +10,16 @@
   --MENU-SECTIONS-BG-color: rgba(28, 28, 28, 1);
   --MENU-HOME-LINK-color: rgba(28, 28, 28, 1);
   --MAIN-TEXT-color: rgb(183, 172, 152);
+
+  --BOX-CAUTION-color:rgba(255, 221, 0, 1);
+  --BOX-INFO-color:rgba(255, 71, 0, 0.5);
+  --BOX-IMPORTANT-color:rgba(255, 148, 23, 1);
+  --BOX-NEUTRAL-color:rgba(255, 71, 0, 0.5);
+  --BOX-NOTE-color:rgba(255, 71, 0, 0.5);
+  --BOX-TIP-color:rgba(255, 71, 0, 0.5);
+  --BOX-WARNING-color:rgb(255, 4, 98);
+
+  --CODE-INLINE-color: rgba(255, 221, 0, 1);
 }
 
 h1, h2, h3, h4, h5, h6 {

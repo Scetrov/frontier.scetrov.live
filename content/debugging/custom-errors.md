@@ -1,14 +1,14 @@
 +++
 date = '2025-04-28T16:22:00+01:00'
 title = 'Custom Errors'
-weight = 1.1
+weight = 10
 +++
 
 Custom errors provide an efficient way to communicate problem states between a Smart Contract, i.e. Mud System, and consumers. They are however a little terse and unreadable unless you know where to look. I have included a cut of the custom errors in World v1 and World v2 from [main/ff2d894](https://github.com/projectawakening/world-chain-contracts/commit/ff2d894af8ae6dc645386548894472fc26346983) as of the 28th April 2025.
 
 ## World v1
 
-```
+```solidity
 0x04c9225f: SmartGate_GateNotLinked(uint256,uint256)
 0x0dc28f6a: World_ResourceAlreadyExists(bytes32,string)
 0x0e0e2d4d: World_InsufficientBalance(uint256,uint256)
@@ -108,7 +108,7 @@ Custom errors provide an efficient way to communicate problem states between a S
 
 ## World v2
 
-```
+```solidity
 0x008928f3: EphemeralInventory_NonExistentEntityRecord(string,uint256)
 0x019a1bee: Access_NotAdminSupportedOrDirectOwnerGates(address,uint256)
 0x04c9225f: SmartGate_GateNotLinked(uint256,uint256)
