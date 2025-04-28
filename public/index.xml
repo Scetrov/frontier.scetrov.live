@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unofficial EVE Frontier Guides</title>
+    <link>http://localhost:1313/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Apr 2025 16:22:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debugging</title>
+      <link>http://localhost:1313/debugging/index.html</link>
+      <pubDate>Mon, 28 Apr 2025 16:22:00 +0100</pubDate>
+      <guid>http://localhost:1313/debugging/index.html</guid>
+      <description>The following pages.</description>
+    </item>
+  </channel>
+</rss>

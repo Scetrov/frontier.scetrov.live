@@ -1,0 +1,7 @@
+baseURL = 'https://frontier.scetrov.live/'
+languageCode = 'en-us'
+title = 'Unofficial EVE Frontier Development Notes'
+
+[module]
+  [[module.imports]]
+    path = 'github.com/McShelby/hugo-theme-relearn'
