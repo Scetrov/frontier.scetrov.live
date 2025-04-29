@@ -300,54 +300,54 @@ var payload = @"
 var tables = new List<MudTableDefinition>();
 
 try {
-	using var client = new HttpClient();
-	using var content = new StringContent(payload, Encoding.UTF8, "application/json");
-	using var response = await client.PostAsync(url, content);
+  using var client = new HttpClient();
+  using var content = new StringContent(payload, Encoding.UTF8, "application/json");
+  using var response = await client.PostAsync(url, content);
 
-	if (!response.IsSuccessStatusCode) {
-		Console.WriteLine($"Error: {response.StatusCode}");
-		var errorBody = await response.Content.ReadAsStringAsync();
-		Console.WriteLine($"Error details: {errorBody}");
-		return;
-	}
+  if (!response.IsSuccessStatusCode) {
+    Console.WriteLine($"Error: {response.StatusCode}");
+    var errorBody = await response.Content.ReadAsStringAsync();
+    Console.WriteLine($"Error details: {errorBody}");
+    return;
+  }
 
-	var responseBody = await response.Content.ReadAsStreamAsync();
-	var node = await JsonNode.ParseAsync(responseBody);
-	
-	//node.Dump();
+  var responseBody = await response.Content.ReadAsStreamAsync();
+  var node = await JsonNode.ParseAsync(responseBody);
+  
+  //node.Dump();
 
-	Debug.Assert(node != null, nameof(node) + " != null");
-	foreach (var table in node.AsArray()) {
-		Debug.Assert(table != null, nameof(table) + " != null");
-		Debug.Assert(table["table_id"] != null, nameof(table) + "[table_id] != null");
-		Debug.Assert(table["key_names"] != null, nameof(table) + "[key_names] != null");
-		Debug.Assert(table["val_names"] != null, nameof(table) + "[val_names] != null");
-		Debug.Assert(table["key_schema"] != null, nameof(table) + "[key_schema] != null");
-		Debug.Assert(table["val_schema"] != null, nameof(table) + "[val_schema] != null");
-		var (tableNamespace, tableName) = MudExtensions.DecodeTableId(table["table_id"]!.GetValue<string>());
+  Debug.Assert(node != null, nameof(node) + " != null");
+  foreach (var table in node.AsArray()) {
+    Debug.Assert(table != null, nameof(table) + " != null");
+    Debug.Assert(table["table_id"] != null, nameof(table) + "[table_id] != null");
+    Debug.Assert(table["key_names"] != null, nameof(table) + "[key_names] != null");
+    Debug.Assert(table["val_names"] != null, nameof(table) + "[val_names] != null");
+    Debug.Assert(table["key_schema"] != null, nameof(table) + "[key_schema] != null");
+    Debug.Assert(table["val_schema"] != null, nameof(table) + "[val_schema] != null");
+    var (tableNamespace, tableName) = MudExtensions.DecodeTableId(table["table_id"]!.GetValue<string>());
 
-		if (tableNamespace is not "evefrontier" and not "eveerc20")
-			continue;
+    if (tableNamespace is not "evefrontier" and not "eveerc20")
+      continue;
 
-		var keys = table["key_names"]!.AsArray().Select(x => x!.GetValue<string>()).ToArray();
-		var values = table["val_names"]!.AsArray().Select(x => x!.GetValue<string>()).ToArray();
-		var keySchema = SchemaEncoder.Decode(table["key_schema"]!.GetValue<string>().HexToByteArray())
-			.ToArray();
-		var valSchema = SchemaEncoder.Decode(table["val_schema"]!.GetValue<string>().HexToByteArray())
-			.ToArray();
+    var keys = table["key_names"]!.AsArray().Select(x => x!.GetValue<string>()).ToArray();
+    var values = table["val_names"]!.AsArray().Select(x => x!.GetValue<string>()).ToArray();
+    var keySchema = SchemaEncoder.Decode(table["key_schema"]!.GetValue<string>().HexToByteArray())
+      .ToArray();
+    var valSchema = SchemaEncoder.Decode(table["val_schema"]!.GetValue<string>().HexToByteArray())
+      .ToArray();
 
-		var fields = keys.Select(key => new TableField { ParameterName = key, AbiType = keySchema[Array.IndexOf(keys, key)].Type }).ToList();
-		fields.AddRange(values.Select(val => new TableField { ParameterName = val, AbiType = valSchema[Array.IndexOf(values, val)].Type }));
+    var fields = keys.Select(key => new TableField { ParameterName = key, AbiType = keySchema[Array.IndexOf(keys, key)].Type }).ToList();
+    fields.AddRange(values.Select(val => new TableField { ParameterName = val, AbiType = valSchema[Array.IndexOf(values, val)].Type }));
 
-		tables.Add(new MudTableDefinition {
-			Namespace = tableNamespace,
-			TableName = tableName.ExpandTableName(),
-			Fields = fields
-		});
-	}
+    tables.Add(new MudTableDefinition {
+      Namespace = tableNamespace,
+      TableName = tableName.ExpandTableName(),
+      Fields = fields
+    });
+  }
 }
 catch (Exception ex) {
-	Console.WriteLine($"Exception occurred: {ex.Message}");
+  Console.WriteLine($"Exception occurred: {ex.Message}");
 }
 
 var relationships = new List<Relationship>();
@@ -384,209 +384,208 @@ relationships.Add(new Relationship("CallAccess", RelationshipDirection.OneToMany
 MermaidDiagramGenerator.GenerateMermaidErDiagram(tables, relationships).Dump("Tables");
 
 namespace FrontierSharp {
-	public class MudTableDefinition {
-		public required string Namespace { get; set; }
-		public required string TableName { get; set; }
-		public required IEnumerable<TableField> Fields { get; set; }
-	}
-	
-	public class Relationship {
-		public string Source { get; set; }
-		public RelationshipDirection Direction { get; set; } 
-		public string Destination { get; set; }
-		public string Column { get; set; }
-		
-		public Relationship(string source, RelationshipDirection direction, string destination, string column) {
-			Source = source;
-			Direction = direction;
-			Destination = destination;
-			Column = column;
-		}
-		
-		public override string ToString() {
-			var sb = new StringBuilder();
-			
-			sb.AppendFormat("{0} ", Source);
-			
-			switch (Direction) {
-				case RelationshipDirection.OneToOne:
-					sb.Append("-- ");
-					break;
-				case RelationshipDirection.OneToMany:
-					sb.Append("--> ");
-					break;
-				case RelationshipDirection.ManyToOne:
-					sb.Append("<-- ");
-					break;
-				default:
-					throw new NotImplementedException(Direction.ToString());
-			}
-			
-			sb.AppendFormat("{0} ", Destination);
-			sb.AppendFormat(": {0}", Column);
-			
-			return sb.ToString();
-		}
-	}
-	
-	public enum RelationshipDirection { 
-		OneToOne,
-		OneToMany,
-		ManyToOne,
-	}
+  public class MudTableDefinition {
+    public required string Namespace { get; set; }
+    public required string TableName { get; set; }
+    public required IEnumerable<TableField> Fields { get; set; }
+  }
+  
+  public class Relationship {
+    public string Source { get; set; }
+    public RelationshipDirection Direction { get; set; } 
+    public string Destination { get; set; }
+    public string Column { get; set; }
+    
+    public Relationship(string source, RelationshipDirection direction, string destination, string column) {
+      Source = source;
+      Direction = direction;
+      Destination = destination;
+      Column = column;
+    }
+    
+    public override string ToString() {
+      var sb = new StringBuilder();
+      
+      sb.AppendFormat("{0} ", Source);
+      
+      switch (Direction) {
+        case RelationshipDirection.OneToOne:
+          sb.Append("-- ");
+          break;
+        case RelationshipDirection.OneToMany:
+          sb.Append("--> ");
+          break;
+        case RelationshipDirection.ManyToOne:
+          sb.Append("<-- ");
+          break;
+        default:
+          throw new NotImplementedException(Direction.ToString());
+      }
+      
+      sb.AppendFormat("{0} ", Destination);
+      sb.AppendFormat(": {0}", Column);
+      
+      return sb.ToString();
+    }
+  }
+  
+  public enum RelationshipDirection { 
+    OneToOne,
+    OneToMany,
+    ManyToOne,
+  }
 
-	public class TableField {
-		public required string ParameterName { get; set; }
-		public required string AbiType { get; set; }
-	}
-	
-	public static class MudExtensions {
-		private static readonly Dictionary<string, string> TableNameMapping = new() {
-			{ "SmartGateLinkTab", "SmartGateLink" },
-			{ "InventoryItemTab", "InventoryItem" },
-			{ "SmartGateConfigT", "SmartGateConfig" },
-			{ "CharactersConsta", "CharactersConstants" },
-			{ "DeployableFuelBa", "DeployableFuelBalance" },
-			{ "EntityTypeAssoci", "EntityTypeAssociation" },
-			{ "EntityAssociatio", "EntityAssociation" },
-			{ "ModuleSystemLook", "ModuleSystemLookup" },
-			{ "AccessEnforcemen", "AccessEnforcement" },
-			{ "AccessEnforcePer", "AccessEnforcementPerObject" },
-			{ "AccessRolePerObj", "AccessRolePerObject" },
-			{ "CharactersByAddr", "CharactersByAddress" },
-			{ "OwnershipByObjec", "OwnershipByObject" },
-			{ "EphemeralInvento", "EphemeralInventory" },
-			{ "AccessRolePerSys", "AccessRolePerSystem" },
-			{ "SmartAssemblyTab", "SmartAssembly" },
-			{ "DeployableTokenT", "DeployableToken" },
-			{ "EntityRecordOffc", "EntityRecord" },
-			{ "GlobalDeployable", "GlobalDeployableState" },
-			{ "EntityRecordTabl", "EntityRecord" },
-			{ "EphemeralInvTabl", "EphemeralInventory" },
-			{ "CharactersByAcco", "CharactersByAccount" },
-			{ "InventoryItemTra", "InventoryItemTransfer" },
-			{ "EphemeralInvCapa", "EphemeralInventoryCapacity" },
-			{ "EphemeralItemTra", "EphemeralItemTransfer" },
-			{ "InventoryByEphem", "InventoryByEphememeral" },
-			{ "ItemTransferOffc", "ItemTransfer" },
-			{ "SmartTurretConfi", "SmartTurretConfig" },
-			{ "CharactersTable", "Character" },
-			{ "EntityTable", "Entity" },
-			{ "HookTable", "Hook" },
-			{ "ModuleTable", "Module" },
-			{ "StaticDataTable", "StaticData" },
-		};
+  public class TableField {
+    public required string ParameterName { get; set; }
+    public required string AbiType { get; set; }
+  }
+  
+  public static class MudExtensions {
+    private static readonly Dictionary<string, string> TableNameMapping = new() {
+      { "SmartGateLinkTab", "SmartGateLink" },
+      { "InventoryItemTab", "InventoryItem" },
+      { "SmartGateConfigT", "SmartGateConfig" },
+      { "CharactersConsta", "CharactersConstants" },
+      { "DeployableFuelBa", "DeployableFuelBalance" },
+      { "EntityTypeAssoci", "EntityTypeAssociation" },
+      { "EntityAssociatio", "EntityAssociation" },
+      { "ModuleSystemLook", "ModuleSystemLookup" },
+      { "AccessEnforcemen", "AccessEnforcement" },
+      { "AccessEnforcePer", "AccessEnforcementPerObject" },
+      { "AccessRolePerObj", "AccessRolePerObject" },
+      { "CharactersByAddr", "CharactersByAddress" },
+      { "OwnershipByObjec", "OwnershipByObject" },
+      { "EphemeralInvento", "EphemeralInventory" },
+      { "AccessRolePerSys", "AccessRolePerSystem" },
+      { "SmartAssemblyTab", "SmartAssembly" },
+      { "DeployableTokenT", "DeployableToken" },
+      { "EntityRecordOffc", "EntityRecord" },
+      { "GlobalDeployable", "GlobalDeployableState" },
+      { "EntityRecordTabl", "EntityRecord" },
+      { "EphemeralInvTabl", "EphemeralInventory" },
+      { "CharactersByAcco", "CharactersByAccount" },
+      { "InventoryItemTra", "InventoryItemTransfer" },
+      { "EphemeralInvCapa", "EphemeralInventoryCapacity" },
+      { "EphemeralItemTra", "EphemeralItemTransfer" },
+      { "InventoryByEphem", "InventoryByEphememeral" },
+      { "ItemTransferOffc", "ItemTransfer" },
+      { "SmartTurretConfi", "SmartTurretConfig" },
+      { "CharactersTable", "Character" },
+      { "EntityTable", "Entity" },
+      { "HookTable", "Hook" },
+      { "ModuleTable", "Module" },
+      { "StaticDataTable", "StaticData" },
+    };
 
-		public static (string, string) DecodeTableId(string tableId) {
-			var input = tableId.Trim().Remove(0, 2);
-			var inputNumeric = BigInteger.Parse(input, NumberStyles.HexNumber);
-			var inputBytes = inputNumeric.ToByteArray().Reverse().ToArray();
-			var result = Encoding.UTF8.GetString(inputBytes);
+    public static (string, string) DecodeTableId(string tableId) {
+      var input = tableId.Trim().Remove(0, 2);
+      var inputNumeric = BigInteger.Parse(input, NumberStyles.HexNumber);
+      var inputBytes = inputNumeric.ToByteArray().Reverse().ToArray();
+      var result = Encoding.UTF8.GetString(inputBytes);
 
-			return (result[2..16].TrimEnd('\0'), result[16..32].TrimEnd('\0'));
-		}
+      return (result[2..16].TrimEnd('\0'), result[16..32].TrimEnd('\0'));
+    }
 
-		public static string ToPascalCase(this string input) {
-			return $"{char.ToUpper(input[0])}{input[1..]}";
-		}
+    public static string ToPascalCase(this string input) {
+      return $"{char.ToUpper(input[0])}{input[1..]}";
+    }
 
-		public static string ExpandTableName(this string input) {
-			return TableNameMapping.GetValueOrDefault(input.ToPascalCase(), input).ToPascalCase();
-		}
+    public static string ExpandTableName(this string input) {
+      return TableNameMapping.GetValueOrDefault(input.ToPascalCase(), input).ToPascalCase();
+    }
 
-		public static string GetCSharpType(this TableField tableField) {
-			var abiType = tableField.AbiType;
-			var parameterName = tableField.ParameterName;
+    public static string GetCSharpType(this TableField tableField) {
+      var abiType = tableField.AbiType;
+      var parameterName = tableField.ParameterName;
 
-			if (abiType == "uint256" && parameterName is "createdAt" or "anchoredAt" or "updatedAt" or "lastUpdatedAt" or "updatedBlockTime") {
-				return "DateTimeOffset";
-			}
+      if (abiType == "uint256" && parameterName is "createdAt" or "anchoredAt" or "updatedAt" or "lastUpdatedAt" or "updatedBlockTime") {
+        return "DateTimeOffset";
+      }
 
-			return abiType.EndsWith("[]")
-				? $"IEnumerable<{CSharpType(abiType.Remove(abiType.Length - 2))}>"
-				: CSharpType(abiType);
-		}
+      return abiType.EndsWith("[]")
+        ? $"IEnumerable<{CSharpType(abiType.Remove(abiType.Length - 2))}>"
+        : CSharpType(abiType);
+    }
 
-		private static string CSharpType(string abiType) {
-			if (abiType.StartsWith("uint")) {
-				var bitLength = int.Parse(abiType.Remove(0, "uint".Length));
-				return bitLength switch {
-					<= 8 => "byte",
-					<= 16 => "ushort",
-					<= 32 => "uint",
-					<= 64 => "ulong",
-					_ => "string"
-				};
-			}
+    private static string CSharpType(string abiType) {
+      if (abiType.StartsWith("uint")) {
+        var bitLength = int.Parse(abiType.Remove(0, "uint".Length));
+        return bitLength switch {
+          <= 8 => "byte",
+          <= 16 => "ushort",
+          <= 32 => "uint",
+          <= 64 => "ulong",
+          _ => "string"
+        };
+      }
 
-			if (abiType.StartsWith("int")) {
-				var bitLength = int.Parse(abiType.Remove(0, "int".Length));
-				return bitLength switch {
-					<= 8 => "sbyte",
-					<= 16 => "short",
-					<= 32 => "int",
-					<= 64 => "long",
-					_ => "string"
-				};
-			}
+      if (abiType.StartsWith("int")) {
+        var bitLength = int.Parse(abiType.Remove(0, "int".Length));
+        return bitLength switch {
+          <= 8 => "sbyte",
+          <= 16 => "short",
+          <= 32 => "int",
+          <= 64 => "long",
+          _ => "string"
+        };
+      }
 
-			if (abiType.StartsWith("bytes")) return "byte[]";
+      if (abiType.StartsWith("bytes")) return "byte[]";
 
-			if (abiType.StartsWith("string")) return "string";
+      if (abiType.StartsWith("string")) return "string";
 
-			if (abiType.StartsWith("bool")) return "bool";
+      if (abiType.StartsWith("bool")) return "bool";
 
-			if (abiType.StartsWith("address")) return "string";
+      if (abiType.StartsWith("address")) return "string";
 
-			if (abiType.StartsWith("tuple")) return "object";
+      if (abiType.StartsWith("tuple")) return "object";
 
-			return "object";
-		}
-	}
+      return "object";
+    }
+  }
 
-	public static class MermaidDiagramGenerator {
-		internal static object GenerateMermaidErDiagram(List<MudTableDefinition> tables, List<Relationship> relationships) {
-			var sb = new StringBuilder();
-			sb.AppendLine("classDiagram");
-			sb.AppendLine("    direction LR");
+  public static class MermaidDiagramGenerator {
+    internal static object GenerateMermaidErDiagram(List<MudTableDefinition> tables, List<Relationship> relationships) {
+      var sb = new StringBuilder();
+      sb.AppendLine("classDiagram");
+      sb.AppendLine("    direction LR");
 
-			// Generate entity definitions
-			foreach (var table in tables) {
-				sb.AppendLine($"    class {table.TableName} {{");
+      // Generate entity definitions
+      foreach (var table in tables) {
+        sb.AppendLine($"    class {table.TableName} {{");
 
-				foreach (var field in table.Fields) {
-					var fieldType = MapAbiTypeToMermaidType(field.AbiType);
-					sb.AppendLine($"        +{fieldType} {field.ParameterName}");
-				}
+        foreach (var field in table.Fields) {
+          var fieldType = MapAbiTypeToMermaidType(field.AbiType);
+          sb.AppendLine($"        +{fieldType} {field.ParameterName}");
+        }
 
-				sb.AppendLine("    }");
-			}
+        sb.AppendLine("    }");
+      }
 
-			foreach (var rel in relationships) {
-				sb.AppendLine($"    {rel}");
-			}
+      foreach (var rel in relationships) {
+        sb.AppendLine($"    {rel}");
+      }
 
 
-			return sb.ToString();
-		}
+      return sb.ToString();
+    }
 
-		private static string MapAbiTypeToMermaidType(string abiType) {
-			return abiType;
-		
-			return abiType.ToLower() switch {
-				"uint256" => "int",
-				"int256" => "int",
-				"uint" => "int",
-				"int" => "int",
-				"address" => "string",
-				"bool" => "boolean",
-				"bytes32" => "string",
-				"string" => "string",
-				"float" => "float",
-				_ => "string"
-			};
-		}
-	}
-
+    private static string MapAbiTypeToMermaidType(string abiType) {
+      return abiType;
+    
+      return abiType.ToLower() switch {
+        "uint256" => "int",
+        "int256" => "int",
+        "uint" => "int",
+        "int" => "int",
+        "address" => "string",
+        "bool" => "boolean",
+        "bytes32" => "string",
+        "string" => "string",
+        "float" => "float",
+        _ => "string"
+      };
+    }
+  }
 }
 ```
