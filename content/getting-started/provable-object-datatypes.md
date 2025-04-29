@@ -10,7 +10,7 @@ Traditionally we have used special-purpose cryptographic primitives to provide g
 - **Encryption** guarantees that a third party is unable to read information in transit, i.e. Alice is able to pass a message via Edgar to Bob; but Edgar is unable to read the message and Bob is.
 - **Authentication** guarantees the authority of a system, i.e. Alice can prove to Bob that she isn't being impersonated as it relates to non-repudiation.
 Programmable Cryptography is a wider technology movement that aims to provide general purpose cryptographic primitives that offer cryptographic guarantees unbounded by the limitations of special-purpose cryptography:
-- **Fully-homomorphic Encryption** allows Allice to execute a program over Bob's data without Alice learning anything about the content of the data or the output of the program.
+- **Fully-homomorphic Encryption** allows Alice to execute a program over Bob's data without Alice learning anything about the content of the data or the output of the program.
 - **Multi-party computation** allows Alice to execute a program over Bob, Charlie and David's data without Alice learning anything about the content of the data, however Alice can see the output of the program.
 - **ZKSNARKs** allows Alice to prove that a discrete unit of code was executed on some secret inputs without revealing anything about those inputs.
 - **Witness Encryption** allows a message to be encrypted to a program (i.e. a bit of code).
