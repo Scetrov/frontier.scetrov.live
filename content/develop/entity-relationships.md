@@ -1,8 +1,8 @@
 +++
 date = '2025-04-29T16:36:00+01:00'
-title = 'Entity Relations'
+title = 'Entity Relations (v2)'
 weight = 40
-+++n an attempt to 
++++
 
 Mud table semantics are effectively hash maps of the compound key and it's properties, however the compound key is encoded not hashed and thus can be decoded. This allows the tables to be decoded by the Indexer and made accessible as if it was a Relational Database.
 
