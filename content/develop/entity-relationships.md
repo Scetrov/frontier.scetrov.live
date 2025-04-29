@@ -9,6 +9,9 @@ Mud table semantics are effectively hash maps of the compound key and it's prope
 > [!NOTE]
 > There are several notable differences between Mud Tables and a Relational Database, most notably constraints are **not enforced** the net result is that it's possible for CCP to delete an Entity and it's related rows in Location, Fuel, etc. to remain. Clients should account for this.
 
+> [!NOTE]
+> At the "data layer" of Mud the diagram below holds true and is useful in terms of finding where to get data from. However the conceptual model is based upon [composition and tagging](https://github.com/projectawakening/world-chain-contracts/tree/develop/mud-contracts/smart-object-framework-v2) not relations.
+
 This might take a few seconds to render.
 
 ```mermaid
