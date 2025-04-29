@@ -28,6 +28,16 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
+::-moz-selection { /* Code for Firefox */
+  background: var(--PRIMARY-color);
+  color: var(--MENU-HEADER-color);
+}
+
+::selection {
+  background: var(--PRIMARY-color);
+  color: var(--MENU-HEADER-color);
+}
+
 .logo-title {
     font-family: 'Disket Mono', monospace;
     font-weight: bold;

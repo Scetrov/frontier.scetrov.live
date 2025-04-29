@@ -1,6 +1,6 @@
 +++
 date = '2025-04-28T16:22:00+01:00'
-title = 'Getting Started with Solidity and Mud'
+title = 'Solidity and Mud'
 weight = 5
 +++
 
@@ -13,6 +13,9 @@ If anyone is new to Ethereum Virtual Machine and Solidity I have some resources 
 - It's worth reading through [MUD Documentation](https://mud.dev/introduction) and doing the [Guides](https://mud.dev/guides/hello-world). If you get stuck on a Mud then they have a [Discord](https://discord.gg/latticexyz) Channel named `#mud-help`.
 - If you get stuck then ChatGPT/Claude is useful, however the more developer focused [Phind](https://www.phind.com/search?home=true) works best if you ask it full questions.
 - If you still need more help then there is always the [Ethereum StackExchange](https://ethereum.stackexchange.com/) or [Peeranha](https://www.peeranha.io/).
+
+> [!IMPORTANT]
+> There is nothing wrong with ignoring all of these resources and jumping in and having a go, the Smart Object Framework and Mud abstract a lot of the complexity so it's entirely possible to get started with a basic terminal and a text editor, no experience required.
 
 ## Stay Safe On Chain
 
