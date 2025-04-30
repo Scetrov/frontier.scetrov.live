@@ -1,7 +1,7 @@
 +++
 date = '2025-04-28T16:22:00+01:00'
 title = 'Solidity and Mud'
-weight = 5
+weight = 10
 +++
 
 If anyone is new to Ethereum Virtual Machine and Solidity I have some resources that I have found useful:
