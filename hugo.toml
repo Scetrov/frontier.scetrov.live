@@ -8,6 +8,7 @@ title = 'Unofficial EVE Frontier Development Notes'
 
 [params]
   themeVariant = "frontier-dark"
+  images = ['images/hero.png']
 
 [markup]
   [markup.highlight]
