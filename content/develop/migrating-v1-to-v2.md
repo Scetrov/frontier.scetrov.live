@@ -47,6 +47,10 @@ There are four new endpoints that require Authentication, at the moment there is
 
 CCP have moved from Json Property Names rendered with underscores delimiting words (`smart_object_id`) to Camel Case (`smartObjectId`) this aligns better to the Solidity / Mud naming conventions which are also Camel Case. This means you will need to update any JSON Deserializers to use the new conventions. 
 
+### Timestamps
+
+Historically CCP used a combination of LDAP/FILETIME Timestamps and UNIX Timestamps to represent dates, times and offsets; CCP have now switched to using ISO8601 formatted time **strings** instead, this means that if you JSON parser was setup to convert a 64-bit integer and interpreting it, instead it will need to take parse a string.
+
 ## Mud World
 
 There is a new Mud World for Era 6 - Cycle 1 with the Store Address: `0xcdb380e0cd3949caf70c45c67079f2e27a77fc47` this is an instance of the v2 world structure so there are some significant changes to the tables:
