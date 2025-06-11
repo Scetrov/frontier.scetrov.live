@@ -9,12 +9,15 @@ CCP have published a REST API giving access to a wide range of endpoints, in eac
 - **Stillness** (Closed Alpha): `https://blockchain-gateway-stillness.live.tech.evefrontier.com/` ([Swagger](https://blockchain-gateway-stillness.live.tech.evefrontier.com/docs/doc.json))
 - **Nova** (Builder Sandbox): `https://world-api-nova.live.tech.evefrontier.com/` ([Swagger](https://world-api-nova.live.tech.evefrontier.com/docs/doc.json))
 
+
 ## Insomnia
 
 [Insomnia](https://insomnia.rest) is a cross-platform REST client, it supports OpenAPI directly. I have refined the Request Collection slightly to organize and label the endpoints better:
 
-> [!IMPORTANT]
-> You will need to be using Insomnia 11 or higher, and you can import it from your Personal Workspace.
+You will need to be using Insomnia 11 or higher, you can import it into your personal workspace simply by having the YAML below in your clipboard before clicking **Import**; alternatively save the YAML to a file and import from your filesystem.
+
+> [!TIP]
+> If you want to access the authenticated endpoints you will need to add your JWT into the `api_key` into your Insomnia Environment, more information available in the [Migration Guide](/develop/migrating-v1-to-v2/#authentication)
 
 ```yaml
 type: collection.insomnia.rest/5.0
