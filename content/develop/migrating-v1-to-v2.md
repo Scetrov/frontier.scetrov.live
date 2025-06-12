@@ -47,6 +47,16 @@ There are four new endpoints that require Authentication, at the moment there is
 
 CCP have moved from Json Property Names rendered with underscores delimiting words (`smart_object_id`) to Camel Case (`smartObjectId`) this aligns better to the Solidity / Mud naming conventions which are also Camel Case. This means you will need to update any JSON Deserializers to use the new conventions. 
 
+### Payloads
+
+#### `/v2/smartassemblies/`
+
+The strucutre of the payload has changed substantially, for example:
+
+- The `fuel` structure no longer exists,
+- A new assembly-specific structure has been added, i.e. `gate` for SmartGates, and `manufacturing` for `Manufacturing` this typically has `isParentNodeOnline` as a child plus assembly type specific metadata.
+- The payload for the singleton response i.e. `/v2/smartassemblies/{id}` contains much more detail in `typeDetails` than before.
+
 ### Timestamps
 
 Historically CCP used a combination of LDAP/FILETIME Timestamps and UNIX Timestamps to represent dates, times and offsets; CCP have now switched to using ISO8601 formatted time **strings** instead, this means that if you JSON parser was setup to convert a 64-bit integer and interpreting it, instead it will need to take parse a string.
