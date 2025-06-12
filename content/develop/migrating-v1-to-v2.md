@@ -51,11 +51,12 @@ CCP have moved from Json Property Names rendered with underscores delimiting wor
 
 #### `/v2/smartassemblies/`
 
-The strucutre of the payload has changed substantially, for example:
+The structure of the payload has changed substantially, for example:
 
 - The `fuel` structure no longer exists,
 - A new assembly-specific structure has been added, i.e. `gate` for SmartGates, and `manufacturing` for `Manufacturing` this typically has `isParentNodeOnline` as a child plus assembly type specific metadata.
-- The payload for the singleton response i.e. `/v2/smartassemblies/{id}` contains much more detail in `typeDetails` than before.
+- The singleton response i.e. `/v2/smartassemblies/{id}` contains much more detail in `typeDetails` than before.
+- The timestamp when it was first anchored no longer exists.
 
 ### Timestamps
 
