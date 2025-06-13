@@ -77,3 +77,8 @@ You can then re-register the distribution by following [Setting Up Your Tools](h
 ```
 wsl --install -d Ubuntu-24.04
 ```
+
+### Frequent Disconnection from WSL
+If you find yourself frequently being disconnected from your WSL container, disabling the Resource Saver in Docker Desktop has proven to alleviate this issue.
+
+In settings (the gear in the upper right), select Resources and in the Advanced section, uncheck the Enable Resource Saver and restart Docker Desktop.
