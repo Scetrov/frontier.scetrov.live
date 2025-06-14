@@ -77,14 +77,16 @@ There is a new Mud World for Era 6 - Cycle 1 with the Store Address: `0xcdb380e0
   - `DeployableFuelBa` becomes `Fuel`
   - ... and so on
 - Many of the fields have been renamed within the tables, this is because there is a new [Class/Object/System Relation Map](https://github.com/projectawakening/world-chain-contracts/blob/develop/mud-contracts/smart-object-framework-v2/class_object_system.jpg) for v2
-  - Characters (*previously CharactersTable*):
+  - **Characters (*previously CharactersTable*)**
     - `characterId` becomes `smartObjectId`
     - `corpId` becomes `tribeId`
-  - CharactersByAddr (*previously CharactersByAcco*)
+  - **CharactersByAddr (*previously CharactersByAcco*)**
     - `characterAddress` becomes `account`,
     - `characterId` becomes `smartObjectId`,
-  - Fuel (*was DeployableFuelBa*)
+  - **Fuel (*was DeployableFuelBa*)**
     - `fuelConsumptionPerMinute` becomes `fuelBurnRateInSeconds` (this was always a burn rate, just the name of the column was poorly named)
+  - **DeployableState**
+    - `createdAt` field has been added in addition to the `anchoredAt` field, however both seem to be equal in all cases,
 - There are several new Tables for the new Smart Assemblies and to support Smart Object Framework v2:
   - `NetworkNoteEnerg`
   - `NetworkNodeByAss` (LOL)

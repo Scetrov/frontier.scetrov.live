@@ -7,7 +7,8 @@ title = 'Unofficial EVE Frontier Development Notes'
     path = 'github.com/McShelby/hugo-theme-relearn'
 
 [params]
-  themeVariant = "frontier-dark"
+  editURL = 'https://github.com/Scetrov/frontier.scetrov.live/edit/main/content/${FilePath}'
+  themeVariant = 'frontier-dark'
   images = ['images/hero.png']
 
 [markup]

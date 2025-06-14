@@ -58,3 +58,15 @@ h1, h2, h3, h4, h5, h6 {
     conic-gradient(#000 0 0) content-box;
   background: var(--PRIMARY-color);
 }
+
+.menu-footer-contributors {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.menu-footer-contributors > h6 {
+  font-family: 'Disket Mono', monospace;
+  font-weight: bold;
+  color: var(--MENU-HEADER-color);
+  padding: 0;
+}
