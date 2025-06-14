@@ -75,6 +75,7 @@ There is a new Mud World for Era 6 - Cycle 1 with the Store Address: `0xcdb380e0
   - `EntityTable` becomes `Entity`,
   - `SmartAssemblyTable` becomes `SmartAssembly`
   - `DeployableFuelBa` becomes `Fuel`
+  - `SmartGateConfigTab` becomes `SmartGateConfig`
   - ... and so on
 - Many of the fields have been renamed within the tables, this is because there is a new [Class/Object/System Relation Map](https://github.com/projectawakening/world-chain-contracts/blob/develop/mud-contracts/smart-object-framework-v2/class_object_system.jpg) for v2
   - **Characters (*previously CharactersTable*)**
@@ -93,3 +94,4 @@ There is a new Mud World for Era 6 - Cycle 1 with the Store Address: `0xcdb380e0
   - `NetworkNodeAssem`
   - `NetworkNode`
   - `Tenant`
+- Smart Gates used to have a range of 500ly (4,730,365,236,290,022,000 meters) they **now have a range of 110ly (1,040,680,351,983,804,840)**.
