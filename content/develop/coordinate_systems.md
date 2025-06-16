@@ -10,7 +10,7 @@ There are five distinct sources of three dimensional coordinates:
 
 1. The `/v2/solarsystems` and `/v2/solarsystems/{id}` endpoints in the World API, in addition to the `solarSystem` object on various other payloads this states the coordinates in absolute terms relative to the galactic center, however only in limited precision (it appears to be about 16-17 bits of precision or roughly an 8 byte double precision value type).
 2. The location of individual assemblies in the `/v2/smartassemblies` and `/v2/smartassemblies/{id}` endpoints in the World API, these are **relative to the center of the local star** and have a similar limited precision (i.e. 16-17 bits of precision).
-3. The location of individual assemblies on-chain in the `Location` table; these are highly precise absolute values stored as `uint256`; however, they have had `1 << 256` added to them.
+3. The location of individual assemblies on-chain in the `Location` table; these are highly precise absolute values stored as `uint256`; however, they have had `1 << 255` added to them.
 4. The `starmapcache.pickle` resource file contains the absolute positions of all solar systems in the map with a very high degree of precision, however as it exists within the `ResFiles` it needs to be decoded from Python Pickle format a process that must be repeated each time the star map is updated.
 5. The `mapObjects.db` resource file contains the relative (to the star) position of celestial objects (Planets, Moons) again as it in the `ResFiles` and needs to be read using a SQLite database browser or by writing code to extract the rows from the tables.
 
