@@ -4,7 +4,7 @@ title = 'Coordinate Systems'
 weight = 60
 +++
 
-The EVE Frontier game happens in three dimensional space, that is every object has a corresponding vector `(x, y, z)` each of these components are measured in meters and can be either positive or negative, the origin `(0, 0, 0)` is close to the galactic center.
+The EVE Frontier game happens in three-dimensional space. Every object has a corresponding vector `(x, y, z)`, measured in meters. Each component can be positive or negative. The origin `(0, 0, 0)` is close to the galactic center.
 
 There are five distinct sources of three dimensional coordinates:
 
