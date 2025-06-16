@@ -19,7 +19,7 @@ There are five distinct sources of three dimensional coordinates:
 The API sources are of low precision and depending on the endpoint are either absolute or relative to the star, historically low precision caused banding when zoomed in as the locations of stars are rounded to the nearest 100,000 km, the precision has been increased in recent cycles largely avoiding this problem. It is important to parse the values using a sufficiently high precision type as for example a `single` precision (4-byte) number will cut off a significant amount.
 
 > [!IMPORTANT]
-> Many of the the absolute numbers provided by CCP can not be accurately parsed by JavaScript's default JSON Parser as they exceed `MAX_SAFE_INTEGER` for the JavaScript engine. This can be circumvented by pre-processing the JSON file and matching any excessively long integers with a RegEx and surrounding them with strings then parsing the strings as `Big` or `BigInt`.
+> Many of the absolute numbers provided by CCP can not be accurately parsed by JavaScript's default JSON Parser as they exceed `MAX_SAFE_INTEGER` for the JavaScript engine. This can be circumvented by pre-processing the JSON file and matching any excessively long integers with a RegEx and surrounding them with strings then parsing the strings as `Big` or `BigInt`.
 
 ## On-chain Sources
 
