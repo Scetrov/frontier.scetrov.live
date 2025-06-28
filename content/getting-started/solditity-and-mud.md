@@ -8,7 +8,7 @@ If anyone is new to Ethereum Virtual Machine and Solidity I have some resources 
 
 - **[Ethereum Book](https://github.com/ethereumbook/ethereumbook)** - Antonopoulos & Woods is freely available on GitHub, you can also buy it in paperback or as an eBook.
 - **Solidity Overview** - Blockchain Council has a [quick writeup](https://www.blockchain-council.org/ethereum/solidity-for-beginners-a-guide-to-getting-started/) on Solidity, it's a five minute read at most.
-- **Microsoft Solidity (Intro Course)** - Microsoft has a [short 45m course](https://learn.microsoft.com/en-us/training/modules/blockchain-learning-solidity/) on Solidity fundamentals
+- **Microsoft Blockchain (Intro Course)** - Microsoft has a [series of short courses](https://learn.microsoft.com/en-us/shows/beginners-series-to-blockchain/) on Blockchain fundamentals
 - **Full Blockchain Development Course** - If you prefer video content then [Cyfrin Updraft](https://updraft.cyfrin.io/) covers everything from basics to DevOps with Foundry and auditing smart contracts.
 - It's worth reading through [MUD Documentation](https://mud.dev/introduction) and doing the [Guides](https://mud.dev/guides/hello-world). If you get stuck on a Mud then they have a [Discord](https://discord.gg/latticexyz) Channel named `#mud-help`.
 - If you get stuck then ChatGPT/Claude is useful, however the more developer focused [Phind](https://www.phind.com/search?home=true) works best if you ask it full questions.
