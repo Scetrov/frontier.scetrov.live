@@ -1,7 +1,7 @@
 +++
 date = '2025-04-28T16:22:00+01:00'
 title = 'Access Rider Corp (from a Smart Contract)'
-weight = 30
+weight = 10
 +++
 
 You can access the corporation that a rider belongs to with the following code:

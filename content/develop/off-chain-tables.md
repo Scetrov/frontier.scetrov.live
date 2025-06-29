@@ -1,7 +1,7 @@
 +++
 date = '2025-04-28T16:22:00+01:00'
 title = 'Off-Chain Tables'
-weight = 40
+weight = 60
 +++
 
 It's possible to create off-chain tables, i.e. tables where the data is available via the Mud Indexer but not from the on-chain store.

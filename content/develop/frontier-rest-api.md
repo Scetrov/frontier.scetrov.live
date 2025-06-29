@@ -1,7 +1,7 @@
 +++
 date = '2025-06-11 17:04:29'
 title = 'Frontier World API'
-weight = 10
+weight = 40
 +++
 
 CCP have published a REST API giving access to a wide range of endpoints, in each case they have published a OpenAPI compliance specification:

@@ -1,7 +1,7 @@
 +++
 date = '2025-06-16T21:20:00+01:00'
 title = 'Coordinate Systems'
-weight = 60
+weight = 20
 +++
 
 The EVE Frontier game happens in three-dimensional space. Every object has a corresponding vector `(x, y, z)`, measured in meters. Each component can be positive or negative. The origin `(0, 0, 0)` is close to the galactic center.
