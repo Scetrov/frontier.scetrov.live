@@ -38,9 +38,12 @@ Where each line represents a file in the virtual filesystem:
 
 - **`.pickle`** - [Pickles](https://docs.python.org/3/library/pickle.html) are a Python-native data format that supports base Python types in addition to circular references and other Python features. They can be decoded using the Python library or 3rd Party Libraries for other languages such as [Razorvine.Pickle](https://www.nuget.org/packages/Razorvine.Pickle/).
 - SQLite Databases (`.db` or `.sqlite`) - Simple relational databases in [SQLite format](https://sqlite.org/) can be accessed either through [a browser](https://sqlitebrowser.org/) and programmatically from any language.
-- FSD Binaries - A custom binary format that can be decoded with [Phobos](https://github.com/pyfa-org/Phobos).
+- FSD Binaries - A custom binary format that can be decoded with various different Python scripts.
 - `.schema` / `.static` Files - Contain a custom `.schema` with byte offsets for individual fields to be read from a `.static` file.
 - Images and Models - In various formats including DirectX (`.dds`) and Portable Network Graphics (`.png`).
+
+> [!TIP]
+> There are several [tools](/develop/tools) that will allow you to extract information from some of these files, many of the 3rd party tools in both EVE Online and EVE Frontier are reliant on these static data files to get in-depth data about the universe.
 
 ## Key Files
 
