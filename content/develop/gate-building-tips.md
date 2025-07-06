@@ -21,7 +21,7 @@ Now jump through from B to A and then back to A to test it. You can apply a cont
 This is the way of doing this if for some reason the in-game dApp doesn't work (or stops working), or if you want to understand waht the in-game dApp is doing behind the scenes.
 
 1. [Install EVE Vault](https://docs.evefrontier.com/EveVault/installation) in Chrome/Edge/Brave (anything based on Chromium), try and avoid mixing and matching with other Wallet plugins, use a separate profile if required.
-2. Make sure your gates show up on chain and grab the `smartObjectIds` for them, either via [the API](https://blockchain-gateway-stillness.live.tech.evefrontier.com/v2/smartassemblies), via the game (Big number top right) or via [EVE Datacore](https://evedataco.re) (props to WOLF for building a great tool).
+2. Make sure your gates show up on chain and grab the `smartObjectIds` for them, either via [the API](https://blockchain-gateway-stillness.live.tech.evefrontier.com/v2/smartassemblies), via the game (Big number top right) or via [EVE Datacore](https://evedataco.re) (props to BeauKode for building a great tool).
 3. Use the [Mud Explorer](https://explorer.mud.dev/pyrope/worlds/0xcdb380e0cd3949caf70c45c67079f2e27a77fc47/interact?function=) to link and online them.
 4. Link them first with [`evefrontier__linkGates`](https://explorer.mud.dev/pyrope/worlds/0xcdb380e0cd3949caf70c45c67079f2e27a77fc47/interact?function=linkSmartGates#evefrontier__linkGates), sometimes you need to do it for both directions (flip the numbers)
 5. Online each gate with [`evefrontier__bringOnline`](https://explorer.mud.dev/pyrope/worlds/0xcdb380e0cd3949caf70c45c67079f2e27a77fc47/interact?function=bringOnline#evefrontier__bringOnline)
