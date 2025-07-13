@@ -21,7 +21,7 @@ If anyone is new to Ethereum Virtual Machine and Solidity I have some resources 
 
 If you have no familiarity with blockchain or solidity then there are some of the Cyfrin Updraft courses that will get you skilled up quickly:
 
-- [**Blokchain Basics**](https://updraft.cyfrin.io/courses/blockchain-basics) - the basics of how blockchain works in practice.
+- [**Blockchain Basics**](https://updraft.cyfrin.io/courses/blockchain-basics) - the basics of how blockchain works in practice.
 - [**Web3 Wallet Security Basics**](https://updraft.cyfrin.io/courses/web3-wallet-security-basics) - important information about staying safe on chain.
 - [**Solidity Smart Contract Development**](https://updraft.cyfrin.io/courses/solidity) - the basics of the language and how to build smart contracts using the Ethereum Remix IDE.
 - [**Visual Studio Code Tutorials**](https://code.visualstudio.com/docs/getstarted/getting-started) - a written tutorial on the basics of Visual Studio Code (VSCode), additionally there are a number of [videos](https://code.visualstudio.com/docs/getstarted/introvideos) if you prefer.
