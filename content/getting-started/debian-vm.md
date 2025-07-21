@@ -540,6 +540,10 @@ Paid: 0.000000000000107957 ETH (107957 gas * 0.000000001 gwei)
 ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
 ```
 
+## Take a Snapshot
+
+Now you have a working development machine, shut it down (`sudo shutdown now`) and take a snapshot using Hyper-V, this will allow you to restore to a known working version if something goes wrong.
+
 ## Summary
 
 In this guide we have:
