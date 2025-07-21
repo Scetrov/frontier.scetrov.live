@@ -264,53 +264,53 @@ You don't need to install Docker Desktop on Linux because Linux already provides
 >[!IMPORTANT]
 >If you are installing Docker on a computer owned by a company then you may need to buy a license; to avoid this you can use Podman instead.
 
-First remove old versions of docker components:
+1. First remove old versions of docker components:
 
-```sh
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
-```
+    ```sh
+    for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+    ```
 
-As with Visual Studio Code you will need to add Docker's GPG keys:
+2. As with Visual Studio Code you will need to add Docker's GPG keys:
 
-```sh
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-```
+    ```sh
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    ```
 
-Add the repository to sources:
+3. Add the repository to sources:
 
-```sh
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-```
+    ```sh
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    ```
 
-Now install Docker:
+4. Now install Docker:
 
-```sh
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
+    ```sh
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    ```
 
-Add the `docker` group:
+5. Add the `docker` group:
 
-```sh
-sudo groupadd docker
-```
+    ```sh
+    sudo groupadd docker
+    ```
 
-Add the current user to the new group:
+6. Add the current user to the new group:
 
-```sh
-sudo usermod -aG docker $USER
-```
+    ```sh
+    sudo usermod -aG docker $USER
+    ```
 
-Refresh your users group membership:
+7. Refresh your users group membership:
 
-```sh
-newgrp docker
-```
+    ```sh
+    newgrp docker
+    ```
 
 > [!CRITICAL]
 > You should test that Docker works by running `docker run hello-world` if this doesn't work you may need to restart the virtual machine with `sudo shutdown -r now`.
@@ -321,61 +321,61 @@ The rest of this guide is adapted from [CCPs Documentation](https://docs.evefron
 
 ### Setting up your tools
 
-Install Node Version Manager:
+1. Install Node Version Manager:
 
-```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-```
+    ```sh
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    ```
 
-Install Node 20:
+2. Install Node 20:
 
-```sh
-nvm install 20
-```
+    ```sh
+    nvm install 20
+    ```
 
-> [!TIP]
-> You will need to restart the terminal or source your profile with `source ~/.bashrc` before the above command will work.
+    > [!TIP]
+    > You will need to restart the terminal or source your profile with `source ~/.bashrc` before the above command will work.
 
-Install `pnpm`:
+3. Install `pnpm`:
 
-```sh
-npm install -g npm@latest
-npm install -g pnpm@latest
-```
+    ```sh
+    npm install -g npm@latest
+    npm install -g pnpm@latest
+    ```
 
-Install Foundry:
+4. Install Foundry:
 
-```sh
-curl -L https://foundry.paradigm.xyz | bash && . ~/.bashrc && foundryup
-```
+    ```sh
+    curl -L https://foundry.paradigm.xyz | bash && . ~/.bashrc && foundryup
+    ```
 
-Fetch the examples:
+5. Fetch the examples:
 
-```sh
-git clone https://github.com/projectawakening/builder-examples.git ~/source/builder-examples
-```
+    ```sh
+    git clone https://github.com/projectawakening/builder-examples.git ~/source/builder-examples
+    ```
 
 ### Setting up the world
 
-Change directory to the builder examples:
+1. Change directory to the builder examples:
 
-```sh
-cd ~/source/builder-examples
-```
+    ```sh
+    cd ~/source/builder-examples
+    ```
 
-Run the local world:
+2. Run the local world:
 
-```sh
-docker compose up -d && docker compose logs -f world-deployer
-```
+    ```sh
+    docker compose up -d && docker compose logs -f world-deployer
+    ```
 
-Wait for this to complete, at the end it will show the following:
+3. Wait for this to complete, at the end it will show the following:
 
-```sh
-world-deployer  | World v2 address: 0x0165878a594ca255338adfa4d48449f69242eb8f
-world-deployer  | Trusted forwarder address: 0x5fbdb2315678afecb367f032d93f642f64180aa3
-world-deployer  | EVE token address: 0x2603A28BA1b739fe6Df960f99c66177f827E9338
-```
+    ```sh
+    world-deployer  | World v2 address: 0x0165878a594ca255338adfa4d48449f69242eb8f
+    world-deployer  | Trusted forwarder address: 0x5fbdb2315678afecb367f032d93f642f64180aa3
+    world-deployer  | EVE token address: 0x2603A28BA1b739fe6Df960f99c66177f827E9338
+    ```
 
 ### Run an example
 
