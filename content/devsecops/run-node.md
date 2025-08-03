@@ -67,3 +67,11 @@ podman compose -f garnet-compose.yml up -d && podman compose -f garnet-compose.y
 cd ~/redstone-node/docker-compose
 podman compose -f garnet-compose.yml down --remove-orphans --rmi all -t 30 -v
 ```
+
+
+> [!NOTE]
+> For Pyrope the [`rollup.json`](https://pyrope-spec.s3.eu-west-1.amazonaws.com/rollup.json) and [`genesis.json`](https://pyrope-spec.s3.eu-west-1.amazonaws.com/l2-genesis.json) are separate downloads, and the bootstrap peers are as follows:
+>
+> ```
+> --p2p.static=/ip4/57.128.188.69/tcp/5222/p2p/16Uiu2HAmCKpxKe2T7RAMxYnDGoj6WpwPjGhKtqjkcceKmDDx7F4L,/ip4/79.127.239.88/tcp/5222/p2p/16Uiu2HAm69VqF7Ex5bPf127Rx7RaqLux3CHcxWFQJLTeGQNL5AMz,/ip4/135.125.118.180/tcp/5222/p2p/16Uiu2HAm26YQtWwqstwuAwGgsjn48Qa3Ss86SGP7pNu4KC1xgH5S 
+> ```
