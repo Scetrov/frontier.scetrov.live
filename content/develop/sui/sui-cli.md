@@ -18,7 +18,7 @@ brew install sui
 
 ### Chocolatey
 
-Chocolaty is an older package manager for Windows:
+Chocolatey is an older package manager for Windows:
 
 ```pwsh
 choco install sui
