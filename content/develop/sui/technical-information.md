@@ -45,7 +45,7 @@ Results in:
 ```
 
 > [!NOTE]
-> The `peerId` appears to be used as a network level identity for node peers and is a hash based identity of the account, i.e. both the public key / address and the `peerId` are derived from teh same data.
+> The `peerId` appears to be used as a network level identity for node peers and is a hash based identity of the account, i.e. both the public key / address and the `peerId` are derived from the same data.
 
 
 ### `secp256k1`
