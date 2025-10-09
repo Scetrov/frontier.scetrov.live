@@ -12,7 +12,7 @@ We use a lot of *words* talking about Blockchain, these are some of the most com
 - **Blazor** - a way of building webpages in .NET / C#.
 - **Docker** - a lightweight way to run Linux software in an isolated environment on Windows, Mac and Linux.
 - **ERC-20** - a common token standard for Fungible Tokens on the Ethereum Virtual Machine. All ERC-20 tokens implement a well-known interface to ensure interoperability. The EVE Token is an example of a ERC-20 Token.
-- **ERC-721** - a common token standard for Non-Fungible Tokens on Ethereum Virtual Machine. SmartCharacters and SmartDeployables are both examples of ERC-720 token.
+- **ERC-721** - a common token standard for Non-Fungible Tokens on Ethereum Virtual Machine. SmartCharacters and SmartDeployables are both examples of ERC-721 token.
 - **Ethereum** - Chain "1" in the Ethereum Ecosystem and the Level 1 chain to all Ethereum Layer 2 chains. Runs the Ethereum Virtual Machine.
 - **EVM** - The Ethereum Virtual Machine, the standard virtual machine for Ethereum networks, executes EVM Bytecode / Opcodes which Solidity compiles down to.
 - **Forge** - one of the most common development frameworks for Solidity and the Ethereum Virtual Machine.

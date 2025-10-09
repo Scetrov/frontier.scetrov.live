@@ -276,4 +276,4 @@ In this article we have used TypeScript to:
 - ✅ Create a POD and sign it with the **private** key,
 - ✅ Verify the same POD with the **public** key.
 
-I'm going to be using this as a [Kata](https://en.wikipedia.org/wiki/Kata) to help me better understand the process by repeating the exercise every couple of days. This will helm me develop more familiarity with POD and it's SDKs and help me build a new mental model, why don't you join me in this practice by re-implementing it yourself tomorrow.
+I'm going to be using this as a [Kata](https://en.wikipedia.org/wiki/Kata) to help me better understand the process by repeating the exercise every couple of days. This will help me develop more familiarity with POD and its SDKs and help me build a new mental model, why don't you join me in this practice by re-implementing it yourself tomorrow.
