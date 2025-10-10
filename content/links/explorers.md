@@ -23,3 +23,4 @@ Explorers allow us to view data available on-chain, in the world API and extract
 - [EFTB](https://eftb.shish.io/) - various calculators to simplify exploring the Frontier.
 - [Siege Calculator](https://www.vultur.one/siege-calc) - calculate what it will take to break a shield tank.
 - [Rift Riders Datasheet](https://docs.google.com/spreadsheets/d/14AtuHEIzfxbm5FOBn6r_9D2uMbl9TXP_tDdPcKnQ0P0/edit?usp=sharing) - huge datasheet of information by moralez.
+- [Scout Optimizer](https://scout-optimizer.netlify.app/) by lacal - brute force the most efficient route between two solarsystems.
