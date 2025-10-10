@@ -7,3 +7,5 @@ weight = 1
 Developing Smart Assembly code can be very rewarding, the first time you blow yourself up with your own turrets is both frustrating and delighting.
 
 {{% children sort="title" %}}
+
+{{% tip-menu-search %}}

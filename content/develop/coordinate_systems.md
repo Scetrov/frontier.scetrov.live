@@ -14,6 +14,12 @@ There are five distinct sources of three dimensional coordinates:
 4. The `starmapcache.pickle` resource file contains the absolute positions of all solar systems in the map with a very high degree of precision, however as it exists within the `ResFiles` it needs to be decoded from Python Pickle format a process that must be repeated each time the star map is updated.
 5. The `mapObjects.db` resource file contains the relative (to the star) position of celestial objects (Planets, Moons) again as they are in the `ResFiles` and needs to be read using a SQLite database browser or by writing code to extract the rows from the tables.
 
+> [!NOTE]
+> Many tools struggle with the axes employed by the CCP data as it results in the stars being rended with the plane of the galaxy in an Up-Down orientation which seems unnatural and can result in [Gimbal Lock](https://en.wikipedia.org/wiki/Gimbal_lock). This fairly easy to fix, as **[WOLF] lacal** found out on Discord:
+>
+> (x, y, z) → (x, z, -y) = rotate −90° about X (Rx-90).
+> or, alternatively, Swap the Z and Y components, then invert Y, leave X unchanged.
+
 ## API Sources
 
 The API sources are of low precision and depending on the endpoint are either absolute or relative to the star, historically low precision caused banding when zoomed in as the locations of stars are rounded to the nearest 100,000 km, the precision has been increased in recent cycles largely avoiding this problem. It is important to parse the values using a sufficiently high precision type as for example a `single` precision (4-byte) number will cut off a significant amount.

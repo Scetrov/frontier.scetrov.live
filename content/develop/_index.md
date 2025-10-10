@@ -7,3 +7,5 @@ weight = 2
 If you are new to developing Smart Contracts, I strongly recommended reading the [Getting Started](/getting-started) section first.
 
 {{% children sort="title" %}}
+
+{{% tip-menu-search %}}

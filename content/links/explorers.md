@@ -13,10 +13,13 @@ Explorers allow us to view data available on-chain, in the world API and extract
 ## Spatial Maps
 
 - [Wells Cargo: Stellar Cartography](https://eve.wellscargo.space/) - view points of interest and star systems in 3D.
-- [Frontier Atlas](https://frontier-atlas.com/map) - view the map and plot routes in 3D.
+- [Frontier Atlas](https://frontier-atlas.com/map) - view the map and plot routes in 3D by Aquilla.
+- [MAH Frontier Map](https://mah-frontier.com/) - view the map and plot routes using the A* algorithm in 3D by Mah'Tee.
+- [EF-Map](https://ef-map.com/) - beautiful renders of the EVE Frontier map with haze, bloom and chromatic aberration by Lacal.
 
 ## Calculators
 
 - [EVE Frontier Bill of Materials](https://www.efbom.com/) - Explorer Industry within the Frontier
 - [EFTB](https://eftb.shish.io/) - various calculators to simplify exploring the Frontier.
 - [Siege Calculator](https://www.vultur.one/siege-calc) - calculate what it will take to break a shield tank.
+- [Rift Riders Datasheet](https://docs.google.com/spreadsheets/d/14AtuHEIzfxbm5FOBn6r_9D2uMbl9TXP_tDdPcKnQ0P0/edit?usp=sharing) - huge datasheet of information by moralez.
