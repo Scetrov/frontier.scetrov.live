@@ -1,10 +1,10 @@
 +++
 date = '2025-10-09T20:50:00+01:00'
-title = 'Sui Client Cookbook'
+title = 'Sui CLI Cookbook'
 weight = 20
 +++
 
-The [`sui` client](https://docs.sui.io/guides/developer/getting-started) is a command line interface, it can be installed along with other tools in several ways.
+The [`sui` CLI](https://docs.sui.io/guides/developer/getting-started) is a command line interface, it can be installed along with other tools in several ways.
 
 ## Install
 
@@ -91,3 +91,46 @@ sui client balance alice
 ```
 
 Again replace `alice` with any alias, or even a full address (but I don't recommend it).
+
+## Starting a Local Network
+
+To start a local network for testing, you can use `sui node`:
+
+```sh
+RUST_LOG="off,sui_node=info" sui start --with-faucet --force-regenesis
+```
+
+This will start a localnet on `http://localhost:9000`.
+
+> [!TIP]
+> If you are on windows, you will need to set the environment variable with:
+> ```pwsh
+> $env:RUST_LOG="off,sui_node=info"
+> ```
+
+### Add to the CLI
+
+You can add this local network to the `sui` CLI with:
+
+```sh
+sui client new-env --alias localnet --rpc http://localhost:9000
+```
+
+You can then switch to this environment with:
+
+```sh
+sui client switch --env localnet
+```
+
+### Request Funds
+
+You can request funds from the local faucet with:
+
+```sh
+sui client faucet --address alice
+```
+
+### Use a dApp with a Local Network
+
+Currently the only wallet I have found to that works is to use the [Nightly App](https://nightly.app/) wallet and the [Surf](https://surf.tech/) wallet. In Nightly you will need to enter https://localhost:9000 as a custom RPC endpoint, and in Surf localnet appears in the network dropdown.
+
