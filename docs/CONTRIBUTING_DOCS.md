@@ -51,3 +51,17 @@ CI
 --
 
 A GitHub Actions workflow runs on push/PR to `main` and executes the same checks.
+
+Podman / buildah note
+---------------------
+
+If you use Podman (or the distro's buildah shim) instead of Docker, VS Code's devcontainer build may fail with an error about a missing `policy.json`. Example from the logs:
+
+```
+Error: creating build container: no policy.json file found at any of the following: "/home/<user>/.config/containers/policy.json", "/etc/containers/policy.json"
+```
+
+Workarounds:
+
+- Create a simple `/etc/containers/policy.json` with permissive defaults, or see your distro's Podman/buildah documentation for the recommended configuration.
+- Use the prebuilt devcontainer image instead of building locally (the repository's `.devcontainer/devcontainer.json` defaults to a prebuilt image to avoid this issue).
