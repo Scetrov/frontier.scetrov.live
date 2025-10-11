@@ -7,55 +7,79 @@ This document provides guidance for AI coding agents working on the `frontier.sc
 This repository contains documentation and resources for developing with the EVE Frontier game, Solidity, and the Mud Framework. The content is organized as a Hugo static site, with Markdown files for content and custom CSS/HTML for styling.
 
 ### Key Components
+
 - **Content**: Located in `content/`, this directory contains Markdown files organized by topic.
+
 - **Layouts**: Found in `layouts/`, this directory includes Hugo templates for rendering the site.
+
 - **Static Assets**: The `static/` directory contains fonts, images, and other static files.
+
 - **Public Directory**: The `public/` folder is the output of the Hugo build process.
 
 ## Developer Workflows
 
 ### Building the Site
+
 - Install Hugo: Follow [Hugo installation instructions](https://gohugo.io/installation/).
+
 - Build the site locally: Run `hugo build`.
+
 - Serve the site locally: Use `hugo serve` to preview changes.
 
 ### Debugging Build Issues
+
 - Check the `hugo.toml` configuration file for errors.
+
 - Ensure all Markdown files in `content/` are properly formatted.
+
 - Verify that all referenced assets (e.g., images, CSS) exist in the `static/` directory.
 
 ## Project-Specific Conventions
 
 ### Content Organization
+
 - Use descriptive filenames for Markdown files (e.g., `getting-started.md`, `debugging.md`).
+
 - Group related content into subdirectories (e.g., `content/debugging/`, `content/develop/`).
 
 ### Styling
+
 - Custom CSS files are located in `assets/css/`.
+
 - Follow the existing CSS naming conventions for consistency.
 
 ### Licensing
+
 - All contributions must adhere to the Creative Commons (CC BY-NC-SA 4.0) license.
 
 ## Integration Points
 
 ### External Dependencies
+
 - Hugo: Used for building and serving the site.
+
 - Fonts and images: Stored in the `static/` directory.
 
 ### Cross-Component Communication
+
 - Content files reference assets in the `static/` directory.
+
 - Templates in `layouts/` define how content is rendered.
 
 ## Examples
 
 ### Adding a New Guide
+
 1. Create a new Markdown file in the appropriate `content/` subdirectory.
+
 2. Use front matter to define metadata (e.g., `title`, `date`, `draft`).
+
 3. Add content using Markdown syntax.
 
 ### Updating Styles
+
 1. Edit the relevant CSS file in `assets/css/`.
+
 2. Test changes locally using `hugo serve`.
 
 ## What to Avoid

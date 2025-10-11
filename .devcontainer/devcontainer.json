@@ -1,6 +1,6 @@
 {
     "name": "frontier-docs",
-        "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -16,8 +16,8 @@
     "forwardPorts": [
         1313
     ],
-        "postCreateCommand": "apt-get update && apt-get install -y --no-install-recommends hugo git python3 python3-pip make curl wget ca-certificates gnupg || true && python3 -m pip install --upgrade pip pre-commit || true && npm install --global markdownlint-cli || true && pre-commit --version || true",
-        "remoteUser": "root",
+    "postCreateCommand": "apt-get update && apt-get install -y --no-install-recommends hugo git python3 python3-pip make curl wget ca-certificates gnupg || true && python3 -m pip install --upgrade pip pre-commit || true && npm install --global markdownlint-cli || true && pre-commit --version || true",
+    "remoteUser": "root",
     "mounts": [
         "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached"
     ]

@@ -55,7 +55,7 @@ A GitHub Actions workflow runs on push/PR to `main` and executes the same checks
 Podman / buildah note
 ---------------------
 
-If you use Podman (or the distro's buildah shim) instead of Docker, VS Code's devcontainer build may fail with an error about a missing `policy.json`. Example from the logs:
+If you use Podman (or the distributions buildah shim) instead of Docker, VS Code's devcontainer build may fail with an error about a missing `policy.json`. Example from the logs:
 
 ```
 Error: creating build container: no policy.json file found at any of the following: "/home/<user>/.config/containers/policy.json", "/etc/containers/policy.json"
@@ -63,7 +63,7 @@ Error: creating build container: no policy.json file found at any of the followi
 
 Workarounds:
 
-- Create a simple `/etc/containers/policy.json` with permissive defaults, or see your distro's Podman/buildah documentation for the recommended configuration.
+- Create a simple `/etc/containers/policy.json` with permissive defaults, or see your distributions Podman/buildah documentation for the recommended configuration.
 - Use the prebuilt devcontainer image instead of building locally (the repository's `.devcontainer/devcontainer.json` defaults to a prebuilt image to avoid this issue).
 
 Podman helper script
@@ -78,3 +78,45 @@ Run it locally with:
 ```
 
 This will create a user-level `policy.json`. To write the system file (requires sudo) re-run the command as root or follow the printed instructions.
+
+Makefile (convenience targets)
+------------------------------
+
+This repository includes a top-level `Makefile` with convenient targets to build, serve, and validate the docs. Common targets include:
+
+- `build` — run `hugo --minify` to build the site.
+- `serve` — run `hugo serve` for local preview.
+- `validate-docs` — run the site build then `markdownlint` over the content.
+- `lint-md` — run `markdownlint` only.
+- `precommit` — run the configured pre-commit hooks against all files.
+- `install-tools` — attempt to install common tools on Debian/Ubuntu (may require sudo).
+- `podman-policy` — run the Podman helper script (`scripts/setup-podman-policy.sh`).
+- `devcontainer-rebuild` — rebuild the devcontainer (requires the `devcontainer` CLI).
+
+Examples:
+
+```sh
+# Build the site (minified)
+make build
+
+# Serve the site locally
+make serve
+
+# Run docs validation (build + markdown lint)
+make validate-docs
+
+# Run pre-commit hooks locally (all files)
+make precommit
+
+# Try installing tools (Debian/Ubuntu)
+make install-tools
+
+# Run the Podman policy helper
+make podman-policy
+```
+
+Notes:
+
+- `install-tools` uses `apt-get` and is intended for Debian/Ubuntu systems; on other OSes install the listed tools with your package manager and then run the commands shown.
+- If `pre-commit` was installed with `python3 -m pip --user`, add `~/.local/bin` to your `PATH` so `make precommit` can find it.
+- `devcontainer-rebuild` requires the `devcontainer` CLI from `@devcontainers/cli` or use VS Code's "Rebuild Container" action.

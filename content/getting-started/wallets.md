@@ -1,7 +1,7 @@
 +++
 date = '2025-06-05T12:02:00+01:00'
 title = 'Understanding Wallets'
-weight = 50
+weight = 40
 +++
 
 There is often a lot of confusion with terms used for the tools we use to access the blockchain, predominantly these are:

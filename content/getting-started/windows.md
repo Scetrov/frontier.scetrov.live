@@ -1,7 +1,7 @@
 +++
 date = '2025-04-28T16:22:00+01:00'
 title = 'Windows Tips'
-weight = 20
+weight = 50
 +++
 
 ## Working with `pnpm` and `foundry` on Windows
