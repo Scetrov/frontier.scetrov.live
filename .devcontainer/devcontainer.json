@@ -1,0 +1,25 @@
+{
+  "name": "frontier-docs",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "bierner.markdown-preview-github-styles",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "forwardPorts": [1313],
+  "postCreateCommand": "python3 -m pip install --user pre-commit || true && npm install --global markdownlint-cli || true && pre-commit --version || true",
+  "remoteUser": "node",
+  "mounts": [
+    "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached"
+  ]
+}
