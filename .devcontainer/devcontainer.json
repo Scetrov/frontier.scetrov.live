@@ -1,6 +1,9 @@
 {
     "name": "frontier-docs",
-    "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -16,9 +19,13 @@
     "forwardPorts": [
         1313
     ],
-    "postCreateCommand": "apt-get update && apt-get install -y --no-install-recommends hugo git python3 python3-pip make curl wget ca-certificates gnupg || true && python3 -m pip install --upgrade pip pre-commit || true && npm install --global markdownlint-cli || true && pre-commit --version || true",
-    "remoteUser": "root",
+    "remoteUser": "node",
+    "updateRemoteUserUID": false,
     "mounts": [
-        "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached"
-    ]
+        "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached",
+        "source=/run/user/${localEnv:UID}/gnupg/S.gpg-agent,target=/home/node/.gnupg/S.gpg-agent,type=bind,consistency=cached"
+    ],
+    "containerEnv": {
+        "GNUPGHOME": "/home/node/.gnupg"
+    }
 }
