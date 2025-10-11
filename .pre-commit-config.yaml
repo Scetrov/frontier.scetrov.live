@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: validate-docs
+        name: Validate docs (Hugo + markdownlint)
+        entry: .githooks/pre-commit-checks.sh
+        language: script
+        pass_filenames: false
