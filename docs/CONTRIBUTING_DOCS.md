@@ -65,3 +65,16 @@ Workarounds:
 
 - Create a simple `/etc/containers/policy.json` with permissive defaults, or see your distro's Podman/buildah documentation for the recommended configuration.
 - Use the prebuilt devcontainer image instead of building locally (the repository's `.devcontainer/devcontainer.json` defaults to a prebuilt image to avoid this issue).
+
+Podman helper script
+--------------------
+
+We've added a helper script that writes a permissive `policy.json` for Podman to `$HOME/.config/containers/policy.json` and (optionally) to `/etc/containers/policy.json` if run as root.
+
+Run it locally with:
+
+```sh
+./scripts/setup-podman-policy.sh
+```
+
+This will create a user-level `policy.json`. To write the system file (requires sudo) re-run the command as root or follow the printed instructions.
