@@ -120,3 +120,10 @@ Notes:
 - `install-tools` uses `apt-get` and is intended for Debian/Ubuntu systems; on other OSes install the listed tools with your package manager and then run the commands shown.
 - If `pre-commit` was installed with `python3 -m pip --user`, add `~/.local/bin` to your `PATH` so `make precommit` can find it.
 - `devcontainer-rebuild` requires the `devcontainer` CLI from `@devcontainers/cli` or use VS Code's "Rebuild Container" action.
+
+Devcontainer image vs build note
+-------------------------------
+
+The devcontainer configuration was intentionally set to use a prebuilt image (`mcr.microsoft.com/devcontainers/javascript-node:20`) instead of building the local `Dockerfile`. This avoids local image builds that can fail under rootless Podman when subordinate UID/GID mappings are insufficient.
+
+If VS Code still fails to pull the base image, follow the NixOS remedy earlier in this document (add `extraSubuids` / `extraSubgids` for your user and run `podman system migrate`), or use the `podman-policy` helper as documented above for a temporary workaround.
