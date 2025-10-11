@@ -1,25 +1,24 @@
 {
-  "name": "frontier-docs",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "esbenp.prettier-vscode",
-        "streetsidesoftware.code-spell-checker",
-        "bierner.markdown-preview-github-styles",
-        "ms-azuretools.vscode-docker"
-      ]
-    }
-  },
-  "workspaceFolder": "/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-  "forwardPorts": [1313],
-  "postCreateCommand": "python3 -m pip install --user pre-commit || true && npm install --global markdownlint-cli || true && pre-commit --version || true",
-  "remoteUser": "node",
-  "mounts": [
-    "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached"
-  ]
+    "name": "frontier-docs",
+        "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "streetsidesoftware.code-spell-checker",
+                "bierner.markdown-preview-github-styles",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "forwardPorts": [
+        1313
+    ],
+        "postCreateCommand": "apt-get update && apt-get install -y --no-install-recommends hugo git python3 python3-pip make curl wget ca-certificates gnupg || true && python3 -m pip install --upgrade pip pre-commit || true && npm install --global markdownlint-cli || true && pre-commit --version || true",
+        "remoteUser": "root",
+    "mounts": [
+        "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached"
+    ]
 }
