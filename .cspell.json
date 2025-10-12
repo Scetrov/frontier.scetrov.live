@@ -159,8 +159,9 @@
     "xrdp",
     "xsession",
     "xsessionrc",
+    "groth",
     "xvzf",
     "yourusername"
   ],
-  "ignorePaths": ["public/**", "node_modules/**", "dist/**"]
+  "ignorePaths": ["public/**", "node_modules/**", "dist/**", "content/develop/mud/entity-relationships.md"]
 }

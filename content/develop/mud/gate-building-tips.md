@@ -18,7 +18,7 @@ Now jump through from B to A and then back to A to test it. You can apply a cont
 
 ## The Hard Way
 
-This is the way of doing this if for some reason the in-game dApp doesn't work (or stops working), or if you want to understand waht the in-game dApp is doing behind the scenes.
+This is the way of doing this if for some reason the in-game dApp doesn't work (or stops working), or if you want to understand what the in-game dApp is doing behind the scenes.
 
 1. [Install EVE Vault](https://docs.evefrontier.com/EveVault/installation) in Chrome/Edge/Brave (anything based on Chromium), try and avoid mixing and matching with other Wallet plugins, use a separate profile if required.
 2. Make sure your gates show up on chain and grab the `smartObjectIds` for them, either via [the API](https://blockchain-gateway-stillness.live.tech.evefrontier.com/v2/smartassemblies), via the game (Big number top right) or via [EVE Datacore](https://evedataco.re) (props to BeauKode for building a great tool).
