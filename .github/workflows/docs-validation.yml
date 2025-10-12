@@ -13,15 +13,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
+          cache: 'npm'
 
       - name: Install markdownlint-cli and cspell
         run: |
-          npm install -g markdownlint-cli cspell
+          if [ -f package-lock.json ]; then
+            npm ci -g markdownlint-cli cspell || npm install -g markdownlint-cli cspell
+          else
+            npm install -g markdownlint-cli cspell
+          fi
 
       - name: Node & npm versions (debug)
         run: |
@@ -29,13 +36,13 @@ jobs:
           npm -v || true
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build site (Hugo --minify)
-        run: hugo --minify -d public
+      - name: Build site
+        run: hugo build -d public
 
       - name: Run markdownlint
         run: npx markdownlint-cli "content/**/*.md" ".github/**/*.md"
@@ -47,9 +54,9 @@ jobs:
         run: npx cspell "content/**/*.md"
 
       - name: Set up Go (for htmltest)
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
-          go-version: '1.20'
+          go-version: '1.24'
 
       - name: Install htmltest
         run: |
