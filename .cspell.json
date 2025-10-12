@@ -1,0 +1,26 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "EVE",
+    "Eve",
+    "Frontier",
+    "Mud",
+    "Pyrope",
+    "Garnet",
+    "Redstone",
+    "Obsidian",
+    "hugo",
+    "Hugo",
+    "precommit",
+    "pre-commit",
+    "htmltest",
+    "markdownlint",
+    "markdownlint-cli"
+  ],
+  "ignorePaths": [
+    "public/**",
+    "node_modules/**",
+    "dist/**"
+  ]
+}

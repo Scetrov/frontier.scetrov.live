@@ -24,6 +24,21 @@ if ! ./.githooks/validate-frontmatter.sh; then
   exit 1
 fi
 
+echo "Running cspell (spellcheck) on staged markdown files..."
+if command -v npx >/dev/null 2>&1; then
+  staged_md=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.md$' || true)
+  if [ -n "$staged_md" ]; then
+    echo "$staged_md" | xargs -r npx cspell --no-progress || {
+      echo "cspell found spelling issues. Add words to .cspell.json or fix the typos." >&2
+      exit 1
+    }
+  else
+    echo "No staged markdown files to spellcheck." >&2
+  fi
+else
+  echo "npx not available; skipping cspell (spellcheck)." >&2
+fi
+
 echo "Running htmltest (full-site link checks against public/)..."
 if command -v htmltest >/dev/null 2>&1; then
   if ! htmltest -c .htmltest.yml -s public; then
