@@ -36,6 +36,15 @@ for file in content/**/*.md; do
     failures+=("$file: empty TOML frontmatter (no lines between +++ markers)")
     continue
   fi
+
+  # extract frontmatter lines (lines 2..close_line-1)
+  fm_content=$(sed -n "2,$((close_line-1))p" "$file" || true)
+
+  # Check for a title key in TOML frontmatter (title = "..." or title = '...')
+  if ! printf "%s" "$fm_content" | grep -qE "^[[:space:]]*title[[:space:]]*=[[:space:]]*(\"[^\"]+\"|'[^']+')[[:space:]]*$"; then
+    failures+=("$file: missing required 'title' field in TOML frontmatter")
+    continue
+  fi
 done
 
 if [ ${#failures[@]} -ne 0 ]; then
