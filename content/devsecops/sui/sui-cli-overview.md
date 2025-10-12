@@ -1,7 +1,5 @@
 +++
 title = "Sui CLI Visualization"
-++
-title = "Sui CLI Visualization"
 date = 2025-10-11T00:00:00Z
 draft = false
 type = "doc"
