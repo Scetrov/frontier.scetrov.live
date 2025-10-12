@@ -1,9 +1,11 @@
 # Use the same base image that was previously specified in devcontainer.json
 FROM mcr.microsoft.com/devcontainers/go:1-1.24-bookworm
 
-RUN apt-get update && apt-get install -y nodejs npm
-
-RUN npm install -g markdownlint-cli
+# Install Node.js 20 (LTS) via NodeSource
+RUN apt-get update && apt-get install -y curl ca-certificates && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g markdownlint-cli
 
 # Create GPG configuration files
 RUN mkdir -p /home/vscode/.gnupg && \
