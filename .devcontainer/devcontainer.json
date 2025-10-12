@@ -1,31 +1,40 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
 {
-    "name": "frontier-docs",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "esbenp.prettier-vscode",
-                "streetsidesoftware.code-spell-checker",
-                "bierner.markdown-preview-github-styles",
-                "ms-azuretools.vscode-docker"
-            ]
-        }
-    },
-    "workspaceFolder": "/workspace",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-    "forwardPorts": [
-        1313
-    ],
-    "remoteUser": "node",
-    "updateRemoteUserUID": false,
-    "mounts": [
-        "source=${localWorkspaceFolder}/.githooks,target=/workspace/.githooks,type=bind,consistency=cached",
-        "source=/run/user/${localEnv:UID}/gnupg/S.gpg-agent,target=/home/node/.gnupg/S.gpg-agent,type=bind,consistency=cached"
-    ],
-    "containerEnv": {
-        "GNUPGHOME": "/home/node/.gnupg"
-    }
+	"name": "Go",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"dockerFile": "Dockerfile",
+	"features": {
+		"ghcr.io/devcontainers/features/hugo:1": {
+			"extended": true,
+			"version": "latest"
+		},
+		"ghcr.io/prulloac/devcontainer-features/pre-commit:1": {}
+	},
+	"runArgs": [
+		"--userns=keep-id"
+	],
+	"remoteUser": "vscode",
+	"containerUser": "vscode",
+	"mounts": [
+		"source=/home/${localEnv:USER}/.gnupg/private-keys-v1.d,target=/home/vscode/.gnupg/private-keys-v1.d,type=bind,consistency=cached",
+		"source=/home/${localEnv:USER}/.gnupg/pubring.kbx,target=/home/vscode/.gnupg/pubring.kbx,type=bind,consistency=cached",
+		"source=/home/${localEnv:USER}/.gnupg/sshcontrol,target=/home/vscode/.gnupg/sshcontrol,type=bind,consistency=cached",
+		"source=/home/${localEnv:USER}/.gnupg/tofu.db,target=/home/vscode/.gnupg/tofu.db,type=bind,consistency=cached",
+		"source=/home/${localEnv:USER}/.gnupg/trustdb.gpg,target=/home/vscode/.gnupg/trustdb.gpg,type=bind,consistency=cached"
+	],
+	"remoteEnv": {
+		"GPG_TTY": "/dev/pts/0"
+	}
+	
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "go version",
+	// Configure tool-specific properties.
+	// "customizations": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
