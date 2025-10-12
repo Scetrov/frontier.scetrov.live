@@ -25,18 +25,28 @@ if ! ./.githooks/validate-frontmatter.sh; then
 fi
 
 echo "Running cspell (spellcheck) on staged markdown files..."
-if command -v npx >/dev/null 2>&1; then
-  staged_md=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.md$' || true)
-  if [ -n "$staged_md" ]; then
-    echo "$staged_md" | xargs -r npx cspell --no-progress || {
-      echo "cspell found spelling issues. Add words to .cspell.json or fix the typos." >&2
-      exit 1
-    }
+if command -v node >/dev/null 2>&1; then
+  # require Node >= 20 for latest cspell
+  node_major=$(node -v | sed -E 's/^v([0-9]+).*/\1/')
+  if [ "$node_major" -lt 20 ]; then
+    echo "Node version $node_major detected; cspell requires Node >= 20. Skipping cspell locally." >&2
   else
-    echo "No staged markdown files to spellcheck." >&2
+    if command -v npx >/dev/null 2>&1; then
+      staged_md=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.md$' || true)
+      if [ -n "$staged_md" ]; then
+        echo "$staged_md" | xargs -r npx cspell --no-progress || {
+          echo "cspell found spelling issues. Add words to .cspell.json or fix the typos." >&2
+          exit 1
+        }
+      else
+        echo "No staged markdown files to spellcheck." >&2
+      fi
+    else
+      echo "npx not available; skipping cspell (spellcheck)." >&2
+    fi
   fi
 else
-  echo "npx not available; skipping cspell (spellcheck)." >&2
+  echo "Node not found; skipping cspell (spellcheck)." >&2
 fi
 
 echo "Running htmltest (full-site link checks against public/)..."
