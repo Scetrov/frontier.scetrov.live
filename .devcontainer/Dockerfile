@@ -5,6 +5,7 @@ FROM mcr.microsoft.com/devcontainers/go:1-1.24-bookworm
 RUN apt-get update && apt-get install -y curl ca-certificates && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
+    npm install -g npm@latest && \
     npm install -g markdownlint-cli
 
 # Create GPG configuration files
