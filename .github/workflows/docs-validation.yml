@@ -1,0 +1,55 @@
+name: Docs validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-docs:
+    name: Validate documentation (Hugo, linters, spellcheck, linkcheck)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install markdownlint-cli and cspell
+        run: |
+          npm install -g markdownlint-cli cspell
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build site (Hugo --minify)
+        run: hugo --minify -d public
+
+      - name: Run markdownlint
+        run: npx markdownlint-cli "content/**/*.md" ".github/**/*.md"
+
+      - name: Validate TOML frontmatter
+        run: ./.githooks/validate-frontmatter.sh
+
+      - name: Run cspell (spellcheck)
+        run: npx cspell "content/**/*.md"
+
+      - name: Set up Go (for htmltest)
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+
+      - name: Install htmltest
+        run: |
+          go install github.com/wjdp/htmltest/cmd/htmltest@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+
+      - name: Run htmltest (full-site link/HTML checks)
+        run: htmltest -c .htmltest.yml -s public
