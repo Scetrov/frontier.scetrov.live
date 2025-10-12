@@ -9,7 +9,6 @@ CCP have published a REST API giving access to a wide range of endpoints, in eac
 - **Stillness** (Closed Alpha): `https://blockchain-gateway-stillness.live.tech.evefrontier.com/` ([Swagger](https://blockchain-gateway-stillness.live.tech.evefrontier.com/docs/doc.json))
 - **Nova** (Builder Sandbox): `https://world-api-nova.live.tech.evefrontier.com/` ([Swagger](https://world-api-nova.live.tech.evefrontier.com/docs/doc.json))
 
-
 ## Insomnia
 
 [Insomnia](https://insomnia.rest) is a cross-platform REST client, it supports OpenAPI directly. I have refined the Request Collection slightly to organize and label the endpoints better:

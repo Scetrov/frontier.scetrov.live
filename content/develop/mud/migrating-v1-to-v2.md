@@ -36,16 +36,16 @@ You can control which page of the API is returned by passing `offset=o` where `o
 
 There are four new endpoints that require Authentication, at the moment there isn't a user interface for getting a JWT, however you can grab one from the EVE Frontier Website:
 
-1. Go to https://evefrontier.com/en and Login,
+1. Go to [https://evefrontier.com/en](https://evefrontier.com/en) and Login,
 2. Open DevTools by pressing `F12` and switch to the **Application** tab,
 3. Find the `__Secure-eve-frontier.session-token` cookie, the value should start with `ey`,
-4. Either use https://jwt.io or a tool like DevToys to decode this JWT,
+4. Either use [jwt.io](https://jwt.io) or a tool like DevToys to decode this JWT,
 5. Once decoded it will contain an `access_token` field in the token, you use this for the `Authorization` header in the format `Authorization: Bearer {access_token}`,
 6. You should now be able to call the authenticated endpoints to GET a payload.
 
 ### Naming Conventions
 
-CCP have moved from Json Property Names rendered with underscores delimiting words (`smart_object_id`) to Camel Case (`smartObjectId`) this aligns better to the Solidity / Mud naming conventions which are also Camel Case. This means you will need to update any JSON Deserializers to use the new conventions. 
+CCP have moved from Json Property Names rendered with underscores delimiting words (`smart_object_id`) to Camel Case (`smartObjectId`) this aligns better to the Solidity / Mud naming conventions which are also Camel Case. This means you will need to update any JSON Deserializers to use the new conventions.
 
 ### Payloads
 

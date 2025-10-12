@@ -26,5 +26,21 @@
 	"remoteEnv": {
 		"GPG_TTY": "/dev/pts/0"
 	},
-    "forwardPorts": [ 1313 ]
+	"forwardPorts": [
+		1313
+	],
+	"postCreateCommand": "pre-commit install",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"DavidAnson.vscode-markdownlint",
+				"budparr.language-hugo-vscode",
+				"rusnasonov.vscode-hugo",
+				"ms-vscode-remote.remote-containers",
+				"ms-vscode.makefile-tools",
+				"yzhang.markdown-all-in-one",
+				"esbenp.prettier-vscode"
+			]
+		}
+	}
 }

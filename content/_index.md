@@ -3,7 +3,7 @@ title = "Home"
 type = "home"
 +++
 
-These are my collective thoughts largely written in [Obsidian](https://obsidian.md) released for the common good under a [CC0 License](https://creativecommons.org/public-domain/cc0/). 
+These are my collective thoughts largely written in [Obsidian](https://obsidian.md) released for the common good under a [CC0 License](https://creativecommons.org/public-domain/cc0/).
 
 ## General Links
 

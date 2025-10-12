@@ -27,5 +27,5 @@ You can also do this from the command line as long as you have Foundry installed
 
 The first two digits represent the type of resource:
 
- - `sy` means System
- - `tb` means Table
+- `sy` means System
+- `tb` means Table

@@ -24,10 +24,13 @@ wsl --install
 ```
 
 Second, ensure that WSL 2 is the default:
+
 ```shell
 wsl --set-default-version 2
 ```
+
 Third, install a Distribution of Linux:
+
 ```shell
 wsl --install -d Ubuntu-24.04
 ```
@@ -53,13 +56,13 @@ From here on the [CCP Documentation](https://docs.evefrontier.com/QuickstartGuid
 
 If you want to start over with WSL because something has gone very wrong, then you can unregister and reregister the distribution to reset it:
 
-```
+```sh
 wsl -l -v
 ```
 
 This will result in something like this:
 
-```
+```text
   NAME                      STATE           VERSION
 * docker-desktop-data       Stopped         2
   Ubuntu-24.04              Stopped         2
@@ -68,13 +71,13 @@ This will result in something like this:
 
 You only want to unregister the **Ubuntu-24.04** distribution with the following command:
 
-```
+```sh
 wsl --unregister Ubuntu-24.04
 ```
 
 You can then re-register the distribution by following [Setting Up Your Tools](https://docs.evefrontier.com/Tools) starting from:
 
-```
+```sh
 wsl --install -d Ubuntu-24.04
 ```
 

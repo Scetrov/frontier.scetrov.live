@@ -106,6 +106,7 @@ import { POD, PODEntries, JSONPOD, deriveSignerPublicKey } from "@pcd/pod";
 import * as fs from 'fs';
 import * as path from 'path';
 ```
+
 Now comes the interesting bit, we create the POD itself:
 
 ```typescript

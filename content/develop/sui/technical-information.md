@@ -47,7 +47,6 @@ Results in:
 > [!NOTE]
 > The `peerId` appears to be used as a network level identity for node peers and is a hash based identity of the account, i.e. both the public key / address and the `peerId` are derived from the same data.
 
-
 ### `secp256k1`
 
 Running:
@@ -96,7 +95,7 @@ Results in:
 
 In each case the mnemonic is shown in the output, this assumes a default derivation path, i.e. `m/44'/784'/0'/0'/0'` for ed25519. Most Sui wallet's don't however provide much support for modifying the derivation path or account index effectively meaning it's one account per mnemonic. For Example:
 
-```
+```text
 m/44'/784'/0'/0'/0' → 0xfadda168a7526781256a8d199ee4c8400cf313a814c01667cb0f2d2b25e32ef1
 m/44'/784'/0'/0'/1' → 0xc812e35e609136ab14560d0823357e9f331f91e987833db0dac858ccdfdbd397
 m/44'/784'/0'/0'/2' → 0xac7dcad9cf5af97df11bd0b4c52b32216717b3466fc6fede88daa8adeda8db0b

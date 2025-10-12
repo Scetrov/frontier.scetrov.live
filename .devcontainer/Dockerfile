@@ -1,6 +1,10 @@
 # Use the same base image that was previously specified in devcontainer.json
 FROM mcr.microsoft.com/devcontainers/go:1-1.24-bookworm
 
+RUN apt-get update && apt-get install -y nodejs npm
+
+RUN npm install -g markdownlint-cli
+
 # Create GPG configuration files
 RUN mkdir -p /home/vscode/.gnupg && \
     echo "enable-ssh-support" > /home/vscode/.gnupg/gpg-agent.conf && \
