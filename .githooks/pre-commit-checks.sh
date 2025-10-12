@@ -18,4 +18,10 @@ fi
 # run markdownlint; ignore exit code for printing then exit non-zero if issues
 npx markdownlint-cli "content/**/*.md" ".github/**/*.md"
 
+echo "Validating TOML frontmatter in content/*.md files..."
+if ! ./.githooks/validate-frontmatter.sh; then
+  echo "Frontmatter validation failed. Please add TOML frontmatter (+++ ... +++) to the listed files." >&2
+  exit 1
+fi
+
 echo "Docs validation passed."

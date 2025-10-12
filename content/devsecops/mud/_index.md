@@ -1,7 +1,7 @@
----
-title: "Ethereum & Mud"
-date: 2025-10-11T00:00:00Z
----
++++
+title = 'Ethereum & Mud'
+date = '2025-10-11T00:00:00Z'
++++
 
 {{% warning-mud %}}
 
