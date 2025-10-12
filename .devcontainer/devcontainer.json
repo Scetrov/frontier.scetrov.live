@@ -11,18 +11,8 @@
 		},
 		"ghcr.io/prulloac/devcontainer-features/pre-commit:1": {}
 	},
-	"runArgs": [
-		"--userns=keep-id"
-	],
 	"remoteUser": "vscode",
 	"containerUser": "vscode",
-	"mounts": [
-		"source=/home/${localEnv:USER}/.gnupg/private-keys-v1.d,target=/home/vscode/.gnupg/private-keys-v1.d,type=bind,consistency=cached",
-		"source=/home/${localEnv:USER}/.gnupg/pubring.kbx,target=/home/vscode/.gnupg/pubring.kbx,type=bind,consistency=cached",
-		"source=/home/${localEnv:USER}/.gnupg/sshcontrol,target=/home/vscode/.gnupg/sshcontrol,type=bind,consistency=cached",
-		"source=/home/${localEnv:USER}/.gnupg/tofu.db,target=/home/vscode/.gnupg/tofu.db,type=bind,consistency=cached",
-		"source=/home/${localEnv:USER}/.gnupg/trustdb.gpg,target=/home/vscode/.gnupg/trustdb.gpg,type=bind,consistency=cached"
-	],
 	"remoteEnv": {
 		"GPG_TTY": "/dev/pts/0"
 	},
@@ -30,6 +20,7 @@
 		1313
 	],
 	"postCreateCommand": "pre-commit install",
+	"postAttachCommand": "sudo chown -R vscode:vscode /workspaces",
 	"customizations": {
 		"vscode": {
 			"extensions": [
