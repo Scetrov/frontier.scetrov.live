@@ -22,12 +22,12 @@ jobs:
           node-version: '24'
           cache: 'npm'
 
-      - name: Install markdownlint-cli and cspell
+      - name: Install devDependencies (markdownlint-cli, cspell)
         run: |
           if [ -f package-lock.json ]; then
-            npm ci -g markdownlint-cli cspell || npm install -g markdownlint-cli cspell
+            npm ci
           else
-            npm install -g markdownlint-cli cspell
+            npm install
           fi
 
       - name: Node & npm versions (debug)

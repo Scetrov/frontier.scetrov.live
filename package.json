@@ -1,0 +1,13 @@
+{
+  "name": "frontier-docs",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "markdownlint-cli": "^0.33.0",
+    "cspell": "^9.2.1"
+  },
+  "scripts": {
+    "lint:md": "markdownlint-cli \"content/**/*.md\" ".github/**/*.md"",
+    "spell": "cspell \"content/**/*.md\""
+  }
+}
