@@ -1,12 +1,15 @@
-root: public
-timeout: 10
-threads: 10
-check-external: true
-allow-redirects: true
-exclude_urls:
+IgnoreURLs:
   - '^https://explorer.mud.dev/.*'
   - '^https://explorer.mud.dev/pyrope/.*'
-exclude_files:
-  - '^public/search/.*'
-  - '^public/js/.*'
-  - '^public/index.xml$'
+  - '^/livereload\.js\?.+'
+  - '^https://github.com/.*'
+  - '^https://contrib.rocks/.*'
+  - '^https://world-api-nova\.live\.tech\.evefrontier\.com/.*'
+  - '^https://world-api-nova.live.tech.evefrontier.com/.*'
+  - '^http://localhost:9000/.*'
+  - '^https://chatgpt.com/.*'
+  - '^https://claude.ai/.*'
+  - '^https://phind.com/.*'
+  - '^https://www.phind.com/.*'
+  - '^images/.*'
+  - '^https://www.blockchain-council.org/.*'

@@ -50,7 +50,7 @@ From there navigate to **Resources** → **WSL Integration** and check the slide
 
 ## Setting up Tools
 
-From here on the [CCP Documentation](https://docs.evefrontier.com/QuickstartGuide) works flawlessly.
+From here on the [CCP Documentation](https://docs.evefrontier.com/Tools#next-steps) works flawlessly.
 
 ## Troubleshoot WSL Install Issues
 

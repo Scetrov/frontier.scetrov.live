@@ -27,7 +27,7 @@ These instructions were developed for Debian 12 and Hyper-V on Windows 11, howev
     9. Select **Install an operating system from a bootable CD/DVD-ROM** then select the **Image file** option and click **Browse...** and find the ISO you downloaded in Step 1. Then guess what... click **Next**.
     10. Finally click **Finish** (you thought I was going to say next right?)
     11. You will need to go into the Virtual Machine Settings and **Disable** "Secure Boot" from the Security tab.
-3. If you are using Virtual Box you can follow the instructions on the [Debian Wiki](https://wiki.debian.org/InstallingDebianOn/VirtualBox).
+3. If you are using Virtual Box you can follow the instructions on the [Debian Wiki](https://wiki.debian.org/VirtualBox).
 4. Start your Virtual Machine, and you should be presented with the install screen:
 
 ![Debian Installer Grub](images/installer-grub.png)

@@ -43,7 +43,7 @@ Where each line represents a file in the virtual filesystem:
 - Images and Models - In various formats including DirectX (`.dds`) and Portable Network Graphics (`.png`).
 
 > [!TIP]
-> There are several [tools](/develop/tools) that will allow you to extract information from some of these files, many of the 3rd party tools in both EVE Online and EVE Frontier are reliant on these static data files to get in-depth data about the universe.
+> There are several [tools](/links/tools/) that will allow you to extract information from some of these files, many of the 3rd party tools in both EVE Online and EVE Frontier are reliant on these static data files to get in-depth data about the universe.
 
 ## Key Files
 
