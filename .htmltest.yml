@@ -1,0 +1,12 @@
+root: public
+timeout: 10
+threads: 10
+check-external: true
+allow-redirects: true
+exclude_urls:
+  - '^https://explorer.mud.dev/.*'
+  - '^https://explorer.mud.dev/pyrope/.*'
+exclude_files:
+  - '^public/search/.*'
+  - '^public/js/.*'
+  - '^public/index.xml$'

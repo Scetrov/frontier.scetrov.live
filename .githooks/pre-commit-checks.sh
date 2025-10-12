@@ -24,4 +24,14 @@ if ! ./.githooks/validate-frontmatter.sh; then
   exit 1
 fi
 
+echo "Running htmltest (full-site link checks against public/)..."
+if command -v htmltest >/dev/null 2>&1; then
+  if ! htmltest -c .htmltest.yml -s public; then
+    echo "htmltest found link issues; please fix them or add exclusions to .htmltest.yml" >&2
+    exit 1
+  fi
+else
+  echo "htmltest not found; skipping full-site HTML/link checks. Install htmltest (go install github.com/wjdp/htmltest/cmd/htmltest@latest) to enable." >&2
+fi
+
 echo "Docs validation passed."
