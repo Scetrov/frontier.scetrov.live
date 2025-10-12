@@ -60,7 +60,8 @@ jobs:
 
       - name: Install htmltest
         run: |
-          go install github.com/wjdp/htmltest/cmd/htmltest@latest
+          # install htmltest from the module (cmd path changed in upstream releases)
+          go install github.com/wjdp/htmltest@latest
           echo "$HOME/go/bin" >> $GITHUB_PATH
 
       - name: Run htmltest (full-site link/HTML checks)
