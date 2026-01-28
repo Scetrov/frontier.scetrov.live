@@ -1,6 +1,6 @@
 +++
 title = 'Possible Vulnerabilities'
-date = '2025-11-26T00:00:00Z'
+date = '2026-01-28T21:35:40Z'
 +++
 
 This section documents **34 vulnerability classes** commonly found in Sui Move smart contracts. Each vulnerability has its own dedicated page with detailed explanations, vulnerable code examples, and recommended mitigations.
@@ -91,7 +91,5 @@ Sui Move contracts face unique security challenges due to the object-centric mod
 | 32 | Inefficient PTBs                   | A05 / A06    | CWE-400                   |
 | 33 | Overuse of Shared Objects          | A01          | CWE-284                   |
 | 34 | Parent→Child Authority Assumptions | A01          | CWE-863, CWE-284          |
-
-{{% children sort="weight" %}}
 
 {{% tip-menu-search %}}
