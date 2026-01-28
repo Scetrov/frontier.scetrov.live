@@ -1,9 +1,9 @@
-++
++++
 date = '2026-01-28T20:33:52Z'
 title = "Primitives"
 type = "chapter"
 weight = 1
-++
++++
 
 In the EVE Frontier world-contracts architecture, a **Primitive** is a foundational building block that implements low-level game mechanics and data structures for a specific domain. They represent the "digital physics" of the game world, designed to be composed into more complex structures.
 
