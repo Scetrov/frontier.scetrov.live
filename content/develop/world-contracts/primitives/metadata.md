@@ -26,8 +26,6 @@ classDiagram
 * **`name`**: A `String` representing the human-readable name of the entity.
 * **`description`**: A `String` providing a detailed explanation or lore for the entity.
 
-
-
 ---
 
 ## 2. Role in the Architecture

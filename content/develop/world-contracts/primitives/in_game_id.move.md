@@ -17,6 +17,7 @@ classDiagram
         +u64 item_id
     }
 ```
+
 > [!NOTE]
 > for TenantItemId "Used as a key in the ObjectRegistry for deterministic ID derivation."
 
