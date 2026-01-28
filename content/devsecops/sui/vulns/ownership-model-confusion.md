@@ -14,16 +14,16 @@ Sui has multiple ownership models: address-owned, shared, immutable, and object-
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) | 
 
 ## The Problem
 
 ### Ownership Models
 
-| Model | Created By | Access | Mutability | Reversible |
-|-------|-----------|--------|------------|------------|
+ | Model | Created By | Access | Mutability | Reversible | 
+ | ------- | ----------- | -------- | ------------ | ------------ | 
 | Address-owned | `transfer()` | Owner only | Yes | Yes (transfer) |
 | Shared | `share_object()` | Anyone | Yes | **No** |
 | Immutable | `freeze_object()` | Anyone (read) | **No** | **No** |

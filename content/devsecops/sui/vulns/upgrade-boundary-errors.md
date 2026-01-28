@@ -14,26 +14,26 @@ Upgrade boundary errors occur when package upgrades break compatibility with exi
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) / A06 (Vulnerable and Outdated Components) | CWE-685 (Function Call With Incorrect Number of Arguments), CWE-694 (Use of Multiple Resources with Duplicate Identifier) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) / A06 (Vulnerable and Outdated Components) | CWE-685 (Function Call With Incorrect Number of Arguments), CWE-694 (Use of Multiple Resources with Duplicate Identifier) | 
 
 ## The Problem
 
 ### Common Upgrade Boundary Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| Struct field changes | Critical | Adding/removing/reordering fields breaks existing objects |
-| Function signature changes | High | Callers using old signatures fail |
-| Removing public functions | High | Dependent packages break |
-| Changing type parameters | Critical | Type mismatches on existing objects |
-| Incompatible upgrade policy | Medium | Upgrades blocked unexpectedly |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | Struct field changes | Critical | Adding/removing/reordering fields breaks existing objects | 
+ | Function signature changes | High | Callers using old signatures fail | 
+ | Removing public functions | High | Dependent packages break | 
+ | Changing type parameters | Critical | Type mismatches on existing objects | 
+ | Incompatible upgrade policy | Medium | Upgrades blocked unexpectedly | 
 
 ## Sui Upgrade Policies
 
-| Policy | Description | Restrictions |
-|--------|-------------|--------------|
+ | Policy | Description | Restrictions | 
+ | -------- | ------------- | -------------- | 
 | `compatible` | Default, allows compatible changes | Cannot change struct layouts |
 | `additive` | Only additions allowed | No removals or modifications |
 | `dep_only` | Dependency updates only | No code changes |

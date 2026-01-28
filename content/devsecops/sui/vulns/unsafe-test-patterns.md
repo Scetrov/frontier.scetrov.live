@@ -14,22 +14,22 @@ Unsafe test patterns occur when test-only code, debug functionality, or developm
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-704 (Incorrect Type Conversion or Cast), CWE-665 (Improper Initialization) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-704 (Incorrect Type Conversion or Cast), CWE-665 (Improper Initialization) | 
 
 ## The Problem
 
 ### Common Unsafe Test Patterns
 
-| Issue | Risk | Description |
-|-------|------|-------------|
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
 | Test functions without `#[test_only]` | Critical | Test code callable in production |
 | `test_scenario` in production | Critical | Fake context manipulation |
-| Debug mint functions | Critical | Unlimited token creation |
-| Hardcoded test addresses | High | Known addresses exploitable |
-| Disabled security checks | High | Guards removed for testing |
-| Mock oracles in production | Critical | Fake price data accepted |
+ | Debug mint functions | Critical | Unlimited token creation | 
+ | Hardcoded test addresses | High | Known addresses exploitable | 
+ | Disabled security checks | High | Guards removed for testing | 
+ | Mock oracles in production | Critical | Fake price data accepted | 
 
 ## Vulnerable Example
 

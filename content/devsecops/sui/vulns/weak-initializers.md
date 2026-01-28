@@ -14,16 +14,16 @@ Weak or improperly protected initialization functions can allow attackers to rei
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-665 (Improper Initialization) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-665 (Improper Initialization) | 
 
 ## The Problem
 
 ### Safe vs Unsafe Initialization
 
-| Pattern | Safety | Notes |
-|---------|--------|-------|
+ | Pattern | Safety | Notes | 
+ | --------- | -------- | ------- | 
 | `fun init(ctx)` | Safe | Called once at publish, not callable after |
 | `fun init(witness: WITNESS, ctx)` | Safe | One-Time Witness pattern |
 | `public fun initialize(...)` | **Unsafe** | Can be called by anyone, anytime |

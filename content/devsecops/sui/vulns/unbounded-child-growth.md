@@ -14,15 +14,16 @@ Parent objects can accumulate unlimited child objects through dynamic fields or 
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A06 (Vulnerable Components), A05 (Security Misconfiguration) | CWE-400 (Uncontrolled Resource Consumption), CWE-770 (Allocation of Resources Without Limits) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A06 (Vulnerable Components), A05 (Security Misconfiguration) | CWE-400 (Uncontrolled Resource Consumption), CWE-770 (Allocation of Resources Without Limits) | 
 
 ## The Problem
 
 ### Gas Implications
 
 While Sui charges gas per byte, objects with many children:
+
 - Require more time to process
 - Can hit transaction gas limits
 - Make enumeration impractical

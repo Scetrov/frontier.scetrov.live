@@ -14,20 +14,20 @@ Unsafe Option authority occurs when developers use `Option<T>` types to toggle p
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-696 (Incorrect Behavior Order), CWE-693 (Protection Mechanism Failure) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-696 (Incorrect Behavior Order), CWE-693 (Protection Mechanism Failure) | 
 
 ## The Problem
 
 ### Common Option Authority Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| Mutable Option capability | Critical | Authority can be extracted and replaced |
-| None as "no permission" | High | Missing != denied, logic can be bypassed |
-| Option in shared objects | High | Race conditions on authority state |
-| fill/extract patterns | Medium | Authority can be temporarily removed |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | Mutable Option capability | Critical | Authority can be extracted and replaced | 
+ | None as "no permission" | High | Missing != denied, logic can be bypassed | 
+ | Option in shared objects | High | Race conditions on authority state | 
+ | fill/extract patterns | Medium | Authority can be temporarily removed | 
 
 ## Vulnerable Example
 

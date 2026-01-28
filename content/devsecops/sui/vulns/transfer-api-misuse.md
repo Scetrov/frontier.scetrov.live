@@ -14,26 +14,26 @@ Transfer API misuse occurs when developers incorrectly use Sui's object transfer
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control) | 
 
 ## The Problem
 
 ### Common Transfer API Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
 | Using `transfer` without `store` | Critical | Compile error or runtime panic |
-| Sharing owned objects incorrectly | High | Can break ownership invariants |
-| Freezing mutable state | Critical | Permanently locks needed functionality |
-| Transfer to wrong address | Critical | Assets sent to unrecoverable address |
+ | Sharing owned objects incorrectly | High | Can break ownership invariants | 
+ | Freezing mutable state | Critical | Permanently locks needed functionality | 
+ | Transfer to wrong address | Critical | Assets sent to unrecoverable address | 
 | `public_transfer` vs `transfer` confusion | High | Security implications differ |
 
 ## Transfer API Quick Reference
 
 | Function | Requires `store` | Use Case |
-|----------|------------------|----------|
+ | ---------- | ------------------ | ---------- | 
 | `transfer::transfer` | No | Internal module transfers of objects without `store` |
 | `transfer::public_transfer` | Yes | External transfers of objects with `store` |
 | `transfer::share_object` | No | Making objects shared (accessible by anyone) |

@@ -14,9 +14,9 @@ Dynamic fields in Sui use keys to store and retrieve values. When user-controlle
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-653 (Improper Isolation), CWE-706 (Use of Incorrectly-Resolved Name) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-653 (Improper Isolation), CWE-706 (Use of Incorrectly-Resolved Name) | 
 
 ## The Problem
 

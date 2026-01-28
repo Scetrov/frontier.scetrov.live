@@ -14,9 +14,9 @@ Access control mistakes occur when authorization checks are missing, incorrectly
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-639 (Authorization Bypass) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-639 (Authorization Bypass) | 
 
 ## The Problem
 

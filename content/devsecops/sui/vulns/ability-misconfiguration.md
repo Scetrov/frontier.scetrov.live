@@ -14,16 +14,16 @@ Move's four abilities (`copy`, `drop`, `store`, `key`) control what operations c
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) | 
 
 ## The Problem
 
 ### Ability Overview
 
-| Ability | Allows | Danger |
-|---------|--------|--------|
+ | Ability | Allows | Danger | 
+ | --------- | -------- | -------- | 
 | `copy` | Duplicating values | Assets can be infinitely copied |
 | `drop` | Implicit destruction | Resources can be silently discarded |
 | `store` | Storing inside other objects | Objects can be wrapped/transferred |

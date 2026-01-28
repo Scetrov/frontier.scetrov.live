@@ -14,20 +14,20 @@ Dynamic fields and child objects in Sui allow flexible, runtime-determined stora
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-710 (Improper Adherence to Coding Standards), CWE-915 (Improperly Controlled Modification of Dynamically-Determined Object Attributes) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-710 (Improper Adherence to Coding Standards), CWE-915 (Improperly Controlled Modification of Dynamically-Determined Object Attributes) | 
 
 ## The Problem
 
 ### Dynamic Fields vs Regular Fields
 
-| Aspect | Regular Fields | Dynamic Fields |
-|--------|---------------|----------------|
-| Defined at | Compile time | Runtime |
-| Type safety | Full | Partial (key type determines value type) |
-| Enumeration | Yes | No (must know keys) |
-| Growth | Fixed | Unbounded |
+ | Aspect | Regular Fields | Dynamic Fields | 
+ | -------- | --------------- | ---------------- | 
+ | Defined at | Compile time | Runtime | 
+ | Type safety | Full | Partial (key type determines value type) | 
+ | Enumeration | Yes | No (must know keys) | 
+ | Growth | Fixed | Unbounded | 
 
 ### Common Mistakes
 
@@ -128,6 +128,7 @@ module vulnerable::storage {
 ### Attack Scenarios
 
 **Key Collision Attack:**
+
 ```move
 // Legitimate user creates an item
 add_item(inventory, b"valuable_sword", 1000000, ctx);
@@ -138,6 +139,7 @@ add_item(inventory, b"valuable_sword", 0, ctx);
 ```
 
 **State Bloat Attack:**
+
 ```move
 // Attacker adds millions of items
 bulk_add(inventory, 1000000, ctx);

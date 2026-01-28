@@ -14,9 +14,9 @@ Any **address-owned object with `key`** (especially combined with `store`) can b
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-275 (Permission Issues) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-275 (Permission Issues) | 
 
 ## The Problem
 

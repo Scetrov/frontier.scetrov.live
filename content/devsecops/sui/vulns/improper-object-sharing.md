@@ -14,16 +14,16 @@ Accidentally exposing objects as shared via `transfer::share_object` enables glo
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-277 (Insecure Inherited Permissions) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-277 (Insecure Inherited Permissions) | 
 
 ## The Problem
 
 ### Ownership Models in Sui
 
-| Type | Created By | Who Can Use | Can Be Changed |
-|------|-----------|-------------|----------------|
+ | Type | Created By | Who Can Use | Can Be Changed | 
+ | ------ | ----------- | ------------- | ---------------- | 
 | **Address-owned** | `transfer::transfer` | Only owner | Yes (transfer) |
 | **Shared** | `transfer::share_object` | Anyone | No (permanent) |
 | **Immutable** | `transfer::freeze_object` | Anyone (read) | No (permanent) |

@@ -14,21 +14,21 @@ Clock time misuse occurs when smart contracts improperly use Sui's `Clock` objec
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-682 (Incorrect Calculation), CWE-664 (Improper Control of a Resource Through its Lifetime) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-682 (Incorrect Calculation), CWE-664 (Improper Control of a Resource Through its Lifetime) | 
 
 ## The Problem
 
 ### Common Clock Misuse Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| Seconds vs milliseconds | Critical | Sui Clock uses milliseconds, not seconds |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | Seconds vs milliseconds | Critical | Sui Clock uses milliseconds, not seconds | 
 | Off-by-one in comparisons | High | `<` vs `<=` can lock or unlock prematurely |
-| No clock validation | Medium | Accepting arbitrary clock objects |
-| Hardcoded timestamps | High | Timestamps that don't account for network delays |
-| Integer overflow in time math | Medium | Adding durations to timestamps unsafely |
+ | No clock validation | Medium | Accepting arbitrary clock objects | 
+ | Hardcoded timestamps | High | Timestamps that don't account for network delays | 
+ | Integer overflow in time math | Medium | Adding durations to timestamps unsafely | 
 
 ## Vulnerable Example
 

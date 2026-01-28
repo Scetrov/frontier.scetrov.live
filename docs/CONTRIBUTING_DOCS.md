@@ -17,15 +17,13 @@ pre-commit install
 
 # Run hooks once against all files (optional)
 pre-commit run --all-files
-```
-
+```text
 If you don't have `npx` available, install Node.js and the markdownlint-cli package:
 
 ```sh
 # using npm
 npm install --save-dev markdownlint-cli
-```
-
+```text
 Troubleshooting:
 
 - If `hugo --minify` fails locally, run `hugo --minify` directly to see build errors.
@@ -45,8 +43,7 @@ Install pre-commit and enable the hooks:
 pip install pre-commit
 pre-commit install
 pre-commit run --all-files
-```
-
+```text
 CI
 --
 
@@ -57,10 +54,9 @@ Podman / buildah note
 
 If you use Podman (or the distributions buildah shim) instead of Docker, VS Code's devcontainer build may fail with an error about a missing `policy.json`. Example from the logs:
 
-```
+```text
 Error: creating build container: no policy.json file found at any of the following: "/home/<user>/.config/containers/policy.json", "/etc/containers/policy.json"
-```
-
+```text
 Workarounds:
 
 - Create a simple `/etc/containers/policy.json` with permissive defaults, or see your distributions Podman/buildah documentation for the recommended configuration.
@@ -75,8 +71,7 @@ Run it locally with:
 
 ```sh
 ./scripts/setup-podman-policy.sh
-```
-
+```text
 This will create a user-level `policy.json`. To write the system file (requires sudo) re-run the command as root or follow the printed instructions.
 
 Makefile (convenience targets)
@@ -113,8 +108,7 @@ make install-tools
 
 # Run the Podman policy helper
 make podman-policy
-```
-
+```text
 Notes:
 
 - `install-tools` uses `apt-get` and is intended for Debian/Ubuntu systems; on other OSes install the listed tools with your package manager and then run the commands shown.

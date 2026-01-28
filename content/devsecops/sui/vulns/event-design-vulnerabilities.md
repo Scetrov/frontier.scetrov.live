@@ -14,9 +14,9 @@ Events in Sui are the primary mechanism for off-chain systems to observe on-chai
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design), A09 (Security Logging and Monitoring Failures) | CWE-223 (Omission of Security-relevant Information), CWE-778 (Insufficient Logging) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design), A09 (Security Logging and Monitoring Failures) | CWE-223 (Omission of Security-relevant Information), CWE-778 (Insufficient Logging) | 
 
 ## The Problem
 

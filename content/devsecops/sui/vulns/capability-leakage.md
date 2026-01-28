@@ -14,9 +14,9 @@ Capability leakage occurs when authority-granting objects (capabilities) are uni
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-668 (Exposure of Resource to Wrong Sphere) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-668 (Exposure of Resource to Wrong Sphere) | 
 
 ## The Problem
 

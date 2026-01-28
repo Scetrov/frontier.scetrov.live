@@ -14,21 +14,21 @@ Unbounded vector growth occurs when smart contracts allow vectors to grow withou
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A05 (Security Misconfiguration) | CWE-770 (Allocation of Resources Without Limits or Throttling) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A05 (Security Misconfiguration) | CWE-770 (Allocation of Resources Without Limits or Throttling) | 
 
 ## The Problem
 
 ### Common Unbounded Vector Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| No size limit on push | Critical | Vector grows until gas exhaustion |
-| Iteration over large vectors | High | O(n) operations become too expensive |
-| Vector as primary storage | High | Should use Table or dynamic fields |
-| No cleanup mechanism | Medium | Data accumulates forever |
-| Copying large vectors | High | Unnecessary gas consumption |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | No size limit on push | Critical | Vector grows until gas exhaustion | 
+ | Iteration over large vectors | High | O(n) operations become too expensive | 
+ | Vector as primary storage | High | Should use Table or dynamic fields | 
+ | No cleanup mechanism | Medium | Data accumulates forever | 
+ | Copying large vectors | High | Unnecessary gas consumption | 
 
 ## Vulnerable Example
 

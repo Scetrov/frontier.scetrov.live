@@ -14,9 +14,9 @@ Objects with `key + store` abilities can be frozen by any holder using `sui::tra
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-732 (Incorrect Permission Assignment) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-732 (Incorrect Permission Assignment) | 
 
 ## The Problem
 

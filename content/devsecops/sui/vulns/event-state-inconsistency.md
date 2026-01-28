@@ -14,21 +14,21 @@ Event state inconsistency occurs when emitted events don't accurately reflect th
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A09 (Security Logging and Monitoring Failures) | CWE-778 (Insufficient Logging), CWE-223 (Omission of Security-relevant Information) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A09 (Security Logging and Monitoring Failures) | CWE-778 (Insufficient Logging), CWE-223 (Omission of Security-relevant Information) | 
 
 ## The Problem
 
 ### Common Event State Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| Event before state change | High | Event emitted but state change aborts |
-| Missing events | High | State changes without corresponding events |
-| Incorrect event data | High | Event values don't match actual changes |
-| Duplicate events | Medium | Same event emitted multiple times |
-| Event ordering issues | Medium | Events don't reflect execution order |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | Event before state change | High | Event emitted but state change aborts | 
+ | Missing events | High | State changes without corresponding events | 
+ | Incorrect event data | High | Event values don't match actual changes | 
+ | Duplicate events | Medium | Same event emitted multiple times | 
+ | Event ordering issues | Medium | Events don't reflect execution order | 
 
 ## Vulnerable Example
 

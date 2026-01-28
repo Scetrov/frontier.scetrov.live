@@ -14,21 +14,21 @@ Oracle validation failures occur when smart contracts blindly trust off-chain da
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A08 (Software and Data Integrity Failures) | CWE-345 (Insufficient Verification of Data Authenticity), CWE-353 (Missing Support for Integrity Check) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A08 (Software and Data Integrity Failures) | CWE-345 (Insufficient Verification of Data Authenticity), CWE-353 (Missing Support for Integrity Check) | 
 
 ## The Problem
 
 ### Common Oracle Trust Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| No staleness check | High | Using outdated prices that no longer reflect market |
-| No source verification | Critical | Accepting data from untrusted oracles |
-| No price bounds | High | Accepting unrealistic price values |
-| Single oracle dependency | Medium | No fallback if oracle fails |
-| No signature verification | Critical | Accepting unsigned or improperly signed data |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | No staleness check | High | Using outdated prices that no longer reflect market | 
+ | No source verification | Critical | Accepting data from untrusted oracles | 
+ | No price bounds | High | Accepting unrealistic price values | 
+ | Single oracle dependency | Medium | No fallback if oracle fails | 
+ | No signature verification | Critical | Accepting unsigned or improperly signed data | 
 
 ## Vulnerable Example
 

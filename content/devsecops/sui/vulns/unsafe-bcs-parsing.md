@@ -14,25 +14,25 @@ Unsafe BCS (Binary Canonical Serialization) parsing occurs when smart contracts 
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A08 (Software and Data Integrity Failures) | CWE-502 (Deserialization of Untrusted Data), CWE-116 (Improper Encoding or Escaping of Output) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A08 (Software and Data Integrity Failures) | CWE-502 (Deserialization of Untrusted Data), CWE-116 (Improper Encoding or Escaping of Output) | 
 
 ## The Problem
 
 ### Common BCS Parsing Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| No length validation | Critical | Buffer overrun on malformed data |
-| Type confusion | High | Deserializing as wrong type |
-| Trusting external BCS data | High | Accepting unvalidated serialized input |
-| Incomplete deserialization | Medium | Ignoring trailing bytes |
-| Off-chain parsing errors | Medium | Indexer crashes or corruption |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | No length validation | Critical | Buffer overrun on malformed data | 
+ | Type confusion | High | Deserializing as wrong type | 
+ | Trusting external BCS data | High | Accepting unvalidated serialized input | 
+ | Incomplete deserialization | Medium | Ignoring trailing bytes | 
+ | Off-chain parsing errors | Medium | Indexer crashes or corruption | 
 
 ## BCS Format Basics
 
-```
+``` move
 BCS Encoding Rules:
 - Integers: Little-endian, fixed width
 - Booleans: Single byte (0 or 1)

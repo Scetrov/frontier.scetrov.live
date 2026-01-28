@@ -14,9 +14,9 @@ Phantom type parameters in Move are type parameters that don't affect the runtim
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-693 (Protection Mechanism Failure), CWE-704 (Incorrect Type Conversion) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-693 (Protection Mechanism Failure), CWE-704 (Incorrect Type Conversion) | 
 
 ## The Problem
 
@@ -36,6 +36,7 @@ public struct Coin<phantom T> has key, store {
 ### The Vulnerability
 
 If your code doesn't verify the phantom type parameter, attackers can:
+
 1. Create their own type that "looks like" the expected type
 2. Pass objects with fake phantom types
 3. Bypass type-based security or asset separation

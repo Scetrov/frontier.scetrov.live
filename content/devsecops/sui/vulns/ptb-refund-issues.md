@@ -14,9 +14,9 @@ Improper refund or undo patterns in Programmable Transaction Blocks (PTBs) can l
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) | 
 
 ## The Problem
 
@@ -24,7 +24,7 @@ In PTBs, if a later operation fails, earlier operations are NOT rolled back with
 
 ### Dangerous Pattern
 
-```
+``` move
 1. debit(account, 100)    // Subtract from balance
 2. credit(other, 100)     // Add to other (might fail)
 3. If step 2 fails, state is inconsistent
@@ -118,7 +118,7 @@ module vulnerable::trading {
 
 ### Attack: PTB Partial Execution
 
-```
+``` move
 // Attacker's PTB
 Transaction {
     commands: [

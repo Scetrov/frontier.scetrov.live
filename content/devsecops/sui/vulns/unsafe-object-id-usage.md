@@ -14,20 +14,20 @@ Object IDs (`object::ID`) in Sui are unique identifiers, but using them as stabl
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-639 (Authorization Bypass), CWE-915 (Improperly Controlled Modification) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-639 (Authorization Bypass), CWE-915 (Improperly Controlled Modification) | 
 
 ## The Problem
 
 ### Object ID Characteristics
 
-| Object Type | ID Stability | Notes |
-|-------------|--------------|-------|
-| Address-owned | Stable | ID persists across transfers |
-| Shared | Stable | ID fixed after sharing |
-| Dynamic field child | Unstable | ID can change on wrap/unwrap |
-| Wrapped object | Lost | Inner object's ID changes when unwrapped |
+ | Object Type | ID Stability | Notes | 
+ | ------------- | -------------- | ------- | 
+ | Address-owned | Stable | ID persists across transfers | 
+ | Shared | Stable | ID fixed after sharing | 
+ | Dynamic field child | Unstable | ID can change on wrap/unwrap | 
+ | Wrapped object | Lost | Inner object's ID changes when unwrapped | 
 
 ### Common Mistakes
 

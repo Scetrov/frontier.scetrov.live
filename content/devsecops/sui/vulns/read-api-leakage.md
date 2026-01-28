@@ -14,21 +14,21 @@ Read API leakage occurs when view functions or public getters expose sensitive i
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-200 (Exposure of Sensitive Information to an Unauthorized Actor) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-200 (Exposure of Sensitive Information to an Unauthorized Actor) | 
 
 ## The Problem
 
 ### Common Read API Leakage Issues
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| Exposing private keys/seeds | Critical | Admin keys or secrets readable |
-| Revealing pending orders | High | Front-running opportunity |
-| Leaking user balances | Medium | Privacy violation |
-| Exposing internal thresholds | Medium | Attack planning information |
-| Revealing algorithm parameters | Medium | Gaming/manipulation enablement |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | Exposing private keys/seeds | Critical | Admin keys or secrets readable | 
+ | Revealing pending orders | High | Front-running opportunity | 
+ | Leaking user balances | Medium | Privacy violation | 
+ | Exposing internal thresholds | Medium | Attack planning information | 
+ | Revealing algorithm parameters | Medium | Gaming/manipulation enablement | 
 
 ## Vulnerable Example
 

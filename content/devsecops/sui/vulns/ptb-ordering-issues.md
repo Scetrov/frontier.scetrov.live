@@ -14,9 +14,9 @@ Programmable Transaction Blocks (PTBs) in Sui allow multiple operations in a sin
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) | 
 
 ## The Problem
 
@@ -29,7 +29,7 @@ Programmable Transaction Blocks (PTBs) in Sui allow multiple operations in a sin
 
 ### Vulnerability Pattern
 
-```
+``` move
 Expected:  auth_check() → perform_action()
 Attacker:  perform_action() → some_cleanup()  // Skip auth entirely
 ```
@@ -115,7 +115,7 @@ module vulnerable::flashloan {
 
 ### Attack: PTB Reordering
 
-```
+``` move
 // Attacker's PTB:
 Transaction {
     // Skip authenticate entirely!

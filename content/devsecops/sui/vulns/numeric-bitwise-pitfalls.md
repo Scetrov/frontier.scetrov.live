@@ -14,9 +14,9 @@ Move's numeric and bitwise operations have specific semantics that differ from o
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A06 (Vulnerable Components), A03 (Injection) | CWE-681 (Incorrect Conversion), CWE-190 (Integer Overflow) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A06 (Vulnerable Components), A03 (Injection) | CWE-681 (Incorrect Conversion), CWE-190 (Integer Overflow) | 
 
 ## The Problem
 
@@ -114,6 +114,7 @@ module vulnerable::fees {
 ### Attack Scenarios
 
 **Shift-based bypass:**
+
 ```move
 // Attacker calls:
 let can_admin = has_role(manager, my_id, 64);
@@ -122,6 +123,7 @@ let can_admin = has_role(manager, my_id, 64);
 ```
 
 **Overflow DoS:**
+
 ```move
 // Attacker creates scenario where amount * fee_bps overflows
 // All fee calculations abort, protocol becomes unusable

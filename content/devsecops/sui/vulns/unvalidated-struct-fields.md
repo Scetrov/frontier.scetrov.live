@@ -14,21 +14,21 @@ Unvalidated struct fields occur when smart contracts accept user-provided data t
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A04 (Insecure Design) | CWE-20 (Improper Input Validation) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A04 (Insecure Design) | CWE-20 (Improper Input Validation) | 
 
 ## The Problem
 
 ### Common Validation Failures
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| No range validation | High | Values outside acceptable bounds |
-| No format validation | Medium | Invalid strings or identifiers |
-| No relationship validation | High | Fields that must be consistent |
-| No business rule validation | High | Values that violate protocol logic |
-| No sanitization | Medium | Malicious or unexpected input |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | No range validation | High | Values outside acceptable bounds | 
+ | No format validation | Medium | Invalid strings or identifiers | 
+ | No relationship validation | High | Fields that must be consistent | 
+ | No business rule validation | High | Values that violate protocol logic | 
+ | No sanitization | Medium | Malicious or unexpected input | 
 
 ## Vulnerable Example
 

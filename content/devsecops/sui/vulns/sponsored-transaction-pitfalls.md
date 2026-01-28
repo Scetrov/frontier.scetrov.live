@@ -14,28 +14,30 @@ Sui supports sponsored transactions where one account pays gas fees for another 
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-863 (Incorrect Authorization) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-863 (Incorrect Authorization) | 
 
 ## The Problem
 
 ### Transaction Participants
 
-| Role | Function | Example |
-|------|----------|---------|
-| **Sender** | Signs transaction, authorizes actions | User performing action |
-| **Sponsor** | Pays gas fees | Relayer, dApp backend |
-| **Validator** | Executes transaction | Network node |
+ | Role | Function | Example | 
+ | ------ | ---------- | --------- | 
+ | **Sender** | Signs transaction, authorizes actions | User performing action | 
+ | **Sponsor** | Pays gas fees | Relayer, dApp backend | 
+ | **Validator** | Executes transaction | Network node | 
 
 ### The Confusion
 
 Developers sometimes assume:
+
 - The gas payer is the "real" user
 - `sender()` returns the sponsor
 - Only the sponsor can initiate transactions
 
 In reality:
+
 - `sender()` returns the **transaction sender**, not sponsor
 - Sponsor only pays gas — they don't authorize object operations
 - Sender's signature authorizes accessing their owned objects
@@ -120,7 +122,7 @@ module vulnerable::meta_tx {
 
 ### Attack Scenario
 
-```
+``` move
 1. Attacker finds a contract that checks "authorized_relayer"
 2. Attacker tricks the relayer into sponsoring their transaction
    (e.g., through a legitimate-looking request)

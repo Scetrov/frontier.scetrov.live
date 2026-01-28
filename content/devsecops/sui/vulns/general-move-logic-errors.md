@@ -14,9 +14,9 @@ General logic errors in Move contracts include PTB (Programmable Transaction Blo
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A01 (Broken Access Control), A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-362 (Race Condition) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A01 (Broken Access Control), A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-362 (Race Condition) | 
 
 ## The Problem
 

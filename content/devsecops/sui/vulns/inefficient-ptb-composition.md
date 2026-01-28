@@ -14,25 +14,25 @@ Inefficient PTB (Programmable Transaction Block) composition occurs when transac
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A05 (Security Misconfiguration) / A06 (Vulnerable and Outdated Components) | CWE-400 (Uncontrolled Resource Consumption) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A05 (Security Misconfiguration) / A06 (Vulnerable and Outdated Components) | CWE-400 (Uncontrolled Resource Consumption) | 
 
 ## The Problem
 
 ### Common PTB Inefficiencies
 
-| Issue | Risk | Description |
-|-------|------|-------------|
-| Too many commands | High | Exceeds PTB command limit |
-| Redundant object reads | Medium | Reading same object multiple times |
-| Unbounded loops in PTB | High | Gas exhaustion from large iterations |
-| Inefficient coin operations | Medium | Unnecessary splits and merges |
-| Sequential instead of parallel | Medium | Missing optimization opportunities |
+ | Issue | Risk | Description | 
+ | ------- | ------ | ------------- | 
+ | Too many commands | High | Exceeds PTB command limit | 
+ | Redundant object reads | Medium | Reading same object multiple times | 
+ | Unbounded loops in PTB | High | Gas exhaustion from large iterations | 
+ | Inefficient coin operations | Medium | Unnecessary splits and merges | 
+ | Sequential instead of parallel | Medium | Missing optimization opportunities | 
 
 ## Sui PTB Limits
 
-```
+``` move
 PTB Constraints:
 - Max 1024 commands per PTB
 - Max 2048 inputs per PTB

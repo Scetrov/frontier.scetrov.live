@@ -14,9 +14,9 @@ Shared objects in Sui can be mutated by any transaction, leading to contention w
 
 ## OWASP / CWE Mapping
 
-| OWASP Top 10 | MITRE CWE |
-|--------------|-----------|
-| A05 (Security Misconfiguration), A06 (Vulnerable Components) | CWE-400 (Uncontrolled Resource Consumption), CWE-834 (Excessive Iteration) |
+ | OWASP Top 10 | MITRE CWE | 
+ | -------------- | ----------- | 
+ | A05 (Security Misconfiguration), A06 (Vulnerable Components) | CWE-400 (Uncontrolled Resource Consumption), CWE-834 (Excessive Iteration) | 
 
 ## The Problem
 
