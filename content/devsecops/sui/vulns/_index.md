@@ -58,41 +58,40 @@ Sui Move contracts face unique security challenges due to the object-centric mod
 
 ## OWASP / MITRE CWE Mapping
 
- | # | Vulnerability Class | OWASP Top 10 | MITRE CWE |
- | -- | ---------------------------------- | ------------ | ------------------------- |
- | 1 | Object Transfer Misuse | A01 | CWE-284, CWE-275 |
- | 2 | Object Freezing Misuse | A01 | CWE-284, CWE-732 |
- | 3 | Numeric / Bitwise Pitfalls | A06 / A03 | CWE-681, CWE-190 |
- | 4 | Ability Misconfiguration | A01 | CWE-284, CWE-266 |
- | 5 | Access-Control Mistakes | A01 | CWE-285, CWE-639 |
- | 6 | Shared Object DoS | A05 / A06 | CWE-400, CWE-834 |
- | 7 | Improper Sharing of Objects | A01 | CWE-284, CWE-277 |
- | 8 | Dynamic Field Misuse | A01 / A05 | CWE-710, CWE-915 |
- | 9 | Sponsored TX Pitfalls | A01 | CWE-285, CWE-863 |
- | 10 | Reentrancy-like PTB Issues | A01 / A04 | CWE-841, CWE-362 |
- | 11 | Accounting / Fee Logic Bugs | A04 | CWE-682, CWE-840 |
- | 12 | Capability Leakage | A01 | CWE-284, CWE-668 |
- | 13 | Phantom Type Confusion | A04 | CWE-693, CWE-704 |
-| 14 | Unsafe `object::id()`              | A01          | CWE-639, CWE-915          |
- | 15 | Dynamic Field Key Collisions | A01 / A05 | CWE-653, CWE-706 |
- | 16 | Event Model Vulnerabilities | A04 / A09 | CWE-223, CWE-778 |
- | 17 | Unbounded Child Growth | A06 / A05 | CWE-400, CWE-770 |
- | 18 | PTB Order Logic Flaws | A04 | CWE-841, CWE-662 |
- | 19 | Ownership-Model Confusion | A01 | CWE-284, CWE-266 |
- | 20 | Weak Initializers | A01 | CWE-284, CWE-665 |
- | 21 | Oracle Validation Failures | A08 | CWE-345, CWE-353 |
-| 22 | Unsafe `Option` Authority          | A04          | CWE-696, CWE-693          |
- | 23 | Clock / Time Misuse | A04 | CWE-682, CWE-664 |
- | 24 | Misuse of Transfer APIs | A01 | CWE-284 |
- | 25 | Unbounded Vector Growth | A05 | CWE-770 |
- | 26 | Upgrade Boundary Errors | A04 / A06 | CWE-685, CWE-694 |
- | 27 | Event-State Inconsistency | A09 | CWE-778, CWE-223 |
- | 28 | Read API Leakage | A01 | CWE-200 (Info Exposure) |
- | 29 | Unsafe Off-chain Parsing | A08 | CWE-502, CWE-116 |
- | 30 | Unsafe Test Signer Use | A04 | CWE-704, CWE-665 |
- | 31 | Unvalidated Struct Fields | A04 | CWE-20 (Input Validation) |
- | 32 | Inefficient PTBs | A05 / A06 | CWE-400 |
- | 33 | Overuse of Shared Objects | A01 | CWE-284 |
- | 34 | Parent→Child Authority Assumptions | A01 | CWE-863, CWE-284 |
-
+|#|Vulnerability Class|OWASP Top 10|MITRE CWE
+|--|----------------------------------|------------|-------------------------
+|1|Object Transfer Misuse|A01|CWE-284, CWE-275
+|2|Object Freezing Misuse|A01|CWE-284, CWE-732
+|3|Numeric / Bitwise Pitfalls|A06 / A03|CWE-681, CWE-190
+|4|Ability Misconfiguration|A01|CWE-284, CWE-266
+|5|Access-Control Mistakes|A01|CWE-285, CWE-639
+|6|Shared Object DoS|A05 / A06|CWE-400, CWE-834
+|7|Improper Sharing of Objects|A01|CWE-284, CWE-277
+|8|Dynamic Field Misuse|A01 / A05|CWE-710, CWE-915
+|9|Sponsored TX Pitfalls|A01|CWE-285, CWE-863
+|10|Reentrancy-like PTB Issues|A01 / A04|CWE-841, CWE-362
+|11|Accounting / Fee Logic Bugs|A04|CWE-682, CWE-840
+|12|Capability Leakage|A01|CWE-284, CWE-668
+|13|Phantom Type Confusion|A04|CWE-693, CWE-704
+|14|Unsafe `object::id()`|A01|CWE-639, CWE-915
+|15|Dynamic Field Key Collisions|A01 / A05|CWE-653, CWE-706
+|16|Event Model Vulnerabilities|A04 / A09|CWE-223, CWE-778
+|17|Unbounded Child Growth|A06 / A05|CWE-400, CWE-770
+|18|PTB Order Logic Flaws|A04|CWE-841, CWE-662
+|19|Ownership-Model Confusion|A01|CWE-284, CWE-266
+|20|Weak Initializers|A01|CWE-284, CWE-665
+|21|Oracle Validation Failures|A08|CWE-345, CWE-353
+|22|Unsafe `Option` Authority|A04|CWE-696, CWE-693
+|23|Clock / Time Misuse|A04|CWE-682, CWE-664
+|24|Misuse of Transfer APIs|A01|CWE-284
+|25|Unbounded Vector Growth|A05|CWE-770
+|26|Upgrade Boundary Errors|A04 / A06|CWE-685, CWE-694
+|27|Event-State Inconsistency|A09|CWE-778, CWE-223
+|28|Read API Leakage|A01|CWE-200 (Info Exposure)
+|29|Unsafe Off-chain Parsing|A08|CWE-502, CWE-116
+|30|Unsafe Test Signer Use|A04|CWE-704, CWE-665
+|31|Unvalidated Struct Fields|A04|CWE-20 (Input Validation)
+|32|Inefficient PTBs|A05 / A06|CWE-400
+|33|Overuse of Shared Objects|A01|CWE-284
+|34|Parent→Child Authority Assumptions|A01|CWE-863, CWE-284
 {{% tip-menu-search %}}
