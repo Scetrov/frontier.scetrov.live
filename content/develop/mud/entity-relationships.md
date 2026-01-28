@@ -208,11 +208,11 @@ classDiagram
         +uint256 quantity
         +uint256 updatedAt
     }
-    class InventoryByEphememeral {
-        +uint256 ephemeralSmartObjectId
-        +bool exists
-        +uint256 smartObjectId
-        +address ephemeralOwner
+    class InventoryByEphemeral {
+      +uint256 ephemeralSmartObjectId
+      +bool exists
+      +uint256 smartObjectId
+      +address ephemeralOwner
     }
     class KillMail {
         +uint256 killMailId
@@ -261,7 +261,7 @@ classDiagram
     SmartGateLink -- SmartGateConfig : destinationGateId
     SmartGateConfig -- EntityRecord : smartObjectId
     EphemeralItemTransfer -- EntityRecord : smartObjectId
-    InventoryByEphememeral -- EntityRecord : ephemeralSmartObjectId
+    InventoryByEphemeral -- EntityRecord : ephemeralSmartObjectId
     KillMail -- CharactersByAccount : account
     Allowances -- CharactersByAccount : account
     Balances -- CharactersByAccount : account
@@ -316,7 +316,7 @@ try {
 
   var responseBody = await response.Content.ReadAsStreamAsync();
   var node = await JsonNode.ParseAsync(responseBody);
-  
+
   //node.Dump();
 
   Debug.Assert(node != null, nameof(node) + " != null");
@@ -376,7 +376,7 @@ relationships.Add(new Relationship("SmartGateLink", RelationshipDirection.OneToO
 relationships.Add(new Relationship("SmartGateLink", RelationshipDirection.OneToOne, "SmartGateConfig", "destinationGateId"));
 relationships.Add(new Relationship("SmartGateConfig", RelationshipDirection.OneToOne, "EntityRecord", "smartObjectId"));
 relationships.Add(new Relationship("EphemeralItemTransfer", RelationshipDirection.OneToOne, "EntityRecord", "smartObjectId"));
-relationships.Add(new Relationship("InventoryByEphememeral", RelationshipDirection.OneToOne, "EntityRecord", "ephemeralSmartObjectId"));
+relationships.Add(new Relationship("InventoryByEphemeral", RelationshipDirection.OneToOne, "EntityRecord", "ephemeralSmartObjectId"));
 relationships.Add(new Relationship("KillMail", RelationshipDirection.OneToOne, "CharactersByAccount", "account"));
 relationships.Add(new Relationship("Allowances", RelationshipDirection.OneToOne, "CharactersByAccount", "account"));
 relationships.Add(new Relationship("Balances", RelationshipDirection.OneToOne, "CharactersByAccount", "account"));
@@ -392,25 +392,25 @@ namespace FrontierSharp {
     public required string TableName { get; set; }
     public required IEnumerable<TableField> Fields { get; set; }
   }
-  
+
   public class Relationship {
     public string Source { get; set; }
-    public RelationshipDirection Direction { get; set; } 
+    public RelationshipDirection Direction { get; set; }
     public string Destination { get; set; }
     public string Column { get; set; }
-    
+
     public Relationship(string source, RelationshipDirection direction, string destination, string column) {
       Source = source;
       Direction = direction;
       Destination = destination;
       Column = column;
     }
-    
+
     public override string ToString() {
       var sb = new StringBuilder();
-      
+
       sb.AppendFormat("{0} ", Source);
-      
+
       switch (Direction) {
         case RelationshipDirection.OneToOne:
           sb.Append("-- ");
@@ -424,15 +424,15 @@ namespace FrontierSharp {
         default:
           throw new NotImplementedException(Direction.ToString());
       }
-      
+
       sb.AppendFormat("{0} ", Destination);
       sb.AppendFormat(": {0}", Column);
-      
+
       return sb.ToString();
     }
   }
-  
-  public enum RelationshipDirection { 
+
+  public enum RelationshipDirection {
     OneToOne,
     OneToMany,
     ManyToOne,
@@ -442,7 +442,7 @@ namespace FrontierSharp {
     public required string ParameterName { get; set; }
     public required string AbiType { get; set; }
   }
-  
+
   public static class MudExtensions {
     private static readonly Dictionary<string, string> TableNameMapping = new() {
       { "SmartGateLinkTab", "SmartGateLink" },
@@ -470,7 +470,7 @@ namespace FrontierSharp {
       { "InventoryItemTra", "InventoryItemTransfer" },
       { "EphemeralInvCapa", "EphemeralInventoryCapacity" },
       { "EphemeralItemTra", "EphemeralItemTransfer" },
-      { "InventoryByEphem", "InventoryByEphememeral" },
+      { "InventoryByEphem", "InventoryByEphemeral" },
       { "ItemTransferOffc", "ItemTransfer" },
       { "SmartTurretConfi", "SmartTurretConfig" },
       { "CharactersTable", "Character" },
@@ -575,7 +575,7 @@ namespace FrontierSharp {
 
     private static string MapAbiTypeToMermaidType(string abiType) {
       return abiType;
-    
+
       return abiType.ToLower() switch {
         "uint256" => "int",
         "int256" => "int",

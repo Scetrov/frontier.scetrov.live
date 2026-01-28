@@ -17,7 +17,7 @@ If anyone is new to Ethereum Virtual Machine and Solidity I have some resources 
 > [!IMPORTANT]
 > There is nothing wrong with ignoring all of these resources and jumping in and having a go, the Smart Object Framework and Mud abstract a lot of the complexity so it's entirely possible to get started with a basic terminal and a text editor, no experience required.
 
-### Learning Pathway
+## Learning Pathway
 
 If you have no familiarity with blockchain or solidity then there are some of the Cyfrin Updraft courses that will get you skilled up quickly:
 

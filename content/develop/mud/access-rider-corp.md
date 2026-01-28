@@ -7,7 +7,7 @@ weight = 10
 You can access the corporation that a rider belongs to with the following code:
 
 ```solidity
-import { CharactersTable } from "../../../codegen/tables/CharactersTable.sol"; uint256 
+import { CharactersTable } from "../../../codegen/tables/CharactersTable.sol"; uint256
 
 .
 . <snip>

@@ -217,7 +217,7 @@ ZK-login helpers (testing and production flows):
 
   - `sui keytool zk-login-insecure-sign-personal-message --data <DATA> --max-epoch <MAX_EPOCH>`
     - Testing-only: create a fixed ephemeral key + JWT issuer and sign arbitrary data.
-  
+
 ## Client (`sui client`) — everyday user commands
 
 Global flags for `sui client`:
