@@ -208,11 +208,11 @@ classDiagram
         +uint256 quantity
         +uint256 updatedAt
     }
-    class InventoryByEphememeral {
-        +uint256 ephemeralSmartObjectId
-        +bool exists
-        +uint256 smartObjectId
-        +address ephemeralOwner
+    class InventoryByEphemeral {
+      +uint256 ephemeralSmartObjectId
+      +bool exists
+      +uint256 smartObjectId
+      +address ephemeralOwner
     }
     class KillMail {
         +uint256 killMailId
@@ -261,7 +261,7 @@ classDiagram
     SmartGateLink -- SmartGateConfig : destinationGateId
     SmartGateConfig -- EntityRecord : smartObjectId
     EphemeralItemTransfer -- EntityRecord : smartObjectId
-    InventoryByEphememeral -- EntityRecord : ephemeralSmartObjectId
+    InventoryByEphemeral -- EntityRecord : ephemeralSmartObjectId
     KillMail -- CharactersByAccount : account
     Allowances -- CharactersByAccount : account
     Balances -- CharactersByAccount : account
@@ -376,7 +376,7 @@ relationships.Add(new Relationship("SmartGateLink", RelationshipDirection.OneToO
 relationships.Add(new Relationship("SmartGateLink", RelationshipDirection.OneToOne, "SmartGateConfig", "destinationGateId"));
 relationships.Add(new Relationship("SmartGateConfig", RelationshipDirection.OneToOne, "EntityRecord", "smartObjectId"));
 relationships.Add(new Relationship("EphemeralItemTransfer", RelationshipDirection.OneToOne, "EntityRecord", "smartObjectId"));
-relationships.Add(new Relationship("InventoryByEphememeral", RelationshipDirection.OneToOne, "EntityRecord", "ephemeralSmartObjectId"));
+relationships.Add(new Relationship("InventoryByEphemeral", RelationshipDirection.OneToOne, "EntityRecord", "ephemeralSmartObjectId"));
 relationships.Add(new Relationship("KillMail", RelationshipDirection.OneToOne, "CharactersByAccount", "account"));
 relationships.Add(new Relationship("Allowances", RelationshipDirection.OneToOne, "CharactersByAccount", "account"));
 relationships.Add(new Relationship("Balances", RelationshipDirection.OneToOne, "CharactersByAccount", "account"));
@@ -470,7 +470,7 @@ namespace FrontierSharp {
       { "InventoryItemTra", "InventoryItemTransfer" },
       { "EphemeralInvCapa", "EphemeralInventoryCapacity" },
       { "EphemeralItemTra", "EphemeralItemTransfer" },
-      { "InventoryByEphem", "InventoryByEphememeral" },
+      { "InventoryByEphem", "InventoryByEphemeral" },
       { "ItemTransferOffc", "ItemTransfer" },
       { "SmartTurretConfi", "SmartTurretConfig" },
       { "CharactersTable", "Character" },

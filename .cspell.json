@@ -194,6 +194,16 @@
     "untargz",
     "usermod",
     "Virtualisation",
-    "vmname"
+    "vmname",
+    "xvzf",
+    "xrdp",
+    "xsession",
+    "xsessionrc",
+    "XAUTHORITY",
+    "yourusername",
+    "Wordlist",
+    "Groth",
+    "Voisine",
+    "superadmin"
   ]
 }
