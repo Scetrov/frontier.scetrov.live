@@ -94,4 +94,5 @@ Sui Move contracts face unique security challenges due to the object-centric mod
 |32|Inefficient PTBs|A05 / A06|CWE-400
 |33|Overuse of Shared Objects|A01|CWE-284
 |34|Parent→Child Authority Assumptions|A01|CWE-863, CWE-284
+
 {{% tip-menu-search %}}
