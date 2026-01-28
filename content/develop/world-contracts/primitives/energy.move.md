@@ -41,14 +41,14 @@ stateDiagram-v2
     [*] --> Idle: Created
     Idle --> Producing: start_energy_production()
     Producing --> Idle: stop_energy_production()
-    
+
     state Producing {
         [*] --> Available
         Available --> Reserved: reserve_energy()
         Reserved --> Available: release_energy()
         Reserved --> Reserved: reserve_energy() (add more load)
     }
-    
+
     Producing --> Idle: Force Reset (Clears all reservations)
 
 ```

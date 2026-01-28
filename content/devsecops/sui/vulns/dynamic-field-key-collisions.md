@@ -14,9 +14,9 @@ Dynamic fields in Sui use keys to store and retrieve values. When user-controlle
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-653 (Improper Isolation), CWE-706 (Use of Incorrectly-Resolved Name) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-653 (Improper Isolation), CWE-706 (Use of Incorrectly-Resolved Name) |
 
 ## The Problem
 
@@ -111,13 +111,13 @@ module vulnerable::vault {
     ): u64 {
         let slot_id = vault.next_slot_id;
         vault.next_slot_id = slot_id + 1;
-        
+
         // Attacker predicts next slot_id and front-runs
         df::add(&mut vault.id, slot_id, DepositSlot {
             owner: tx_context::sender(ctx),
             amount: 0,
         });
-        
+
         slot_id
     }
 }
@@ -189,10 +189,10 @@ module secure::storage {
     ) {
         let sender = tx_context::sender(ctx);
         let key = UserDataKey { user_address: sender };
-        
+
         // Check if already exists
         assert!(!df::exists_(&storage.id, key), E_KEY_EXISTS);
-        
+
         df::add(&mut storage.id, key, UserData { balance });
     }
 
@@ -204,12 +204,12 @@ module secure::storage {
         permissions: u64,
     ) {
         let key = AdminKey { admin_address };
-        
+
         // Remove existing if present
         if (df::exists_(&storage.id, key)) {
             let _: AdminData = df::remove(&mut storage.id, key);
         };
-        
+
         df::add(&mut storage.id, key, AdminData { permissions });
     }
 
@@ -221,9 +221,9 @@ module secure::storage {
     ) {
         let sender = tx_context::sender(ctx);
         let key = UserDataKey { user_address: sender };
-        
+
         assert!(df::exists_(&storage.id, key), E_KEY_NOT_FOUND);
-        
+
         let data: &mut UserData = df::borrow_mut(&mut storage.id, key);
         data.balance = data.balance + amount;
     }
@@ -257,16 +257,16 @@ module secure::vault {
         // Create a temporary object just for its unique ID
         let temp_uid = object::new(ctx);
         let slot_id = object::uid_to_inner(&temp_uid);
-        
+
         let key = SlotKey { slot_id };
-        
+
         df::add(&mut vault.id, key, DepositSlot {
             owner: tx_context::sender(ctx),
             amount: 0,
         });
-        
+
         object::delete(temp_uid);
-        
+
         slot_id
     }
 }

@@ -14,21 +14,21 @@ Event state inconsistency occurs when emitted events don't accurately reflect th
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A09 (Security Logging and Monitoring Failures) | CWE-778 (Insufficient Logging), CWE-223 (Omission of Security-relevant Information) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A09 (Security Logging and Monitoring Failures) | CWE-778 (Insufficient Logging), CWE-223 (Omission of Security-relevant Information) |
 
 ## The Problem
 
 ### Common Event State Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | Event before state change | High | Event emitted but state change aborts | 
- | Missing events | High | State changes without corresponding events | 
- | Incorrect event data | High | Event values don't match actual changes | 
- | Duplicate events | Medium | Same event emitted multiple times | 
- | Event ordering issues | Medium | Events don't reflect execution order | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | Event before state change | High | Event emitted but state change aborts |
+ | Missing events | High | State changes without corresponding events |
+ | Incorrect event data | High | Event values don't match actual changes |
+ | Duplicate events | Medium | Same event emitted multiple times |
+ | Event ordering issues | Medium | Events don't reflect execution order |
 
 ## Vulnerable Example
 
@@ -66,7 +66,7 @@ module vulnerable::exchange {
     ) {
         let amount_in = coin::value(&coin_in);
         let amount_out = calculate_output(amount_in);
-        
+
         // VULNERABLE: Event emitted before validation and state change
         event::emit(SwapEvent {
             pool_id: object::id(pool_in),
@@ -74,16 +74,16 @@ module vulnerable::exchange {
             amount_in,
             amount_out,
         });
-        
+
         // These assertions might fail AFTER event was emitted!
         assert!(amount_out >= min_out, E_INVALID_AMOUNT);
         assert!(balance::value(&pool_out.balance) >= amount_out, E_INSUFFICIENT_BALANCE);
-        
+
         // State changes happen after event
         balance::join(&mut pool_in.balance, coin::into_balance(coin_in));
         let out_balance = balance::split(&mut pool_out.balance, amount_out);
         let coin_out = coin::from_balance(out_balance, ctx);
-        
+
         transfer::public_transfer(coin_out, tx_context::sender(ctx));
     }
 }
@@ -105,17 +105,17 @@ module vulnerable::auction {
         ctx: &mut TxContext
     ) {
         let bidder = tx_context::sender(ctx);
-        
+
         // Emit with current assumption
         let is_winning = amount > auction.highest_bid;
-        
+
         event::emit(BidEvent {
             auction_id: object::id(auction),
             bidder,
             amount,
             is_winning,  // Could be wrong if concurrent bids
         });
-        
+
         // State update
         if (amount > auction.highest_bid) {
             auction.highest_bid = amount;
@@ -142,15 +142,15 @@ module vulnerable::vault {
         ctx: &mut TxContext
     ) {
         let amount = coin::value(&coins);
-        
+
         // Early return without event!
         if (amount == 0) {
             coin::destroy_zero(coins);
             return  // No event emitted for zero deposit
         };
-        
+
         balance::join(&mut vault.balance, coin::into_balance(coins));
-        
+
         // Only emit for non-zero deposits
         event::emit(DepositEvent {
             vault_id: object::id(vault),
@@ -191,21 +191,21 @@ module vulnerable::token {
     ) {
         let len = vector::length(&tokens);
         let mut i = 0;
-        
+
         while (i < len) {
             let token = vector::pop_back(&mut tokens);
             let recipient = *vector::borrow(&recipients, i);
-            
+
             // Emitting inside loop - potential duplicate if same token transferred twice
             event::emit(TransferEvent {
                 token_id: object::id(&token),
                 to: recipient,
             });
-            
+
             transfer::public_transfer(token, recipient);
             i = i + 1;
         };
-        
+
         vector::destroy_empty(tokens);
     }
 }
@@ -258,22 +258,22 @@ module secure::exchange {
         let amount_in = coin::value(&coin_in);
         let fee_amount = calculate_fee(amount_in);
         let amount_out = calculate_output(amount_in - fee_amount);
-        
+
         // Validate BEFORE any changes
         assert!(amount_out >= min_out, E_SLIPPAGE_EXCEEDED);
         assert!(balance::value(&pool_out.balance) >= amount_out, E_INSUFFICIENT_BALANCE);
-        
+
         // Perform state changes
         balance::join(&mut pool_in.balance, coin::into_balance(coin_in));
         let out_balance = balance::split(&mut pool_out.balance, amount_out);
         let coin_out = coin::from_balance(out_balance, ctx);
-        
+
         pool_in.total_swaps = pool_in.total_swaps + 1;
-        
+
         // Transfer output
         let user = tx_context::sender(ctx);
         transfer::public_transfer(coin_out, user);
-        
+
         // SECURE: Event emitted AFTER all changes complete
         // Event data reflects actual final state
         event::emit(SwapExecuted {
@@ -324,17 +324,17 @@ module secure::auction {
         let bidder = tx_context::sender(ctx);
         let previous_highest = auction.highest_bid;
         let previous_bidder = auction.highest_bidder;
-        
+
         // Determine outcome first
         let is_new_highest = bid_amount > previous_highest;
-        
+
         // Update state
         if (is_new_highest) {
             // Refund previous highest bidder
             if (previous_highest > 0) {
                 let refund = coin::take(&mut auction.escrow, previous_highest, ctx);
                 transfer::public_transfer(refund, previous_bidder);
-                
+
                 // Emit outbid event for previous leader
                 event::emit(BidOutbid {
                     auction_id: object::id(auction),
@@ -344,7 +344,7 @@ module secure::auction {
                     new_highest_amount: bid_amount,
                 });
             };
-            
+
             auction.highest_bid = bid_amount;
             auction.highest_bidder = bidder;
             balance::join(&mut auction.escrow, coin::into_balance(bid_coin));
@@ -352,7 +352,7 @@ module secure::auction {
             // Return bid to sender (not high enough)
             transfer::public_transfer(bid_coin, bidder);
         };
-        
+
         // SECURE: Event emitted after state finalized
         event::emit(BidPlaced {
             auction_id: object::id(auction),
@@ -396,7 +396,7 @@ module secure::vault {
     ) {
         let amount = coin::value(&coins);
         let balance_before = balance::value(&vault.balance);
-        
+
         // Handle zero deposits consistently
         if (amount == 0) {
             coin::destroy_zero(coins);
@@ -411,10 +411,10 @@ module secure::vault {
             });
             return
         };
-        
+
         balance::join(&mut vault.balance, coin::into_balance(coins));
         let balance_after = balance::value(&vault.balance);
-        
+
         event::emit(DepositExecuted {
             vault_id: object::id(vault),
             user: tx_context::sender(ctx),
@@ -433,14 +433,14 @@ module secure::vault {
         ctx: &mut TxContext
     ) {
         let balance_before = balance::value(&vault.balance);
-        
+
         let coins = coin::take(&mut vault.balance, amount, ctx);
         let user = tx_context::sender(ctx);
-        
+
         transfer::public_transfer(coins, user);
-        
+
         let balance_after = balance::value(&vault.balance);
-        
+
         // SECURE: Withdrawal event emitted
         event::emit(WithdrawExecuted {
             vault_id: object::id(vault),
@@ -480,15 +480,15 @@ module secure::token {
     ) {
         let len = vector::length(&tokens);
         assert!(len == vector::length(&recipients), E_LENGTH_MISMATCH);
-        
+
         let from = tx_context::sender(ctx);
         let timestamp = clock::timestamp_ms(clock);
         let mut i = 0;
-        
+
         while (i < len) {
             let token = vector::pop_back(&mut tokens);
             let recipient = *vector::borrow(&recipients, i);
-            
+
             // Individual transfer event
             event::emit(TokenTransferred {
                 token_id: object::id(&token),
@@ -496,13 +496,13 @@ module secure::token {
                 to: recipient,
                 timestamp_ms: timestamp,
             });
-            
+
             transfer::public_transfer(token, recipient);
             i = i + 1;
         };
-        
+
         vector::destroy_empty(tokens);
-        
+
         // Summary event for batch
         event::emit(BatchTransferCompleted {
             transfer_count: len,
@@ -529,7 +529,7 @@ public struct StateChangeEvent has copy, drop {
 public fun update_with_event(obj: &mut MyObject, new_value: u64, ctx: &TxContext) {
     let before = obj.value;
     obj.value = new_value;
-    
+
     event::emit(StateChangeEvent {
         object_id: object::id(obj),
         field_name: b"value",
@@ -583,7 +583,7 @@ public fun try_operation(/* ... */): bool {
         });
         return false
     };
-    
+
     // Proceed with operation...
     true
 }

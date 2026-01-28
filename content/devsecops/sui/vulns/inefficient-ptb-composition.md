@@ -14,21 +14,21 @@ Inefficient PTB (Programmable Transaction Block) composition occurs when transac
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A05 (Security Misconfiguration) / A06 (Vulnerable and Outdated Components) | CWE-400 (Uncontrolled Resource Consumption) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A05 (Security Misconfiguration) / A06 (Vulnerable and Outdated Components) | CWE-400 (Uncontrolled Resource Consumption) |
 
 ## The Problem
 
 ### Common PTB Inefficiencies
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | Too many commands | High | Exceeds PTB command limit | 
- | Redundant object reads | Medium | Reading same object multiple times | 
- | Unbounded loops in PTB | High | Gas exhaustion from large iterations | 
- | Inefficient coin operations | Medium | Unnecessary splits and merges | 
- | Sequential instead of parallel | Medium | Missing optimization opportunities | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | Too many commands | High | Exceeds PTB command limit |
+ | Redundant object reads | Medium | Reading same object multiple times |
+ | Unbounded loops in PTB | High | Gas exhaustion from large iterations |
+ | Inefficient coin operations | Medium | Unnecessary splits and merges |
+ | Sequential instead of parallel | Medium | Missing optimization opportunities |
 
 ## Sui PTB Limits
 
@@ -75,13 +75,13 @@ module vulnerable::batch {
         // Creates many intermediate coins
         let coin1 = coin::split(&mut payment, amount1, ctx);
         transfer::public_transfer(coin1, recipient1);
-        
+
         let coin2 = coin::split(&mut payment, amount2, ctx);
         transfer::public_transfer(coin2, recipient2);
-        
+
         let coin3 = coin::split(&mut payment, amount3, ctx);
         transfer::public_transfer(coin3, recipient3);
-        
+
         // Return remainder
         transfer::public_transfer(payment, tx_context::sender(ctx));
     }
@@ -97,15 +97,15 @@ module vulnerable::registry {
     ) {
         let len = vector::length(&names);
         let mut i = 0;
-        
+
         while (i < len) {
             let name = vector::pop_back(&mut names);
             let value = vector::pop_back(&mut values);
-            
+
             // VULNERABLE: Each add might trigger O(n) operations
             // if registry uses a vector internally
             add_to_registry(registry, name, value);
-            
+
             i = i + 1;
         };
     }
@@ -121,16 +121,16 @@ module vulnerable::airdrop {
     ) {
         let len = vector::length(&recipients);
         // No limit check - could be millions of recipients!
-        
+
         let mut i = 0;
         while (i < len) {
             let recipient = *vector::borrow(&recipients, i);
             let amount = *vector::borrow(&amounts, i);
-            
+
             // Each mint + transfer is expensive
             let coins = coin::mint(treasury_cap, amount, ctx);
             transfer::public_transfer(coins, recipient);
-            
+
             i = i + 1;
         };
     }
@@ -146,35 +146,35 @@ async function inefficientBatchTransfer(
     items: {recipient: string, amount: bigint}[]
 ) {
     const tx = new Transaction();
-    
+
     // VULNERABLE: Creates coin for each transfer separately
     for (const item of items) {
         // Each iteration adds multiple commands
         const [coin] = tx.splitCoins(tx.gas, [tx.pure.u64(item.amount)]);
         tx.transferObjects([coin], tx.pure.address(item.recipient));
     }
-    
+
     // Could exceed 1024 command limit with ~500 transfers
     // Each transfer = ~2 commands (split + transfer)
-    
+
     return client.signAndExecuteTransaction({ transaction: tx, signer });
 }
 
 // VULNERABLE: Reading same object multiple times
 async function redundantReads(client: SuiClient, poolId: string) {
     const tx = new Transaction();
-    
+
     // Reading pool in each command - wasteful
     tx.moveCall({
         target: `${PACKAGE}::pool::get_balance`,
         arguments: [tx.object(poolId)],  // Read 1
     });
-    
+
     tx.moveCall({
         target: `${PACKAGE}::pool::get_fee`,
         arguments: [tx.object(poolId)],  // Read 2 - same object!
     });
-    
+
     tx.moveCall({
         target: `${PACKAGE}::pool::get_volume`,
         arguments: [tx.object(poolId)],  // Read 3 - same object!
@@ -203,12 +203,12 @@ module secure::batch {
         ctx: &mut TxContext
     ) {
         let len = vector::length(&items);
-        
+
         // SECURE: Enforce batch size limit
         assert!(len <= MAX_BATCH_SIZE, E_BATCH_TOO_LARGE);
-        
+
         let sender = tx_context::sender(ctx);
-        
+
         while (!vector::is_empty(&items)) {
             let mut item = vector::pop_back(&mut items);
             item.processed = true;
@@ -227,10 +227,10 @@ module secure::batch {
         let num_recipients = vector::length(&recipients);
         assert!(num_recipients == vector::length(&amounts), E_LENGTH_MISMATCH);
         assert!(num_recipients <= MAX_BATCH_SIZE, E_BATCH_TOO_LARGE);
-        
+
         // SECURE: Use pay module for efficient splitting
         pay::split_vec_and_transfer(&mut coins, amounts, recipients, ctx);
-        
+
         // Return any remaining coins to sender
         while (!vector::is_empty(&coins)) {
             let coin = vector::pop_back(&mut coins);
@@ -270,19 +270,19 @@ module secure::registry {
         ctx: &mut TxContext
     ) {
         let len = vector::length(&names);
-        
+
         // SECURE: Enforce batch limits
         assert!(len <= MAX_BATCH_SIZE, E_BATCH_TOO_LARGE);
         assert!(len == vector::length(&values), E_LENGTH_MISMATCH);
-        
+
         let sender = tx_context::sender(ctx);
         let now = clock::timestamp_ms(clock);
-        
+
         let mut i = 0;
         while (i < len) {
             let name = *vector::borrow(&names, i);
             let value = *vector::borrow(&values, i);
-            
+
             // SECURE: O(1) table operations
             if (!table::contains(&registry.entries, name)) {
                 table::add(&mut registry.entries, name, Entry {
@@ -292,7 +292,7 @@ module secure::registry {
                 });
                 registry.entry_count = registry.entry_count + 1;
             };
-            
+
             i = i + 1;
         };
     }
@@ -316,11 +316,11 @@ module secure::airdrop {
         ctx: &mut TxContext
     ) {
         let len = vector::length(&recipients);
-        
+
         // SECURE: Strict batch limits
         assert!(len <= MAX_AIRDROP_BATCH, E_BATCH_TOO_LARGE);
         assert!(len == vector::length(&amounts), E_LENGTH_MISMATCH);
-        
+
         // Pre-calculate total to mint once
         let mut total = 0u64;
         let mut i = 0;
@@ -328,21 +328,21 @@ module secure::airdrop {
             total = total + *vector::borrow(&amounts, i);
             i = i + 1;
         };
-        
+
         // SECURE: Single mint, then split
         let mut minted = coin::mint(treasury_cap, total, ctx);
-        
+
         i = 0;
         while (i < len) {
             let recipient = *vector::borrow(&recipients, i);
             let amount = *vector::borrow(&amounts, i);
-            
+
             let payment = coin::split(&mut minted, amount, ctx);
             transfer::public_transfer(payment, recipient);
-            
+
             i = i + 1;
         };
-        
+
         // Destroy zero coin or return remainder
         if (coin::value(&minted) == 0) {
             coin::destroy_zero(minted);
@@ -368,14 +368,14 @@ async function efficientBatchTransfer(
     items: {recipient: string, amount: bigint}[]
 ): Promise<string[]> {
     const results: string[] = [];
-    
+
     // SECURE: Chunk into safe batch sizes
     for (let i = 0; i < items.length; i += SAFE_BATCH_SIZE) {
         const batch = items.slice(i, i + SAFE_BATCH_SIZE);
         const txDigest = await executeBatch(client, signer, batch);
         results.push(txDigest);
     }
-    
+
     return results;
 }
 
@@ -385,66 +385,66 @@ async function executeBatch(
     items: {recipient: string, amount: bigint}[]
 ): Promise<string> {
     const tx = new Transaction();
-    
+
     // SECURE: Single split for all amounts
     const amounts = items.map(item => tx.pure.u64(item.amount));
     const coins = tx.splitCoins(tx.gas, amounts);
-    
+
     // SECURE: Batch transfer
     items.forEach((item, index) => {
         tx.transferObjects([coins[index]], tx.pure.address(item.recipient));
     });
-    
+
     const result = await client.signAndExecuteTransaction({
         transaction: tx,
         signer,
     });
-    
+
     return result.digest;
 }
 
 // SECURE: Reuse object references
 async function efficientMultiRead(client: SuiClient, poolId: string) {
     const tx = new Transaction();
-    
+
     // SECURE: Single object reference, multiple uses
     const pool = tx.object(poolId);
-    
+
     const balance = tx.moveCall({
         target: `${PACKAGE}::pool::get_balance`,
         arguments: [pool],  // Reuse reference
     });
-    
+
     const fee = tx.moveCall({
         target: `${PACKAGE}::pool::get_fee`,
         arguments: [pool],  // Same reference
     });
-    
+
     const volume = tx.moveCall({
         target: `${PACKAGE}::pool::get_volume`,
         arguments: [pool],  // Same reference
     });
-    
+
     return { tx, results: [balance, fee, volume] };
 }
 
 // SECURE: Parallel execution where possible
 async function parallelOperations(client: SuiClient) {
     const tx = new Transaction();
-    
+
     // These operations are independent - can be parallelized
     const results = await Promise.all([
         tx.moveCall({ target: `${PACKAGE}::a::operation1`, arguments: [] }),
         tx.moveCall({ target: `${PACKAGE}::b::operation2`, arguments: [] }),
         tx.moveCall({ target: `${PACKAGE}::c::operation3`, arguments: [] }),
     ]);
-    
+
     // Dependent operations must be sequential
     const combined = tx.moveCall({
         target: `${PACKAGE}::d::combine`,
         arguments: results,
     });
-    
+
     return tx;
 }
 ```
@@ -516,18 +516,18 @@ async function processLargeDataset(
     items: Item[]
 ): Promise<void> {
     const CHUNK_SIZE = 50;
-    
+
     for (let i = 0; i < items.length; i += CHUNK_SIZE) {
         const chunk = items.slice(i, i + CHUNK_SIZE);
-        
+
         const tx = new Transaction();
         tx.moveCall({
             target: `${PACKAGE}::processor::process_batch`,
             arguments: [tx.pure(bcs.vector(ItemType).serialize(chunk))],
         });
-        
+
         await client.signAndExecuteTransaction({ transaction: tx, signer });
-        
+
         // Optional: Add delay to avoid rate limiting
         await sleep(100);
     }

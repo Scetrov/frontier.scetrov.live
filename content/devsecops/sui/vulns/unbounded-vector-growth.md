@@ -14,21 +14,21 @@ Unbounded vector growth occurs when smart contracts allow vectors to grow withou
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A05 (Security Misconfiguration) | CWE-770 (Allocation of Resources Without Limits or Throttling) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A05 (Security Misconfiguration) | CWE-770 (Allocation of Resources Without Limits or Throttling) |
 
 ## The Problem
 
 ### Common Unbounded Vector Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | No size limit on push | Critical | Vector grows until gas exhaustion | 
- | Iteration over large vectors | High | O(n) operations become too expensive | 
- | Vector as primary storage | High | Should use Table or dynamic fields | 
- | No cleanup mechanism | Medium | Data accumulates forever | 
- | Copying large vectors | High | Unnecessary gas consumption | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | No size limit on push | Critical | Vector grows until gas exhaustion |
+ | Iteration over large vectors | High | O(n) operations become too expensive |
+ | Vector as primary storage | High | Should use Table or dynamic fields |
+ | No cleanup mechanism | Medium | Data accumulates forever |
+ | Copying large vectors | High | Unnecessary gas consumption |
 
 ## Vulnerable Example
 
@@ -61,7 +61,7 @@ module vulnerable::registry {
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // O(n) check - gets slower as registry grows
         let mut i = 0;
         let len = vector::length(&registry.members);
@@ -69,7 +69,7 @@ module vulnerable::registry {
             assert!(*vector::borrow(&registry.members, i) != sender, E_ALREADY_REGISTERED);
             i = i + 1;
         };
-        
+
         // Unbounded growth
         vector::push_back(&mut registry.members, sender);
     }
@@ -86,7 +86,7 @@ module vulnerable::registry {
             action_type,
             timestamp: clock::timestamp_ms(clock),
         };
-        
+
         // Never cleaned up - grows forever
         vector::push_back(&mut registry.action_log, entry);
     }
@@ -183,7 +183,7 @@ module vulnerable::voting {
     public fun count_votes(proposal: &Proposal): (u64, u64) {
         let mut yes_votes = 0u64;
         let mut no_votes = 0u64;
-        
+
         let mut i = 0;
         let len = vector::length(&proposal.votes);
         while (i < len) {
@@ -195,7 +195,7 @@ module vulnerable::voting {
             };
             i = i + 1;
         };
-        
+
         (yes_votes, no_votes)
     }
 }
@@ -216,7 +216,7 @@ module attack::dos_registry {
     ) {
         // In practice, attacker would use multiple transactions
         // and addresses to avoid duplicate checks
-        
+
         // After thousands of entries:
         // - is_member() becomes too expensive
         // - register() duplicate check times out
@@ -260,18 +260,18 @@ module secure::registry {
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // O(1) existence check
         assert!(!table::contains(&registry.members, sender), E_ALREADY_REGISTERED);
-        
+
         // Enforce maximum
         assert!(registry.member_count < MAX_MEMBERS, E_MAX_MEMBERS_REACHED);
-        
+
         let info = MemberInfo {
             joined_at: clock::timestamp_ms(clock),
             active: true,
         };
-        
+
         table::add(&mut registry.members, sender, info);
         registry.member_count = registry.member_count + 1;
     }
@@ -293,7 +293,7 @@ module secure::registry {
     ) {
         let sender = tx_context::sender(ctx);
         assert!(table::contains(&registry.members, sender), E_NOT_MEMBER);
-        
+
         let _info = table::remove(&mut registry.members, sender);
         registry.member_count = registry.member_count - 1;
     }
@@ -333,18 +333,18 @@ module secure::action_log {
             action_type,
             timestamp: clock::timestamp_ms(clock),
         };
-        
+
         // Calculate index in circular buffer
         let index = log.next_index % MAX_LOG_ENTRIES;
-        
+
         // Remove old entry if exists
         if (table::contains(&log.entries, index)) {
             table::remove(&mut log.entries, index);
         };
-        
+
         // Add new entry
         table::add(&mut log.entries, index, entry);
-        
+
         log.next_index = log.next_index + 1;
         if (log.total_entries < MAX_LOG_ENTRIES) {
             log.total_entries = log.total_entries + 1;
@@ -384,21 +384,21 @@ module secure::marketplace {
         ctx: &mut TxContext
     ) {
         let item_id = object::id(&item);
-        
+
         assert!(!table::contains(&market.listings, item_id), E_LISTING_EXISTS);
-        
+
         let info = ListingInfo {
             seller: tx_context::sender(ctx),
             price,
             listed_at: clock::timestamp_ms(clock),
         };
-        
+
         // Store listing info in table (O(1))
         table::add(&mut market.listings, item_id, info);
-        
+
         // Store item as dynamic field
         dof::add(&mut market.id, item_id, item);
-        
+
         market.listing_count = market.listing_count + 1;
     }
 
@@ -418,17 +418,17 @@ module secure::marketplace {
         ctx: &mut TxContext
     ) {
         assert!(table::contains(&market.listings, item_id), E_LISTING_NOT_FOUND);
-        
+
         let info = table::borrow(&market.listings, item_id);
         assert!(info.seller == tx_context::sender(ctx), E_NOT_SELLER);
-        
+
         // Remove listing info
         let _info = table::remove(&mut market.listings, item_id);
-        
+
         // Return item to seller
         let item: T = dof::remove(&mut market.id, item_id);
         transfer::public_transfer(item, tx_context::sender(ctx));
-        
+
         market.listing_count = market.listing_count - 1;
     }
 }
@@ -462,14 +462,14 @@ module secure::voting {
         ctx: &mut TxContext
     ) {
         let voter = tx_context::sender(ctx);
-        
+
         // O(1) duplicate check
         assert!(!table::contains(&proposal.votes, voter), E_ALREADY_VOTED);
-        
+
         // Store vote
         let vote = Vote { choice, weight };
         table::add(&mut proposal.votes, voter, vote);
-        
+
         // Update aggregates (no need to iterate later)
         if (choice == 1) {
             proposal.yes_votes = proposal.yes_votes + weight;

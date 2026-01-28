@@ -14,21 +14,21 @@ Unvalidated struct fields occur when smart contracts accept user-provided data t
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-20 (Improper Input Validation) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-20 (Improper Input Validation) |
 
 ## The Problem
 
 ### Common Validation Failures
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | No range validation | High | Values outside acceptable bounds | 
- | No format validation | Medium | Invalid strings or identifiers | 
- | No relationship validation | High | Fields that must be consistent | 
- | No business rule validation | High | Values that violate protocol logic | 
- | No sanitization | Medium | Malicious or unexpected input | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | No range validation | High | Values outside acceptable bounds |
+ | No format validation | Medium | Invalid strings or identifiers |
+ | No relationship validation | High | Fields that must be consistent |
+ | No business rule validation | High | Values that violate protocol logic |
+ | No sanitization | Medium | Malicious or unexpected input |
 
 ## Vulnerable Example
 
@@ -67,7 +67,7 @@ module vulnerable::lending {
             treasury,                  // Could be @0x0
             oracle,                    // Could be attacker's address
         };
-        
+
         transfer::share_object(pool);
     }
 
@@ -183,7 +183,7 @@ module vulnerable::user {
             tier,
             points,
         };
-        
+
         transfer::transfer(profile, tx_context::sender(ctx));
     }
 }
@@ -272,31 +272,31 @@ module secure::lending {
             interest_rate_bps <= MAX_INTEREST_RATE_BPS,
             E_INVALID_INTEREST_RATE
         );
-        
+
         // Validate collateral ratio
         assert!(
             collateral_ratio_bps >= MIN_COLLATERAL_RATIO_BPS &&
             collateral_ratio_bps <= MAX_COLLATERAL_RATIO_BPS,
             E_INVALID_COLLATERAL_RATIO
         );
-        
+
         // Validate liquidation ratio
         assert!(
             liquidation_ratio_bps >= MIN_LIQUIDATION_RATIO_BPS,
             E_INVALID_LIQUIDATION_RATIO
         );
-        
+
         // SECURE: Validate relationship between ratios
         // Collateral must be higher than liquidation + buffer
         assert!(
             collateral_ratio_bps >= liquidation_ratio_bps + LIQUIDATION_BUFFER_BPS,
             E_RATIOS_INCONSISTENT
         );
-        
+
         // Validate addresses
         assert!(treasury != @0x0, E_INVALID_ADDRESS);
         assert!(oracle != @0x0, E_INVALID_ADDRESS);
-        
+
         let pool = LendingPool {
             id: object::new(ctx),
             interest_rate_bps,
@@ -305,15 +305,15 @@ module secure::lending {
             treasury,
             oracle,
         };
-        
+
         let pool_id = object::id(&pool);
-        
+
         // Create admin cap for authorized updates
         let admin_cap = AdminCap {
             id: object::new(ctx),
             pool_id,
         };
-        
+
         transfer::share_object(pool);
         transfer::transfer(admin_cap, tx_context::sender(ctx));
     }
@@ -328,19 +328,19 @@ module secure::lending {
     ) {
         // Verify admin
         assert!(admin_cap.pool_id == object::id(pool), E_NOT_ADMIN);
-        
+
         // Validate new values
         assert!(
             new_interest_rate <= MAX_INTEREST_RATE_BPS,
             E_INVALID_INTEREST_RATE
         );
-        
+
         assert!(
             new_collateral_ratio >= MIN_COLLATERAL_RATIO_BPS &&
             new_collateral_ratio >= pool.liquidation_ratio_bps + LIQUIDATION_BUFFER_BPS,
             E_INVALID_COLLATERAL_RATIO
         );
-        
+
         pool.interest_rate_bps = new_interest_rate;
         pool.collateral_ratio_bps = new_collateral_ratio;
     }
@@ -389,18 +389,18 @@ module secure::nft {
         assert!(name_len >= MIN_NAME_LENGTH, E_NAME_TOO_SHORT);
         assert!(name_len <= MAX_NAME_LENGTH, E_NAME_TOO_LONG);
         assert!(is_valid_name(&name), E_INVALID_CHARACTERS);
-        
+
         // Validate description
         assert!(string::length(&description) <= MAX_DESCRIPTION_LENGTH, E_DESCRIPTION_TOO_LONG);
-        
+
         // Validate URL
         assert!(string::length(&image_url) <= MAX_URL_LENGTH, E_INVALID_URL);
         assert!(is_valid_url(&image_url), E_INVALID_URL);
-        
+
         // Validate numeric fields
         assert!(rarity <= MAX_RARITY, E_INVALID_RARITY);
         assert!(power <= MAX_POWER, E_INVALID_POWER);
-        
+
         NFT {
             id: object::new(ctx),
             name,
@@ -416,7 +416,7 @@ module secure::nft {
         let bytes = string::bytes(name);
         let len = vector::length(bytes);
         let mut i = 0;
-        
+
         while (i < len) {
             let byte = *vector::borrow(bytes, i);
             // Allow alphanumeric, space, hyphen, underscore
@@ -424,13 +424,13 @@ module secure::nft {
                        (byte >= 65 && byte <= 90) ||   // A-Z
                        (byte >= 97 && byte <= 122) ||  // a-z
                        byte == 32 || byte == 45 || byte == 95;  // space, -, _
-            
+
             if (!valid) {
                 return false
             };
             i = i + 1;
         };
-        
+
         true
     }
 
@@ -438,12 +438,12 @@ module secure::nft {
     fun is_valid_url(url: &String): bool {
         let bytes = string::bytes(url);
         let len = vector::length(bytes);
-        
+
         // Must have minimum length for https://x
         if (len < 10) {
             return false
         };
-        
+
         // Must start with https://
         let https_prefix = b"https://";
         let mut i = 0;
@@ -453,10 +453,10 @@ module secure::nft {
             };
             i = i + 1;
         };
-        
+
         // Block dangerous schemes
         // (Already handled by requiring https://)
-        
+
         true
     }
 }
@@ -497,26 +497,26 @@ module secure::auction {
         ctx: &mut TxContext
     ): Auction {
         let now = clock::timestamp_ms(clock);
-        
+
         // Validate start time is in the future
         assert!(start_time > now, E_INVALID_START_TIME);
-        
+
         // Validate end time is after start time
         assert!(end_time > start_time, E_INVALID_END_TIME);
-        
+
         // Validate duration bounds
         let duration = end_time - start_time;
         assert!(duration >= MIN_DURATION_MS, E_DURATION_TOO_SHORT);
         assert!(duration <= MAX_DURATION_MS, E_DURATION_TOO_LONG);
-        
+
         // Validate prices
         assert!(starting_price > 0, E_INVALID_STARTING_PRICE);
         assert!(reserve_price >= starting_price, E_RESERVE_BELOW_START);
-        
+
         // Validate minimum increment
         let min_increment = (starting_price * MIN_INCREMENT_BPS) / 10000;
         assert!(minimum_increment >= min_increment, E_INCREMENT_TOO_SMALL);
-        
+
         Auction {
             id: object::new(ctx),
             start_time,
@@ -559,7 +559,7 @@ module secure::user {
         assert!(len >= MIN_USERNAME_LENGTH, E_USERNAME_TOO_SHORT);
         assert!(len <= MAX_USERNAME_LENGTH, E_USERNAME_TOO_LONG);
         assert!(is_valid_username(&username), E_INVALID_USERNAME);
-        
+
         let profile = UserProfile {
             id: object::new(ctx),
             owner: tx_context::sender(ctx),
@@ -567,7 +567,7 @@ module secure::user {
             tier: STARTING_TIER,     // SECURE: System-set, not user input
             points: STARTING_POINTS, // SECURE: System-set, not user input
         };
-        
+
         transfer::transfer(profile, tx_context::sender(ctx));
     }
 
@@ -584,7 +584,7 @@ module secure::user {
     fun is_valid_username(username: &vector<u8>): bool {
         let len = vector::length(username);
         let mut i = 0;
-        
+
         while (i < len) {
             let byte = *vector::borrow(username, i);
             // Alphanumeric and underscore only
@@ -592,13 +592,13 @@ module secure::user {
                        (byte >= 65 && byte <= 90) ||   // A-Z
                        (byte >= 97 && byte <= 122) ||  // a-z
                        byte == 95;                      // _
-            
+
             if (!valid) {
                 return false
             };
             i = i + 1;
         };
-        
+
         true
     }
 }
@@ -653,7 +653,7 @@ public fun with_interest_rate(builder: ConfigBuilder, rate: u64): ConfigBuilder 
 public fun build(builder: ConfigBuilder): Config {
     assert!(option::is_some(&builder.interest_rate), E_MISSING_FIELD);
     assert!(option::is_some(&builder.collateral_ratio), E_MISSING_FIELD);
-    
+
     Config {
         interest_rate: option::extract(&mut builder.interest_rate),
         collateral_ratio: option::extract(&mut builder.collateral_ratio),
@@ -670,7 +670,7 @@ fun validate_tier(tier: u8) {
     let mut valid = false;
     let len = vector::length(&ALLOWED_TIERS);
     let mut i = 0;
-    
+
     while (i < len) {
         if (*vector::borrow(&ALLOWED_TIERS, i) == tier) {
             valid = true;
@@ -678,7 +678,7 @@ fun validate_tier(tier: u8) {
         };
         i = i + 1;
     };
-    
+
     assert!(valid, E_INVALID_TIER);
 }
 ```

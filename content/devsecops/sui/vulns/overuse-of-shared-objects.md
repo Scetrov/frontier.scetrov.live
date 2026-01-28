@@ -25,7 +25,7 @@ module game::player_registry {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::table::{Self, Table};
-    
+
     /// VULNERABLE: All player data stored in a single shared object
     /// This creates massive contention and unnecessary sharing
     public struct PlayerRegistry has key {
@@ -35,7 +35,7 @@ module game::player_registry {
         total_players: u64,
         total_experience: u64,
     }
-    
+
     public struct PlayerData has store {
         name: vector<u8>,
         level: u64,
@@ -44,7 +44,7 @@ module game::player_registry {
         gold: u64,
         last_action: u64,
     }
-    
+
     /// VULNERABLE: Every player action touches the shared registry
     public fun gain_experience(
         registry: &mut PlayerRegistry,
@@ -53,17 +53,17 @@ module game::player_registry {
     ) {
         let sender = tx_context::sender(ctx);
         let player = table::borrow_mut(&mut registry.players, sender);
-        
+
         // Individual player action requires shared object lock
         player.experience = player.experience + amount;
         registry.total_experience = registry.total_experience + amount;
-        
+
         // Level up check
         if (player.experience >= player.level * 100) {
             player.level = player.level + 1;
         }
     }
-    
+
     /// VULNERABLE: Simple inventory update requires shared access
     public fun add_to_inventory(
         registry: &mut PlayerRegistry,
@@ -74,7 +74,7 @@ module game::player_registry {
         let player = table::borrow_mut(&mut registry.players, sender);
         vector::push_back(&mut player.inventory, item_id);
     }
-    
+
     /// VULNERABLE: Gold transfer between players uses shared state
     public fun transfer_gold(
         registry: &mut PlayerRegistry,
@@ -83,12 +83,12 @@ module game::player_registry {
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // Both sender and recipient data in shared object
         let sender_data = table::borrow_mut(&mut registry.players, sender);
         assert!(sender_data.gold >= amount, 0);
         sender_data.gold = sender_data.gold - amount;
-        
+
         let recipient_data = table::borrow_mut(&mut registry.players, recipient);
         recipient_data.gold = recipient_data.gold + amount;
     }
@@ -103,7 +103,7 @@ module defi::token_vault {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::table::{Self, Table};
-    
+
     /// VULNERABLE: Single shared vault for all user deposits
     /// Creates contention and potential front-running opportunities
     public struct GlobalVault<phantom T> has key {
@@ -116,7 +116,7 @@ module defi::token_vault {
         interest_rate: u64,
         last_update: u64,
     }
-    
+
     /// VULNERABLE: Deposit requires shared object access
     public fun deposit<T>(
         vault: &mut GlobalVault<T>,
@@ -125,10 +125,10 @@ module defi::token_vault {
     ) {
         let sender = tx_context::sender(ctx);
         let amount = coin::value(&coin);
-        
+
         // All deposits serialize through this shared object
         balance::join(&mut vault.total_balance, coin::into_balance(coin));
-        
+
         if (table::contains(&vault.user_balances, sender)) {
             let current = table::borrow_mut(&mut vault.user_balances, sender);
             *current = *current + amount;
@@ -136,7 +136,7 @@ module defi::token_vault {
             table::add(&mut vault.user_balances, sender, amount);
         }
     }
-    
+
     /// VULNERABLE: Withdrawal also requires shared access
     /// Creates ordering dependencies and potential MEV
     public fun withdraw<T>(
@@ -145,11 +145,11 @@ module defi::token_vault {
         ctx: &mut TxContext
     ): Coin<T> {
         let sender = tx_context::sender(ctx);
-        
+
         let user_balance = table::borrow_mut(&mut vault.user_balances, sender);
         assert!(*user_balance >= amount, 0);
         *user_balance = *user_balance - amount;
-        
+
         coin::from_balance(
             balance::split(&mut vault.total_balance, amount),
             ctx
@@ -165,7 +165,7 @@ module marketplace::listings {
     use sui::transfer;
     use sui::table::{Self, Table};
     use sui::dynamic_field;
-    
+
     /// VULNERABLE: All marketplace listings in one shared object
     /// Every listing/purchase creates contention
     public struct Marketplace has key {
@@ -175,14 +175,14 @@ module marketplace::listings {
         total_volume: u64,
         fee_percentage: u64,
     }
-    
+
     public struct Listing has store {
         seller: address,
         price: u64,
         item_type: vector<u8>,
         created_at: u64,
     }
-    
+
     /// VULNERABLE: Creating a listing touches shared state
     public fun create_listing(
         marketplace: &mut Marketplace,
@@ -192,18 +192,18 @@ module marketplace::listings {
     ): u64 {
         let listing_id = marketplace.next_listing_id;
         marketplace.next_listing_id = listing_id + 1;
-        
+
         let listing = Listing {
             seller: tx_context::sender(ctx),
             price,
             item_type,
             created_at: 0, // Simplified
         };
-        
+
         table::add(&mut marketplace.listings, listing_id, listing);
         listing_id
     }
-    
+
     /// VULNERABLE: Every purchase serializes through shared object
     public fun purchase(
         marketplace: &mut Marketplace,
@@ -212,7 +212,7 @@ module marketplace::listings {
     ) {
         let listing = table::remove(&mut marketplace.listings, listing_id);
         marketplace.total_volume = marketplace.total_volume + listing.price;
-        
+
         // Process purchase...
         let Listing { seller: _, price: _, item_type: _, created_at: _ } = listing;
     }
@@ -227,7 +227,7 @@ module game::player_system {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::event;
-    
+
     /// SECURE: Each player has their own owned object
     /// No contention - parallel processing possible
     public struct Player has key, store {
@@ -240,7 +240,7 @@ module game::player_system {
         gold: u64,
         last_action: u64,
     }
-    
+
     /// SECURE: Minimal shared state for global aggregates only
     /// Updated rarely, not on every action
     public struct GameStats has key {
@@ -248,14 +248,14 @@ module game::player_system {
         total_players: u64,
         // Updated periodically, not per-action
     }
-    
+
     /// Event for off-chain aggregation instead of on-chain state
     public struct ExperienceGained has copy, drop {
         player: address,
         amount: u64,
         new_total: u64,
     }
-    
+
     /// SECURE: Create owned player object
     public fun create_player(
         name: vector<u8>,
@@ -271,10 +271,10 @@ module game::player_system {
             gold: 0,
             last_action: 0,
         };
-        
+
         transfer::transfer(player, tx_context::sender(ctx));
     }
-    
+
     /// SECURE: Player actions use owned object - no contention
     public fun gain_experience(
         player: &mut Player,
@@ -283,11 +283,11 @@ module game::player_system {
     ) {
         // Only the player's owned object is modified
         player.experience = player.experience + amount;
-        
+
         if (player.experience >= player.level * 100) {
             player.level = player.level + 1;
         }
-        
+
         // Emit event for off-chain tracking
         event::emit(ExperienceGained {
             player: tx_context::sender(ctx),
@@ -295,7 +295,7 @@ module game::player_system {
             new_total: player.experience,
         });
     }
-    
+
     /// SECURE: Inventory updates are isolated to owned object
     public fun add_to_inventory(
         player: &mut Player,
@@ -303,7 +303,7 @@ module game::player_system {
     ) {
         vector::push_back(&mut player.inventory, item_id);
     }
-    
+
     /// SECURE: Gold transfer using owned objects
     /// Both players pass their owned objects
     public fun transfer_gold(
@@ -326,7 +326,7 @@ module defi::user_vault {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::event;
-    
+
     /// SECURE: Each user has their own vault - owned object
     public struct UserVault<phantom T> has key, store {
         id: UID,
@@ -335,7 +335,7 @@ module defi::user_vault {
         // User-specific settings
         auto_compound: bool,
     }
-    
+
     /// SECURE: Shared config only for protocol-wide parameters
     /// Immutable or rarely updated
     public struct ProtocolConfig has key {
@@ -344,18 +344,18 @@ module defi::user_vault {
         fee_percentage: u64,
         admin: address,
     }
-    
+
     /// Events for off-chain aggregation
     public struct DepositEvent has copy, drop {
         user: address,
         amount: u64,
     }
-    
+
     public struct WithdrawEvent has copy, drop {
         user: address,
         amount: u64,
     }
-    
+
     /// SECURE: Create user's own vault
     public fun create_vault<T>(ctx: &mut TxContext) {
         let vault = UserVault<T> {
@@ -364,10 +364,10 @@ module defi::user_vault {
             balance: balance::zero(),
             auto_compound: false,
         };
-        
+
         transfer::transfer(vault, tx_context::sender(ctx));
     }
-    
+
     /// SECURE: Deposit to owned vault - no contention
     public fun deposit<T>(
         vault: &mut UserVault<T>,
@@ -376,13 +376,13 @@ module defi::user_vault {
     ) {
         let amount = coin::value(&coin);
         balance::join(&mut vault.balance, coin::into_balance(coin));
-        
+
         event::emit(DepositEvent {
             user: tx_context::sender(ctx),
             amount,
         });
     }
-    
+
     /// SECURE: Withdraw from owned vault
     public fun withdraw<T>(
         vault: &mut UserVault<T>,
@@ -390,18 +390,18 @@ module defi::user_vault {
         ctx: &mut TxContext
     ): Coin<T> {
         assert!(balance::value(&vault.balance) >= amount, 0);
-        
+
         event::emit(WithdrawEvent {
             user: tx_context::sender(ctx),
             amount,
         });
-        
+
         coin::from_balance(
             balance::split(&mut vault.balance, amount),
             ctx
         )
     }
-    
+
     /// SECURE: Read protocol config (shared but immutable reference)
     public fun get_interest_rate(config: &ProtocolConfig): u64 {
         config.interest_rate
@@ -417,7 +417,7 @@ module marketplace::distributed_listings {
     use sui::event;
     use sui::coin::{Self, Coin};
     use sui::sui::SUI;
-    
+
     /// SECURE: Each listing is its own object
     /// Listings are independent - no contention
     public struct Listing<T: key + store> has key {
@@ -426,7 +426,7 @@ module marketplace::distributed_listings {
         price: u64,
         item: T,
     }
-    
+
     /// SECURE: Minimal shared state for fee collection
     /// Could also be owned by admin
     public struct FeeCollector has key {
@@ -434,21 +434,21 @@ module marketplace::distributed_listings {
         admin: address,
         fee_basis_points: u64, // e.g., 250 = 2.5%
     }
-    
+
     /// Events for off-chain indexing
     public struct ListingCreated has copy, drop {
         listing_id: address,
         seller: address,
         price: u64,
     }
-    
+
     public struct ListingSold has copy, drop {
         listing_id: address,
         seller: address,
         buyer: address,
         price: u64,
     }
-    
+
     /// SECURE: Create listing as independent object
     public fun create_listing<T: key + store>(
         item: T,
@@ -461,19 +461,19 @@ module marketplace::distributed_listings {
             price,
             item,
         };
-        
+
         let listing_id = object::uid_to_address(&listing.id);
-        
+
         event::emit(ListingCreated {
             listing_id,
             seller: tx_context::sender(ctx),
             price,
         });
-        
+
         // Share the listing so anyone can purchase
         transfer::share_object(listing);
     }
-    
+
     /// SECURE: Purchase touches only the specific listing
     /// No global state contention
     public fun purchase<T: key + store>(
@@ -483,43 +483,43 @@ module marketplace::distributed_listings {
         ctx: &mut TxContext
     ): T {
         let Listing { id, seller, price, item } = listing;
-        
+
         assert!(coin::value(&payment) >= price, 0);
-        
+
         let listing_id = object::uid_to_address(&id);
         object::delete(id);
-        
+
         // Calculate fee
         let fee_amount = (price * fee_collector.fee_basis_points) / 10000;
         let seller_amount = price - fee_amount;
-        
+
         // Split payment
         let seller_coin = coin::split(&mut payment, seller_amount, ctx);
         transfer::public_transfer(seller_coin, seller);
-        
+
         // Remaining goes to fee collector admin
         transfer::public_transfer(payment, fee_collector.admin);
-        
+
         event::emit(ListingSold {
             listing_id,
             seller,
             buyer: tx_context::sender(ctx),
             price,
         });
-        
+
         item
     }
-    
+
     /// SECURE: Cancel only touches own listing
     public fun cancel_listing<T: key + store>(
         listing: Listing<T>,
         ctx: &TxContext
     ): T {
         let Listing { id, seller, price: _, item } = listing;
-        
+
         assert!(seller == tx_context::sender(ctx), 0);
         object::delete(id);
-        
+
         item
     }
 }
@@ -532,7 +532,7 @@ module patterns::hybrid_approach {
     use sui::transfer;
     use sui::table::{Self, Table};
     use sui::vec_set::{Self, VecSet};
-    
+
     /// SECURE: Hybrid pattern - shared registry with owned data
     /// Registry only tracks existence, not data
     public struct PlayerRegistry has key {
@@ -541,29 +541,29 @@ module patterns::hybrid_approach {
         // Actual data is in owned objects
         registered_players: VecSet<address>,
     }
-    
+
     /// Owned player data
     public struct PlayerData has key, store {
         id: UID,
         owner: address,
         stats: Stats,
     }
-    
+
     public struct Stats has store {
         level: u64,
         experience: u64,
     }
-    
+
     /// Register touches shared state once
     public fun register_player(
         registry: &mut PlayerRegistry,
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // One-time shared state update
         vec_set::insert(&mut registry.registered_players, sender);
-        
+
         // Create owned data object
         let player_data = PlayerData {
             id: object::new(ctx),
@@ -573,24 +573,24 @@ module patterns::hybrid_approach {
                 experience: 0,
             },
         };
-        
+
         transfer::transfer(player_data, sender);
     }
-    
+
     /// Regular gameplay uses owned objects only
     public fun play_game(
         player_data: &mut PlayerData,
         experience_gained: u64,
     ) {
         // No shared state touched
-        player_data.stats.experience = 
+        player_data.stats.experience =
             player_data.stats.experience + experience_gained;
-            
+
         if (player_data.stats.experience >= player_data.stats.level * 100) {
             player_data.stats.level = player_data.stats.level + 1;
         }
     }
-    
+
     /// Check registration uses immutable reference
     public fun is_registered(
         registry: &PlayerRegistry,

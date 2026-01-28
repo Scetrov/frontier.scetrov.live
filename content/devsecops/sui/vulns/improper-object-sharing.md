@@ -14,16 +14,16 @@ Accidentally exposing objects as shared via `transfer::share_object` enables glo
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-277 (Insecure Inherited Permissions) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-277 (Insecure Inherited Permissions) |
 
 ## The Problem
 
 ### Ownership Models in Sui
 
- | Type | Created By | Who Can Use | Can Be Changed | 
- | ------ | ----------- | ------------- | ---------------- | 
+ | Type | Created By | Who Can Use | Can Be Changed |
+ | ------ | ----------- | ------------- | ---------------- |
 | **Address-owned** | `transfer::transfer` | Only owner | Yes (transfer) |
 | **Shared** | `transfer::share_object` | Anyone | No (permanent) |
 | **Immutable** | `transfer::freeze_object` | Anyone (read) | No (permanent) |
@@ -58,7 +58,7 @@ module vulnerable::wallet {
             funds: coin::zero(ctx),
             owner: tx_context::sender(ctx),
         };
-        
+
         // WRONG: This should be transfer(), not share_object()!
         transfer::share_object(wallet);
     }
@@ -71,7 +71,7 @@ module vulnerable::wallet {
     ) {
         // This check is useless — attacker just passes their address
         let recipient = tx_context::sender(ctx);
-        
+
         // Wait, the owner check is missing entirely!
         let withdrawn = coin::split(&mut wallet.funds, amount, ctx);
         transfer::public_transfer(withdrawn, recipient);
@@ -85,7 +85,7 @@ module vulnerable::wallet {
     ) {
         // Owner check exists but...
         assert!(tx_context::sender(ctx) == wallet.owner, E_NOT_OWNER);
-        
+
         // If owner's key is compromised, wallet is drained
         // With address-owned, owner could at least try to transfer first
         let withdrawn = coin::split(&mut wallet.funds, amount, ctx);

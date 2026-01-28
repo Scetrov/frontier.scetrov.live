@@ -14,22 +14,22 @@ Unsafe test patterns occur when test-only code, debug functionality, or developm
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-704 (Incorrect Type Conversion or Cast), CWE-665 (Improper Initialization) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-704 (Incorrect Type Conversion or Cast), CWE-665 (Improper Initialization) |
 
 ## The Problem
 
 ### Common Unsafe Test Patterns
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
 | Test functions without `#[test_only]` | Critical | Test code callable in production |
 | `test_scenario` in production | Critical | Fake context manipulation |
- | Debug mint functions | Critical | Unlimited token creation | 
- | Hardcoded test addresses | High | Known addresses exploitable | 
- | Disabled security checks | High | Guards removed for testing | 
- | Mock oracles in production | Critical | Fake price data accepted | 
+ | Debug mint functions | Critical | Unlimited token creation |
+ | Hardcoded test addresses | High | Known addresses exploitable |
+ | Disabled security checks | High | Guards removed for testing |
+ | Mock oracles in production | Critical | Fake price data accepted |
 
 ## Vulnerable Example
 
@@ -73,7 +73,7 @@ module vulnerable::token {
             assert!(vault.owner == tx_context::sender(ctx), E_NOT_OWNER);
             assert!(amount <= vault.balance, E_INSUFFICIENT);
         };
-        
+
         // Transfer proceeds even without checks if skip_checks = true
         vault.balance = vault.balance - amount;
         // ...
@@ -120,7 +120,7 @@ module vulnerable::admin {
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // VULNERABLE: Test admin works in production!
         if (sender == TEST_ADMIN || sender == state.admin) {
             // Perform admin action
@@ -177,16 +177,16 @@ module attack::exploit_test_code {
     ) {
         // Step 1: Enable test mode on oracle
         oracle::enable_test_mode(oracle);
-        
+
         // Step 2: Set price to manipulate protocol
         oracle::set_price(oracle, 1, ctx);  // Crash the price
-        
+
         // Step 3: Mint unlimited tokens
         let free_money = token::mint_for_testing(treasury_cap, 1000000000, ctx);
-        
+
         // Step 4: Create fake admin cap
         let fake_admin = test_helpers::create_fake_admin_cap(ctx);
-        
+
         // Complete protocol takeover!
     }
 }
@@ -223,7 +223,7 @@ module secure::token {
         // Always enforce security checks
         assert!(vault.owner == tx_context::sender(ctx), E_NOT_OWNER);
         assert!(amount <= vault.balance, E_INSUFFICIENT);
-        
+
         vault.balance = vault.balance - amount;
         // Transfer...
     }
@@ -258,7 +258,7 @@ module secure::oracle {
             &message
         );
         assert!(valid, E_INVALID_SIGNATURE);
-        
+
         oracle.price = new_price;
         oracle.last_update = timestamp;
     }
@@ -345,13 +345,13 @@ module secure::escrow {
     ) {
         assert!(tx_context::sender(ctx) == escrow.owner, E_NOT_OWNER);
         assert!(option::is_some(&escrow.emergency_requested_at), E_NOT_REQUESTED);
-        
+
         let requested_at = *option::borrow(&escrow.emergency_requested_at);
         let now = clock::timestamp_ms(clock);
-        
+
         // SECURE: Must wait 24 hours
         assert!(now >= requested_at + EMERGENCY_DELAY_MS, E_TOO_EARLY);
-        
+
         // Proceed with withdrawal
         escrow.emergency_requested_at = option::none();
         // ...
@@ -444,11 +444,11 @@ module myprotocol::core_tests {
 // In Move.toml:
 // [package]
 // name = "MyProtocol"
-// 
+//
 // [dev-addresses]
 // myprotocol = "0x0"
 //
-// [addresses]  
+// [addresses]
 // myprotocol = "0xPRODUCTION_ADDRESS"
 
 /// Code uses compile-time address
@@ -478,19 +478,19 @@ module myprotocol::integration_tests {
     #[test]
     fun test_full_flow() {
         let mut scenario = setup();
-        
+
         // Test as Alice
         test_scenario::next_tx(&mut scenario, ALICE);
         {
             // Alice's actions
         };
-        
+
         // Test as Bob
         test_scenario::next_tx(&mut scenario, BOB);
         {
             // Bob's actions
         };
-        
+
         test_scenario::end(scenario);
     }
 }

@@ -14,21 +14,21 @@ Clock time misuse occurs when smart contracts improperly use Sui's `Clock` objec
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-682 (Incorrect Calculation), CWE-664 (Improper Control of a Resource Through its Lifetime) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-682 (Incorrect Calculation), CWE-664 (Improper Control of a Resource Through its Lifetime) |
 
 ## The Problem
 
 ### Common Clock Misuse Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | Seconds vs milliseconds | Critical | Sui Clock uses milliseconds, not seconds | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | Seconds vs milliseconds | Critical | Sui Clock uses milliseconds, not seconds |
 | Off-by-one in comparisons | High | `<` vs `<=` can lock or unlock prematurely |
- | No clock validation | Medium | Accepting arbitrary clock objects | 
- | Hardcoded timestamps | High | Timestamps that don't account for network delays | 
- | Integer overflow in time math | Medium | Adding durations to timestamps unsafely | 
+ | No clock validation | Medium | Accepting arbitrary clock objects |
+ | Hardcoded timestamps | High | Timestamps that don't account for network delays |
+ | Integer overflow in time math | Medium | Adding durations to timestamps unsafely |
 
 ## Vulnerable Example
 
@@ -62,14 +62,14 @@ module vulnerable::timelock {
         // BUG: clock::timestamp_ms returns milliseconds
         // but we're adding seconds!
         let unlock_time = clock::timestamp_ms(clock) + unlock_delay_seconds;
-        
+
         let lock = TimeLock {
             id: object::new(ctx),
             coins,
             beneficiary,
             unlock_time,  // This is way too soon!
         };
-        
+
         transfer::share_object(lock);
     }
 
@@ -80,10 +80,10 @@ module vulnerable::timelock {
         ctx: &mut TxContext
     ) {
         let TimeLock { id, coins, beneficiary, unlock_time } = lock;
-        
+
         // BUG: Should be >=, using > means you can't claim AT unlock_time
         assert!(clock::timestamp_ms(clock) > unlock_time, E_TOO_EARLY);
-        
+
         object::delete(id);
         transfer::public_transfer(coins, beneficiary);
     }
@@ -112,7 +112,7 @@ module vulnerable::auction {
     ) {
         // No validation that clock is 0x6 (system clock)
         assert!(clock::timestamp_ms(clock) < auction.end_time, E_AUCTION_ENDED);
-        
+
         // Process bid...
     }
 
@@ -125,7 +125,7 @@ module vulnerable::auction {
         // What happens if current_time == end_time?
         // Both place_bid and finalize could succeed in same ms
         assert!(clock::timestamp_ms(clock) >= auction.end_time, E_AUCTION_NOT_ENDED);
-        
+
         // Finalize auction...
     }
 }
@@ -148,17 +148,17 @@ module vulnerable::vesting {
         clock: &Clock
     ): u64 {
         let current_time = clock::timestamp_ms(clock);
-        
+
         // BUG: What if start_time + duration_ms overflows?
         let end_time = schedule.start_time + schedule.duration_ms;
-        
+
         if (current_time >= end_time) {
             return schedule.total_amount
         };
-        
+
         // BUG: What if current_time < start_time? Underflow!
         let elapsed = current_time - schedule.start_time;
-        
+
         // BUG: Multiplication can overflow
         (schedule.total_amount * elapsed) / schedule.duration_ms
     }
@@ -177,7 +177,7 @@ module attack::time_exploit {
         // User creates lock with 31536000 "seconds" (1 year)
         // But code adds this to milliseconds!
         // 31536000ms = ~8.76 hours, not 1 year
-        // 
+        //
         // Even worse: if they use 86400 for "1 day"
         // That's only 86.4 seconds in the vulnerable code
     }
@@ -203,7 +203,7 @@ module secure::timelock {
     const MS_PER_MINUTE: u64 = 60_000;
     const MS_PER_HOUR: u64 = 3_600_000;
     const MS_PER_DAY: u64 = 86_400_000;
-    
+
     const MIN_LOCK_DURATION_MS: u64 = 60_000;  // 1 minute minimum
     const MAX_LOCK_DURATION_MS: u64 = 31_536_000_000;  // ~1 year maximum
     const MAX_TIMESTAMP: u64 = 253_402_300_799_999;  // Year 9999
@@ -226,17 +226,17 @@ module secure::timelock {
     ) {
         // Convert seconds to milliseconds explicitly
         let duration_ms = checked_mul(duration_seconds, MS_PER_SECOND);
-        
+
         // Validate duration bounds
         assert!(duration_ms >= MIN_LOCK_DURATION_MS, E_INVALID_DURATION);
         assert!(duration_ms <= MAX_LOCK_DURATION_MS, E_INVALID_DURATION);
-        
+
         let current_time_ms = clock::timestamp_ms(clock);
-        
+
         // Safe addition with overflow check
         let unlock_time_ms = checked_add(current_time_ms, duration_ms);
         assert!(unlock_time_ms <= MAX_TIMESTAMP, E_OVERFLOW);
-        
+
         let lock = TimeLock {
             id: object::new(ctx),
             coins,
@@ -244,7 +244,7 @@ module secure::timelock {
             unlock_time_ms,
             created_at_ms: current_time_ms,
         };
-        
+
         transfer::share_object(lock);
     }
 
@@ -254,22 +254,22 @@ module secure::timelock {
         clock: &Clock,
         ctx: &mut TxContext
     ) {
-        let TimeLock { 
-            id, 
-            coins, 
-            beneficiary, 
+        let TimeLock {
+            id,
+            coins,
+            beneficiary,
             unlock_time_ms,
             created_at_ms: _,
         } = lock;
-        
+
         let current_time_ms = clock::timestamp_ms(clock);
-        
+
         // >= means claimable at or after unlock time
         assert!(current_time_ms >= unlock_time_ms, E_TOO_EARLY);
-        
+
         // Verify sender is beneficiary
         assert!(tx_context::sender(ctx) == beneficiary, E_NOT_BENEFICIARY);
-        
+
         object::delete(id);
         transfer::public_transfer(coins, beneficiary);
     }
@@ -323,15 +323,15 @@ module secure::auction {
         ctx: &mut TxContext
     ) {
         let current_time_ms = clock::timestamp_ms(clock);
-        
+
         // Strict less-than: auction is open until end_time, not at end_time
         assert!(current_time_ms < auction.end_time_ms, E_AUCTION_ENDED);
         assert!(!auction.finalized, E_AUCTION_ENDED);
         assert!(bid_amount > auction.highest_bid, E_BID_TOO_LOW);
-        
+
         auction.highest_bid = bid_amount;
         auction.highest_bidder = tx_context::sender(ctx);
-        
+
         // Anti-sniping: extend if bid near end
         let time_remaining = auction.end_time_ms - current_time_ms;
         if (time_remaining < EXTENSION_THRESHOLD_MS) {
@@ -346,14 +346,14 @@ module secure::auction {
         ctx: &mut TxContext
     ) {
         let current_time_ms = clock::timestamp_ms(clock);
-        
+
         // Strict greater-than: can only finalize AFTER end_time
         // This ensures no overlap with place_bid
         assert!(current_time_ms > auction.end_time_ms, E_AUCTION_NOT_ENDED);
         assert!(!auction.finalized, E_AUCTION_ENDED);
-        
+
         auction.finalized = true;
-        
+
         // Process winner...
     }
 }
@@ -385,9 +385,9 @@ module secure::vesting {
         // Validate and calculate at creation time
         let end_time_ms = checked_add(start_time_ms, duration_ms);
         let cliff_time_ms = checked_add(start_time_ms, cliff_duration_ms);
-        
+
         assert!(cliff_time_ms <= end_time_ms, E_INVALID_SCHEDULE);
-        
+
         VestingSchedule {
             id: object::new(ctx),
             total_amount,
@@ -404,30 +404,30 @@ module secure::vesting {
         clock: &Clock
     ): u64 {
         let current_time_ms = clock::timestamp_ms(clock);
-        
+
         // Before start: nothing vested
         if (current_time_ms < schedule.start_time_ms) {
             return 0
         };
-        
+
         // Before cliff: nothing claimable
         if (current_time_ms < schedule.cliff_time_ms) {
             return 0
         };
-        
+
         // After end: everything vested
         if (current_time_ms >= schedule.end_time_ms) {
             return schedule.total_amount
         };
-        
+
         // Linear vesting between start and end
         let elapsed = current_time_ms - schedule.start_time_ms;
         let total_duration = schedule.end_time_ms - schedule.start_time_ms;
-        
+
         // Use u128 for intermediate calculation to prevent overflow
-        let vested = ((schedule.total_amount as u128) * (elapsed as u128) 
+        let vested = ((schedule.total_amount as u128) * (elapsed as u128)
                       / (total_duration as u128)) as u64;
-        
+
         vested
     }
 
@@ -458,11 +458,11 @@ module time_utils {
     const MS_PER_HOUR: u64 = 3_600_000;
     const MS_PER_DAY: u64 = 86_400_000;
     const MS_PER_WEEK: u64 = 604_800_000;
-    
+
     public fun seconds_to_ms(seconds: u64): u64 {
         seconds * MS_PER_SECOND
     }
-    
+
     public fun days_to_ms(days: u64): u64 {
         days * MS_PER_DAY
     }
@@ -479,23 +479,23 @@ public fun validate_time_window(
     clock: &Clock
 ): bool {
     let now = clock::timestamp_ms(clock);
-    
+
     // End must be after start
     if (end_ms <= start_ms) {
         return false
     };
-    
+
     // Start must be in reasonable future (not in past)
     if (start_ms < now) {
         return false
     };
-    
+
     // Duration must be reasonable
     let duration = end_ms - start_ms;
     if (duration < MIN_DURATION || duration > MAX_DURATION) {
         return false
     };
-    
+
     true
 }
 ```

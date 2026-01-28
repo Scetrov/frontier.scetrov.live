@@ -41,7 +41,7 @@ stateDiagram-v2
     [*] --> Offline: create()
     Offline --> Online: start_online()
     Online --> Offline: stop_online()
-    
+
     Note right of Online: Energy/Fuel primitives \ntypically require this state.
     Note right of Offline: Maintenance or \nresource-depleted state.
 

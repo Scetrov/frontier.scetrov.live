@@ -56,7 +56,7 @@ sequenceDiagram
     participant Game as Game Engine
     participant ID as in_game_id.move
     participant Registry as object_registry.move
-    
+
     Game->>ID: Create TenantItemId(tenant, item)
     ID-->>Game: Return TenantItemId struct
     Game->>Registry: object_exists(Registry, TenantItemId)

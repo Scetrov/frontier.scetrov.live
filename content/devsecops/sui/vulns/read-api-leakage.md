@@ -14,21 +14,21 @@ Read API leakage occurs when view functions or public getters expose sensitive i
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-200 (Exposure of Sensitive Information to an Unauthorized Actor) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-200 (Exposure of Sensitive Information to an Unauthorized Actor) |
 
 ## The Problem
 
 ### Common Read API Leakage Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | Exposing private keys/seeds | Critical | Admin keys or secrets readable | 
- | Revealing pending orders | High | Front-running opportunity | 
- | Leaking user balances | Medium | Privacy violation | 
- | Exposing internal thresholds | Medium | Attack planning information | 
- | Revealing algorithm parameters | Medium | Gaming/manipulation enablement | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | Exposing private keys/seeds | Critical | Admin keys or secrets readable |
+ | Revealing pending orders | High | Front-running opportunity |
+ | Leaking user balances | Medium | Privacy violation |
+ | Exposing internal thresholds | Medium | Attack planning information |
+ | Revealing algorithm parameters | Medium | Gaming/manipulation enablement |
 
 ## Vulnerable Example
 
@@ -175,7 +175,7 @@ module attack::frontrun {
     ) {
         // Read victim's order details
         let order = vulnerable::exchange::get_order(exchange, order_id);
-        
+
         // If large buy order, buy before them
         if (order.amount > 1000000 && order.order_type == BUY) {
             // Execute trade before victim's order fills
@@ -191,7 +191,7 @@ module attack::frontrun {
     ) {
         // Read target's exact liquidation price
         let liq_price = vulnerable::exchange::get_liquidation_price(exchange, target);
-        
+
         // Push price to trigger liquidation
         // Profit from liquidation bonus
     }
@@ -296,7 +296,7 @@ module secure::exchange {
         if (!table::contains(&exchange.user_positions, user)) {
             return true  // No position = healthy
         };
-        
+
         let position = table::borrow(&exchange.user_positions, user);
         // Return boolean only, not the actual ratio
         let health_ratio = (position.collateral * 10000) / position.debt;

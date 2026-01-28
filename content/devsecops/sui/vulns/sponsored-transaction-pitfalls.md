@@ -14,19 +14,19 @@ Sui supports sponsored transactions where one account pays gas fees for another 
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-863 (Incorrect Authorization) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-863 (Incorrect Authorization) |
 
 ## The Problem
 
 ### Transaction Participants
 
- | Role | Function | Example | 
- | ------ | ---------- | --------- | 
- | **Sender** | Signs transaction, authorizes actions | User performing action | 
- | **Sponsor** | Pays gas fees | Relayer, dApp backend | 
- | **Validator** | Executes transaction | Network node | 
+ | Role | Function | Example |
+ | ------ | ---------- | --------- |
+ | **Sender** | Signs transaction, authorizes actions | User performing action |
+ | **Sponsor** | Pays gas fees | Relayer, dApp backend |
+ | **Validator** | Executes transaction | Network node |
 
 ### The Confusion
 
@@ -73,13 +73,13 @@ module vulnerable::gasless {
         // WRONG: This might check the wrong entity
         // In sponsored TX, sender() is still the actual sender
         // But developer might be thinking of the sponsor
-        
+
         // Suppose they meant to check if relayer is calling:
         // This is STILL wrong because it doesn't verify
         // the sender is authorized to access this vault!
-        
+
         assert!(tx_context::sender(ctx) == config.authorized_relayer, E_NOT_RELAYER);
-        
+
         // No check that the vault owner authorized this!
         vault.balance = vault.balance - amount;
     }
@@ -93,7 +93,7 @@ module vulnerable::gasless {
         // - Attacker is sender
         // - Admin is sponsor (pays gas)
         // Attacker's action gets authorized because admin sponsors it!
-        
+
         // This is logically backwards
     }
 }
@@ -109,11 +109,11 @@ module vulnerable::meta_tx {
         ctx: &mut TxContext
     ) {
         // Missing: nonce check
-        // Missing: deadline check  
+        // Missing: deadline check
         // Missing: chain ID check
-        
+
         let signer = ecdsa_k1::secp256k1_ecrecover(&user_signature, &action_data, 0);
-        
+
         // Signature can be replayed indefinitely!
         // ... execute action
     }
@@ -172,7 +172,7 @@ module secure::gasless {
         // sender() returns the transaction sender, who must own vault
         // This is enforced by Sui's object model — no explicit check needed
         // if vault is address-owned
-        
+
         vault.balance = vault.balance - amount;
         // Transfer to sender...
     }
@@ -185,7 +185,7 @@ module secure::gasless {
     ) {
         // For shared objects, explicitly verify sender
         assert!(tx_context::sender(ctx) == vault.owner, E_NOT_OWNER);
-        
+
         vault.balance = vault.balance - amount;
     }
 
@@ -204,27 +204,27 @@ module secure::gasless {
     ) {
         // Check chain ID
         assert!(chain_id == CHAIN_ID, E_WRONG_CHAIN);
-        
+
         // Check deadline
         let now = clock::timestamp_ms(clock);
         assert!(now < deadline, E_EXPIRED);
-        
+
         // Check nonce not used
         assert!(!table::contains(&nonce_registry.used_nonces, nonce), E_NONCE_USED);
-        
+
         // Mark nonce as used
         table::add(&mut nonce_registry.used_nonces, nonce, true);
-        
+
         // Build message that was signed
         let mut message = vector::empty<u8>();
         vector::append(&mut message, action_data);
         vector::append(&mut message, nonce);
         vector::append(&mut message, bcs::to_bytes(&deadline));
         vector::append(&mut message, bcs::to_bytes(&chain_id));
-        
+
         // Hash the message
         let message_hash = hash::keccak256(&message);
-        
+
         // Verify signature
         let recovered = ecdsa_k1::secp256k1_ecrecover(
             &user_signature,
@@ -232,7 +232,7 @@ module secure::gasless {
             0
         );
         assert!(recovered == user_pubkey, E_INVALID_SIGNATURE);
-        
+
         // Now execute action on behalf of verified user
         // The signer of user_signature authorized this, not tx sender
     }
@@ -264,7 +264,7 @@ public entry fun user_authorized_action(
 ) {
     // Verify USER signed the action
     let authorized_user = verify_signature(user_signature, action_data);
-    
+
     // Execute action AS the authorized user
     // Transaction sender (possibly sponsor) is irrelevant
 }

@@ -14,16 +14,16 @@ Sui has multiple ownership models: address-owned, shared, immutable, and object-
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) |
 
 ## The Problem
 
 ### Ownership Models
 
- | Model | Created By | Access | Mutability | Reversible | 
- | ------- | ----------- | -------- | ------------ | ------------ | 
+ | Model | Created By | Access | Mutability | Reversible |
+ | ------- | ----------- | -------- | ------------ | ------------ |
 | Address-owned | `transfer()` | Owner only | Yes | Yes (transfer) |
 | Shared | `share_object()` | Anyone | Yes | **No** |
 | Immutable | `freeze_object()` | Anyone (read) | **No** | **No** |
@@ -84,7 +84,7 @@ module vulnerable::ownership {
             balance: 1000,
             owner: tx_context::sender(ctx),
         };
-        
+
         // Bug: sharing when should be transferring to owner
         // Now anyone can access the vault!
         transfer::share_object(vault);
@@ -147,7 +147,7 @@ module secure::ownership {
             id: object::new(ctx),
             balance: initial_balance,
         };
-        
+
         // Private — only creator can access
         transfer::transfer(vault, tx_context::sender(ctx));
     }
@@ -161,16 +161,16 @@ module secure::ownership {
             balance: 0,
             admin_cap_id: object::id_from_address(@0x0), // Placeholder
         };
-        
+
         let pool_id = object::id(&pool);
-        
+
         let cap = PoolAdminCap {
             id: object::new(ctx),
             pool_id,
         };
-        
+
         pool.admin_cap_id = object::id(&cap);
-        
+
         // Pool is shared, but admin actions require cap
         transfer::share_object(pool);
         transfer::transfer(cap, tx_context::sender(ctx));
@@ -185,7 +185,7 @@ module secure::ownership {
     ) {
         // Verify cap is for this pool
         assert!(cap.pool_id == object::id(pool), E_WRONG_POOL);
-        
+
         pool.balance = pool.balance - amount;
         // ... transfer
     }
@@ -203,7 +203,7 @@ module secure::ownership {
             fee_bps,
             name,
         };
-        
+
         // Intentionally immutable — this is the design
         transfer::freeze_object(config);
     }
@@ -343,14 +343,14 @@ public entry fun make_shared(
     ctx: &TxContext
 ) {
     assert!(tx_context::sender(ctx) == obj.owner, E_NOT_OWNER);
-    
+
     // Convert to shared form
     let shared = SharedObject {
         id: obj.id,
         data: obj.data,
         original_owner: obj.owner,
     };
-    
+
     transfer::share_object(shared);
 }
 ```

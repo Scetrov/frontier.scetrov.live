@@ -14,9 +14,9 @@ Any **address-owned object with `key`** (especially combined with `store`) can b
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-275 (Permission Issues) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-275 (Permission Issues) |
 
 ## The Problem
 
@@ -105,7 +105,7 @@ module secure::admin {
     fun init(ctx: &mut TxContext) {
         let sender = tx_context::sender(ctx);
         transfer::transfer(
-            AdminCap { 
+            AdminCap {
                 id: object::new(ctx),
                 authorized_address: sender,
             },
@@ -122,7 +122,7 @@ module secure::admin {
     ) {
         // Double-check: capability holder must match authorized address
         assert!(tx_context::sender(ctx) == cap.authorized_address, 0);
-        
+
         treasury.balance = treasury.balance - amount;
     }
 
@@ -134,11 +134,11 @@ module secure::admin {
     ) {
         // Only current authorized address can transfer
         assert!(tx_context::sender(ctx) == cap.authorized_address, 0);
-        
+
         // Create new cap with updated authorization
         let AdminCap { id, authorized_address: _ } = cap;
         object::delete(id);
-        
+
         transfer::transfer(
             AdminCap {
                 id: object::new(ctx),

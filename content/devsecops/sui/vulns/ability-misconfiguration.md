@@ -14,16 +14,16 @@ Move's four abilities (`copy`, `drop`, `store`, `key`) control what operations c
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-266 (Incorrect Privilege Assignment) |
 
 ## The Problem
 
 ### Ability Overview
 
- | Ability | Allows | Danger | 
- | --------- | -------- | -------- | 
+ | Ability | Allows | Danger |
+ | --------- | -------- | -------- |
 | `copy` | Duplicating values | Assets can be infinitely copied |
 | `drop` | Implicit destruction | Resources can be silently discarded |
 | `store` | Storing inside other objects | Objects can be wrapped/transferred |
@@ -77,13 +77,13 @@ module attack::duplicate {
 
     public fun exploit(): (Token, Token, Token) {
         let original = token::mint(cap, 1000);
-        
+
         // Because Token has `copy`, we can duplicate it infinitely!
         let copy1 = copy original;
         let copy2 = copy original;
         let copy3 = copy original;
         // ... unlimited copies
-        
+
         (original, copy1, copy2)
     }
 }
@@ -142,14 +142,14 @@ module secure::token {
     }
 
     public fun mint(
-        cap: &mut MintCap, 
-        amount: u64, 
+        cap: &mut MintCap,
+        amount: u64,
         recipient: address,
         ctx: &mut TxContext
     ) {
         assert!(cap.minted + amount <= cap.max_supply, E_EXCEEDS_SUPPLY);
         cap.minted = cap.minted + amount;
-        
+
         transfer::transfer(
             Token { id: object::new(ctx), value: amount },
             recipient
@@ -162,23 +162,23 @@ module secure::token {
         let Token { id: id2, value: v2 } = token2;
         object::delete(id1);
         object::delete(id2);
-        
+
         Token { id: object::new(ctx), value: v1 + v2 }
     }
 
     /// Tickets must be explicitly redeemed — cannot be dropped
     public entry fun redeem_ticket(ticket: EventTicket, ctx: &TxContext) {
         let EventTicket { id, event_id, seat, owner } = ticket;
-        
+
         // Verify caller is the ticket owner
         assert!(tx_context::sender(ctx) == owner, E_NOT_OWNER);
-        
+
         event::emit(TicketRedeemed {
             ticket_id: object::uid_to_inner(&id),
             event_id,
             seat,
         });
-        
+
         object::delete(id);
     }
 

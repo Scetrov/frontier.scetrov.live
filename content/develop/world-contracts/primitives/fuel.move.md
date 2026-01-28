@@ -48,7 +48,7 @@ stateDiagram-v2
     Burning --> Burning: update()
     Burning --> Loaded: stop_burning()
     Loaded --> Idle: withdraw() (quantity = 0)
-    
+
     state Burning {
         [*] --> Active
         Active --> Stopped: Out of Fuel

@@ -14,9 +14,9 @@ Parent objects can accumulate unlimited child objects through dynamic fields or 
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A06 (Vulnerable Components), A05 (Security Misconfiguration) | CWE-400 (Uncontrolled Resource Consumption), CWE-770 (Allocation of Resources Without Limits) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A06 (Vulnerable Components), A05 (Security Misconfiguration) | CWE-400 (Uncontrolled Resource Consumption), CWE-770 (Allocation of Resources Without Limits) |
 
 ## The Problem
 
@@ -65,10 +65,10 @@ module vulnerable::collection {
             id: object::new(ctx),
             data,
         };
-        
+
         let item_id = collection.item_count;
         collection.item_count = item_id + 1;
-        
+
         // Unlimited additions possible
         dof::add(&mut collection.id, item_id, item);
     }
@@ -77,14 +77,14 @@ module vulnerable::collection {
     public fun sum_all_values(collection: &Collection): u64 {
         let mut sum = 0u64;
         let mut i = 0u64;
-        
+
         // If item_count is huge, this runs out of gas
         while (i < collection.item_count) {
             let item: &Item = dof::borrow(&collection.id, i);
             sum = sum + vector::length(&item.data);
             i = i + 1;
         };
-        
+
         sum
     }
 
@@ -172,17 +172,17 @@ module secure::collection {
     ) {
         // Check global limit
         assert!(collection.item_count < collection.max_items, E_COLLECTION_FULL);
-        
+
         // Optional: Charge fee for storage
         // let fee = calculate_storage_fee(vector::length(&data));
         // collect_fee(fee, ctx);
-        
+
         let item_index = collection.item_count;
         collection.item_count = item_index + 1;
-        
+
         let page_number = item_index / ITEMS_PER_PAGE;
         let index_in_page = item_index % ITEMS_PER_PAGE;
-        
+
         // Get or create page
         if (!dof::exists_(&collection.id, page_number)) {
             let page = CollectionPage {
@@ -194,7 +194,7 @@ module secure::collection {
             };
             dof::add(&mut collection.id, page_number, page);
         };
-        
+
         let page: &mut CollectionPage = dof::borrow_mut(&mut collection.id, page_number);
         table::add(&mut page.items, index_in_page, Item {
             data,
@@ -220,9 +220,9 @@ module secure::collection {
     ) {
         assert!(tx_context::sender(ctx) == collection.owner, E_NOT_OWNER);
         assert!(vector::length(&indices) <= MAX_BATCH_SIZE, E_BATCH_TOO_LARGE);
-        
+
         let page: &mut CollectionPage = dof::borrow_mut(&mut collection.id, page_number);
-        
+
         let i = 0;
         while (i < vector::length(&indices)) {
             let idx = *vector::borrow(&indices, i);
@@ -243,10 +243,10 @@ module secure::collection {
         ctx: &TxContext
     ) {
         assert!(tx_context::sender(ctx) == collection.owner, E_NOT_OWNER);
-        
+
         let page: &mut CollectionPage = dof::borrow_mut(&mut collection.id, page_number);
         assert!(table::contains(&page.items, index), E_ITEM_NOT_FOUND);
-        
+
         let _item = table::remove(&mut page.items, index);
         page.item_count = page.item_count - 1;
         collection.item_count = collection.item_count - 1;
@@ -350,9 +350,9 @@ public entry fun add_item(
 ) {
     let data_size = vector::length(&data);
     let required_fee = data_size * STORAGE_FEE_PER_BYTE;
-    
+
     assert!(coin::value(&payment) >= required_fee, E_INSUFFICIENT_FEE);
-    
+
     // Store fee, add item
     // Fee makes spam attacks expensive
 }

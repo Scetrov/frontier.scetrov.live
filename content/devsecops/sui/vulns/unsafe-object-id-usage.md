@@ -14,20 +14,20 @@ Object IDs (`object::ID`) in Sui are unique identifiers, but using them as stabl
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-639 (Authorization Bypass), CWE-915 (Improperly Controlled Modification) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-639 (Authorization Bypass), CWE-915 (Improperly Controlled Modification) |
 
 ## The Problem
 
 ### Object ID Characteristics
 
- | Object Type | ID Stability | Notes | 
- | ------------- | -------------- | ------- | 
- | Address-owned | Stable | ID persists across transfers | 
- | Shared | Stable | ID fixed after sharing | 
- | Dynamic field child | Unstable | ID can change on wrap/unwrap | 
- | Wrapped object | Lost | Inner object's ID changes when unwrapped | 
+ | Object Type | ID Stability | Notes |
+ | ------------- | -------------- | ------- |
+ | Address-owned | Stable | ID persists across transfers |
+ | Shared | Stable | ID fixed after sharing |
+ | Dynamic field child | Unstable | ID can change on wrap/unwrap |
+ | Wrapped object | Lost | Inner object's ID changes when unwrapped |
 
 ### Common Mistakes
 
@@ -68,10 +68,10 @@ module vulnerable::membership {
             org_id: object::id(org),
             role: 0,
         };
-        
+
         let badge_id = object::id(&badge);
         vector::push_back(&mut org.member_ids, badge_id);
-        
+
         // Badge stored as dynamic field
         dof::add(&mut org.id, badge_id, badge);
     }
@@ -84,7 +84,7 @@ module vulnerable::membership {
         // What if badge was removed and re-added with same ID?
         // What if member_id doesn't exist?
         assert!(vector::contains(&org.member_ids, &member_id), E_NOT_MEMBER);
-        
+
         let badge: &mut MemberBadge = dof::borrow_mut(&mut org.id, member_id);
         badge.role = 1;
     }
@@ -105,17 +105,17 @@ module vulnerable::membership {
         member_id: ID,
     ) {
         let badge: MemberBadge = dof::remove(&mut org.id, member_id);
-        
+
         // Remove from member list
         let (found, idx) = vector::index_of(&org.member_ids, &member_id);
         if (found) {
             vector::remove(&mut org.member_ids, idx);
         };
-        
+
         // Delete badge
         let MemberBadge { id, org_id: _, role: _ } = badge;
         object::delete(id);
-        
+
         // Problem: member_id is now "free" and could theoretically be reused
         // (not in practice for UID, but the logic is still flawed)
     }
@@ -166,14 +166,14 @@ module secure::membership {
         // Generate stable member ID
         let member_id = MemberId { value: org.next_member_id };
         org.next_member_id = org.next_member_id + 1;
-        
+
         // Store member record
         table::add(&mut org.members, member_id, MemberRecord {
             address: member_address,
             role: 0,
             joined_at: tx_context::epoch(ctx),
         });
-        
+
         // Create badge with stable ID
         transfer::transfer(
             MemberBadge {
@@ -193,10 +193,10 @@ module secure::membership {
     ) {
         // Verify badge is for this org
         assert!(badge.org_id == object::id(org), E_WRONG_ORG);
-        
+
         // Verify member exists in org
         assert!(table::contains(&org.members, badge.member_id), E_NOT_MEMBER);
-        
+
         let record = table::borrow_mut(&mut org.members, badge.member_id);
         record.role = 1;
     }
@@ -209,13 +209,13 @@ module secure::membership {
     ) {
         // Verify badge is for this org
         assert!(admin_badge.org_id == object::id(org), E_WRONG_ORG);
-        
+
         // Verify caller holds the admin badge
         assert!(admin_badge.member_id == org.admin_id, E_NOT_ADMIN);
-        
+
         // Additional: verify sender owns the badge
         // (implicit through object ownership)
-        
+
         // ... perform admin action
     }
 
@@ -226,14 +226,14 @@ module secure::membership {
         ctx: &TxContext
     ) {
         let MemberBadge { id, org_id, member_id } = badge;
-        
+
         // Verify badge is for this org
         assert!(org_id == object::id(org), E_WRONG_ORG);
-        
+
         // Remove from membership table
         assert!(table::contains(&org.members, member_id), E_NOT_MEMBER);
         let _record = table::remove(&mut org.members, member_id);
-        
+
         // Delete badge
         object::delete(id);
     }
@@ -285,7 +285,7 @@ public fun use_reference(
 ) {
     // Verify object still exists in registry
     assert!(table::contains(&registry.objects, obj_id), E_OBJECT_NOT_FOUND);
-    
+
     // Get the actual object and verify properties
     let obj = table::borrow(&registry.objects, obj_id);
     assert!(obj.valid, E_OBJECT_INVALID);
@@ -309,10 +309,10 @@ public fun create_anchor(ctx: &mut TxContext): IdentityAnchor {
         owner: tx_context::sender(ctx),
         created_at: tx_context::epoch(ctx),
     };
-    
+
     // Immediately freeze — ID now permanently stable
     transfer::freeze_object(anchor);
-    
+
     anchor
 }
 ```

@@ -419,7 +419,7 @@ Block: 785
 Paid: 0.000000000000056356 ETH (56356 gas * 0.000000001 gwei)
 
 ✅ Sequence #1 on anvil-hardhat | Total Paid: 0.000000000000056356 ETH (56356 gas * avg 0.000000001 gwei)
-                                                                                                                                  
+
 
 ==========================
 
@@ -461,7 +461,7 @@ Block: 807
 Paid: 0.000000000000082088 ETH (82088 gas * 0.000000001 gwei)
 
 ✅ Sequence #1 on anvil-hardhat | Total Paid: 0.00000000000052478 ETH (524780 gas * avg 0.000000001 gwei)
-                                                                                                                                  
+
 
 ==========================
 
@@ -503,7 +503,7 @@ Block: 807
 Paid: 0.000000000000082088 ETH (82088 gas * 0.000000001 gwei)
 
 ✅ Sequence #1 on anvil-hardhat | Total Paid: 0.00000000000052478 ETH (524780 gas * avg 0.000000001 gwei)
-                                                                                                                                  
+
 
 ==========================
 
@@ -533,7 +533,7 @@ Block: 917
 Paid: 0.000000000000107957 ETH (107957 gas * 0.000000001 gwei)
 
 ✅ Sequence #1 on anvil-hardhat | Total Paid: 0.000000000000215925 ETH (215925 gas * avg 0.000000001 gwei)
-                                                                                                                                  
+
 
 ==========================
 
@@ -560,7 +560,7 @@ This section provides solutions to common issues that may arise during setup or 
 
 ### Virtual Machine Issues
 
-**Problem:** No internet connection in the VM  
+**Problem:** No internet connection in the VM
 **Solution:**
 
 - Ensure your VM network is attached to "NAT" (VirtualBox) or "Default Switch" (Hyper-V).
@@ -577,7 +577,7 @@ If no IP is assigned, try restarting networking:
   sudo systemctl restart networking
   ```
 
-**Problem:** VM won’t boot from ISO  
+**Problem:** VM won’t boot from ISO
 **Solution:**
 
 - Make sure the ISO is attached as a virtual CD/DVD.
@@ -586,7 +586,7 @@ If no IP is assigned, try restarting networking:
 
 ### User and Permissions Issues
 
-**Problem:** `sudo: command not found`  
+**Problem:** `sudo: command not found`
 **Solution:**
 
 - Log in as root:
@@ -602,7 +602,7 @@ If no IP is assigned, try restarting networking:
   apt install sudo
   ```
 
-**Problem:** User is not in the `sudo` group  
+**Problem:** User is not in the `sudo` group
 **Solution:** Switch to the root user and run:
 
   ```sh
@@ -613,7 +613,7 @@ If no IP is assigned, try restarting networking:
 
 ### Remote Desktop (RDP) Issues
 
-**Problem:** Black screen after connecting via RDP  
+**Problem:** Black screen after connecting via RDP
 **Solution:**
 
 For GNOME:
@@ -636,7 +636,7 @@ Restart xrdp:
 
 Ensure you're not logged into a local session already.
 
-**Problem:** RDP authentication fails  
+**Problem:** RDP authentication fails
 **Solution:**
 
 - Verify the user account has a password set.
@@ -648,7 +648,7 @@ Ensure you're not logged into a local session already.
 
 ### SSH Issues
 
-**Problem:** Cannot connect via SSH  
+**Problem:** Cannot connect via SSH
 **Solution:** Ensure the SSH server is installed and running:
 
   ```sh
@@ -669,7 +669,7 @@ Ensure you're not logged into a local session already.
 
 ### apt / Package Issues
 
-**Problem:** apt asks for CD/DVD or fails to find packages  
+**Problem:** apt asks for CD/DVD or fails to find packages
 **Solution:** Edit `/etc/apt/sources.list` and comment out lines starting with `deb cdrom:`:
 
   ```sh
@@ -682,7 +682,7 @@ Ensure you're not logged into a local session already.
   sudo apt update
   ```
 
-**Problem:** Hash Sum mismatch or failed to fetch packages  
+**Problem:** Hash Sum mismatch or failed to fetch packages
 **Solution:** Clear the local package cache:
 
   ```sh
@@ -692,7 +692,7 @@ Ensure you're not logged into a local session already.
 
 ### Docker Issues
 
-**Problem:** Docker permission denied  
+**Problem:** Docker permission denied
 **Solution:** Add your user to the Docker group:
 
   ```sh
@@ -700,7 +700,7 @@ Ensure you're not logged into a local session already.
   newgrp docker
   ```
 
-**Problem:** `docker: command not found`  
+**Problem:** `docker: command not found`
 **Solution:**
 
 - Reinstall Docker using the correct steps outlined earlier.
@@ -712,7 +712,7 @@ Ensure you're not logged into a local session already.
 
 ### Development Tools
 
-**Problem:** nvm or node not found after install  
+**Problem:** nvm or node not found after install
 **Solution:** Restart your terminal or run:
 
   ```sh
@@ -720,7 +720,7 @@ Ensure you're not logged into a local session already.
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   ```
 
-**Problem:** pnpm command not found  
+**Problem:** pnpm command not found
 **Solution:** Ensure it is installed globally:
 
   ```sh
@@ -729,7 +729,7 @@ Ensure you're not logged into a local session already.
 
 ### Miscellaneous
 
-**Problem:** Can't find VM IP address  
+**Problem:** Can't find VM IP address
 **Solution:** Run:
 
   ```sh
@@ -738,7 +738,7 @@ Ensure you're not logged into a local session already.
 
 - Look under interfaces like `eth0`, `ens33`, or similar.
 
-**Problem:** Incorrect system clock in VM  
+**Problem:** Incorrect system clock in VM
 **Solution:** Update time settings:
 
   ```sh

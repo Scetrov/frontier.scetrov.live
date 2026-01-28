@@ -14,9 +14,9 @@ Improper refund or undo patterns in Programmable Transaction Blocks (PTBs) can l
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) |
 
 ## The Problem
 
@@ -57,9 +57,9 @@ module vulnerable::escrow {
         // Debit happens first
         assert!(user.balance >= amount, E_INSUFFICIENT);
         user.balance = user.balance - amount;
-        
+
         // Credit to escrow
-        // If this somehow fails (e.g., invariant check), 
+        // If this somehow fails (e.g., invariant check),
         // user lost funds with no escrow increase
         escrow.deposited = escrow.deposited + amount;
     }
@@ -76,10 +76,10 @@ module vulnerable::escrow {
         amount: u64,
     ) {
         assert!(escrow.refund_pending, E_NO_REFUND);
-        
+
         // Credit user first
         user.balance = user.balance + amount;
-        
+
         // Then debit escrow — what if this fails?
         assert!(escrow.deposited >= amount, E_INSUFFICIENT_ESCROW);
         escrow.deposited = escrow.deposited - amount;
@@ -96,11 +96,11 @@ module vulnerable::trading {
         // Update order first
         order.filled = order.filled + fill_amount;
         order.status = if (order.filled == order.amount) { 1 } else { 0 };
-        
+
         // Process payment — might fail
         let required = fill_amount * order.price;
         assert!(coin::value(&payment) >= required, E_INSUFFICIENT);
-        
+
         // If payment assertion fails, order.filled is already updated!
     }
 
@@ -125,7 +125,7 @@ Transaction {
         // Fill order without proper payment
         Call(trading::fill_order, [order, 1000, insufficient_payment]),
         // If above fails, no problem — atomic rollback
-        
+
         // Or: Fill then immediately undo
         Call(trading::fill_order, [order, 1000, payment]),
         Call(trading::undo_fill, [order, 1000]),
@@ -160,7 +160,7 @@ module secure::escrow {
         // All validation first
         let amount = coin::value(&depositor_coins);
         assert!(amount > 0, E_ZERO_AMOUNT);
-        
+
         // Single atomic state creation
         let escrow = Escrow {
             id: object::new(ctx),
@@ -169,7 +169,7 @@ module secure::escrow {
             coins: depositor_coins,
             state: 0,
         };
-        
+
         transfer::share_object(escrow);
     }
 
@@ -179,11 +179,11 @@ module secure::escrow {
         ctx: &TxContext
     ) {
         let Escrow { id, depositor, beneficiary, coins, state } = escrow;
-        
+
         // All checks before any state change
         assert!(tx_context::sender(ctx) == depositor, E_NOT_DEPOSITOR);
         assert!(state == 0, E_ALREADY_PROCESSED);
-        
+
         // Atomic: destroy escrow and transfer coins
         object::delete(id);
         transfer::public_transfer(coins, beneficiary);
@@ -195,10 +195,10 @@ module secure::escrow {
         ctx: &TxContext
     ) {
         let Escrow { id, depositor, beneficiary: _, coins, state } = escrow;
-        
+
         assert!(tx_context::sender(ctx) == depositor, E_NOT_DEPOSITOR);
         assert!(state == 0, E_ALREADY_PROCESSED);
-        
+
         object::delete(id);
         transfer::public_transfer(coins, depositor);
     }
@@ -230,7 +230,7 @@ module secure::trading {
         fill_amount: u64,
     ): FillReceipt {
         assert!(fill_amount <= order.amount, E_OVERFILL);
-        
+
         FillReceipt {
             order_id: object::id(order),
             fill_amount,
@@ -246,22 +246,22 @@ module secure::trading {
         ctx: &mut TxContext
     ): Coin<SUI> {
         let FillReceipt { order_id, fill_amount, payment_required } = receipt;
-        
+
         // Verify receipt matches order
         assert!(order_id == object::id(order), E_WRONG_ORDER);
-        
+
         // Verify payment
         assert!(coin::value(&payment) >= payment_required, E_INSUFFICIENT);
-        
+
         // All validated — now update state
         order.amount = order.amount - fill_amount;
-        
+
         // Return escrowed coins to taker
         let filled_coins = coin::split(&mut order.coins_escrowed, fill_amount, ctx);
-        
+
         // Payment to maker
         transfer::public_transfer(payment, order.maker);
-        
+
         filled_coins
     }
 
@@ -278,10 +278,10 @@ public entry fun operation(state: &mut State, input: u64, payment: Coin<SUI>) {
     // 1. CHECKS - All validation
     assert!(input > 0, E_ZERO_INPUT);
     assert!(coin::value(&payment) >= calculate_cost(input), E_INSUFFICIENT);
-    
+
     // 2. EFFECTS - Update state
     state.processed = state.processed + input;
-    
+
     // 3. INTERACTIONS - External transfers last
     coin::join(&mut state.treasury, payment);
 }
@@ -331,11 +331,11 @@ public entry fun process(
 ) {
     // Validate payment
     assert!(coin::value(&payment) >= item.price, E_INSUFFICIENT);
-    
+
     // Destroy old object, create new
     let Item { id, data, price: _ } = item;
     object::delete(id);
-    
+
     // Create result
     let result = ProcessedItem { id: object::new(ctx), data };
     transfer::transfer(result, tx_context::sender(ctx));

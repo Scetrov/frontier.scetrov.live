@@ -65,7 +65,7 @@ sequenceDiagram
 
     Note over Owner, Assembly: Setup Phase
     Owner->>Assembly: register_extension<Builder::Auth>(auth_cap)
-    
+
     Note over Extension, Assembly: Interaction Phase
     Extension->>Assembly: perform_op(Auth {})
     Assembly-->>Assembly: Verify 'Auth' type is in allowlist

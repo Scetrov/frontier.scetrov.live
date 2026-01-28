@@ -14,9 +14,9 @@ Access control mistakes occur when authorization checks are missing, incorrectly
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-639 (Authorization Bypass) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-285 (Improper Authorization), CWE-639 (Authorization Bypass) |
 
 ## The Problem
 
@@ -90,10 +90,10 @@ module vulnerable::vault {
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // Check is performed...
         assert!(is_authorized(sender), E_NOT_AUTHORIZED);
-        
+
         // ...but in a PTB, authorization might change before this executes
         let withdrawn = coin::split(&mut vault.funds, amount, ctx);
         transfer::public_transfer(withdrawn, sender);
@@ -138,15 +138,15 @@ module secure::vault {
             id: object::new(ctx),
             funds: coin::zero(ctx),
         };
-        
+
         let vault_id = object::id(&vault);
-        
+
         // Create admin cap tied to this vault
         let admin_cap = AdminCap {
             id: object::new(ctx),
             vault_id,
         };
-        
+
         transfer::share_object(vault);
         transfer::transfer(admin_cap, tx_context::sender(ctx));
     }
@@ -163,15 +163,15 @@ module secure::vault {
         assert!(cap.vault_id == object::id(vault), E_NOT_ADMIN);
         assert!(amount > 0, E_ZERO_AMOUNT);
         assert!(coin::value(&vault.funds) >= amount, E_INSUFFICIENT_FUNDS);
-        
+
         let withdrawn = coin::split(&mut vault.funds, amount, ctx);
-        
+
         event::emit(WithdrawEvent {
             vault_id: object::id(vault),
             amount,
             recipient,
         });
-        
+
         transfer::public_transfer(withdrawn, recipient);
     }
 
@@ -184,7 +184,7 @@ module secure::vault {
         // Old cap is consumed, new one is created
         let AdminCap { id, vault_id } = cap;
         object::delete(id);
-        
+
         transfer::transfer(
             AdminCap {
                 id: object::new(ctx),
@@ -209,12 +209,12 @@ module secure::vault {
         ctx: &TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // Add approval if not already present
         if (!vector::contains(&proposal.approvals, &sender)) {
             vector::push_back(&mut proposal.approvals, sender);
         };
-        
+
         // Execute if threshold reached
         if (vector::length(&proposal.approvals) >= proposal.threshold) {
             // ... execute action

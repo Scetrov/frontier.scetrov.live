@@ -14,20 +14,20 @@ Unsafe Option authority occurs when developers use `Option<T>` types to toggle p
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-696 (Incorrect Behavior Order), CWE-693 (Protection Mechanism Failure) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-696 (Incorrect Behavior Order), CWE-693 (Protection Mechanism Failure) |
 
 ## The Problem
 
 ### Common Option Authority Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | Mutable Option capability | Critical | Authority can be extracted and replaced | 
- | None as "no permission" | High | Missing != denied, logic can be bypassed | 
- | Option in shared objects | High | Race conditions on authority state | 
- | fill/extract patterns | Medium | Authority can be temporarily removed | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | Mutable Option capability | Critical | Authority can be extracted and replaced |
+ | None as "no permission" | High | Missing != denied, logic can be bypassed |
+ | Option in shared objects | High | Race conditions on authority state |
+ | fill/extract patterns | Medium | Authority can be temporarily removed |
 
 ## Vulnerable Example
 
@@ -80,7 +80,7 @@ module vulnerable::vault {
             let admin = option::borrow(&vault.admin_cap);
             // No actual verification of caller
         };
-        
+
         // Withdraw proceeds even without proper auth
         let amount = balance::value(&vault.balance);
         let coins = coin::take(&mut vault.balance, amount, ctx);
@@ -154,8 +154,8 @@ module attack::option_exploit {
         ctx: &mut TxContext
     ) {
         // Create our own admin cap
-        let fake_admin = AdminCap { 
-            id: object::new(ctx) 
+        let fake_admin = AdminCap {
+            id: object::new(ctx)
         };
         // Race to fill the empty slot
         vault::set_admin(vault, fake_admin);
@@ -196,14 +196,14 @@ module secure::vault {
             admin: tx_context::sender(ctx),
             withdraw_enabled: true,
         };
-        
+
         let vault_id = object::id(&vault);
-        
+
         let admin_cap = AdminCap {
             id: object::new(ctx),
             vault_id,
         };
-        
+
         transfer::share_object(vault);
         transfer::transfer(admin_cap, tx_context::sender(ctx));
     }
@@ -216,7 +216,7 @@ module secure::vault {
     ) {
         // Verify cap matches vault
         assert!(cap.vault_id == object::id(vault), E_WRONG_VAULT);
-        
+
         let amount = balance::value(&vault.balance);
         let coins = coin::take(&mut vault.balance, amount, ctx);
         transfer::public_transfer(coins, tx_context::sender(ctx));
@@ -258,17 +258,17 @@ module secure::optional_feature {
     ) {
         // First: verify ownership (authority)
         assert!(tx_context::sender(ctx) == config.owner, E_NOT_OWNER);
-        
+
         // Then: check feature flag (configuration)
         assert!(config.premium_enabled, E_FEATURE_DISABLED);
-        
+
         // Optional config affects behavior, not authorization
         let limit = if (option::is_some(&config.max_operations)) {
             *option::borrow(&config.max_operations)
         } else {
             1000  // Default limit
         };
-        
+
         // Proceed with operation...
     }
 }
@@ -411,24 +411,24 @@ module safe::grace_period {
         if (tx_context::sender(ctx) != sub.owner) {
             return false
         };
-        
+
         if (!sub.active) {
             return false
         };
-        
+
         let now = clock::timestamp_ms(clock);
-        
+
         // Active subscription
         if (now < sub.expires_at) {
             return true
         };
-        
+
         // Check grace period (optional feature, not authority)
         if (option::is_some(&sub.grace_period_end)) {
             let grace_end = *option::borrow(&sub.grace_period_end);
             return now < grace_end
         };
-        
+
         false
     }
 }

@@ -14,21 +14,21 @@ Oracle validation failures occur when smart contracts blindly trust off-chain da
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A08 (Software and Data Integrity Failures) | CWE-345 (Insufficient Verification of Data Authenticity), CWE-353 (Missing Support for Integrity Check) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A08 (Software and Data Integrity Failures) | CWE-345 (Insufficient Verification of Data Authenticity), CWE-353 (Missing Support for Integrity Check) |
 
 ## The Problem
 
 ### Common Oracle Trust Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
- | No staleness check | High | Using outdated prices that no longer reflect market | 
- | No source verification | Critical | Accepting data from untrusted oracles | 
- | No price bounds | High | Accepting unrealistic price values | 
- | Single oracle dependency | Medium | No fallback if oracle fails | 
- | No signature verification | Critical | Accepting unsigned or improperly signed data | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
+ | No staleness check | High | Using outdated prices that no longer reflect market |
+ | No source verification | Critical | Accepting data from untrusted oracles |
+ | No price bounds | High | Accepting unrealistic price values |
+ | Single oracle dependency | Medium | No fallback if oracle fails |
+ | No signature verification | Critical | Accepting unsigned or improperly signed data |
 
 ## Vulnerable Example
 
@@ -63,14 +63,14 @@ module vulnerable::lending {
         ctx: &mut TxContext
     ) {
         let collateral_value = coin::value(&collateral);
-        
+
         // VULNERABLE: No check on who provided price_data
         // VULNERABLE: No check if price_data is stale
         // VULNERABLE: No signature verification
         let required_collateral = (borrow_amount * 150) / price_data.price;
-        
+
         assert!(collateral_value >= required_collateral, E_INSUFFICIENT_COLLATERAL);
-        
+
         // Process borrow...
     }
 
@@ -130,7 +130,7 @@ module attack::oracle_manipulation {
             price: 1_000_000_000,  // Massively inflated price
             timestamp: 0,
         };
-        
+
         // Step 2: Use tiny collateral to borrow huge amounts
         // With price of 1B, $1 of collateral = $1B value
         // lending::borrow(..., fake_price, ...);
@@ -154,7 +154,7 @@ module secure::oracle {
     const E_PRICE_OUT_OF_BOUNDS: u64 = 3;
     const E_WRONG_ASSET: u64 = 4;
     const E_INVALID_ORACLE: u64 = 5;
-    
+
     const MAX_STALENESS_MS: u64 = 60_000;  // 1 minute
     const MIN_PRICE: u64 = 1;
     const MAX_PRICE: u64 = 1_000_000_000_000;  // $1T max
@@ -193,14 +193,14 @@ module secure::oracle {
             trusted_oracles: vector::empty(),
             min_confirmations: 1,
         };
-        
+
         let registry_id = object::id(&registry);
-        
+
         let admin_cap = AdminCap {
             id: object::new(ctx),
             registry_id,
         };
-        
+
         transfer::share_object(registry);
         transfer::transfer(admin_cap, tx_context::sender(ctx));
     }
@@ -225,7 +225,7 @@ module secure::oracle {
         // 1. Verify the oracle is trusted
         let is_trusted = is_oracle_trusted(registry, &signed_data.oracle_pubkey);
         assert!(is_trusted, E_INVALID_ORACLE);
-        
+
         // 2. Verify signature
         let message = create_price_message(
             &signed_data.asset,
@@ -238,24 +238,24 @@ module secure::oracle {
             &message
         );
         assert!(valid_sig, E_INVALID_SIGNATURE);
-        
+
         // 3. Check staleness
         let current_time = clock::timestamp_ms(clock);
         let age = current_time - signed_data.timestamp_ms;
         assert!(age <= MAX_STALENESS_MS, E_STALE_PRICE);
-        
+
         // 4. Verify asset matches
         assert!(signed_data.asset == expected_asset, E_WRONG_ASSET);
-        
+
         // 5. Check price bounds
         assert!(signed_data.price >= MIN_PRICE, E_PRICE_OUT_OF_BOUNDS);
         assert!(signed_data.price <= MAX_PRICE, E_PRICE_OUT_OF_BOUNDS);
-        
+
         signed_data.price
     }
 
     fun is_oracle_trusted(
-        registry: &OracleRegistry, 
+        registry: &OracleRegistry,
         pubkey: &vector<u8>
     ): bool {
         let len = vector::length(&registry.trusted_oracles);
@@ -318,21 +318,21 @@ module secure::lending {
             pool.collateral_asset,
             clock
         );
-        
+
         let borrow_price = oracle::validate_and_get_price(
             registry,
             &borrow_price_data,
             pool.borrow_asset,
             clock
         );
-        
+
         // Calculate collateral requirement with validated prices
         let collateral_value = coin::value(&collateral) * collateral_price;
         let borrow_value = borrow_amount * borrow_price;
         let required_collateral_value = (borrow_value * COLLATERAL_RATIO_BPS) / 10000;
-        
+
         assert!(collateral_value >= required_collateral_value, E_INSUFFICIENT_COLLATERAL);
-        
+
         // Process borrow safely...
     }
 }
@@ -358,16 +358,16 @@ module example::pyth_consumer {
         clock: &Clock,
     ): u64 {
         let price = price_feed::get_price(price_feed);
-        
+
         // Check price age
         let price_timestamp = price::get_timestamp(&price);
         let current_time = clock::timestamp_ms(clock) / 1000;
         assert!(current_time - price_timestamp <= MAX_AGE_SECONDS, E_STALE_PRICE);
-        
+
         // Get price value (handle negative prices)
         let price_i64 = price::get_price(&price);
         assert!(price_i64 > 0, E_NEGATIVE_PRICE);
-        
+
         (price_i64 as u64)
     }
 }
@@ -397,11 +397,11 @@ module secure::aggregated_oracle {
     ): AggregatedPrice {
         let num_prices = vector::length(&prices);
         assert!(num_prices >= min_sources, E_INSUFFICIENT_ORACLES);
-        
+
         // Sort prices to find median
         let sorted = sort_prices(prices);
         let median_price = *vector::borrow(&sorted, num_prices / 2);
-        
+
         // Check all prices are within acceptable deviation
         let mut i = 0;
         while (i < num_prices) {
@@ -410,7 +410,7 @@ module secure::aggregated_oracle {
             assert!(deviation <= MAX_DEVIATION_BPS, E_PRICE_DEVIATION_TOO_HIGH);
             i = i + 1;
         };
-        
+
         AggregatedPrice {
             median_price,
             num_sources: num_prices,
@@ -458,10 +458,10 @@ module secure::heartbeat_oracle {
         if (!oracle.is_active) {
             return false
         };
-        
+
         let current_time = clock::timestamp_ms(clock);
         let time_since_heartbeat = current_time - oracle.last_heartbeat_ms;
-        
+
         time_since_heartbeat <= HEARTBEAT_INTERVAL_MS
     }
 

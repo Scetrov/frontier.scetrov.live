@@ -14,9 +14,9 @@ Phantom type parameters in Move are type parameters that don't affect the runtim
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-693 (Protection Mechanism Failure), CWE-704 (Incorrect Type Conversion) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-693 (Protection Mechanism Failure), CWE-704 (Incorrect Type Conversion) |
 
 ## The Problem
 
@@ -95,7 +95,7 @@ module vulnerable::lending {
     ) {
         // Attacker creates fake oracle with inflated price
         let collateral_value = coin::value(&collateral) * oracle.price_usd;
-        
+
         // Borrow against inflated value
         assert!(borrow_amount <= collateral_value / 2, E_UNDERCOLLATERALIZED);
         // ...
@@ -122,10 +122,10 @@ module attack::exploit {
             id: object::new(ctx),
             price_usd: 1_000_000_000,  // Fake $1B price
         };
-        
+
         // Create worthless fake coins
         let fake_coins = coin::zero<FAKE_SUI>(ctx);
-        
+
         // Borrow against "valuable" fake collateral
         lending::borrow<FAKE_SUI>(
             &fake_oracle,
@@ -168,13 +168,13 @@ module secure::pool {
         ctx: &mut TxContext
     ) {
         let coin_type = type_name::get<T>();
-        
+
         // Verify type is in approved registry
         assert!(
             vector::contains(&registry.approved_types, &coin_type),
             E_UNAPPROVED_COIN
         );
-        
+
         transfer::share_object(Pool<T> {
             id: object::new(ctx),
             coin_type,
@@ -191,7 +191,7 @@ module secure::pool {
         // Type T is enforced by the borrow checker
         // But we can add extra verification
         assert!(pool.coin_type == type_name::get<T>(), E_TYPE_MISMATCH);
-        
+
         let amount = coin::value(&coin);
         pool.balance = pool.balance + amount;
         coin::join(&mut pool.coin_store, coin);
@@ -226,20 +226,20 @@ module secure::lending {
         ctx: &TxContext
     ) {
         let coin_type = type_name::get<T>();
-        
+
         // Get price from trusted oracle
         assert!(table::contains(&oracle.prices, coin_type), E_UNKNOWN_ASSET);
         let price_data = table::borrow(&oracle.prices, coin_type);
-        
+
         // Check freshness
         assert!(
             clock::timestamp_ms(clock) - price_data.last_update < MAX_STALENESS,
             E_STALE_PRICE
         );
-        
+
         let collateral_value = coin::value(&collateral) * price_data.price_usd;
         assert!(borrow_amount <= collateral_value / 2, E_UNDERCOLLATERALIZED);
-        
+
         // ... proceed with borrow
     }
 }

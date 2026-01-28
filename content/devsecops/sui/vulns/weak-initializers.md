@@ -14,16 +14,16 @@ Weak or improperly protected initialization functions can allow attackers to rei
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-665 (Improper Initialization) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-665 (Improper Initialization) |
 
 ## The Problem
 
 ### Safe vs Unsafe Initialization
 
- | Pattern | Safety | Notes | 
- | --------- | -------- | ------- | 
+ | Pattern | Safety | Notes |
+ | --------- | -------- | ------- |
 | `fun init(ctx)` | Safe | Called once at publish, not callable after |
 | `fun init(witness: WITNESS, ctx)` | Safe | One-Time Witness pattern |
 | `public fun initialize(...)` | **Unsafe** | Can be called by anyone, anytime |
@@ -58,7 +58,7 @@ module vulnerable::protocol {
             treasury,
             initialized: true,
         };
-        
+
         transfer::share_object(state);
     }
 
@@ -71,7 +71,7 @@ module vulnerable::protocol {
         // Attacker sets initialized = false first
         // Then calls reinitialize
         assert!(!state.initialized, E_ALREADY_INITIALIZED);
-        
+
         state.admin = new_admin;
         state.initialized = true;
     }
@@ -101,7 +101,7 @@ module vulnerable::token {
             option::none(),
             ctx
         );
-        
+
         transfer::public_freeze_object(metadata);
         treasury_cap  // Attacker gets minting rights!
     }
@@ -155,21 +155,21 @@ module secure::protocol {
     fun init(witness: PROTOCOL, ctx: &mut TxContext) {
         // Create publisher for package
         let publisher = package::claim(witness, ctx);
-        
+
         let state = ProtocolState {
             id: object::new(ctx),
             admin: tx_context::sender(ctx),
             fee_bps: 100,  // Default fee
             treasury: tx_context::sender(ctx),
         };
-        
+
         let state_id = object::id(&state);
-        
+
         let admin_cap = AdminCap {
             id: object::new(ctx),
             protocol_id: state_id,
         };
-        
+
         transfer::share_object(state);
         transfer::transfer(admin_cap, tx_context::sender(ctx));
         transfer::public_transfer(publisher, tx_context::sender(ctx));
@@ -184,7 +184,7 @@ module secure::protocol {
     ) {
         assert!(cap.protocol_id == object::id(state), E_WRONG_PROTOCOL);
         assert!(new_fee_bps <= 1000, E_FEE_TOO_HIGH);  // Max 10%
-        
+
         state.fee_bps = new_fee_bps;
         state.treasury = new_treasury;
     }
@@ -212,10 +212,10 @@ module secure::token {
             option::none(),
             ctx
         );
-        
+
         // Freeze metadata
         transfer::public_freeze_object(metadata);
-        
+
         // Transfer cap to deployer only
         transfer::transfer(treasury_cap, tx_context::sender(ctx));
     }
@@ -288,15 +288,15 @@ public entry fun complete_setup(
     ctx: &TxContext
 ) {
     let PendingSetup { id, deployer, setup_deadline } = pending;
-    
+
     assert!(tx_context::sender(ctx) == deployer, E_NOT_DEPLOYER);
-    
+
     if (setup_deadline > 0) {
         assert!(clock::timestamp_ms(clock) < setup_deadline, E_SETUP_EXPIRED);
     };
-    
+
     object::delete(id);
-    
+
     // Create actual protocol state
     let state = ProtocolState { /* ... */ };
     transfer::share_object(state);

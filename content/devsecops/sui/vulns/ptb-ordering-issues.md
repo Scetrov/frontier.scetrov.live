@@ -14,9 +14,9 @@ Programmable Transaction Blocks (PTBs) in Sui allow multiple operations in a sin
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A04 (Insecure Design) | CWE-841 (Improper Enforcement of Behavioral Workflow), CWE-662 (Improper Synchronization) |
 
 ## The Problem
 
@@ -72,7 +72,7 @@ module vulnerable::multistep {
     ) {
         // This check can be bypassed in a PTB!
         assert!(session.is_authenticated, E_NOT_AUTHENTICATED);
-        
+
         vault.balance = vault.balance - amount;
         // ... transfer to user
     }
@@ -120,14 +120,14 @@ module vulnerable::flashloan {
 Transaction {
     // Skip authenticate entirely!
     // Or: authenticate with wrong password, then proceed anyway
-    
+
     commands: [
         // Borrow from flash loan
         Call(flashloan::borrow, [pool, 1000000]),
-        
+
         // Use borrowed funds for exploit
         Call(some_protocol::exploit, [borrowed_coins]),
-        
+
         // Never call flashloan::repay
         // Transaction completes successfully!
     ]
@@ -161,7 +161,7 @@ module secure::multistep {
         ctx: &TxContext
     ): AuthToken {
         assert!(verify_password(password_hash, ctx), E_WRONG_PASSWORD);
-        
+
         AuthToken {
             user: tx_context::sender(ctx),
             expires_at: clock::timestamp_ms(clock) + 60000, // 1 minute
@@ -178,16 +178,16 @@ module secure::multistep {
         ctx: &mut TxContext
     ) {
         let AuthToken { user, expires_at, vault_id } = token;
-        
+
         // Verify token is for this vault
         assert!(vault_id == object::id(vault), E_WRONG_VAULT);
-        
+
         // Verify token hasn't expired
         assert!(clock::timestamp_ms(clock) < expires_at, E_EXPIRED);
-        
+
         // Verify caller is the authenticated user
         assert!(tx_context::sender(ctx) == user, E_WRONG_USER);
-        
+
         vault.balance = vault.balance - amount;
         // Token is consumed — cannot be reused
     }
@@ -217,16 +217,16 @@ module secure::flashloan {
         ctx: &mut TxContext
     ): (Coin<SUI>, FlashLoanReceipt) {
         assert!(coin::value(&pool.coins) >= amount, E_INSUFFICIENT);
-        
+
         let borrowed = coin::split(&mut pool.coins, amount, ctx);
         let fee = amount / 1000; // 0.1% fee
-        
+
         let receipt = FlashLoanReceipt {
             pool_id: object::id(pool),
             amount,
             fee,
         };
-        
+
         (borrowed, receipt)
     }
 
@@ -237,15 +237,15 @@ module secure::flashloan {
         repayment: Coin<SUI>,
     ) {
         let FlashLoanReceipt { pool_id, amount, fee } = receipt;
-        
+
         // Verify correct pool
         assert!(pool_id == object::id(pool), E_WRONG_POOL);
-        
+
         // Verify full repayment with fee
         assert!(coin::value(&repayment) >= amount + fee, E_INSUFFICIENT_REPAYMENT);
-        
+
         coin::join(&mut pool.coins, repayment);
-        
+
         // Receipt consumed — loan is repaid
     }
 }
@@ -317,10 +317,10 @@ public entry fun step_two(state: &mut StateMachine) {
 public entry fun operation(state: &mut State, ...) {
     // Pre-conditions
     assert_invariants(state);
-    
+
     // Perform operation
     // ...
-    
+
     // Post-conditions
     assert_invariants(state);
 }

@@ -14,20 +14,20 @@ Dynamic fields and child objects in Sui allow flexible, runtime-determined stora
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-710 (Improper Adherence to Coding Standards), CWE-915 (Improperly Controlled Modification of Dynamically-Determined Object Attributes) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control), A05 (Security Misconfiguration) | CWE-710 (Improper Adherence to Coding Standards), CWE-915 (Improperly Controlled Modification of Dynamically-Determined Object Attributes) |
 
 ## The Problem
 
 ### Dynamic Fields vs Regular Fields
 
- | Aspect | Regular Fields | Dynamic Fields | 
- | -------- | --------------- | ---------------- | 
- | Defined at | Compile time | Runtime | 
- | Type safety | Full | Partial (key type determines value type) | 
- | Enumeration | Yes | No (must know keys) | 
- | Growth | Fixed | Unbounded | 
+ | Aspect | Regular Fields | Dynamic Fields |
+ | -------- | --------------- | ---------------- |
+ | Defined at | Compile time | Runtime |
+ | Type safety | Full | Partial (key type determines value type) |
+ | Enumeration | Yes | No (must know keys) |
+ | Growth | Fixed | Unbounded |
 
 ### Common Mistakes
 
@@ -86,9 +86,9 @@ module vulnerable::inventory {
         let i = 0;
         while (i < count) {
             let key = i;  // Sequential keys
-            df::add(&mut inventory.id, key, Item { 
-                name: b"spam", 
-                value: 0 
+            df::add(&mut inventory.id, key, Item {
+                name: b"spam",
+                value: 0
             });
             i = i + 1;
         }
@@ -191,10 +191,10 @@ module secure::inventory {
     ) {
         // Ownership check
         assert!(tx_context::sender(ctx) == inventory.owner, E_NOT_OWNER);
-        
+
         // Limit check
         assert!(inventory.item_count < MAX_ITEMS, E_MAX_ITEMS);
-        
+
         let item = Item {
             id: object::new(ctx),
             inventory_id: object::id(inventory),
@@ -202,10 +202,10 @@ module secure::inventory {
             value,
             creator: tx_context::sender(ctx),
         };
-        
+
         let item_id = object::id(&item);
         let key = ItemKey { item_id };
-        
+
         // Use object ID as key — guaranteed unique
         dof::add(&mut inventory.id, key, item);
         inventory.item_count = inventory.item_count + 1;
@@ -220,7 +220,7 @@ module secure::inventory {
     ) {
         assert!(tx_context::sender(ctx) == inventory.owner, E_NOT_OWNER);
         assert!(dof::exists_(&inventory.id, item_key), E_ITEM_NOT_FOUND);
-        
+
         let item: &mut Item = dof::borrow_mut(&mut inventory.id, item_key);
         item.value = new_value;
     }
@@ -233,14 +233,14 @@ module secure::inventory {
     ) {
         assert!(tx_context::sender(ctx) == inventory.owner, E_NOT_OWNER);
         assert!(dof::exists_(&inventory.id, item_key), E_ITEM_NOT_FOUND);
-        
+
         let item: Item = dof::remove(&mut inventory.id, item_key);
-        
+
         // Verify item belongs to this inventory
         assert!(item.inventory_id == object::id(inventory), E_ITEM_NOT_FOUND);
-        
+
         inventory.item_count = inventory.item_count - 1;
-        
+
         // Properly delete the item
         let Item { id, inventory_id: _, name: _, value: _, creator: _ } = item;
         object::delete(id);
@@ -296,7 +296,7 @@ public struct Registry has key {
 public fun add_entry(registry: &mut Registry, key: ID, value: Entry) {
     assert!(vector::length(&registry.keys) < registry.max_entries, E_FULL);
     assert!(!vector::contains(&registry.keys, &key), E_EXISTS);
-    
+
     vector::push_back(&mut registry.keys, key);
     df::add(&mut registry.id, key, value);
 }
@@ -356,13 +356,13 @@ df::add(&mut parent.id, key, item);
 ```move
 public fun delete_container(container: Container) {
     let Container { id, keys } = container;
-    
+
     // Remove all dynamic fields first
     while (!vector::is_empty(&keys)) {
         let key = vector::pop_back(&mut keys);
         let _: Value = df::remove(&mut id, key);
     };
-    
+
     vector::destroy_empty(keys);
     object::delete(id);
 }

@@ -316,7 +316,7 @@ try {
 
   var responseBody = await response.Content.ReadAsStreamAsync();
   var node = await JsonNode.ParseAsync(responseBody);
-  
+
   //node.Dump();
 
   Debug.Assert(node != null, nameof(node) + " != null");
@@ -392,25 +392,25 @@ namespace FrontierSharp {
     public required string TableName { get; set; }
     public required IEnumerable<TableField> Fields { get; set; }
   }
-  
+
   public class Relationship {
     public string Source { get; set; }
-    public RelationshipDirection Direction { get; set; } 
+    public RelationshipDirection Direction { get; set; }
     public string Destination { get; set; }
     public string Column { get; set; }
-    
+
     public Relationship(string source, RelationshipDirection direction, string destination, string column) {
       Source = source;
       Direction = direction;
       Destination = destination;
       Column = column;
     }
-    
+
     public override string ToString() {
       var sb = new StringBuilder();
-      
+
       sb.AppendFormat("{0} ", Source);
-      
+
       switch (Direction) {
         case RelationshipDirection.OneToOne:
           sb.Append("-- ");
@@ -424,15 +424,15 @@ namespace FrontierSharp {
         default:
           throw new NotImplementedException(Direction.ToString());
       }
-      
+
       sb.AppendFormat("{0} ", Destination);
       sb.AppendFormat(": {0}", Column);
-      
+
       return sb.ToString();
     }
   }
-  
-  public enum RelationshipDirection { 
+
+  public enum RelationshipDirection {
     OneToOne,
     OneToMany,
     ManyToOne,
@@ -442,7 +442,7 @@ namespace FrontierSharp {
     public required string ParameterName { get; set; }
     public required string AbiType { get; set; }
   }
-  
+
   public static class MudExtensions {
     private static readonly Dictionary<string, string> TableNameMapping = new() {
       { "SmartGateLinkTab", "SmartGateLink" },
@@ -575,7 +575,7 @@ namespace FrontierSharp {
 
     private static string MapAbiTypeToMermaidType(string abiType) {
       return abiType;
-    
+
       return abiType.ToLower() switch {
         "uint256" => "int",
         "int256" => "int",

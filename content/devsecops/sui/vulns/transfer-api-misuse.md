@@ -14,26 +14,26 @@ Transfer API misuse occurs when developers incorrectly use Sui's object transfer
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control) |
 
 ## The Problem
 
 ### Common Transfer API Issues
 
- | Issue | Risk | Description | 
- | ------- | ------ | ------------- | 
+ | Issue | Risk | Description |
+ | ------- | ------ | ------------- |
 | Using `transfer` without `store` | Critical | Compile error or runtime panic |
- | Sharing owned objects incorrectly | High | Can break ownership invariants | 
- | Freezing mutable state | Critical | Permanently locks needed functionality | 
- | Transfer to wrong address | Critical | Assets sent to unrecoverable address | 
+ | Sharing owned objects incorrectly | High | Can break ownership invariants |
+ | Freezing mutable state | Critical | Permanently locks needed functionality |
+ | Transfer to wrong address | Critical | Assets sent to unrecoverable address |
 | `public_transfer` vs `transfer` confusion | High | Security implications differ |
 
 ## Transfer API Quick Reference
 
 | Function | Requires `store` | Use Case |
- | ---------- | ------------------ | ---------- | 
+ | ---------- | ------------------ | ---------- |
 | `transfer::transfer` | No | Internal module transfers of objects without `store` |
 | `transfer::public_transfer` | Yes | External transfers of objects with `store` |
 | `transfer::share_object` | No | Making objects shared (accessible by anyone) |
@@ -67,7 +67,7 @@ module vulnerable::token {
             id: object::new(ctx),
             value: amount,
         };
-        
+
         // Who is sender? Could be anyone, including a contract
         // that can't receive objects
         transfer::public_transfer(token, tx_context::sender(ctx));
@@ -113,7 +113,7 @@ module vulnerable::vault {
     ) {
         // This will fail! Vault doesn't have `store`
         // transfer::public_transfer(vault, new_owner);
-        
+
         // And using transfer from outside the module won't work either
         // Only this module can call transfer::transfer on Vault
     }
@@ -215,20 +215,20 @@ module secure::token {
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
-        
+
         // Validate recipient
         assert!(recipient != @0x0, E_ZERO_ADDRESS);
         assert!(recipient != sender, E_SELF_TRANSFER);
-        
+
         let token_id = object::id(&token);
-        
+
         // Emit event for tracking
         event::emit(TokenTransferred {
             token_id,
             from: sender,
             to: recipient,
         });
-        
+
         transfer::public_transfer(token, recipient);
     }
 
@@ -241,13 +241,13 @@ module secure::token {
     ) {
         let token_id = object::id(&token);
         let sender = tx_context::sender(ctx);
-        
+
         event::emit(TokenTransferred {
             token_id,
             from: sender,
             to: TREASURY,
         });
-        
+
         transfer::public_transfer(token, TREASURY);
     }
 }
@@ -278,19 +278,19 @@ module secure::vault {
     ) {
         // Verify current ownership
         assert!(vault.owner == tx_context::sender(ctx), E_NOT_OWNER);
-        
+
         // Validate new owner
         assert!(new_owner != @0x0, E_ZERO_ADDRESS);
-        
+
         // Update internal owner tracking
         let Vault { id, balance, owner: _ } = vault;
-        
+
         let new_vault = Vault {
             id,
             balance,
             owner: new_owner,
         };
-        
+
         // Use transfer (not public_transfer) since no `store`
         transfer::transfer(new_vault, new_owner);
     }
@@ -301,9 +301,9 @@ module secure::vault {
         ctx: &mut TxContext
     ) {
         assert!(vault.owner == tx_context::sender(ctx), E_NOT_OWNER);
-        
+
         let Vault { id, balance, owner } = vault;
-        
+
         // Return any remaining balance to owner
         if (balance::value(&balance) > 0) {
             let coins = coin::from_balance(balance, ctx);
@@ -311,9 +311,9 @@ module secure::vault {
         } else {
             balance::destroy_zero(balance);
         };
-        
+
         object::delete(id);
-        
+
         // Vault is properly destroyed, not frozen with funds
     }
 }
@@ -349,7 +349,7 @@ module secure::nft {
             owner: tx_context::sender(ctx),
             nft_count: 0,
         };
-        
+
         // Sharing collection is safe - it only contains metadata
         // Individual NFTs are transferred separately
         transfer::share_object(collection);
@@ -362,7 +362,7 @@ module secure::nft {
         ctx: &mut TxContext
     ) {
         assert!(collection.owner == tx_context::sender(ctx), E_NOT_OWNER);
-        
+
         let nft_id = object::id(&nft);
         dof::add(&mut collection.id, nft_id, nft);
         collection.nft_count = collection.nft_count + 1;
@@ -376,11 +376,11 @@ module secure::nft {
     ) {
         // Validate recipient
         assert!(recipient != @0x0, E_ZERO_ADDRESS);
-        
+
         // Additional validation could include:
         // - Checking recipient is not a known module address
         // - Requiring recipient acknowledgment via separate flow
-        
+
         transfer::public_transfer(nft, recipient);
     }
 }
@@ -488,7 +488,7 @@ public entry fun tracked_transfer(
 ) {
     let asset_id = object::id(&asset);
     let sender = tx_context::sender(ctx);
-    
+
     // Create receipt before transfer
     let receipt = TransferReceipt {
         id: object::new(ctx),
@@ -497,10 +497,10 @@ public entry fun tracked_transfer(
         to: recipient,
         timestamp: clock::timestamp_ms(clock),
     };
-    
+
     // Keep receipt with sender for records
     transfer::transfer(receipt, sender);
-    
+
     // Transfer asset
     transfer::public_transfer(asset, recipient);
 }

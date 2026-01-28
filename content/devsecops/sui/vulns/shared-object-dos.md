@@ -14,9 +14,9 @@ Shared objects in Sui can be mutated by any transaction, leading to contention w
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A05 (Security Misconfiguration), A06 (Vulnerable Components) | CWE-400 (Uncontrolled Resource Consumption), CWE-834 (Excessive Iteration) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A05 (Security Misconfiguration), A06 (Vulnerable Components) | CWE-400 (Uncontrolled Resource Consumption), CWE-834 (Excessive Iteration) |
 
 ## The Problem
 
@@ -75,7 +75,7 @@ module vulnerable::exchange {
     ) {
         let order_id = exchange.order_counter;
         exchange.order_counter = order_id + 1;
-        
+
         table::add(&mut exchange.orders, order_id, Order {
             maker: tx_context::sender(ctx),
             amount,
@@ -177,7 +177,7 @@ module secure::exchange {
     ) {
         let order_id = book.next_order_id;
         book.next_order_id = order_id + 1;
-        
+
         // Order is owned by user, not stored in shared object
         transfer::transfer(
             UserOrder {
@@ -205,10 +205,10 @@ module secure::exchange {
         assert!(sell_order.order_book_id == object::id(book), E_WRONG_BOOK);
         assert!(buy_order.is_buy && !sell_order.is_buy, E_INVALID_MATCH);
         assert!(buy_order.price >= sell_order.price, E_PRICE_MISMATCH);
-        
+
         // Quick settlement — minimal time holding shared object
         // ... transfer assets
-        
+
         // Clean up orders
         let UserOrder { id: id1, .. } = buy_order;
         let UserOrder { id: id2, .. } = sell_order;

@@ -14,9 +14,9 @@ Objects with `key + store` abilities can be frozen by any holder using `sui::tra
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-732 (Incorrect Permission Assignment) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-732 (Incorrect Permission Assignment) |
 
 ## The Problem
 
@@ -64,7 +64,7 @@ module vulnerable::treasury {
 
     /// Deposit funds — will fail if treasury is frozen
     public entry fun deposit(
-        state: &mut State, 
+        state: &mut State,
         payment: Coin<SUI>
     ) {
         coin::join(&mut state.treasury.funds, payment);
@@ -83,10 +83,10 @@ module attack::freeze_treasury {
     public entry fun attack(state: &mut treasury::State) {
         // Step 1: Extract treasury by value
         let treasury = treasury::take_treasury(state);
-        
+
         // Step 2: Freeze it permanently
         transfer::public_freeze_object(treasury);
-        
+
         // Protocol is now permanently broken!
         // No deposits, withdrawals, or fee changes possible
     }
@@ -189,7 +189,7 @@ public struct State has key {
 /// Treasury is stored as dynamic field — not directly accessible
 fun init(ctx: &mut TxContext) {
     let state = State { id: object::new(ctx) };
-    df::add(&mut state.id, b"treasury", Treasury { 
+    df::add(&mut state.id, b"treasury", Treasury {
         id: object::new(ctx),
         funds: coin::zero(ctx),
         fee_bps: 100,

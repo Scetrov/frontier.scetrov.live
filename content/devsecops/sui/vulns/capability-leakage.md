@@ -14,9 +14,9 @@ Capability leakage occurs when authority-granting objects (capabilities) are uni
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-668 (Exposure of Resource to Wrong Sphere) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A01 (Broken Access Control) | CWE-284 (Improper Access Control), CWE-668 (Exposure of Resource to Wrong Sphere) |
 
 ## The Problem
 
@@ -112,7 +112,7 @@ module attack::exploit {
     ) {
         // Leak the capability reference
         let cap_ref = protocol::borrow_admin_cap(state);
-        
+
         // Use leaked capability to drain treasury
         vulnerable::treasury::drain_treasury(cap_ref, treasury, ctx);
     }
@@ -147,18 +147,18 @@ module secure::protocol {
             admin_cap_id: object::id_from_address(@0x0),  // Placeholder
             treasury_balance: 0,
         };
-        
+
         let state_id = object::id(&state);
-        
+
         let cap = AdminCap {
             id: object::new(ctx),
             protocol_id: state_id,
             authorized_address: tx_context::sender(ctx),
         };
-        
+
         // Update state with cap ID
         state.admin_cap_id = object::id(&cap);
-        
+
         transfer::share_object(state);
         transfer::transfer(cap, tx_context::sender(ctx));
     }
@@ -172,14 +172,14 @@ module secure::protocol {
     ) {
         // Verify cap matches this protocol
         assert!(cap.protocol_id == object::id(state), E_WRONG_PROTOCOL);
-        
+
         // Verify caller is authorized holder
         assert!(tx_context::sender(ctx) == cap.authorized_address, E_NOT_AUTHORIZED);
-        
+
         // Perform action directly — no capability exposure
         assert!(state.treasury_balance >= amount, E_INSUFFICIENT);
         state.treasury_balance = state.treasury_balance - amount;
-        
+
         // ... transfer funds
     }
 

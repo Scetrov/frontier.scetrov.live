@@ -14,9 +14,9 @@ Move's numeric and bitwise operations have specific semantics that differ from o
 
 ## OWASP / CWE Mapping
 
- | OWASP Top 10 | MITRE CWE | 
- | -------------- | ----------- | 
- | A06 (Vulnerable Components), A03 (Injection) | CWE-681 (Incorrect Conversion), CWE-190 (Integer Overflow) | 
+ | OWASP Top 10 | MITRE CWE |
+ | -------------- | ----------- |
+ | A06 (Vulnerable Components), A03 (Injection) | CWE-681 (Incorrect Conversion), CWE-190 (Integer Overflow) |
 
 ## The Problem
 
@@ -65,11 +65,11 @@ module vulnerable::roles {
         role_index: u64
     ): bool {
         let roles = *vector::borrow(&manager.user_roles, user_id);
-        
+
         // VULNERABLE: If role_index >= 64, this returns 0!
         // Attacker can bypass role check by passing role_index = 64
         let bit = 1u64 << role_index;
-        
+
         (roles & bit) != 0
     }
 
@@ -154,10 +154,10 @@ module secure::roles {
     ): bool {
         // Validate role_index is within valid range
         assert!(role_index <= MAX_ROLE_INDEX, E_INVALID_ROLE_INDEX);
-        
+
         let roles = *vector::borrow(&manager.user_roles, user_id);
         let bit = 1u64 << role_index;
-        
+
         (roles & bit) != 0
     }
 
@@ -187,23 +187,23 @@ module secure::fees {
         let amount_128 = (amount as u128);
         let fee_bps_128 = (config.fee_bps as u128);
         let max_fee_bps_128 = (MAX_FEE_BPS as u128);
-        
+
         let result_128 = (amount_128 * fee_bps_128) / max_fee_bps_128;
-        
+
         // Safe to downcast since result <= amount
         (result_128 as u64)
     }
 
     /// Alternative: Use checked arithmetic with explicit handling
     public fun calculate_fee_checked(
-        config: &FeeConfig, 
+        config: &FeeConfig,
         amount: u64
     ): Option<u64> {
         // Check if multiplication would overflow
         if (amount > 0 && config.fee_bps > 18446744073709551615 / amount) {
             return option::none()
         };
-        
+
         option::some((amount * config.fee_bps) / MAX_FEE_BPS)
     }
 
@@ -235,7 +235,7 @@ public fun safe_multiply_divide(a: u64, b: u64, divisor: u64): u64 {
     let a_128 = (a as u128);
     let b_128 = (b as u128);
     let divisor_128 = (divisor as u128);
-    
+
     ((a_128 * b_128) / divisor_128 as u64)
 }
 ```

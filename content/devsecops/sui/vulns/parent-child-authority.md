@@ -25,20 +25,20 @@ module game::inventory {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::dynamic_object_field as dof;
-    
+
     public struct Player has key {
         id: UID,
         owner: address,
         name: vector<u8>,
     }
-    
+
     public struct Weapon has key, store {
         id: UID,
         name: vector<u8>,
         damage: u64,
         bound_to: Option<address>, // Intended to be soulbound
     }
-    
+
     /// VULNERABLE: Assumes parent ownership implies authority
     /// But child was added independently and may have its own rules
     public fun equip_weapon(
@@ -48,7 +48,7 @@ module game::inventory {
         // Just adds weapon as child - no validation of weapon's bound_to
         dof::add(&mut player.id, b"weapon", weapon);
     }
-    
+
     /// VULNERABLE: Anyone with player access can remove any child
     public fun unequip_weapon(
         player: &mut Player,
@@ -56,7 +56,7 @@ module game::inventory {
         // No check if weapon should be removable
         dof::remove(&mut player.id, b"weapon")
     }
-    
+
     /// VULNERABLE: Soulbound check can be bypassed via parent manipulation
     public fun transfer_weapon(
         weapon: Weapon,
@@ -80,18 +80,18 @@ module defi::wrapped_tokens {
     use sui::dynamic_field as df;
     use sui::balance::{Self, Balance};
     use sui::coin::{Self, Coin};
-    
+
     public struct Vault has key {
         id: UID,
         owner: address,
     }
-    
+
     public struct LockedBalance<phantom T> has store {
         balance: Balance<T>,
         unlock_time: u64,
         original_depositor: address,
     }
-    
+
     /// VULNERABLE: Lock tokens with time restriction
     public fun lock_tokens<T>(
         vault: &mut Vault,
@@ -104,12 +104,12 @@ module defi::wrapped_tokens {
             unlock_time,
             original_depositor: tx_context::sender(ctx),
         };
-        
+
         // Add as dynamic field
         let key = tx_context::sender(ctx);
         df::add(&mut vault.id, key, locked);
     }
-    
+
     /// VULNERABLE: Check is on child but parent can be transferred
     public fun unlock_tokens<T>(
         vault: &mut Vault,
@@ -118,16 +118,16 @@ module defi::wrapped_tokens {
     ): Coin<T> {
         let sender = tx_context::sender(ctx);
         let locked: LockedBalance<T> = df::remove(&mut vault.id, sender);
-        
+
         // Time check exists
         assert!(clock::timestamp_ms(clock) >= locked.unlock_time, 0);
         // Depositor check exists
         assert!(locked.original_depositor == sender, 1);
-        
+
         let LockedBalance { balance, unlock_time: _, original_depositor: _ } = locked;
         coin::from_balance(balance, ctx)
     }
-    
+
     /// VULNERABLE: Vault can be transferred, bypassing child restrictions
     /// New owner can access locked balances of original depositors
     public fun transfer_vault(
@@ -147,13 +147,13 @@ module nft::collection {
     use sui::transfer;
     use sui::dynamic_object_field as dof;
     use sui::vec_map::{Self, VecMap};
-    
+
     public struct Collection has key {
         id: UID,
         creator: address,
         royalty_bps: u64,
     }
-    
+
     public struct NFT has key, store {
         id: UID,
         name: vector<u8>,
@@ -162,7 +162,7 @@ module nft::collection {
         // Royalty settings from collection
         enforces_royalty: bool,
     }
-    
+
     /// VULNERABLE: NFT stores collection reference but doesn't verify parent
     public fun create_nft(
         collection: &mut Collection,
@@ -175,10 +175,10 @@ module nft::collection {
             collection_id: object::uid_to_address(&collection.id),
             enforces_royalty: true,
         };
-        
+
         nft
     }
-    
+
     /// VULNERABLE: Royalty check uses stored ID, not actual parent
     public fun sell_nft(
         nft: NFT,
@@ -188,15 +188,15 @@ module nft::collection {
     ) {
         // Check collection_id matches - but NFT might not actually be child
         assert!(nft.collection_id == object::uid_to_address(&collection.id), 0);
-        
+
         // Royalty would be paid to this collection
         // But NFT could have been removed from collection and sold independently
         let royalty = (price * collection.royalty_bps) / 10000;
-        
+
         // Process sale...
         transfer::transfer(nft, buyer);
     }
-    
+
     /// VULNERABLE: Can remove NFT from collection, breaking royalty enforcement
     public fun remove_from_collection(
         collection: &mut Collection,
@@ -217,13 +217,13 @@ module game::secure_inventory {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::dynamic_object_field as dof;
-    
+
     public struct Player has key {
         id: UID,
         owner: address,
         name: vector<u8>,
     }
-    
+
     public struct Weapon has key, store {
         id: UID,
         name: vector<u8>,
@@ -233,7 +233,7 @@ module game::secure_inventory {
         soulbound: bool,
         original_owner: address,
     }
-    
+
     /// SECURE: Validate weapon can be equipped
     public fun equip_weapon(
         player: &mut Player,
@@ -242,43 +242,43 @@ module game::secure_inventory {
     ) {
         let player_addr = object::uid_to_address(&player.id);
         let sender = tx_context::sender(ctx);
-        
+
         // Verify caller owns the player
         assert!(player.owner == sender, 0);
-        
+
         // Check soulbound restrictions
         if (weapon.soulbound) {
             assert!(weapon.original_owner == sender, 1);
         };
-        
+
         // Verify weapon isn't already equipped
         assert!(option::is_none(&weapon.equipped_to), 2);
-        
+
         // Update weapon state before adding as child
         let mut weapon = weapon;
         weapon.equipped_to = option::some(player_addr);
-        
+
         dof::add(&mut player.id, b"weapon", weapon);
     }
-    
+
     /// SECURE: Validate unequip permissions
     public fun unequip_weapon(
         player: &mut Player,
         ctx: &TxContext
     ): Weapon {
         let sender = tx_context::sender(ctx);
-        
+
         // Only player owner can unequip
         assert!(player.owner == sender, 0);
-        
+
         let mut weapon: Weapon = dof::remove(&mut player.id, b"weapon");
-        
+
         // Clear equipped state
         weapon.equipped_to = option::none();
-        
+
         weapon
     }
-    
+
     /// SECURE: Transfer validates all constraints
     public fun transfer_weapon(
         weapon: Weapon,
@@ -287,13 +287,13 @@ module game::secure_inventory {
     ) {
         // Cannot transfer if equipped
         assert!(option::is_none(&weapon.equipped_to), 0);
-        
+
         // Cannot transfer if soulbound
         assert!(!weapon.soulbound, 1);
-        
+
         transfer::transfer(weapon, recipient);
     }
-    
+
     /// SECURE: Player transfer updates ownership properly
     public fun transfer_player(
         mut player: Player,
@@ -302,14 +302,14 @@ module game::secure_inventory {
     ) {
         let sender = tx_context::sender(ctx);
         assert!(player.owner == sender, 0);
-        
+
         // Check for soulbound items that would prevent transfer
         if (dof::exists_(&player.id, b"weapon")) {
             let weapon: &Weapon = dof::borrow(&player.id, b"weapon");
             // Soulbound items block player transfer
             assert!(!weapon.soulbound, 1);
         };
-        
+
         player.owner = recipient;
         transfer::transfer(player, recipient);
     }
@@ -324,7 +324,7 @@ module defi::secure_locked_tokens {
     use sui::balance::{Self, Balance};
     use sui::coin::{Self, Coin};
     use sui::clock::{Self, Clock};
-    
+
     /// SECURE: Lock is its own object, not a child
     /// Cannot be accessed via parent manipulation
     public struct TimeLock<phantom T> has key {
@@ -334,7 +334,7 @@ module defi::secure_locked_tokens {
         beneficiary: address,
         // Cannot be transferred or modified
     }
-    
+
     /// SECURE: Create independent lock object
     public fun lock_tokens<T>(
         coin: Coin<T>,
@@ -348,11 +348,11 @@ module defi::secure_locked_tokens {
             unlock_time,
             beneficiary,
         };
-        
+
         // Share so beneficiary can claim, but no one can transfer
         transfer::share_object(lock);
     }
-    
+
     /// SECURE: Only beneficiary can unlock after time
     public fun unlock_tokens<T>(
         lock: TimeLock<T>,
@@ -360,17 +360,17 @@ module defi::secure_locked_tokens {
         ctx: &mut TxContext
     ): Coin<T> {
         let TimeLock { id, balance, unlock_time, beneficiary } = lock;
-        
+
         // Verify caller is beneficiary
         assert!(tx_context::sender(ctx) == beneficiary, 0);
-        
+
         // Verify time has passed
         assert!(clock::timestamp_ms(clock) >= unlock_time, 1);
-        
+
         object::delete(id);
         coin::from_balance(balance, ctx)
     }
-    
+
     // No transfer function - lock cannot be moved
 }
 ```
@@ -382,13 +382,13 @@ module nft::secure_collection {
     use sui::transfer;
     use sui::dynamic_object_field as dof;
     use sui::event;
-    
+
     public struct Collection has key {
         id: UID,
         creator: address,
         royalty_bps: u64,
     }
-    
+
     /// SECURE: NFT wrapped in collection-specific container
     public struct CollectionNFT has key, store {
         id: UID,
@@ -396,19 +396,19 @@ module nft::secure_collection {
         // Parent collection address for verification
         collection: address,
     }
-    
+
     public struct NFTData has store {
         name: vector<u8>,
         attributes: vector<u8>,
     }
-    
+
     /// Capability to prove NFT is in collection
     public struct CollectionMembership has key {
         id: UID,
         nft_id: address,
         collection_id: address,
     }
-    
+
     /// SECURE: Create NFT that's bound to collection
     public fun mint_nft(
         collection: &mut Collection,
@@ -423,10 +423,10 @@ module nft::secure_collection {
             },
             collection: object::uid_to_address(&collection.id),
         };
-        
+
         nft
     }
-    
+
     /// SECURE: Sale must go through collection to enforce royalties
     public fun sell_through_collection(
         collection: &Collection,
@@ -437,21 +437,21 @@ module nft::secure_collection {
     ) {
         // Verify NFT belongs to this collection
         assert!(nft.collection == object::uid_to_address(&collection.id), 0);
-        
+
         let price = coin::value(&payment);
         let royalty_amount = (price * collection.royalty_bps) / 10000;
-        
+
         // Pay royalty to creator
         let royalty = coin::split(&mut payment, royalty_amount, ctx);
         transfer::public_transfer(royalty, collection.creator);
-        
+
         // Rest to seller (current owner via PTB)
         transfer::public_transfer(payment, tx_context::sender(ctx));
-        
+
         // Transfer NFT to buyer
         transfer::transfer(nft, buyer);
     }
-    
+
     /// SECURE: Direct transfer still respects collection binding
     /// Collection field remains - royalties enforced on next sale
     public fun transfer_nft(
@@ -470,13 +470,13 @@ module patterns::capability_children {
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::dynamic_object_field as dof;
-    
+
     /// Parent object
     public struct Vault has key {
         id: UID,
         admin: address,
     }
-    
+
     /// Child object with its own access rules
     public struct SecureAsset has key, store {
         id: UID,
@@ -485,14 +485,14 @@ module patterns::capability_children {
         authorized_users: vector<address>,
         requires_capability: bool,
     }
-    
+
     /// Capability for accessing specific asset
     public struct AssetCap has key {
         id: UID,
         asset_id: address,
         holder: address,
     }
-    
+
     /// SECURE: Add child with explicit authority setup
     public fun store_asset(
         vault: &mut Vault,
@@ -502,10 +502,10 @@ module patterns::capability_children {
     ) {
         // Only vault admin can add assets
         assert!(vault.admin == tx_context::sender(ctx), 0);
-        
+
         dof::add(&mut vault.id, key, asset);
     }
-    
+
     /// SECURE: Access requires capability, not just parent access
     public fun access_asset(
         vault: &Vault,
@@ -514,16 +514,16 @@ module patterns::capability_children {
         ctx: &TxContext
     ): &SecureAsset {
         let asset: &SecureAsset = dof::borrow(&vault.id, key);
-        
+
         // Verify capability matches asset
         assert!(cap.asset_id == object::uid_to_address(&asset.id), 0);
-        
+
         // Verify caller holds capability
         assert!(cap.holder == tx_context::sender(ctx), 1);
-        
+
         asset
     }
-    
+
     /// SECURE: Modify requires capability
     public fun modify_asset(
         vault: &mut Vault,
@@ -533,13 +533,13 @@ module patterns::capability_children {
         ctx: &TxContext
     ) {
         let asset: &mut SecureAsset = dof::borrow_mut(&mut vault.id, key);
-        
+
         assert!(cap.asset_id == object::uid_to_address(&asset.id), 0);
         assert!(cap.holder == tx_context::sender(ctx), 1);
-        
+
         asset.value = new_value;
     }
-    
+
     /// SECURE: Remove requires both admin and capability
     public fun remove_asset(
         vault: &mut Vault,
@@ -549,16 +549,16 @@ module patterns::capability_children {
     ): SecureAsset {
         // Must be vault admin
         assert!(vault.admin == tx_context::sender(ctx), 0);
-        
+
         let asset: SecureAsset = dof::remove(&mut vault.id, key);
-        
+
         // Capability must match
         assert!(cap.asset_id == object::uid_to_address(&asset.id), 1);
-        
+
         // Destroy capability
         let AssetCap { id, asset_id: _, holder: _ } = cap;
         object::delete(id);
-        
+
         asset
     }
 }
