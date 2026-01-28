@@ -694,5 +694,5 @@ public struct Parent has key {
 
 - [Access Control Mistakes](../access-control-mistakes/) - General access control issues
 - [Transfer API Misuse](../transfer-api-misuse/) - Object transfer vulnerabilities
-- [Capability Leaks](../capability-leaks/) - Improper capability handling
+- [Capability Leakage](../capability-leakage/) - Improper capability handling
 - [Dynamic Field Key Collisions](../dynamic-field-key-collisions/) - Dynamic field security issues
