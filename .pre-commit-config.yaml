@@ -6,3 +6,13 @@ repos:
         entry: .githooks/pre-commit-checks.sh
         language: script
         pass_filenames: false
+      - id: cspell
+        name: cspell (spell check)
+        entry: npx cspell
+        language: node
+        files: '\.(md|markdown|txt|rst)$'
+      - id: markdownlint
+        name: markdownlint (markdown linter)
+        entry: npx markdownlint-cli
+        language: node
+        files: '\.md$'

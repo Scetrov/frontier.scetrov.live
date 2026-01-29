@@ -1,5 +1,5 @@
 +++
-title = 'Parent-Child Authority'
+title = '34. Parent-Child Authority'
 date = 2025-05-15T00:00:00+00:00
 draft = false
 weight = 34

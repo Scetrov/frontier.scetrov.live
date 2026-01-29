@@ -8,7 +8,5 @@
     "MD047": true,
     "MD031": true,
     "MD040": true,
-    "ignore": [
-        ".github/copilot-instructions.md"
-    ]
+    "MD041": false
 }
