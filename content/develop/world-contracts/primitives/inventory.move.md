@@ -2,6 +2,7 @@
 date = '2026-01-28T20:58:02Z'
 title = 'inventory.move'
 weight = 5
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/inventory.move"
 +++
 
 The `inventory.move` module is a **Layer 1 Composable Primitive** that implements the logic for storage operations, including depositing, withdrawing, and bridging items between the game and the blockchain.

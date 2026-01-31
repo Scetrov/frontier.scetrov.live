@@ -2,6 +2,7 @@
 date = '2026-01-28T20:35:06Z'
 title = 'energy.move'
 weight = 2
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/energy.move"
 +++
 
 The `energy.move` module is a fundamental **Layer 1 Composable Primitive** within the EVE Frontier world contracts. It provides the "digital physics" for power generation, consumption, and reservation across in-game structures.

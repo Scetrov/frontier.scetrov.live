@@ -2,6 +2,7 @@
 date = '2026-01-28T21:01:26Z'
 title = 'metadata.move'
 weight = 7
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/metadata.move"
 +++
 
 The `metadata.move` module is a **Layer 1 Composable Primitive** designed to handle descriptive and non-functional data for game entities in EVE Frontier. It provides a standardized way to attach "soft" information, such as names and descriptions, to on-chain objects.

@@ -2,6 +2,7 @@
 date = '2026-01-28T21:09:22Z'
 title = 'status.move'
 weight = 8
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/status.move"
 +++
 
 The `status.move` module is a **Layer 1 Composable Primitive** that manages the operational states of entities in EVE Frontier. It defines the "on/off" logic and deployment phases for game assemblies, ensuring that other primitives (like energy or fuel) only function when the object is in the correct state.

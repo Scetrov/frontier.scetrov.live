@@ -237,6 +237,7 @@ def format_report(results: list[FreshnessResult]) -> str:
     """Format freshness results as a readable report."""
     lines = [
         "# Documentation Freshness Report",
+        "",
         f"Generated: {datetime.now(timezone.utc).isoformat()}",
         "",
     ]
@@ -262,7 +263,7 @@ def format_report(results: list[FreshnessResult]) -> str:
             "## 🔴 Pages Requiring Review",
             "",
             "| Page | Doc Date | Codebase Updated | Status |",
-            "|------|----------|------------------|--------|",
+            "| ---- | -------- | ---------------- | ------ |",
         ])
         for r in sorted(stale, key=lambda x: x.codebase_last_commit or datetime.min, reverse=True):
             draft_flag = " [DRAFT]" if r.page.is_draft else ""
@@ -280,7 +281,7 @@ def format_report(results: list[FreshnessResult]) -> str:
             "## 🟢 Fresh Pages",
             "",
             "| Page | Doc Date | Codebase Updated | Status |",
-            "|------|----------|------------------|--------|",
+            "| ---- | -------- | ---------------- | ------ |",
         ])
         for r in sorted(fresh, key=lambda x: x.page.title):
             draft_flag = " [DRAFT]" if r.page.is_draft else ""
@@ -290,7 +291,6 @@ def format_report(results: list[FreshnessResult]) -> str:
                 f"{r.codebase_last_commit.strftime('%Y-%m-%d')} | "
                 f"OK |"
             )
-        lines.append("")
     
     # Errors
     if errors:

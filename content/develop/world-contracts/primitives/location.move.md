@@ -2,6 +2,7 @@
 date = '2026-01-28T21:01:45Z'
 title = 'location.move'
 weight = 6
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/location.move"
 +++
 
 The `location.move` module is a **Layer 1 Composable Primitive** that manages the spatial positioning of entities in EVE Frontier. It is central to the game's "digital physics," specifically handling information asymmetry through cryptographic obfuscation.
