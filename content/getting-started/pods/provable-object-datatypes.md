@@ -1,7 +1,7 @@
 +++
 date = '2025-04-29 15:14:04'
 title = 'Provable Object Datatypes (PODs)'
-weight = 30
+weight = 10
 +++
 
 ## Programmable Cryptography
