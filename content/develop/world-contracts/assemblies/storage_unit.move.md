@@ -144,8 +144,8 @@ Access control is enforced through a combination of Capabilities (`OwnerCap`) an
 | `create_and_share` | Private (Package) | Called by game logic / initialization scripts. |
 | `set_online` | `OwnerCap<T>` | Only the owner can activate the unit. |
 | `set_offline` | `OwnerCap<T>` | Only the owner can deactivate the unit. |
-| `game_item_to_chain` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner requests, Game Server (Admin) allows via sponsorship. |
-| `chain_item_to_game` | `OwnerCap` | Owner can burn their own items to move them in-game. |
+| `game_item_to_chain_inventory` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner requests, Game Server (Admin) allows via sponsorship. |
+| `chain_item_to_game_inventory` | `OwnerCap` | Owner can burn their own items to move them in-game. |
 
 ### The `AdminACL` Role
 
