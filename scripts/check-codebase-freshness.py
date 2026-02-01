@@ -59,11 +59,11 @@ def parse_iso_date(date_str: str) -> datetime:
     """Parse ISO 8601 date string to datetime."""
     # Handle various ISO formats
     date_str = date_str.replace('Z', '+00:00')
-    try:
-        return datetime.fromisoformat(date_str)
-    except ValueError:
-        # Fallback for dates without timezone
-        return datetime.fromisoformat(date_str).replace(tzinfo=timezone.utc)
+    dt = datetime.fromisoformat(date_str)
+    # Attach UTC timezone if none is provided
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
 
 
 def extract_github_path(url: str) -> tuple[str, str, str]:
