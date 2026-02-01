@@ -1,8 +1,9 @@
 +++
-date = '2026-01-28T20:33:52Z'
+date = '2026-01-31T16:40:00Z'
 title = "Primitives"
 type = "chapter"
 weight = 1
+codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources/primitives"
 +++
 
 In the EVE Frontier world-contracts architecture, a **Primitive** is a foundational building block that implements low-level game mechanics and data structures for a specific domain. They represent the "digital physics" of the game world, designed to be composed into more complex structures.
@@ -85,3 +86,14 @@ Access to Primitives is strictly controlled to maintain game integrity.
 
 * **Frontier-Restricted:** Primitives are currently restricted to Frontier-designed assemblies and are not directly exposed to third-party builder scripts.
 * **Capability Patterns:** Many Primitive operations require specific Move capabilities (like `AdminCap`) for configuration changes, such as setting the energy requirement for a specific structure type.
+
+---
+
+## Related Documentation
+
+* **[Assemblies](../assemblies/)**: See how primitives are composed into functional game structures.
+* **[World Contracts Overview](../)**: Understand the three-layer architecture.
+
+{{% children sort="weight" %}}
+
+{{% tip-menu-search %}}

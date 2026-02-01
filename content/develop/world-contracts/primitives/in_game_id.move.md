@@ -2,6 +2,7 @@
 date = '2026-01-28T20:47:44Z'
 title = 'in_game_id.move'
 weight = 4
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/in_game_id.move"
 +++
 
 The `in_game_id.move` module is a **Layer 1 Composable Primitive** that provides a standardized identity system for all entities within EVE Frontier. It enables the creation of deterministic and unique identifiers that bridge the gap between off-chain game systems and on-chain Sui objects.

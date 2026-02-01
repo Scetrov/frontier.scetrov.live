@@ -2,6 +2,7 @@
 date = '2026-01-28T20:58:02Z'
 title = 'inventory.move'
 weight = 5
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/inventory.move"
 +++
 
 The `inventory.move` module is a **Layer 1 Composable Primitive** that implements the logic for storage operations, including depositing, withdrawing, and bridging items between the game and the blockchain.
@@ -32,8 +33,8 @@ classDiagram
 
 ### Key Data Structures
 
-* **`Inventory`**: A `store`able struct used within assemblies. It manages capacity through a `VecMap`, which offers an ideal balance for this use case despite high gas costs for large maps.
-* **`Item`**: A `key` and `store`able struct representing a stack of items. Every item must have a parent container, such as an Inventory or a ship. It includes a `Location` to enforce spatial mechanics.
+* **`Inventory`**: A `store`able struct used within [assemblies](../../assemblies/assembly.move/). It manages capacity through a `VecMap`, which offers an ideal balance for this use case despite high gas costs for large maps.
+* **`Item`**: A `key` and `store`able struct representing a stack of items. Every item must have a parent container, such as an Inventory or a ship. It includes a [`Location`](./location.move/) to enforce spatial mechanics.
 
 ---
 
@@ -85,12 +86,12 @@ Capacity management is strictly enforced through volume calculations.
 
 * **Volume Calculation**: Total volume for a stack is `item.volume * item.quantity`.
 * **Capacity Checks**: Every deposit or minting operation asserts that `required_capacity <= (max_capacity - used_capacity)`.
-* **Location Integrity**: Items are minted with a `location_hash`. Spatial verification via proximity proofs is required for sensitive operations like bridging back to the game.
+* **Location Integrity**: Items are minted with a `location_hash`. Spatial verification via [proximity proofs](./location.move/) is required for sensitive operations like bridging back to the game.
 
 ---
 
 ## 5. Security and Event Patterns
 
-* **Package-Level Access**: Core mutation functions are `public(package)`, ensuring only authorized Layer 2 assemblies can modify inventory states.
+* **Package-Level Access**: Core mutation functions are `public(package)`, ensuring only authorized Layer 2 [assemblies](../../assemblies/assembly.move/) can modify inventory states.
 * **Comprehensive Logging**: The module emits specific events for every major action (Minted, Burned, Deposited, Withdrawn, and Destroyed).
 * **Safe Deletion**: When an inventory is deleted, the module iterates through all remaining items and burns them individually, ensuring clean state cleanup and proper event emission.

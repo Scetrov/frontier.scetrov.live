@@ -2,6 +2,7 @@
 date = '2026-01-28T21:01:45Z'
 title = 'location.move'
 weight = 6
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/location.move"
 +++
 
 The `location.move` module is a **Layer 1 Composable Primitive** that manages the spatial positioning of entities in EVE Frontier. It is central to the game's "digital physics," specifically handling information asymmetry through cryptographic obfuscation.
@@ -69,16 +70,16 @@ sequenceDiagram
 
 ```
 
-* **Proximity Proofs**: Actions like `burn_items_with_proof` in the inventory module rely on this module to ensure the character is actually at the assembly's location.
+* **Proximity Proofs**: Actions like `burn_items_with_proof` in the [`inventory`](./inventory.move/) module rely on this module to ensure the character is actually at the assembly's location.
 * **Future Transition**: The architecture is designed to eventually move from server signatures to **Zero-Knowledge Proofs (ZKP)**, allowing players to prove proximity themselves without revealing raw coordinates.
 
 ---
 
 ## 4. Integration with Assemblies
 
-As a Layer 1 Primitive, `location.move` is composed into larger Layer 2 Assemblies to define their "physical" presence in the universe.
+As a Layer 1 Primitive, `location.move` is composed into larger Layer 2 [Assemblies](../../assemblies/assembly.move/) to define their "physical" presence in the universe.
 
-* **`location::attach(hash)`**: Used during the creation or minting process (e.g., when minting items into an inventory) to bind a physical location to the object.
+* **`location::attach(hash)`**: Used during the creation or minting process (e.g., when minting items into an [`inventory`](./inventory.move/)) to bind a physical location to the object.
 * **`location::remove()`**: Ensures that when an object or item is destroyed, its location data is properly cleaned up from the blockchain state.
 
 ---
@@ -86,5 +87,5 @@ As a Layer 1 Primitive, `location.move` is composed into larger Layer 2 Assembli
 ## 5. Security and Access Patterns
 
 * **Trusted Registry**: Proximity verification checks signatures against a `ServerAddressRegistry` to ensure only authorized game servers can vouch for a player's location.
-* **Package-Level Encapsulation**: Like other primitives, critical state-altering functions are `public(package)`, meaning third-party builders must interact through authorized Assembly entry points.
+* **Package-Level Encapsulation**: Like other primitives, critical state-altering functions are `public(package)`, meaning third-party builders must interact through authorized [Assembly](../../assemblies/assembly.move/) entry points.
 * **Digital Physics Enforcement**: By requiring a proof for interactions, the module prevents "teleportation hacks" or remote manipulation of objects that require physical presence.
