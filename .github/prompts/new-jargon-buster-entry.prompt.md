@@ -23,6 +23,7 @@ These pages define key terms that developers encounter when working with EVE Fro
 ### Term Name
 
 Clear, concise definition of the term. Include:
+
 - What it is
 - Why it matters in EVE Frontier context
 - Any relevant technical details
