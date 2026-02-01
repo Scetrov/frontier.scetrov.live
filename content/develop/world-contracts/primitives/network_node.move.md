@@ -2,7 +2,7 @@
 date = '2026-01-31T16:30:00Z'
 title = 'network_node.move'
 weight = 9
-draft = true
+draft = false
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/network_node.move"
 +++
 
