@@ -3,7 +3,7 @@ title = "Home"
 type = "home"
 +++
 
-These are my collective thoughts largely written in [Obsidian](https://obsidian.md) released for the common good under a [CC0 License](https://creativecommons.org/public-domain/cc0/), CCP Games retains all rights to the EVE IP and related content and I reference them under fair use.
+These are my collective thoughts largely written in [Obsidian](https://obsidian.md) and are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/). CCP Games retains all rights to the EVE IP and related content, which I reference under fair use.
 
 ## General Links
 
