@@ -5,7 +5,7 @@ weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/fuel.move"
 +++
 
-The `fuel.move` module is a **Layer 1 Composable Primitive** that governs the lifecycle of consumable resources within EVE Frontier assemblies. It manages storage, consumption over time (burning), and efficiency logic.
+The `fuel.move` module is a **Layer 1 Composable Primitive** that governs the lifecycle of consumable resources within EVE Frontier [assemblies](../../assemblies/assembly.move/). It manages storage, consumption over time (burning), and efficiency logic.
 
 ## 1. Core Component Architecture
 
@@ -33,7 +33,7 @@ classDiagram
 ### Key Data Structures
 
 * **`FuelConfig`**: A shared object that maps `fuel_type_id` to an efficiency percentage (10–100%). Higher efficiency reduces the actual units consumed over time.
-* **`Fuel`**: A `store`able struct held by assemblies. It tracks the current resource type, quantity, and precise timing data required to calculate consumption across transactions.
+* **`Fuel`**: A `store`able struct held by [assemblies](../../assemblies/assembly.move/). It tracks the current resource type, quantity, and precise timing data required to calculate consumption across transactions.
 
 * **`last_updated` (implementation detail)**: The module includes a `last_updated` timestamp (ms) on the `Fuel` struct. `update()` sets `last_updated` after a successful state change; this prevents redundant updates when `update()` is invoked multiple times within the same millisecond and helps cron-style callers skip no-op updates.
 
@@ -102,7 +102,7 @@ Administrative functions are restricted to `AdminCap` holders to balance game-wi
 
 ## 5. Security and Safety Patterns
 
-* **Package-Level Encapsulation**: Mutation functions like `deposit`, `withdraw`, `start_burning`, and `update` are `public(package)`. Only authorized Layer 2 Assemblies can trigger these, preventing players from directly "hacking" their fuel levels.
+* **Package-Level Encapsulation**: Mutation functions like `deposit`, `withdraw`, `start_burning`, and `update` are `public(package)`. Only authorized Layer 2 [Assemblies](../../assemblies/assembly.move/) can trigger these, preventing players from directly "hacking" their fuel levels.
 * **Type Mismatch Protection**: The module prevents depositing different fuel types into the same storage. Users must `withdraw` the old type before switching.
-* **Time-Sync Verification**: `has_enough_fuel` and `need_update` allow assemblies to check if they have enough resources to continue operating *before* committing to a heavy state change.
+* **Time-Sync Verification**: `has_enough_fuel` and `need_update` allow [assemblies](../../assemblies/assembly.move/) to check if they have enough resources to continue operating *before* committing to a heavy state change.
 * **Event Enumeration**: The `Action` enum (DEPOSITED, WITHDRAWN, BURNING_STARTED, etc.) provides a clear audit trail for every fuel-related interaction.

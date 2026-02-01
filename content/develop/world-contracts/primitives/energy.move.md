@@ -64,7 +64,7 @@ stateDiagram-v2
 
 ## 3. Energy Reservation Logic
 
-This is the core "physics" check. Before an assembly can function, it must "reserve" energy from a source.
+This is the core "physics" check. Before an [assembly](../../assemblies/assembly.move/) can function, it must "reserve" energy from a source.
 
 ```mermaid
 flowchart TD
@@ -96,6 +96,6 @@ Management of energy requirements is restricted to holders of the `AdminCap`.
 
 ## 5. Security and Safety Patterns
 
-* **Package-Only Mutation**: Critical functions like `reserve_energy`, `start_energy_production`, and `create` are marked `public(package)`. This ensures that only authorized game-defined assemblies (Layer 2) can modify energy states, preventing third-party contracts from directly manipulating power levels.
+* **Package-Only Mutation**: Critical functions like `reserve_energy`, `start_energy_production`, and `create` are marked `public(package)`. This ensures that only authorized game-defined [assemblies](../../assemblies/assembly.move/) (Layer 2) can modify energy states, preventing third-party contracts from directly manipulating power levels.
 * **Assert-First Design**: Every function begins with strict assertions to prevent invalid states, such as energy requirements of zero or reserving energy from a source that is offline.
 * **Event-Driven Transparency**: Every state change (Start, Stop, Reserve, Release) emits a dedicated event, allowing off-chain indexers to track the real-time power grid of the game world.

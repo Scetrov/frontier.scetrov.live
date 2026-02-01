@@ -2,12 +2,12 @@
 date = '2026-01-31T16:07:00Z'
 title = 'assembly.move'
 weight = 1
-codebase = https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/assembly.move
+codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/assembly.move'
 +++
 
-# Deep Dive: The Assembly Module (`assembly.move`)
+## Overview
 
-This report provides a technical overview of the `assembly.move` module, the core architectural component of the EVE Frontier world contracts. It serves as the orchestration layer where game "digital physics" (Primitives) meet player-driven logic (Extensions).
+This report provides a technical overview of the `assembly.move` module, the core architectural component of the EVE Frontier world contracts. It serves as the orchestration layer where game "digital physics" ([Primitives](../../primitives/)) meet player-driven logic (Extensions).
 
 ## Learning Objectives
 
@@ -52,10 +52,10 @@ classDiagram
 
 ```
 
-### Key Components:
+### Key Components
 
 * **`assembly_key`**: A `TenantItemId` providing a unique, deterministic ID derived from the game server's registry.
-* **Primitives**: Internal fields for `Metadata`, `Status`, and `Location` (and others depending on the specific assembly type).
+* **Primitives**: Internal fields for [`Metadata`](../../primitives/metadata.move/), [`Status`](../../primitives/status.move/), and [`Location`](../../primitives/location.move/) (and others depending on the specific assembly type).
 * **`allowed_extensions`**: A list of `TypeName` entries representing third-party modules authorized to interact with this specific assembly instance.
 
 ---
@@ -81,7 +81,7 @@ sequenceDiagram
 
 ```
 
-### How it Works:
+### How it Works
 
 1. **Witness Pattern**: A builder defines a unique "Witness" type in their own module.
 2. **Registration**: The owner of the Assembly adds the name of that type to the Assembly's `allowed_extensions`.
@@ -104,12 +104,12 @@ stateDiagram-v2
 
 ```
 
-### Lifecycle Stages:
+### Lifecycle Stages
 
 * **Creation**: An Assembly is initialized with a unique `TenantItemId` and shared as a Sui object to allow concurrent access.
-* **Operational Control**: The module provides wrappers for `status.move` logic, allowing the structure to toggle between "Online" and "Offline".
+* **Operational Control**: The module provides wrappers for [`status.move`](../../primitives/status.move/) logic, allowing the structure to toggle between "Online" and "Offline".
 * **State Updates**: Periodically, the assembly may need to "pulse" to process resource consumption (like fuel) or production (like energy).
-* **Destruction**: When a structure is destroyed, the Assembly module ensures that all internal Primitives (Inventory, Location, etc.) are safely deleted and their resources are cleaned up.
+* **Destruction**: When a structure is destroyed, the Assembly module ensures that all internal Primitives ([Inventory](../../primitives/inventory.move/), [Location](../../primitives/location.move/), etc.) are safely deleted and their resources are cleaned up.
 
 ---
 

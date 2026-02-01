@@ -5,7 +5,7 @@ weight = 8
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/status.move"
 +++
 
-The `status.move` module is a **Layer 1 Composable Primitive** that manages the operational states of entities in EVE Frontier. It defines the "on/off" logic and deployment phases for game assemblies, ensuring that other primitives (like energy or fuel) only function when the object is in the correct state.
+The `status.move` module is a **Layer 1 Composable Primitive** that manages the operational states of entities in EVE Frontier. It defines the "on/off" logic and deployment phases for game [assemblies](../../assemblies/assembly.move/), ensuring that other primitives (like [`energy`](./energy.move/) or [`fuel`](./fuel.move/)) only function when the object is in the correct state.
 
 ## 1. Core Component Architecture
 
@@ -22,11 +22,11 @@ classDiagram
 ```
 
 > [!NOTE]
-> Status Embedded in Layer 2 Assemblies to control operational availability.
+> Status Embedded in Layer 2 [Assemblies](../../assemblies/assembly.move/) to control operational availability.
 
 ### Key Data Structures
 
-* **`Status`**: A `store`able struct held by assemblies.
+* **`Status`**: A `store`able struct held by [assemblies](../../assemblies/assembly.move/).
 * **`is_online`**: A boolean flag indicating if the structure is active.
 * **`last_status_change_time`**: A timestamp (in milliseconds) of the last transition, used to prevent rapid toggling or "spamming" of state changes.
 * **`anchor_time`**: Records when a structure was "anchored" or deployed in space.
@@ -35,7 +35,7 @@ classDiagram
 
 ## 2. State Transition Logic
 
-The transition between online and offline states is a critical "digital physics" check for game structures.
+The transition between online and offline states is a critical "digital physics" check for game [structures](../../assemblies/assembly.move/).
 
 ```mermaid
 stateDiagram-v2
@@ -48,7 +48,7 @@ stateDiagram-v2
 
 ```
 
-* **Going Online**: Validates that the structure is ready to function. In Layer 2 assemblies, this usually involves checking if there is sufficient fuel and energy.
+* **Going Online**: Validates that the structure is ready to function. In Layer 2 [assemblies](../../assemblies/assembly.move/), this usually involves checking if there is sufficient [`fuel`](./fuel.move/) and [`energy`](./energy.move/).
 * **Going Offline**: Shuts down the structure's active functions. This may be triggered manually by a player or automatically if resources (like fuel) run out.
 
 ---
@@ -57,7 +57,7 @@ stateDiagram-v2
 
 The `status.move` primitive provides safety checks that other modules use to prevent illegal actions.
 
-* **`assert_is_online`**: A helper function used by assemblies to ensure a feature (like a manufacturing line or a gate jump) only works if the structure is powered and online.
+* **`assert_is_online`**: A helper function used by [assemblies](../../assemblies/assembly.move/) to ensure a feature (like a manufacturing line or a gate jump) only works if the structure is powered and online.
 * **Cooldown Management**: By tracking `last_status_change_time`, the system can enforce cooldown periods, preventing players from instantly toggling a base online and offline to dodge combat or mechanics.
 
 ---
@@ -66,12 +66,12 @@ The `status.move` primitive provides safety checks that other modules use to pre
 
 As a Layer 1 Primitive, `status` is often the first check in any complex interaction.
 
-* **Composition**: A **Storage Unit** or **Gate** is composed of `status` + `location` + `fuel`.
-* **Dependency**: The `fuel::update` or `energy::reserve_energy` functions are typically wrapped in an assembly logic that first checks `status::is_online`.
+* **Composition**: A **[Storage Unit](../../assemblies/storage_unit.move/)** or **Gate** is composed of `status` + [`location`](./location.move/) + [`fuel`](./fuel.move/).
+* **Dependency**: The [`fuel::update`](./fuel.move/) or [`energy::reserve_energy`](./energy.move/) functions are typically wrapped in an assembly logic that first checks `status::is_online`.
 
 ---
 
 ## 5. Security and Access Patterns
 
-* **Package-Level Encapsulation**: Mutation functions like `start_online` and `stop_online` are `public(package)`. Only authorized Layer 2 assemblies can change an object's status, ensuring players cannot bypass game rules to force a structure online.
+* **Package-Level Encapsulation**: Mutation functions like `start_online` and `stop_online` are `public(package)`. Only authorized Layer 2 [assemblies](../../assemblies/assembly.move/) can change an object's status, ensuring players cannot bypass game rules to force a structure online.
 * **Event Emission**: Changes in status emit events (e.g., `StatusChangedEvent`), allowing the game server and players to track the operational state of the universe in real-time.

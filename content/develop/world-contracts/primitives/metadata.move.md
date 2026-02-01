@@ -9,7 +9,7 @@ The `metadata.move` module is a **Layer 1 Composable Primitive** designed to han
 
 ## 1. Core Component Architecture
 
-The module is built around a simple, extensible struct that can be embedded into any Layer 2 Assembly.
+The module is built around a simple, extensible struct that can be embedded into any Layer 2 [Assembly](../../assemblies/assembly.move/).
 
 ```mermaid
 classDiagram
@@ -31,7 +31,7 @@ classDiagram
 
 ## 2. Role in the Architecture
 
-While other primitives like `energy` or `location` define the "physics" of an object, `metadata` defines its "identity" for the user interface and players.
+While other primitives like [`energy`](./energy.move/) or [`location`](./location.move/) define the "physics" of an object, `metadata` defines its "identity" for the user interface and players.
 
 ```mermaid
 flowchart LR
@@ -54,13 +54,13 @@ flowchart LR
 As a primitive, `metadata.move` provides functions to initialize and update these descriptive fields.
 
 * **`create`**: Initializes a new `Metadata` struct with a name and description.
-* **`update`**: Allows the name or description to be modified, typically by the owner of the assembly it is attached to.
+* **`update`**: Allows the name or description to be modified, typically by the owner of the [assembly](../../assemblies/assembly.move/) it is attached to.
 * **View Functions**: Provides public access to read the `name` and `description` of an entity.
 
 ---
 
 ## 4. Why This Pattern Matters
 
-* **Standardization**: By using a dedicated primitive, all game assemblies follow the same naming and description format, making it easier for third-party tools to index and display game data.
+* **Standardization**: By using a dedicated primitive, all game [assemblies](../../assemblies/assembly.move/) follow the same naming and description format, making it easier for third-party tools to index and display game data.
 * **On-Chain Permanence**: Storing this data on-chain ensures that the basic identity of a player-owned structure is as immutable or mutable as the contract logic allows, reinforcing ownership and agency.
 * **Simplicity**: It adheres to the architectural goal of **Atomic Logic**, keeping descriptive data separate from complex functional logic like inventory management or fuel consumption.
