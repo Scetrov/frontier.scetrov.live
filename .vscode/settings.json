@@ -19,5 +19,9 @@
         "secp",
         "suiup"
     ],
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "chat.tools.terminal.autoApprove": {
+        "ffmpeg": true,
+        "Test-Path": true
+    }
 }
