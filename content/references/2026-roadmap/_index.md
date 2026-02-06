@@ -8,7 +8,7 @@ weight = 10
 
 Frontier Friday: Roadmap 2026 presents the team's high-level plans and prototypes for the year. This breakdown highlights major systems shown in the stream (core gameplay, scanning, modular ships, base building, world/landscapes, identity/shells, industry, and technical platform work), captures representative screenshots from the video, and links directly to the source YouTube video at relevant timestamps for quick reference.
 
-Source video (master): [YouTube video](https://www.youtube.com/watch?v=-wD--bFQSNY)
+{{< youtube -wD--bFQSNY >}}
 
 ## Key Moments
 

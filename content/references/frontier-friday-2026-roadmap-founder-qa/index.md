@@ -11,6 +11,8 @@ This Frontier Friday episode is a founder-focused Q&A follow-up to the team’s 
 
 Most of the discussion centers on how the roadmap pillars translate into player-facing systems: modular ships and visual identity, scanning and information risk, how “landscapes”/orbitals are structured in a solar system, and how base building/defense will evolve with short-term fixes while longer-term mechanics mature.
 
+{{< youtube nfe_Wrutnrc >}}
+
 ## Topics Discussed
 
 - [04:54] The stream switches into the founder Q&A format with questions shown on-screen as the agenda driver.
