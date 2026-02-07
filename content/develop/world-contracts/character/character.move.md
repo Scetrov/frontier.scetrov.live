@@ -81,7 +81,7 @@ flowchart TD
 
 ## Section 3: Security and Authorization Model
 
-The character module leverages **Package-Level Encapsulation** and **Capability-Based Access** to ensure only authorized entities can modify sovereign data.
+The character module leverages **Package-Level Encapsulation** and [**Capability-Based Access**](https://move-book.com/programmability/capability/) to ensure only authorized entities can modify sovereign data.
 
 | Action | Required Authorization | Purpose |
 | --- | --- | --- |
