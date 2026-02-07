@@ -1,12 +1,10 @@
 +++
 date = '2026-01-31T16:30:00Z'
-title = 'network_node.move'
+title = 'network_node.move (primitive)'
 weight = 9
 draft = false
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/network_node.move"
 +++
-
-{{% warning-mud %}}
 
 The `network_node.move` module is a **Layer 1 Composable Primitive** that manages [energy](./energy.move/) distribution networks within EVE Frontier. It enables [assemblies](../../assemblies/assembly.move/) to connect to power sources and facilitates the flow of energy across structures.
 
@@ -21,8 +19,10 @@ classDiagram
         +ID energy_source_id
         +bool is_connected
     }
-    Note for NetworkNode "Represents a connection point \nto an energy distribution network."
 ```
+
+> [!NOTE]
+> A NetworkNode represents a connection point to an energy distribution network.
 
 ### Key Data Structures
 
