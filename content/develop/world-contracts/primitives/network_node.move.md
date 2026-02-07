@@ -6,7 +6,7 @@ draft = false
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/network_node.move"
 +++
 
-The `network_node.move` module is a **Layer 1 Composable Primitive** that manages [energy](./energy.move/) distribution networks within EVE Frontier. It enables [assemblies](../../assemblies/assembly.move/) to connect to power sources and facilitates the flow of energy across structures.
+The `network_node.move` module is a **Layer 1 Composable Primitive** that manages [energy](../energy.move/) distribution networks within EVE Frontier. It enables [assemblies](../../assemblies/assembly.move/) to connect to power sources and facilitates the flow of energy across structures.
 
 ## 1. Core Component Architecture
 

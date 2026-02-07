@@ -11,7 +11,7 @@ codebase_url = "[https://github.com/evefrontier/world-contracts/blob/main/contra
 The `killmail` module is a **Layer 2**, however unlike assemblies it represents a point in time event, not a persistent object. It is designed to record the immutable history of player-vs-player or player-vs-npc combat within EVE Frontier. In the spirit of "Digital Physics", a Killmail represents a permanent, unchangeable record of a loss, serving as both a historical ledger and a data source for indexer-based queries.
 
 > [!IMPORTANT]
-> The on-chain killmail components only offer a minimal representation of the killmail event. The full killmail event, including the list of destroyed items and their values, is off-chain and currently accessible in-game, in the future it is likely to be available as a [Provable Object Datatype (POD)](../../../getting-started/pods/).
+> The on-chain killmail components only offer a minimal representation of the killmail event. The full killmail event, including the list of destroyed items and their values, is off-chain and currently accessible in-game, in the future it is likely to be available as a [Provable Object Datatype (POD)](../../../../getting-started/pods/).
 
 ## Learning Objectives
 
