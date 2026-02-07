@@ -115,6 +115,90 @@ Required when an extension is authorized. The extension logic (Layer 3) issues a
 
 ---
 
+## 4.1 Example: Tribe-Gated Extension
+
+To create a restricted gate, a developer must deploy a smart contract that defines the access logic. The following example demonstrates a "Tribe Gate" that only allows members of a specific tribe to pass.
+
+### The Extension Module
+
+```move
+module builder_extensions::gate;
+
+use sui::clock::Clock;
+use world::{
+    character::Character,
+    gate::{Self, Gate},
+    storage_unit::{Self as storage_unit, StorageUnit}
+};
+
+#[error(code = 0)]
+const ENotStarterTribe: vector<u8> = b"Character is not a starter tribe";
+
+// 1. Define the Witness Type
+// This unique type is used to authorize the extension on the Gate.
+public struct TribeAuth has drop {}
+
+// 2. Define Configuration Rules
+// A shared object that stores the required tribe ID.
+public struct GateRules has key {
+    id: UID,
+    tribe: u32,
+}
+
+public struct AdminCap has key, store {
+    id: UID,
+}
+
+// 3. Implement the Permit Logic
+public fun issue_jump_permit(
+    gate_rules: &GateRules,
+    source_gate: &Gate,
+    destination_gate: &Gate,
+    character: &Character,
+    _: &AdminCap,
+    clock: &Clock,
+    ctx: &mut TxContext,
+) {
+    // Validation: Is the character in the correct tribe?
+    assert!(character.tribe() == gate_rules.tribe, ENotStarterTribe);
+
+    // Expiration: Permit is valid for 5 days
+    let expires_at_timestamp_ms = clock.timestamp_ms() + 5 * 24 * 60 * 60 * 1000;
+
+    // Core Action: Issue the permit using the Witness (TribeAuth)
+    gate::issue_jump_permit<TribeAuth>(
+        source_gate,
+        destination_gate,
+        character,
+        TribeAuth {}, // The Witness
+        expires_at_timestamp_ms,
+        ctx,
+    );
+}
+
+// === View Functions ===
+public fun tribe(gate_rules: &GateRules): u32 {
+    gate_rules.tribe
+}
+
+// === Admin Functions ===
+public fun update_tribe_rules(gate_rules: &mut GateRules, _: &AdminCap, tribe: u32) {
+    gate_rules.tribe = tribe;
+}
+
+// === Init ===
+fun init(ctx: &mut TxContext) {
+    let admin_cap = AdminCap { id: object::new(ctx) };
+    transfer::transfer(admin_cap, ctx.sender());
+
+    transfer::share_object(GateRules { id: object::new(ctx), tribe: 0 });
+}
+```
+
+This logic enforces that **only** the extension contract can create a valid `JumpPermit` for a gate configured with `TribeAuth`. The standard `gate::jump` function will fail because the gate expects a permit, and the only way to get that permit is to pass the `character.tribe() == gate_rules.tribe` check.
+
+---
+
 ## 5. Developer's Toolkit: Bulk Queries and Discovery
 
 External tools (like route planners) can interact with this system by querying Sui's shared objects and indexed events.
