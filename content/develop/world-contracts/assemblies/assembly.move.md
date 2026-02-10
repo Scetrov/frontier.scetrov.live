@@ -95,13 +95,12 @@ The `assembly.move` module governs the major milestones of a structure's existen
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Created: assembly::create()
-    Created --> Active: assembly::start_online()
-    Active --> Active: assembly::update_state()
-    Active --> Inactive: assembly::stop_online()
-    Inactive --> Active: assembly::start_online()
-    Inactive --> [*]: assembly::destroy()
-
+    [*] --> Created: assembly.create()
+    Created --> Active: assembly.start_online()
+    Active --> Active: assembly.update_state()
+    Active --> Inactive: assembly.stop_online()
+    Inactive --> Active: assembly.start_online()
+    Inactive --> [*]: assembly.destroy()
 ```
 
 ### Lifecycle Stages

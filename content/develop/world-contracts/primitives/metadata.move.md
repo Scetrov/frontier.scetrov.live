@@ -17,9 +17,10 @@ classDiagram
         +String name
         +String description
     }
-    Note for Metadata "Used to provide human-readable \ncontext for on-chain objects."
-
 ```
+
+> [!NOTE]
+> For Metadata - Used to provide human-readable \ncontext for on-chain objects.
 
 ### Key Data Structures
 
