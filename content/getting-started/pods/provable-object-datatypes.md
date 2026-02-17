@@ -31,7 +31,7 @@ While the possible uses are still emergent there are some obvious use-cases that
 2. **Ephemeral transactional data** - there are instances where you want to be able to know something once. Gate ticketing is a good example, while you can store it in a mud table or even a mapping in a contract; you don't actually need to keep a record of all historical tickets.
 3. **Non-tabular data** - PODs support structure hierarchies of data unlike Mud's 2-dimensions (rows/columns).
 4. **Self-sovereign identity** - only sharing the minimal information required to prove someone has rights to do something. i.e. MJD could issue a gate ticket that allowed a spy to access the REAP gate network without anyone else (even in REAP) knowing. (technically a sub-class of information hiding).
-5. **Claims based identity** - access based upon a set of claims, rather than a set of roles is **much** more expressive than you can achieve in mud without a much large number of tables and columns.
+5. **Claims-based identity** - access based upon a set of claims, rather than a set of roles is **much** more expressive than you can achieve in mud without a much large number of tables and columns.
 
 > [!TIP]
 > Most of the API has been "PODified", which means that data about Gate Jumps, Killmails, Types, Solar Systems and Market Data can be issued by EVE Frontier as the signer.
