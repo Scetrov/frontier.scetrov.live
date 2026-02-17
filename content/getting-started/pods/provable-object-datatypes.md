@@ -21,7 +21,7 @@ Traditionally we have used special-purpose cryptographic primitives to provide g
 
 ## PODs in EVE Frontier
 
-CCP have told us tat Provable Object Datatypes within EVE Frontier can be used by both CCP by implementing well-known, to EVE Frontier, datatypes for interoperability. They are also available to 3rd-party developers to implement their own capabilities.
+CCP have told us that Provable Object Datatypes within EVE Frontier can be used by both CCP by implementing well-known, to EVE Frontier, datatypes for interoperability. They are also available to 3rd-party developers to implement their own capabilities.
 
 ### Use Cases
 
