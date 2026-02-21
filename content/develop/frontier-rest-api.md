@@ -15,9 +15,6 @@ CCP have published a REST API giving access to a wide range of endpoints, in eac
 
 You will need to be using Insomnia 11 or higher, you can import it into your personal workspace simply by having the YAML below in your clipboard before clicking **Import**; alternatively save the YAML to a file and import from your filesystem.
 
-> [!TIP]
-> If you want to access the authenticated endpoints you will need to add your JWT into the `api_key` into your Insomnia Environment, more information available in the [Migration Guide](/develop/mud/migrating-v1-to-v2/#authentication)
-
 ```yaml
 type: collection.insomnia.rest/5.0
 name: EVE Frontier World API (v0.1.31)

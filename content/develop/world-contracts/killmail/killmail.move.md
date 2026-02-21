@@ -27,7 +27,7 @@ The `killmail` module relies on the `TenantItemId` primitive to identify entitie
 ### Data Structures
 
 * **Killmail**: A shared object containing the primary combat data, including the identities of the killer and victim, the location of the incident, and the precise timestamp.
-* **LossType**: A Move enum that classifies the destruction as either a `SHIP` or a `STRUCTURE`. This has changed since the Solidity version which showed all losses as `SHIP` losses.
+* **LossType**: A Move enum that classifies the destruction as either a `SHIP` or a `STRUCTURE`. This has changed since the previous version which showed all losses as `SHIP` losses.
 * **TenantItemId**: Used to store the unique IDs for the killmail itself, the characters involved, and the solar system where the event occurred.
 
 ### Component Relationship

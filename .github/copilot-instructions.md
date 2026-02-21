@@ -4,7 +4,7 @@ This document provides guidance for AI coding agents working on the `frontier.sc
 
 ## Project Overview
 
-This repository contains documentation and resources for developing with the EVE Frontier game, Solidity, and the Mud Framework. The content is organized as a Hugo static site, with Markdown files for content and custom CSS/HTML for styling.
+This repository contains documentation and resources for developing with the EVE Frontier game, Sui Move, and the Sui Blockchain. The content is organized as a Hugo static site, with Markdown files for content and custom CSS/HTML for styling.
 
 ### Key Components
 

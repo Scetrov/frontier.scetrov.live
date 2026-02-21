@@ -11,6 +11,8 @@ Here are some general useful links to EVE Frontier content:
 
 - [EVE Frontier Landing Page](https://evefrontier.com/en)
 - [Builder Documentation](https://docs.evefrontier.com/)
-- [Mud Framework](https://mud.dev/)
+- [Sui Documentation](https://docs.sui.io/)
+- [Sui SDK](https://sdk.mystenlabs.com/sui)
+- [Move Book](https://move-book.com/)
 
 {{% tip-menu-search %}}

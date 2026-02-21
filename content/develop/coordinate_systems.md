@@ -35,7 +35,7 @@ The on-chain sources are the highest possible precision however depending on how
 - if you are rendering these on a map, and especially combining them with data from other sources then you need to subtract `1 << 255` from each of the components of the vector.
 
 > [!TIP]
-> Be careful when calculating `1 << 255` as in some languages using a `1` will result in an implicit cast to a low precision type, for example `BigInteger.One << 255` results in `57896044618658097711785492504343953926634992332820282019728792003956564819968`  but `1 << 255` results in `-2,147,483,648`. This isn't a problem in languages such as Solidity where the native type is a Unsigned 256-bit integer.
+> Be careful when calculating `1 << 255` as in some languages using a `1` will result in an implicit cast to a low precision type, for example `BigInteger.One << 255` results in `57896044618658097711785492504343953926634992332820282019728792003956564819968`  but `1 << 255` results in `-2,147,483,648`. This isn't a problem in languages such as Move where the native integer type supports 256-bit unsigned integers.
 
 ## ResFile Sources
 
