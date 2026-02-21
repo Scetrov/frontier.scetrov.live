@@ -58,7 +58,7 @@ classDiagram
 
 - **`key`**: A `TenantItemId` providing a unique, deterministic ID derived from the game server's registry.
 - **`owner_cap_id`**: The ID of the `OwnerCap` object associated with this assembly, used for authorization checks.
-- **`energy_source_id`**: An optional reference to the [`NetworkNode`](/develop/world-contracts/primitives/network_node.move/) that powers this assembly.
+- **`energy_source_id`**: An optional reference to the [`NetworkNode`](/develop/world-contracts/assemblies/network_node.move/) that powers this assembly.
 - **Primitives**: Internal fields for [`Metadata`](/develop/world-contracts/primitives/metadata.move/), [`Status`](/develop/world-contracts/primitives/status.move/), and [`Location`](/develop/world-contracts/primitives/location.move/) (and others depending on the specific assembly type).
 
 ---
@@ -109,7 +109,7 @@ stateDiagram-v2
 ### Lifecycle Stages
 
 - **Anchoring**: An Assembly is initialized via `anchor()` with a unique `TenantItemId`, connected to a `NetworkNode` for energy, and shared as a Sui object. An `OwnerCap` is created and transferred to the owning character.
-- **Online/Offline**: The owner toggles operational state using `online()` and `offline()`, which reserve or release energy from the connected [`NetworkNode`](../../primitives/network_node.move/).
+- **Online/Offline**: The owner toggles operational state using `online()` and `offline()`, which reserve or release energy from the connected [`NetworkNode`](../../assemblies/network_node.move/).
 - **Energy Source Management**: The admin can update which `NetworkNode` powers the assembly via `update_energy_source()`. When a network node's connected assemblies change, the system uses a **"Hot Potato" pattern** (`UpdateEnergySources`, `OfflineAssemblies`, `HandleOrphanedAssemblies`) to ensure all affected assemblies are updated atomically.
 - **Orphaned Assembly Handling**: If a `NetworkNode` is unanchored, its connected assemblies become "orphaned". The `offline_orphaned_assembly()` function brings them offline, releases energy, and clears their energy source. `unanchor_orphan()` can then destroy an orphaned assembly.
 - **Unanchoring**: When a structure is destroyed via `unanchor()`, the Assembly module disconnects from its `NetworkNode`, releases energy if online, cleans up all internal Primitives ([Location](../../primitives/location.move/), [Metadata](../../primitives/metadata.move/), etc.), and deletes the UID.

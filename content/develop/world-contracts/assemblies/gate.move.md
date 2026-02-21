@@ -34,7 +34,7 @@ The Frontier world contracts utilize a three-layer model to prioritize **composi
 
 ## 2. Operational Lifecycle and Physics
 
-A Gate's lifecycle begins with **Anchoring**, where it is initialized in the `ObjectRegistry` and linked to a [`NetworkNode`](../../primitives/network_node.move/) for power.
+A Gate's lifecycle begins with **Anchoring**, where it is initialized in the `ObjectRegistry` and linked to a [`NetworkNode`](../../assemblies/network_node.move/) for power.
 
 ### The Gate Lifecycle
 
@@ -65,7 +65,7 @@ Gates function by linking to another gate to create a transport link. This proce
 - **Distance**: Gates must be within the maximum distance configured for their type in the `GateConfig` (a shared object mapping `type_id` to `max_distance`). Admins configure distance limits via `set_max_distance`.
 - **Location Proofs**: Linking requires a `distance_proof` (a signature from a trusted server) to verify the gates are within range. The `link_gates` function also requires `AdminACL` sponsor verification as a temporary access check until a location service is available.
 - **Unlinking**: Gates can be unlinked by the owner via `unlink_gates` (requires both `OwnerCap`s) or by an admin via `unlink_gates_by_admin`. Gates must be unlinked before they can be unanchored.
-- **Energy Integration**: A gate cannot go online unless its connected [`NetworkNode`](../../primitives/network_node.move/) has reserved energy for it. If a network node is updated or unanchored, the system uses a **"Hot Potato" pattern** (e.g., `UpdateEnergySources`) to ensure all connected gates are updated atomically in the same transaction block.
+- **Energy Integration**: A gate cannot go online unless its connected [`NetworkNode`](../../assemblies/network_node.move/) has reserved energy for it. If a network node is updated or unanchored, the system uses a **"Hot Potato" pattern** (e.g., `UpdateEnergySources`) to ensure all connected gates are updated atomically in the same transaction block.
 
 ---
 
