@@ -14,7 +14,7 @@ This report provides a comprehensive technical analysis of the `storage_unit.mov
 By the end of this article, you will be able to:
 
 1. **Analyze** the `StorageUnit` data structure and its use of Dynamic Fields for multi-tenant inventory management.
-2. **Explain** the dependency between `StorageUnit` lifecycle states and [`NetworkNode`](/develop/world-contracts/assemblies/network_node.move/) energy handling.
+2. **Explain** the dependency between `StorageUnit` lifecycle states and [`NetworkNode`](/develop/world-contracts/assemblies/network-node/network_node.move/) energy handling.
 3. **Trace** the execution flow of item bridging (Game-to-Chain and Chain-to-Game).
 4. **Evaluate** the security model governing access control and sponsorship requirements.
 
@@ -58,14 +58,14 @@ classDiagram
 * **Dynamic Field Inventories**: Instead of a single flat inventory, the Storage Unit uses Sui's Dynamic Fields to attach separate [`Inventory`](../../primitives/inventory.move/) objects.
   * **Structure Inventory**: Attached using the `StorageUnit`'s own `OwnerCap` ID.
   * **Character Inventories**: Attached using the Character's `OwnerCap` ID (ephemeral inventories created on demand).
-* **`energy_source_id`**: Stores the ID of the [`NetworkNode`](/develop/world-contracts/assemblies/network_node.move/) currently powering the unit. This enforces the requirement that storage must be powered to function.
+* **`energy_source_id`**: Stores the ID of the [`NetworkNode`](/develop/world-contracts/assemblies/network-node/network_node.move/) currently powering the unit. This enforces the requirement that storage must be powered to function.
 * **`extension`**: An optional `TypeName` representing a third-party extension authorized to interact with this unit via the Typed Witness Pattern.
 
 ---
 
 ## 2. Functional Lifecycle
 
-The Storage Unit's lifecycle is tightly coupled with the energy grid. It cannot operate (allow item transfers) without an active connection to a [`NetworkNode`](../../assemblies/network_node.move/) providing energy.
+The Storage Unit's lifecycle is tightly coupled with the energy grid. It cannot operate (allow item transfers) without an active connection to a [`NetworkNode`](../../assemblies/network-node/network_node.move/) providing energy.
 
 ```mermaid
 stateDiagram-v2
@@ -81,7 +81,7 @@ stateDiagram-v2
 
 * **Initialization (`anchor` + `share_storage_unit`)**: Sets up the `StorageUnit`, creates its primary "Structure Inventory" (the default storage bin for the unit itself), connects to a `NetworkNode`, and creates an `OwnerCap` transferred to the owning character.
 * **Activation (`online`)**:
-  1. Verifies the [`NetworkNode`](/develop/world-contracts/assemblies/network_node.move/) has sufficient energy capacity.
+  1. Verifies the [`NetworkNode`](/develop/world-contracts/assemblies/network-node/network_node.move/) has sufficient energy capacity.
   2. **Reserves Energy**: Calls `reserve_energy` on the node, locking a portion of the grid's capacity for this unit.
   3. Updates [`AssemblyStatus`](../../primitives/status.move/) to active.
 * **Deactivation (`offline`)**:
@@ -90,7 +90,7 @@ stateDiagram-v2
 * **Energy Source Management**: The admin can reassign the unit's `NetworkNode` via `update_energy_source()`. When a network node's connected assemblies change, the system uses **"Hot Potato" patterns** (`UpdateEnergySources`, `OfflineAssemblies`, `HandleOrphanedAssemblies`) to ensure all affected units are updated atomically.
 * **Orphaned Unit Handling**: If a `NetworkNode` is unanchored, connected storage units become "orphaned". The `offline_orphaned_storage_unit()` function brings them offline, releases energy, and clears their energy source. `unanchor_orphan()` can then destroy the orphaned unit.
 * **Destruction (`unanchor`)**:
-  * Disconnects from the [`NetworkNode`](/develop/world-contracts/assemblies/network_node.move/) and releases energy if online.
+  * Disconnects from the [`NetworkNode`](/develop/world-contracts/assemblies/network-node/network_node.move/) and releases energy if online.
   * Iterates through `inventory_keys` to destroy **all** attached inventories (both structure and character).
   * Cleans up [metadata](/develop/world-contracts/primitives/metadata.move/), unanchors the unit, and deletes the `UID`.
 
