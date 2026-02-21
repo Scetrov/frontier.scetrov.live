@@ -283,6 +283,7 @@ def generate_collection(spec: dict) -> str:
     lines.append("    isPrivate: false")
     lines.append("  data:")
     lines.append("    scheme: https")
+    lines.append('    base_path: ""')
     lines.append("    base_url: >-")
     lines.append(
         "      {{ _.scheme }}://{{ _.host }}{{ _.base_path }}"

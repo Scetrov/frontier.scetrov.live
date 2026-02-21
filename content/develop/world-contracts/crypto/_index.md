@@ -10,8 +10,8 @@ The `contracts/world/sources/crypto/` folder contains cryptographic utility modu
 
 ## Folder Overview
 
-| File                  | Description                                                                                                          |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| File                  | Description                                                                                                                 |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | **`sig_verify.move`** | Ed25519 signature verification and Sui address derivation for validating off-chain signed messages (e.g., location proofs). |
 
 {{% children sort="weight" %}}

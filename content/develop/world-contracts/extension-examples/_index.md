@@ -34,12 +34,12 @@ sequenceDiagram
 
 ## Modules in This Section
 
-| Module                        | Description                                                                                    |
-| ----------------------------- | ---------------------------------------------------------------------------------------------- |
-| **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.              |
-| **`gate.move`**               | Standalone gate extension — tribe-based jump permit with self-contained rules.                  |
-| **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields.   |
-| **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                  |
+| Module                        | Description                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------- |
+| **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.            |
+| **`gate.move`**               | Standalone gate extension — tribe-based jump permit with self-contained rules.                |
+| **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields. |
+| **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                |
 
 > [!TIP]
 > These examples can be used as starting points for your own extensions. The [builder-scaffold](https://github.com/evefrontier/builder-scaffold) repository provides a complete project template for building and testing extensions locally.

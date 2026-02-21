@@ -553,6 +553,7 @@ environments:
     isPrivate: false
   data:
     scheme: https
+    base_path: ""
     base_url: >-
       {{ _.scheme }}://{{ _.host }}{{ _.base_path }}
   subEnvironments:
