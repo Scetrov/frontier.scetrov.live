@@ -11,8 +11,8 @@ Some EVE Frontier smart assemblies are **programmable** — you can customize th
 
 Prerequisites to customize a smart assembly:
 
-1. **Create a Character** — your on-chain identity that owns all your assemblies. See [`character.move`](world-contracts/character/character.move/).
-2. **Build a Network Node** — anchor a network node at a Lagrange point. This is the power source for your base. See [`network_node.move`](world-contracts/network-node/network_node.move/).
+1. **Create a Character** — your on-chain identity that owns all your assemblies. See [`character.move`](/develop/world-contracts/character/character.move/).
+2. **Build a Network Node** — anchor a network node at a Lagrange point. This is the power source for your base. See [`network_node.move`](/develop/world-contracts/network-node/network_node.move/).
 3. **Deposit Fuel and Go Online** — deposit fuel into the network node and bring it online to start generating energy.
 4. **Anchor a Smart Assembly** — create a smart assembly (e.g., Storage Unit, Gate) in your base. It automatically connects to the network node for energy.
 5. **Bring the Assembly Online** — the assembly reserves energy from the network node and becomes operational.
@@ -72,12 +72,12 @@ sequenceDiagram
 2. The extension creates instances of its witness type to call assembly functions
 3. The assembly verifies the witness type is registered before allowing the operation
 
-For complete extension examples, see the [Extension Examples](world-contracts/extension-examples/) section.
+For complete extension examples, see the [Extension Examples](/develop/world-contracts/extension-examples/) section.
 
 ---
 
 ## Related Resources
 
-* [EVE Frontier World Explainer](world-contracts/) — Three-layer architecture overview
-* [Ownership Model](ownership-model/) — Borrow-use-return pattern for `OwnerCap`
+* [EVE Frontier World Explainer](/develop/world-contracts/) — Three-layer architecture overview
+* [Ownership Model](/develop/ownership-model/) — Borrow-use-return pattern for `OwnerCap`
 * [builder-scaffold](https://github.com/evefrontier/builder-scaffold) — Project template for building and testing extensions

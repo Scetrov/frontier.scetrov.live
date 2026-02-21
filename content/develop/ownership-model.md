@@ -113,7 +113,7 @@ tx.moveCall({
 
 ## Related Code
 
-* [`access_control.move`](world-contracts/access/access_control.move/) — Access control implementation
-* [`character.move`](world-contracts/character/character.move/) — Character and keychain pattern
+* [`access_control.move`](/develop/world-contracts/access/access_control.move/) — Access control implementation
+* [`character.move`](/develop/world-contracts/character/character.move/) — Character and keychain pattern
 
 {{% tip-menu-search %}}

@@ -11,7 +11,7 @@ codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contrac
 In the EVE Frontier ecosystem, the `character` module is a **Layer 2 (Assembly)** component that defines the primary sovereign entity: the Character. Moving beyond simple wallet-based ownership, characters are implemented as shared objects with a decoupled authorization layer. This architecture allows characters to exist as persistent "Digital Physics" entities that can be managed by admins and mutated by users through the secure exchange of Capabilities.
 
 > [!TIP]
-> `character` can be considered to be the Identity part of Identity and Access Management (IdAM); with [`access`](../../access/access.move/) representing the Access Control part of Identity and Access Management.
+> `character` can be considered to be the Identity part of Identity and Access Management (IdAM); with [`access`](/develop/world-contracts/access/access.move/) representing the Access Control part of Identity and Access Management.
 
 ## Learning Objectives
 
