@@ -4,14 +4,9 @@ title = 'Windows Tips'
 weight = 50
 +++
 
-## Working with `pnpm` and `foundry` on Windows
+## Working with Sui on Windows
 
-> [!IMPORTANT]
-> This is what worked for me, your mileage may vary. In general using Mac or Linux is a better Node and Foundry development experience than Windows.
-
-Foundry has problems with Windows and the Lattice team don't support it in PowerShell, Windows PowerShell or cmd, there are known bugs with Foundry and Git Bash. This mean WSL is the best supported way of developing with Foundry on Windows.
-
-If you are unable to use WSL then I suggest enabling Virtualization in the BIOS and using VirtualBox to create a Linux VM to develop within. Alternatively you can sign up to a cloud service like AWS, Azure or OVH and rent a virtual machine in the cloud for less than $5/month.
+Sui is designed to be cross-platform and most components work seamlessly on Windows without using Windows Subsystem for Linux (WSL). However, many of the guides and documentation are written with Bash (Linux) or Zsh (Mac) in mind, and thus you may find it easier to follow along with the documentation if you have a Linux environment available.
 
 ## Install WSL
 

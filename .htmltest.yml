@@ -1,6 +1,4 @@
 IgnoreURLs:
-  - '^https://explorer.mud.dev/.*'
-  - '^https://explorer.mud.dev/pyrope/.*'
   - '^/livereload\.js\?.+'
   - '^https://github.com/.*'
   - '^https://contrib.rocks/.*'

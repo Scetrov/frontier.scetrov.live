@@ -18,5 +18,4 @@ Libraries and software to access various different parts of the game, generally 
 - [Sui Vanity Grinder](https://discord.com/channels/1021714190102175754/1425581054806200442) by Scetrov
 - [Frontier Phobos Fork](https://github.com/frontier-reapers/Phobos) by ProtoDroidBot
 - [EVE Frontier DataViz](https://github.com/Scetrov/eve_frontier_dataviz) by Scetrov
-- [Community Builder Scaffold](https://github.com/Algorithmic-Warfare/MUD-DApp-Scaffold) by Ergod / AWAR
 - [EVE Explore Helper](https://github.com/Heriploe/EVE-Explore-Helper/) by Tenseo

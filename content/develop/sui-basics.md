@@ -1,6 +1,6 @@
 +++
 date = '2025-10-09T20:50:00+01:00'
-title = 'Basics and Keys'
+title = 'Sui Basics'
 weight = 10
 +++
 
