@@ -1,5 +1,5 @@
 +++
-date = '2026-02-01T16:15:57Z'
+date = '2026-02-21T12:23:00Z'
 title = 'storage_unit.move'
 weight = 2
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/storage_unit.move'
@@ -31,11 +31,12 @@ classDiagram
         +TenantItemId key
         +AssemblyStatus status
         +Location location
-        +Metadata metadata
+        +Option<Metadata> metadata
         +vector<ID> inventory_keys
         +Option<ID> energy_source_id
         +ID owner_cap_id
         +u64 type_id
+        +Option<TypeName> extension
     }
     class Inventory {
         +Dynamic Field
@@ -58,6 +59,7 @@ classDiagram
   * **Structure Inventory**: Attached using the `StorageUnit`'s own `OwnerCap` ID.
   * **Character Inventories**: Attached using the Character's `OwnerCap` ID (ephemeral inventories created on demand).
 * **`energy_source_id`**: Stores the ID of the [`NetworkNode`](../../primitives/network_node.move/) currently powering the unit. This enforces the requirement that storage must be powered to function.
+* **`extension`**: An optional `TypeName` representing a third-party extension authorized to interact with this unit via the Typed Witness Pattern.
 
 ---
 
@@ -67,27 +69,28 @@ The Storage Unit's lifecycle is tightly coupled with the energy grid. It cannot 
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Created: create_and_share
-    Created --> Online: set_online (Requires NetworkNode + OwnerCap)
-    Online --> Offline: set_offline (Releases Energy)
+    [*] --> Created: anchor() + share_storage_unit()
+    Created --> Online: online() (Requires NetworkNode + OwnerCap)
+    Online --> Offline: offline() (Releases Energy)
     Online --> Offline: Network Energy Depletion
-    Online --> [*]: destroy (Must be Offline first?)
-    Offline --> Online: set_online
-    Offline --> [*]: destroy (Releases resources)
+    Offline --> Online: online()
+    Offline --> [*]: unanchor() (Releases resources)
 ```
 
 ### Lifecycle Hooks
 
-* **Initialization (`create_and_share`)**: Sets up the `StorageUnit` and creates its primary "Structure Inventory" (the default storage bin for the unit itself).
-* **Activation (`set_online`)**:
+* **Initialization (`anchor` + `share_storage_unit`)**: Sets up the `StorageUnit`, creates its primary "Structure Inventory" (the default storage bin for the unit itself), connects to a `NetworkNode`, and creates an `OwnerCap` transferred to the owning character.
+* **Activation (`online`)**:
   1. Verifies the [`NetworkNode`](../../primitives/network_node.move/) has sufficient energy capacity.
   2. **Reserves Energy**: Calls `reserve_energy` on the node, locking a portion of the grid's capacity for this unit.
-  3. Updates [`Location`](../../primitives/location.move/) and [`AssemblyStatus`](../../primitives/status.move/) to active.
-* **Deactivation (`set_offline`)**:
+  3. Updates [`AssemblyStatus`](../../primitives/status.move/) to active.
+* **Deactivation (`offline`)**:
   1. **Releases Energy**: Calls `release_energy` on the node, freeing up capacity on the grid.
-  2. Disconnects the `StorageUnit` from the [`NetworkNode`](../../primitives/network_node.move/).
-  3. Sets state to inactive.
-* **Destruction (`destroy`)**:
+  2. Sets state to inactive.
+* **Energy Source Management**: The admin can reassign the unit's `NetworkNode` via `update_energy_source()`. When a network node's connected assemblies change, the system uses **"Hot Potato" patterns** (`UpdateEnergySources`, `OfflineAssemblies`, `HandleOrphanedAssemblies`) to ensure all affected units are updated atomically.
+* **Orphaned Unit Handling**: If a `NetworkNode` is unanchored, connected storage units become "orphaned". The `offline_orphaned_storage_unit()` function brings them offline, releases energy, and clears their energy source. `unanchor_orphan()` can then destroy the orphaned unit.
+* **Destruction (`unanchor`)**:
+  * Disconnects from the [`NetworkNode`](../../primitives/network_node.move/) and releases energy if online.
   * Iterates through `inventory_keys` to destroy **all** attached inventories (both structure and character).
   * Cleans up [metadata](../../primitives/metadata.move/), unanchors the unit, and deletes the `UID`.
 
@@ -110,7 +113,8 @@ sequenceDiagram
     
     User->>StorageUnit: game_item_to_chain_inventory(Item Data, Quantity)
     activate StorageUnit
-    StorageUnit->>Admin: check is_authorized_sponsor(ctx)
+    StorageUnit->>Admin: check verify_sponsor(ctx)
+    StorageUnit->>StorageUnit: check character_address == sender
     StorageUnit->>StorageUnit: check status.is_online()
     
     alt User Inventory Missing
@@ -123,7 +127,7 @@ sequenceDiagram
     deactivate StorageUnit
 ```
 
-**Critical Check**: The transaction **must** be sponsored by an address authorized in the `AdminACL`. This prevents users from arbitrarily minting items without the game server verifying they actually found those items in-game.
+**Critical Check**: The transaction **must** be sponsored by an address authorized in the `AdminACL`. This prevents users from arbitrarily minting items without the game server verifying they actually found those items in-game. Additionally, the sender's address must match the `Character`'s registered address.
 
 ### Chain-to-Game (Burning)
 
@@ -131,7 +135,7 @@ This process "exports" items back to the game, effectively burning them on-chain
 
 * **Function**: `chain_item_to_game_inventory`
 * **Mechanism**: Calls `inventory.burn_items_with_proof`.
-* **Verification**: Requires the `StorageUnit` to be Online. This ensures players can't extract items from a "powered down" or "destroyed" station (simulating game mechanics where looting a destroyed station might work differently).
+* **Verification**: Requires the `StorageUnit` to be Online and the sender's address to match the `Character`'s registered address. This ensures players can't extract items from a "powered down" or "destroyed" station.
 
 ---
 
@@ -141,11 +145,16 @@ Access control is enforced through a combination of Capabilities (`OwnerCap`) an
 
 | Function | Required Authority | Scope |
 | :--- | :--- | :--- |
-| `create_and_share` | Private (Package) | Called by game logic / initialization scripts. |
-| `set_online` | `OwnerCap<T>` | Only the owner can activate the unit. |
-| `set_offline` | `OwnerCap<T>` | Only the owner can deactivate the unit. |
-| `game_item_to_chain_inventory` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner requests, Game Server (Admin) allows via sponsorship. |
-| `chain_item_to_game_inventory` | `OwnerCap` | Owner can burn their own items to move them in-game. |
+| `anchor` + `share_storage_unit` | `AdminACL` (Sponsor) | Initial deployment and sharing of storage unit. |
+| `online` | `OwnerCap<StorageUnit>` | Only the owner can activate the unit. |
+| `offline` | `OwnerCap<StorageUnit>` | Only the owner can deactivate the unit. |
+| `game_item_to_chain_inventory` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner requests, Game Server (Admin) allows via sponsorship. Sender must match Character address. |
+| `chain_item_to_game_inventory` | `OwnerCap` | Owner can burn their own items to move them in-game. Sender must match Character address. |
+| `deposit_by_owner` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner deposits items, Game Server verifies via sponsorship. Requires same-location check. |
+| `withdraw_by_owner` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner withdraws items, Game Server verifies via sponsorship. |
+| `deposit_item<Auth>` | Extension Witness | Extension-controlled deposit with authorized type. |
+| `withdraw_item<Auth>` | Extension Witness | Extension-controlled withdrawal with authorized type. |
+| `authorize_extension<Auth>` | `OwnerCap<StorageUnit>` | Register an extension type for this unit. |
 
 ### The `AdminACL` Role
 

@@ -1,5 +1,5 @@
 +++
-date = '2026-01-28T21:01:45Z'
+date = '2026-02-21T12:23:00Z'
 title = 'location.move'
 weight = 6
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/location.move"
@@ -14,20 +14,33 @@ The module defines the representation of a coordinate and the logic required to 
 ```mermaid
 classDiagram
     class Location {
-        +vector<u8> hash
+        +vector<u8> location_hash
     }
-    class ProximityProof {
+    class LocationProofMessage {
+        +address server_address
+        +address player_address
+        +ID source_structure_id
+        +vector<u8> source_location_hash
+        +ID target_structure_id
+        +vector<u8> target_location_hash
+        +u64 distance
+        +vector<u8> data
+        +u64 deadline_ms
+    }
+    class LocationProof {
+        +LocationProofMessage message
         +vector<u8> signature
-        +u64 timestamp_ms
     }
-    Location --|> ProximityProof : validated by
+    LocationProof *-- LocationProofMessage : contains
+    Location --|> LocationProof : validated by
 
 ```
 
 ### Key Data Structures
 
-* **`Location`**: A `store`able struct containing a cryptographic hash of coordinates. Storing hashes instead of cleartext coordinates allows for on-chain verification of spatial entities (like turrets or rifts) while keeping their exact locations private.
-* **`LocationProof` (Conceptual)**: While interaction requires cleartext coordinates for logic, the on-chain state only needs to verify that the provided coordinates match the stored hash or that a trusted authority has signed off on the proximity.
+* **`Location`**: A `store`able struct containing a cryptographic hash of coordinates (Poseidon2 hash). Storing hashes instead of cleartext coordinates allows for on-chain verification of spatial entities (like turrets or rifts) while keeping their exact locations private.
+* **`LocationProofMessage`**: A signed message containing detailed proof information: the server and player addresses, source and target structure IDs with their location hashes, the distance between structures, additional data, and a deadline for expiration.
+* **`LocationProof`**: A wrapper containing the `LocationProofMessage` and its cryptographic signature from an authorized server.
 
 ---
 
@@ -51,9 +64,9 @@ flowchart TD
 
 ---
 
-## 3. Proximity Verification Logic
+## 3. Proximity and Distance Verification
 
-Currently, the system uses a trusted game server to validate proximity claims via signatures.
+The module provides multiple verification methods for different spatial checks.
 
 ```mermaid
 sequenceDiagram
@@ -63,14 +76,24 @@ sequenceDiagram
 
     User->>Server: I am at [X, Y, Z] near Object A
     Server->>Server: Verify Coordinates
-    Server-->>User: Proximity Signature (Proof)
+    Server-->>User: LocationProof (Signed Message)
     User->>Contract: execute_action(LocationProof)
-    Contract->>Contract: verify_proximity_proof_from_bytes()
-    Note over Contract: Checks signature against Server Registry
+    Contract->>Contract: validate_proof_message()
+    Note over Contract: Checks server in Registry
+    Note over Contract: Checks player_address == sender
+    Note over Contract: Checks target_location_hash matches
+    Contract->>Contract: Check deadline_ms > current time
+    Contract->>Contract: Verify signature via sig_verify
 
 ```
 
-* **Proximity Proofs**: Actions like `burn_items_with_proof` in the [`inventory`](./inventory.move/) module rely on this module to ensure the character is actually at the assembly's location.
+### Verification Methods
+
+* **`verify_proximity`**: Accepts a `LocationProof` struct directly. Validates the proof message, checks the deadline, and verifies the server signature.
+* **`verify_proximity_proof_from_bytes`**: Accepts proof as raw bytes. Deserializes the `LocationProofMessage` and signature using BCS, then performs the same validation.
+* **`verify_distance`**: Verifies that two structures are within a maximum allowed distance. Used by the [Gate](../../assemblies/gate.move/) module for linking gates within range.
+* **`verify_same_location`**: A simple hash comparison for operations where both entities must be at the exact same location (e.g., ephemeral storage operations).
+* **Deadline Validation**: All proof verification methods check that `deadline_ms > current_time_ms` (via `Clock`), preventing replay attacks with expired proofs.
 * **Future Transition**: The architecture is designed to eventually move from server signatures to **Zero-Knowledge Proofs (ZKP)**, allowing players to prove proximity themselves without revealing raw coordinates.
 
 ---
@@ -87,5 +110,7 @@ As a Layer 1 Primitive, `location.move` is composed into larger Layer 2 [Assembl
 ## 5. Security and Access Patterns
 
 * **Trusted Registry**: Proximity verification checks signatures against a `ServerAddressRegistry` to ensure only authorized game servers can vouch for a player's location.
-* **Package-Level Encapsulation**: Like other primitives, critical state-altering functions are `public(package)`, meaning third-party builders must interact through authorized [Assembly](../../assemblies/assembly.move/) entry points.
+* **Sender Verification**: Proof messages include a `player_address` field that must match `ctx.sender()`, preventing proofs from being used by unauthorized parties.
+* **Deadline Enforcement**: All proofs carry a `deadline_ms` timestamp. The module rejects proofs where the deadline has passed, mitigating replay attacks.
+* **Package-Level Encapsulation**: Like other primitives, critical state-altering functions (`attach` and `remove`) are `public(package)`, meaning third-party builders must interact through authorized [Assembly](../../assemblies/assembly.move/) entry points.
 * **Digital Physics Enforcement**: By requiring a proof for interactions, the module prevents "teleportation hacks" or remote manipulation of objects that require physical presence.

@@ -1,5 +1,5 @@
 +++
-date = '2026-01-31T16:07:00Z'
+date = '2026-02-21T12:23:00Z'
 title = 'assembly.move'
 weight = 1
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/assembly.move'
@@ -40,51 +40,54 @@ The `assembly.move` module defines the shared object that represents the structu
 classDiagram
     class Assembly {
         +UID id
-        +TenantItemId assembly_key
-        +Metadata metadata
-        +Status status
+        +TenantItemId key
+        +ID owner_cap_id
+        +u64 type_id
+        +AssemblyStatus status
         +Location location
-        +VecSet allowed_extensions
+        +Option<ID> energy_source_id
+        +Option<Metadata> metadata
     }
-    Assembly *-- Metadata : contains
-    Assembly *-- Status : contains
+    Assembly *-- AssemblyStatus : contains
     Assembly *-- Location : contains
+    Assembly *-- Metadata : contains
 
 ```
 
 ### Key Components
 
-* **`assembly_key`**: A `TenantItemId` providing a unique, deterministic ID derived from the game server's registry.
+* **`key`**: A `TenantItemId` providing a unique, deterministic ID derived from the game server's registry.
+* **`owner_cap_id`**: The ID of the `OwnerCap` object associated with this assembly, used for authorization checks.
+* **`energy_source_id`**: An optional reference to the [`NetworkNode`](../../primitives/network_node.move/) that powers this assembly.
 * **Primitives**: Internal fields for [`Metadata`](../../primitives/metadata.move/), [`Status`](../../primitives/status.move/), and [`Location`](../../primitives/location.move/) (and others depending on the specific assembly type).
-* **`allowed_extensions`**: A list of `TypeName` entries representing third-party modules authorized to interact with this specific assembly instance.
 
 ---
 
 ## 3. The Moddability Pattern: Type-Based Authorization
 
-One of the most innovative features of the Assembly module is how it handles player extensions. Instead of using complex access control lists (ACLs) based on addresses, it uses Move's type system.
+One of the most innovative features of the Assembly architecture is how it handles player extensions. Instead of using complex access control lists (ACLs) based on addresses, it uses Move's type system. Specific assembly implementations like [`StorageUnit`](../storage_unit.move/) and [`Gate`](../gate.move/) include an `extension: Option<TypeName>` field.
 
 ```mermaid
 sequenceDiagram
     participant Owner as Assembly Owner
-    participant Registry as Assembly Registry
+    participant Assembly as StorageUnit / Gate
     participant Extension as 3rd Party Extension
     
-    Note over Owner, Registry: Registration Phase
-    Owner->>Registry: register_extension<T>(AuthCap)
-    Registry->>Registry: Add TypeName of T to allowlist
+    Note over Owner, Assembly: Registration Phase
+    Owner->>Assembly: authorize_extension<T>(OwnerCap)
+    Assembly->>Assembly: Set extension = TypeName of T
     
-    Note over Extension, Registry: Execution Phase
-    Extension->>Registry: call_protected_function(Witness T)
-    Registry->>Registry: check if TypeName of Witness T is in allowlist
-    Registry-->>Extension: Authorized Execution
+    Note over Extension, Assembly: Execution Phase
+    Extension->>Assembly: call_function(Witness T)
+    Assembly->>Assembly: check if TypeName of Witness T matches extension
+    Assembly-->>Extension: Authorized Execution
 
 ```
 
 ### How it Works
 
 1. **Witness Pattern**: A builder defines a unique "Witness" type in their own module.
-2. **Registration**: The owner of the Assembly adds the name of that type to the Assembly's `allowed_extensions`.
+2. **Registration**: The owner of the Assembly calls `authorize_extension<T>`, setting the `TypeName` in the assembly's `extension` field.
 3. **Authentication**: When the builder's code calls the Assembly, it passes an instance of that Witness type. Because only the defining module can create that type, the Assembly knows exactly which extension is calling it.
 
 ---
@@ -95,20 +98,21 @@ The `assembly.move` module governs the major milestones of a structure's existen
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Created: assembly.create()
-    Created --> Active: assembly.start_online()
-    Active --> Active: assembly.update_state()
-    Active --> Inactive: assembly.stop_online()
-    Inactive --> Active: assembly.start_online()
-    Inactive --> [*]: assembly.destroy()
+    [*] --> Anchored: anchor()
+    Anchored --> Online: online(OwnerCap, NetworkNode)
+    Online --> Offline: offline(OwnerCap, NetworkNode)
+    Offline --> Online: online(OwnerCap, NetworkNode)
+    Offline --> [*]: unanchor(AdminACL)
+    Online --> [*]: unanchor(AdminACL)
 ```
 
 ### Lifecycle Stages
 
-* **Creation**: An Assembly is initialized with a unique `TenantItemId` and shared as a Sui object to allow concurrent access.
-* **Operational Control**: The module provides wrappers for [`status.move`](../../primitives/status.move/) logic, allowing the structure to toggle between "Online" and "Offline".
-* **State Updates**: Periodically, the assembly may need to "pulse" to process resource consumption (like fuel) or production (like energy).
-* **Destruction**: When a structure is destroyed, the Assembly module ensures that all internal Primitives ([Inventory](../../primitives/inventory.move/), [Location](../../primitives/location.move/), etc.) are safely deleted and their resources are cleaned up.
+* **Anchoring**: An Assembly is initialized via `anchor()` with a unique `TenantItemId`, connected to a `NetworkNode` for energy, and shared as a Sui object. An `OwnerCap` is created and transferred to the owning character.
+* **Online/Offline**: The owner toggles operational state using `online()` and `offline()`, which reserve or release energy from the connected [`NetworkNode`](../../primitives/network_node.move/).
+* **Energy Source Management**: The admin can update which `NetworkNode` powers the assembly via `update_energy_source()`. When a network node's connected assemblies change, the system uses a **"Hot Potato" pattern** (`UpdateEnergySources`, `OfflineAssemblies`, `HandleOrphanedAssemblies`) to ensure all affected assemblies are updated atomically.
+* **Orphaned Assembly Handling**: If a `NetworkNode` is unanchored, its connected assemblies become "orphaned". The `offline_orphaned_assembly()` function brings them offline, releases energy, and clears their energy source. `unanchor_orphan()` can then destroy an orphaned assembly.
+* **Unanchoring**: When a structure is destroyed via `unanchor()`, the Assembly module disconnects from its `NetworkNode`, releases energy if online, cleans up all internal Primitives ([Location](../../primitives/location.move/), [Metadata](../../primitives/metadata.move/), etc.), and deletes the UID.
 
 ---
 
@@ -116,15 +120,17 @@ stateDiagram-v2
 
 Authorization in the Assembly module is bifurcated into two main patterns:
 
-1. **Admin Capability (`AdminCap`)**: Used for game-wide configuration, such as setting global fuel efficiencies or energy requirements.
-2. **Ownership Certificate**: A unique capability object given to the player who owns the structure. This certificate is required for "owner-only" actions, such as registering a new extension or anchoring/unanchoring the structure.
+1. **Admin Access (`AdminACL`)**: Used for game-wide configuration and lifecycle management. Functions like `anchor`, `share_assembly`, `update_energy_source`, and `unanchor` require `AdminACL` with sponsored transaction verification.
+2. **Ownership Certificate (`OwnerCap`)**: A unique capability object given to the player who owns the structure. This certificate is required for operational actions like toggling online/offline state.
 
 | Action | Required Authorization | Purpose |
 | --- | --- | --- |
-| Create Assembly | Game Server / Admin | Initial deployment of structure. |
-| Toggle Online | Owner / Extension | Operational control. |
-| Register Extension | Owner | Granting modding permissions. |
-| Update Primitives | Package (Internal) | Digital physics enforcement. |
+| Anchor Assembly | `AdminACL` (Sponsor) | Initial deployment of structure. |
+| Share Assembly | `AdminACL` (Sponsor) | Make assembly a shared object. |
+| Toggle Online/Offline | `OwnerCap` | Operational control (reserves/releases energy). |
+| Update Energy Source | `AdminACL` (Sponsor) | Reassign to a different NetworkNode. |
+| Unanchor | `AdminACL` (Sponsor) | Destroy and clean up structure. |
+| Unanchor Orphan | `AdminACL` (Sponsor) | Destroy assembly disconnected from NetworkNode. |
 
 ---
 

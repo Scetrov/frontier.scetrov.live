@@ -1,5 +1,5 @@
 +++
-date = '2026-01-31T16:40:00Z'
+date = '2026-02-21T12:23:00Z'
 title = 'fuel.move'
 weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/fuel.move"
@@ -23,8 +23,10 @@ classDiagram
         +u64 quantity
         +bool is_burning
         +Option<u64> type_id
+        +Option<u64> unit_volume
         +u64 burn_start_time
         +u64 previous_cycle_elapsed_time
+        +u64 last_updated
     }
     FuelConfig --|> Fuel : modifies consumption rate of
 
@@ -91,12 +93,12 @@ flowchart TD
 
 ## 4. Administrative Control
 
-Administrative functions are restricted to `AdminCap` holders to balance game-wide resource economies.
+Administrative functions are restricted to `AdminACL` holders via sponsored transactions to balance game-wide resource economies.
 
 | Function | Requirement | Action |
 | --- | --- | --- |
-| `set_fuel_efficiency` | `AdminCap` | Configures the burn efficiency (10-100%) for a specific resource type. |
-| `unset_fuel_efficiency` | `AdminCap` | Removes a fuel type's efficiency configuration. |
+| `set_fuel_efficiency` | `AdminACL` | Configures the burn efficiency (10-100%) for a specific resource type. |
+| `unset_fuel_efficiency` | `AdminACL` | Removes a fuel type's efficiency configuration. |
 
 ---
 

@@ -1,5 +1,5 @@
 +++
-date = '2026-01-28T20:58:02Z'
+date = '2026-02-21T12:23:00Z'
 title = 'inventory.move'
 weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/inventory.move"
@@ -75,8 +75,8 @@ The primitive handles standard storage interactions, ensuring that total volume 
 
 * **`mint_items`**: Adds items to an inventory. If the `type_id` already exists, it simply increases the stack quantity.
 * **`withdraw_item`**: Removes an entire stack of a specific `type_id` and returns the `Item` object.
-* **`deposit_item`**: Places an existing `Item` object into the inventory.
-* **`burn_items_with_proof`**: Verifies the player's proximity to the inventory before burning items for bridging.
+* **`deposit_item`**: Places an existing `Item` object into the inventory. If an item with the same `type_id` already exists, volume is asserted to match before merging stacks.
+* **`burn_items_with_proof`**: Verifies the player's proximity to the inventory before burning items for bridging. Includes a deadline check via `Clock` to prevent stale proofs.
 
 ---
 
@@ -93,5 +93,6 @@ Capacity management is strictly enforced through volume calculations.
 ## 5. Security and Event Patterns
 
 * **Package-Level Access**: Core mutation functions are `public(package)`, ensuring only authorized Layer 2 [assemblies](../../assemblies/assembly.move/) can modify inventory states.
+* **Volume Mismatch Protection**: When depositing items of an existing `type_id`, the module asserts that `item.volume == existing.volume` to prevent corruption of capacity tracking.
 * **Comprehensive Logging**: The module emits specific events for every major action (Minted, Burned, Deposited, Withdrawn, and Destroyed).
 * **Safe Deletion**: When an inventory is deleted, the module iterates through all remaining items and burns them individually, ensuring clean state cleanup and proper event emission.

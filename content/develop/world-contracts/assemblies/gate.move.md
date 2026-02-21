@@ -1,8 +1,8 @@
 +++
-date = '2026-02-02T15:38:00Z'
+date = '2026-02-21T12:23:00Z'
 title = 'gate.move'
 weight = 3
-codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/builder_extensions/sources/gate.move'
+codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/gate.move'
 +++
 
 ## Overview
@@ -62,8 +62,9 @@ sequenceDiagram
 Gates function by linking to another gate to create a transport link. This process is governed by strict "digital physics":
 
 - **Ownership**: Both gates must be owned by the same character.
-- **Distance**: Gates must be at least 20KM apart.
-- **Location Proofs**: Linking requires a `distance_proof` (a signature from a trusted server) to verify the gates are within the maximum distance allowed for that gate type.
+- **Distance**: Gates must be within the maximum distance configured for their type in the `GateConfig` (a shared object mapping `type_id` to `max_distance`). Admins configure distance limits via `set_max_distance`.
+- **Location Proofs**: Linking requires a `distance_proof` (a signature from a trusted server) to verify the gates are within range. The `link_gates` function also requires `AdminACL` sponsor verification as a temporary access check until a location service is available.
+- **Unlinking**: Gates can be unlinked by the owner via `unlink_gates` (requires both `OwnerCap`s) or by an admin via `unlink_gates_by_admin`. Gates must be unlinked before they can be unanchored.
 - **Energy Integration**: A gate cannot go online unless its connected [`NetworkNode`](../../primitives/network_node.move/) has reserved energy for it. If a network node is updated or unanchored, the system uses a **"Hot Potato" pattern** (e.g., `UpdateEnergySources`) to ensure all connected gates are updated atomically in the same transaction block.
 
 ---
@@ -103,11 +104,11 @@ There are two primary ways to traverse a gate:
 
 ### A. Default Jump
 
-Allowed only when no extension logic is configured. It validates that both gates are online and linked before emitting a `JumpEvent`.
+Allowed only when no extension logic is configured. It validates that both gates are online and linked before emitting a `JumpEvent`. Requires `AdminACL` sponsor verification.
 
 ### B. Jump with Permit
 
-Required when an extension is authorized. The extension logic (Layer 3) issues a `JumpPermit` object to the player.
+Required when an extension is authorized. The extension logic (Layer 3) issues a `JumpPermit` object to the player. Also requires `AdminACL` sponsor verification.
 
 - **Route Hashing**: Permits are bound to a specific source/destination pair via a `route_hash`.
 - **Direction Agnostic**: The hash is computed from concatenated IDs (A+B) using `blake2b256`, ensuring one permit works for both A→B and B→A.
@@ -318,6 +319,7 @@ tx.moveCall({
     tx.object(sourceGateId),
     tx.object(destinationGateId),
     tx.object(characterId),
+    tx.object(config.adminACL), // Required for sponsor verification
   ],
 });
 ```
@@ -340,6 +342,7 @@ tx.moveCall({
     tx.object(destinationGateId),
     tx.object(characterId),
     tx.object(permitObject.data[0].data.objectId), // The single-use permit
+    tx.object(config.adminACL), // Required for sponsor verification
     tx.object(CLOCK_OBJECT_ID), // Required for expiry check
   ],
 });

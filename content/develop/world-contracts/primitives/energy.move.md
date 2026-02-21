@@ -1,5 +1,5 @@
 +++
-date = '2026-01-28T20:35:06Z'
+date = '2026-02-21T12:23:00Z'
 title = 'energy.move'
 weight = 2
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/energy.move"
@@ -85,12 +85,12 @@ flowchart TD
 
 ## 4. Administrative Control
 
-Management of energy requirements is restricted to holders of the `AdminCap`.
+Management of energy requirements is restricted to holders of the `AdminACL` via sponsored transactions.
 
 | Function | Requirement | Action |
 | --- | --- | --- |
-| `set_energy_config` | `AdminCap` | Sets/Updates energy cost for a structure type. |
-| `remove_energy_config` | `AdminCap` | Removes a structure type from the energy registry. |
+| `set_energy_config` | `AdminACL` | Sets/Updates energy cost for a structure type. |
+| `remove_energy_config` | `AdminACL` | Removes a structure type from the energy registry. |
 
 ---
 
