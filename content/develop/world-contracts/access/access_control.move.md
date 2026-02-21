@@ -1,6 +1,6 @@
 +++
 date = 2026-02-07
-title = "access.move"
+title = "access_control.move"
 weight = 10
 description = "Deep dive into the hierarchical capability model and the digital laws governing object mutation in EVE Frontier."
 codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/access/access_control.move"
@@ -14,7 +14,7 @@ Within the three-layer architecture, this module acts as a **Layer 2 (Assembly)*
 
 ## Learning Objectives
 
-* **Define** the hierarchy between `GovernorCap`, `AdminCap`, and `OwnerCap`.
+* **Define** the hierarchy between `GovernorCap`, `AdminACL`, and `OwnerCap`.
 * **Explain** the "KeyCard" pattern used for granular, transferable access control.
 * **Visualize** the relationship between world registries and authorized sponsors.
 * **Describe** the lifecycle of an `OwnerCap` from creation to secure receipt.
@@ -25,8 +25,7 @@ The module utilizes a tiered capability system to delegate permissions from the 
 
 ### Data Structures
 
-* **`AdminACL`**: A shared object containing a registry of `authorized_sponsors`, allowing for sponsored transaction flows.
-* **`AdminCap`**: A mid-level capability assigned to specific addresses, allowing them to manage object-level permissions.
+* **`AdminACL`**: A shared object containing a registry of `authorized_sponsors`. Admin-level operations (creating characters, anchoring assemblies, etc.) require the transaction sponsor to be in this list, verified via `verify_sponsor(ctx)`. Replaces the former `AdminCap` capability pattern.
 * **`OwnerCap of T`**: A phantom-typed "KeyCard" that grants mutation rights to a specific object ID of type `T`.
 * **`ServerAddressRegistry`**: A whitelist of off-chain server addresses authorized to sign location and state proofs.
 
@@ -37,24 +36,20 @@ classDiagram
     class GovernorCap {
         <<Global Capability>>
     }
-    class AdminCap {
+    class AdminACL {
         +UID id
-        +address admin
+        +Table~address, bool~ authorized_sponsors
     }
     class OwnerCap~T~ {
         +UID id
         +ID authorized_object_id
     }
-    class AdminACL {
-        +Table~address, bool~ authorized_sponsors
-    }
     class ServerAddressRegistry {
         +Table~address, bool~ authorized_address
     }
 
-    GovernorCap ..> AdminCap : Creates/Deletes
-    AdminCap ..> OwnerCap : Creates/Deletes
     GovernorCap ..> AdminACL : Manages Sponsors
+    AdminACL ..> OwnerCap : Creates/Deletes (via verify_sponsor)
     GovernorCap ..> ServerAddressRegistry : Manages Server List
     OwnerCap~T~ ..> "1" T : Authorizes Mutation
 
@@ -69,8 +64,8 @@ The primary lifecycle revolves around the **OwnerCap**, which decouples object o
 ```mermaid
 flowchart TD
     Start([Governor Deployment]) --> Init[init: Create AdminACL & ServerRegistry]
-    Init --> AdminSet[Governor creates AdminCap]
-    AdminSet --> CreateCap[Admin creates OwnerCap for Object ID]
+    Init --> SponsorReg[Governor adds sponsors to AdminACL]
+    SponsorReg --> CreateCap[Sponsor creates OwnerCap for Object ID]
     CreateCap --> Transfer[Transfer OwnerCap to Player]
     Transfer --> Authorized{is_authorized?}
     Authorized -- Yes --> Mutate[Mutate Shared Object]
@@ -86,11 +81,11 @@ The module utilizes [**Capability-Based Security**](https://move-book.com/progra
 
 | Action | Required Authorization | Purpose |
 | --- | --- | --- |
-| **Create AdminCap** | `GovernorCap` | Top-level delegation of administrative power. |
-| **Create OwnerCap** | `AdminCap` | Issuing access rights for specific game objects (Characters/Assemblies). |
+| **Manage Sponsors** | `GovernorCap` | Add/remove authorized sponsor addresses in `AdminACL`. |
+| **Create OwnerCap** | `AdminACL` (verified sponsor) | Issuing access rights for specific game objects (Characters/Assemblies). |
 | **Transfer OwnerCap** | Possession of `OwnerCap` | Allows users to trade or delegate mutation rights. |
 | **Mutate Object** | `is_authorized(OwnerCap, ID)` | Ensures the "KeyCard" matches the target object. |
-| **Manage Sponsors** | `GovernorCap` | Controls which addresses can pay gas for user transactions. |
+| **Register Server** | `GovernorCap` | Maintains the integrity of off-chain data signed by trusted servers. |
 | **Register Server** | `GovernorCap` | Maintains the integrity of off-chain data signed by trusted servers. |
 
 ## Section 4: Security and Safety Patterns

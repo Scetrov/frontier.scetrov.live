@@ -121,3 +121,48 @@ Devcontainer image vs build note
 The devcontainer configuration was intentionally set to use a prebuilt image (`mcr.microsoft.com/devcontainers/javascript-node:20`) instead of building the local `Dockerfile`. This avoids local image builds that can fail under rootless Podman when subordinate UID/GID mappings are insufficient.
 
 If VS Code still fails to pull the base image, follow the NixOS remedy earlier in this document (add `extraSubuids` / `extraSubgids` for your user and run `podman system migrate`), or use the `podman-policy` helper as documented above for a temporary workaround.
+
+Upstream PR Monitoring Process
+------------------------------
+
+This documentation site tracks two upstream repositories for changes that affect content accuracy:
+
+| Repository | URL |
+| --- | --- |
+| **world-contracts** | https://github.com/evefrontier/world-contracts |
+| **builder-documentation** | https://github.com/evefrontier/builder-documentation |
+
+**Review Cadence**
+
+Perform a weekly review of open and recently merged pull requests in both repositories.
+
+**Process**
+
+- **Check for open/merged PRs** on both repos (GitHub → Pull requests → filter by recently updated).
+- **Assess impact** — determine which documentation pages are affected by the change.
+- **For merged PRs**: Update the affected pages immediately. If the PR introduced a renamed struct, new module, or changed behavior, update the corresponding `.move.md` page, diagrams, and security tables.
+- **For open/draft PRs**: If the change is significant enough to document early, create or update the affected page and add the `pre-release` shortcode at the top of the content:
+
+  ```markdown
+  {{%/* pre-release pr_number="84" repo="world-contracts" description="Item teleportation vulnerability fix" */%}}
+  ```
+
+  The shortcode renders a warning banner linking to the PR, clearly marking the content as based on unreleased code.
+
+- **When the PR merges**: Remove the `pre-release` shortcode from the page.
+
+Shortcode parameters:
+
+| Parameter | Required | Default | Description |
+| --- | --- | --- | --- |
+| `pr_number` | Yes | — | The pull request number |
+| `repo` | No | `world-contracts` | Repository name (e.g., `builder-documentation`) |
+| `description` | No | — | Brief description shown in the banner |
+
+Currently tracked PRs:
+
+| PR | Repo | Status | Summary |
+| --- | --- | --- | --- |
+| [#84](https://github.com/evefrontier/world-contracts/pull/84) | world-contracts | Draft | Item teleportation vulnerability |
+| [#83](https://github.com/evefrontier/world-contracts/pull/83) | world-contracts | Draft | Deposit Receipts extension |
+| [#44](https://github.com/evefrontier/builder-documentation/pull/44) | builder-documentation | Open | Fix outdated Move link in intro |

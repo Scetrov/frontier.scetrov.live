@@ -85,10 +85,10 @@ The character module leverages **Package-Level Encapsulation** and [**Capability
 
 | Action | Required Authorization | Purpose |
 | --- | --- | --- |
-| **Create Character** | `AdminCap` | Restricts identity creation to authorized game systems. |
+| **Create Character** | `AdminACL` (verified sponsor) | Restricts identity creation to authorized game systems. |
 | **Borrow OwnerCap** | `Receiving<OwnerCap>` + `character_address` | Validates that the sender is the current designated "pilot" of the character. |
-| **Update Tribe/Address** | `AdminCap` | Allows administrative overrides for character attributes. |
-| **Delete Character** | `AdminCap` | Manages character termination and cleans up nested metadata. |
+| **Update Tribe/Address** | `AdminACL` (verified sponsor) | Allows administrative overrides for character attributes. |
+| **Delete Character** | `AdminACL` (verified sponsor) | Manages character termination and cleans up nested metadata. |
 
 ## Section 4: Security and Safety Patterns
 
@@ -110,6 +110,6 @@ The `character` module is the cornerstone of EVE Frontier's identity system. It 
 
 **Related Documentation:**
 
-* **Access Control:** Defines the `AdminCap` and `OwnerCap` structures.
+* **Access Control:** Defines the `AdminACL` and `OwnerCap` structures.
 * **In-Game ID:** Provides the logic for deterministic key generation.
 * **Object Registry:** Manages the global namespace for derived objects.

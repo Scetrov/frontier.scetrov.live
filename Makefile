@@ -14,6 +14,7 @@ help: ## Show available make targets
 	@echo "  serve               Serve the site locally (hugo serve)"
 	@echo "  validate-docs       Build the site and run markdown linting"
 	@echo "  lint-md             Run markdownlint across content and .github"
+	@echo "  lint-mermaid         Validate all mermaid diagrams in content/"
 	@echo "  precommit           Run configured pre-commit hooks (all files)"
 	@echo "  install-tools       Try to install common tools (apt-based systems)"
 	@echo "  podman-policy       Run the Podman policy helper script (if present)"
@@ -32,7 +33,11 @@ lint-md: ## Run markdownlint over content and .github (uses npx markdownlint-cli
 	@echo "Running: $(MDLINT) \"content/**/*.md\" \".github/**/*.md\""
 	$(MDLINT) "content/**/*.md" ".github/**/*.md"
 
-validate-docs: build lint-md ## Build site and run markdown linter
+lint-mermaid: ## Validate all mermaid diagrams in content/ markdown files
+	@echo "Running: python3 scripts/lint-mermaid.py"
+	python3 scripts/lint-mermaid.py
+
+validate-docs: build lint-md lint-mermaid ## Build site and run linters
 	@echo "validate-docs completed"
 
 precommit: ## Run pre-commit hooks locally (all files)

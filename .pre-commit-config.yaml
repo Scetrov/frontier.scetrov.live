@@ -16,3 +16,9 @@ repos:
         entry: npx markdownlint-cli
         language: node
         files: '\.md$'
+      - id: lint-mermaid
+        name: lint-mermaid (mermaid diagram validation)
+        entry: python3 scripts/lint-mermaid.py
+        language: system
+        pass_filenames: false
+        files: '\.md$'

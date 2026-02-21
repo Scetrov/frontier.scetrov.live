@@ -1,0 +1,15 @@
+<div style="border-left: 4px solid #e3a008; background: #fef3c7; padding: 1rem 1.2rem; margin-bottom: 1.5rem; border-radius: 4px;">
+  <strong style="color: #92400e;">⚠️ Pre-Release Content</strong>
+  <p style="margin: 0.5rem 0 0 0; color: #78350f;">
+    This article documents code from
+    {{ if .Get "pr_number" }}
+      <a href="https://github.com/evefrontier/{{ .Get "repo" | default "world-contracts" }}/pull/{{ .Get "pr_number" }}">
+        PR #{{ .Get "pr_number" }}</a>
+    {{ else }}
+      an open pull request
+    {{ end }}
+    on <code>{{ .Get "repo" | default "world-contracts" }}</code>.
+    It has not been merged to <code>main</code> and may change before release.
+    {{ with .Get "description" }}<br/>{{ . }}{{ end }}
+  </p>
+</div>

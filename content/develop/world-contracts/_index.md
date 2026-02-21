@@ -26,7 +26,7 @@ graph TD
         Inv[inventory.move]
         Fuel[fuel.move]
         Stat[status.move]
-        NWN[network_node.move]
+        Energy[energy.move]
     end
 
     Layer3 -- Authenticated via Witness --> Layer2

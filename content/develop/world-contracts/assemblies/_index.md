@@ -35,7 +35,7 @@ graph TD
 
 - **Life Cycle Management**: Handles the transition of a structure from an **Anchored** state (deployed but inactive) to an **Online** state (functional and consuming resources).
 - **Energy Integration**: Orchestrates the connection between an assembly and its power source (a `NetworkNode`), including reserving and releasing energy when state changes occur.
-- **Administrative Control**: Functions like `anchor` and `share_assembly` are restricted to `AdminCap` holders to ensure game integrity during deployment.
+- **Administrative Control**: Functions like `anchor` and `share_assembly` require `AdminACL` sponsor verification to ensure game integrity during deployment.
 
 ---
 

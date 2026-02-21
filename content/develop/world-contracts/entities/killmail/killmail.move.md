@@ -48,12 +48,13 @@ classDiagram
         SHIP
         STRUCTURE
     }
-    class AdminCap {
-        <<Capability>>
+    class AdminACL {
+        <<Shared Object>>
+        +Table~address, bool~ authorized_sponsors
     }
 
     Killmail *-- LossType : Categorizes Loss
-    AdminCap ..> Killmail : Authorizes Creation
+    AdminACL ..> Killmail : Authorizes Creation
     Killmail ..> TenantItemId : Identifies Entities
 
 ```
@@ -78,11 +79,11 @@ flowchart TD
 
 ## Section 3: Security and Authorization Model
 
-The security of the killmail system is governed by the `AdminCap`, ensuring that only verified game systems can record official combat results.
+The security of the killmail system is governed by the `AdminACL`, ensuring that only verified game systems (authorized sponsors) can record official combat results.
 
 | Action | Required Authorization | Purpose |
 | --- | --- | --- |
-| **Create Killmail** | `AdminCap` | Prevents fraudulent combat records or "fake kills" from being injected. |
+| **Create Killmail** | `AdminACL` (verified sponsor) | Prevents fraudulent combat records or "fake kills" from being injected. |
 | **Read Killmail** | None (Shared Object) | Allows anyone to verify combat history directly on-chain. |
 | **Query History** | None (Event Driven) | Enables indexers to provide fast, searchable combat data. |
 
@@ -107,5 +108,5 @@ The `killmail` module provides a specialized, immutable ledger for EVE Frontier 
 **Related Documentation:**
 
 * **In-Game ID:** The foundation for the `TenantItemId` used in killmail records.
-* **Access Control:** Defines the `AdminCap` required to generate these records.
+* **Access Control:** Defines the `AdminACL` required to authorize these records.
 * **Character Assembly:** Identifies the sovereign entities referenced as killers and victims.

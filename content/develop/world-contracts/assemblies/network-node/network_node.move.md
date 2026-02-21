@@ -1,6 +1,6 @@
 +++
 date = "2026-02-07"
-title = "network_node.move (assembly)"
+title = "network_node.move"
 weight = 60
 description = "The Network Node module represents the primary energy infrastructure of the EVE Frontier universe. Positioned as a Layer 2 (Assembly), it acts as the 'Standardized Glue' that orchestrates the relationship between raw energy primitives and functional assemblies like Storage Units and Gates. By converting fuel into usable energy (GJ), the Network Node serves as the lifeblood of any celestial installation, enforcing the 'Digital Physics' of resource consumption and power distribution."
 codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/network_node/network_node.move"
@@ -8,6 +8,28 @@ codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contrac
 ## Overview
 
 The **Network Node** module represents the primary energy infrastructure of the EVE Frontier universe. Positioned as a **Layer 2 (Assembly)**, it acts as the "Standardized Glue" that orchestrates the relationship between raw energy primitives and functional assemblies like Storage Units and Gates. By converting fuel into usable energy (GJ), the Network Node serves as the lifeblood of any celestial installation, enforcing the "Digital Physics" of resource consumption and power distribution.
+
+> [!NOTE]
+> This module co-locates both assembly-level orchestration and primitive-level energy distribution logic — there is no separate `primitives/network_node.move` file in the repository.
+
+## Energy Distribution Role
+
+Network nodes serve as the "power cables" of the EVE Frontier universe, linking energy producers to consumers.
+
+```mermaid
+flowchart LR
+    Producer[Energy Source] --> Node[Network Node]
+    Node --> Consumer[Assembly]
+    
+    subgraph Energy Flow
+        Producer -->|Reserves Energy| Node
+        Node -->|Powers| Consumer
+    end
+```
+
+* **Energy Reservation**: When an assembly goes online, its `NetworkNode` calls the [`energy.move`](../../primitives/energy.move/) primitive to reserve the required power from the connected source.
+* **Energy Release**: When the assembly goes offline, the reserved energy is released back to the source.
+* **Connection Tracking**: Each assembly that requires power embeds a `NetworkNode` reference tracking the connected `EnergySource` ID and connection state.
 
 ## Learning Objectives
 
@@ -101,17 +123,17 @@ stateDiagram-v2
 
 Authorization in the Network Node module follows a tiered approach:
 
-1. **AdminCap**: Required for celestial-level "physics" changes like anchoring and connecting assemblies.
+1. **AdminACL**: Sponsor verification required for celestial-level "physics" changes like anchoring and connecting assemblies.
 2. **OwnerCap**: Grants the player who deployed the node the right to manage daily operations.
 3. **AdminACL**: Verifies transaction sponsors to prevent unauthorized fuel manipulation.
 
 | Action | Required Authorization | Purpose |
 | --- | --- | --- |
-| `anchor` | `AdminCap` & `Character` | Deploys node and transfers `OwnerCap` to player. |
+| `anchor` | `AdminACL` (verified sponsor) & `Character` | Deploys node and transfers `OwnerCap` to player. |
 | `deposit_fuel` | `OwnerCap` & `AdminACL` | Allows owners to fund node energy production. |
 | `online` / `offline` | `OwnerCap` | Toggles the active state of the energy grid. |
-| `connect_assemblies` | `AdminCap` | Attaches functional assemblies to the power source. |
-| `unanchor` | `AdminCap` | Prepares the node for removal from the game world. |
+| `connect_assemblies` | `AdminACL` (verified sponsor) | Attaches functional assemblies to the power source. |
+| `unanchor` | `AdminACL` (verified sponsor) | Prepares the node for removal from the game world. |
 
 ## Section 4: Security and Safety Patterns
 

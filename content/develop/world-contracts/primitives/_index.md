@@ -72,7 +72,7 @@ flowchart LR
     A --> C[inventory.move]
     A --> D[location.move]
     A --> E[fuel.move]
-    A --> F[network_node.move]
+    A --> F[energy.move]
 
 ```
 
@@ -85,7 +85,7 @@ flowchart LR
 Access to Primitives is strictly controlled to maintain game integrity.
 
 * **Frontier-Restricted:** Primitives are currently restricted to Frontier-designed assemblies and are not directly exposed to third-party builder scripts.
-* **Capability Patterns:** Many Primitive operations require specific Move capabilities (like `AdminCap`) for configuration changes, such as setting the energy requirement for a specific structure type.
+* **Capability Patterns:** Many Primitive operations require authorization (e.g., `AdminACL` sponsor verification) for configuration changes, such as setting the energy requirement for a specific structure type.
 
 ---
 

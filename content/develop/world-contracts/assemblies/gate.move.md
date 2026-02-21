@@ -122,7 +122,7 @@ To create a restricted gate, a developer must deploy a smart contract that defin
 
 ### The Extension Module
 
-```move
+```rust
 module builder_extensions::gate;
 
 use sui::clock::Clock;
