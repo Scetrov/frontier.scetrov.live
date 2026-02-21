@@ -73,7 +73,7 @@ flowchart TD
 
 ## Related Code
 
-* [`object_registry.move`](/develop/world-contracts/object-registry/object_registry.move/) — ObjectRegistry implementation
+* [`object_registry.move`](/develop/world-contracts/entities/object-registry/object_registry.move/) — ObjectRegistry implementation
 * [`in_game_id.move`](/develop/world-contracts/primitives/in_game_id.move/) — TenantItemId identity system
 
 {{% tip-menu-search %}}

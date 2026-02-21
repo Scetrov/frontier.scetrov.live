@@ -7,7 +7,7 @@ codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/w
 
 ## Overview
 
-This report provides a technical overview of the `assembly.move` module, the core architectural component of the EVE Frontier world contracts. It serves as the orchestration layer where game "digital physics" ([Primitives](../../primitives/)) meet player-driven logic (Extensions).
+This report provides a technical overview of the `assembly.move` module, the core architectural component of the EVE Frontier world contracts. It serves as the orchestration layer where game "digital physics" ([Primitives](/develop/world-contracts/primitives/)) meet player-driven logic (Extensions).
 
 ## Learning Objectives
 
@@ -26,9 +26,9 @@ An **Assembly** is the Layer 2 implementation of an in-game structure (e.g., a S
 
 Unlike Primitives, which are domain-specific and focused, the Assembly module provides the generic framework for:
 
-* **Identity**: Managing deterministic in-game IDs.
-* **Authorization**: Controlling who can modify the structure.
-* **Extensibility**: Providing an allowlist for third-party code.
+- **Identity**: Managing deterministic in-game IDs.
+- **Authorization**: Controlling who can modify the structure.
+- **Extensibility**: Providing an allowlist for third-party code.
 
 ---
 
@@ -56,10 +56,10 @@ classDiagram
 
 ### Key Components
 
-* **`key`**: A `TenantItemId` providing a unique, deterministic ID derived from the game server's registry.
-* **`owner_cap_id`**: The ID of the `OwnerCap` object associated with this assembly, used for authorization checks.
-* **`energy_source_id`**: An optional reference to the [`NetworkNode`](../../primitives/network_node.move/) that powers this assembly.
-* **Primitives**: Internal fields for [`Metadata`](../../primitives/metadata.move/), [`Status`](../../primitives/status.move/), and [`Location`](../../primitives/location.move/) (and others depending on the specific assembly type).
+- **`key`**: A `TenantItemId` providing a unique, deterministic ID derived from the game server's registry.
+- **`owner_cap_id`**: The ID of the `OwnerCap` object associated with this assembly, used for authorization checks.
+- **`energy_source_id`**: An optional reference to the [`NetworkNode`](/develop/world-contracts/primitives/network_node.move/) that powers this assembly.
+- **Primitives**: Internal fields for [`Metadata`](/develop/world-contracts/primitives/metadata.move/), [`Status`](/develop/world-contracts/primitives/status.move/), and [`Location`](/develop/world-contracts/primitives/location.move/) (and others depending on the specific assembly type).
 
 ---
 
@@ -72,11 +72,11 @@ sequenceDiagram
     participant Owner as Assembly Owner
     participant Assembly as StorageUnit / Gate
     participant Extension as 3rd Party Extension
-    
+
     Note over Owner, Assembly: Registration Phase
     Owner->>Assembly: authorize_extension<T>(OwnerCap)
     Assembly->>Assembly: Set extension = TypeName of T
-    
+
     Note over Extension, Assembly: Execution Phase
     Extension->>Assembly: call_function(Witness T)
     Assembly->>Assembly: check if TypeName of Witness T matches extension
@@ -108,11 +108,11 @@ stateDiagram-v2
 
 ### Lifecycle Stages
 
-* **Anchoring**: An Assembly is initialized via `anchor()` with a unique `TenantItemId`, connected to a `NetworkNode` for energy, and shared as a Sui object. An `OwnerCap` is created and transferred to the owning character.
-* **Online/Offline**: The owner toggles operational state using `online()` and `offline()`, which reserve or release energy from the connected [`NetworkNode`](../../primitives/network_node.move/).
-* **Energy Source Management**: The admin can update which `NetworkNode` powers the assembly via `update_energy_source()`. When a network node's connected assemblies change, the system uses a **"Hot Potato" pattern** (`UpdateEnergySources`, `OfflineAssemblies`, `HandleOrphanedAssemblies`) to ensure all affected assemblies are updated atomically.
-* **Orphaned Assembly Handling**: If a `NetworkNode` is unanchored, its connected assemblies become "orphaned". The `offline_orphaned_assembly()` function brings them offline, releases energy, and clears their energy source. `unanchor_orphan()` can then destroy an orphaned assembly.
-* **Unanchoring**: When a structure is destroyed via `unanchor()`, the Assembly module disconnects from its `NetworkNode`, releases energy if online, cleans up all internal Primitives ([Location](../../primitives/location.move/), [Metadata](../../primitives/metadata.move/), etc.), and deletes the UID.
+- **Anchoring**: An Assembly is initialized via `anchor()` with a unique `TenantItemId`, connected to a `NetworkNode` for energy, and shared as a Sui object. An `OwnerCap` is created and transferred to the owning character.
+- **Online/Offline**: The owner toggles operational state using `online()` and `offline()`, which reserve or release energy from the connected [`NetworkNode`](../../primitives/network_node.move/).
+- **Energy Source Management**: The admin can update which `NetworkNode` powers the assembly via `update_energy_source()`. When a network node's connected assemblies change, the system uses a **"Hot Potato" pattern** (`UpdateEnergySources`, `OfflineAssemblies`, `HandleOrphanedAssemblies`) to ensure all affected assemblies are updated atomically.
+- **Orphaned Assembly Handling**: If a `NetworkNode` is unanchored, its connected assemblies become "orphaned". The `offline_orphaned_assembly()` function brings them offline, releases energy, and clears their energy source. `unanchor_orphan()` can then destroy an orphaned assembly.
+- **Unanchoring**: When a structure is destroyed via `unanchor()`, the Assembly module disconnects from its `NetworkNode`, releases energy if online, cleans up all internal Primitives ([Location](../../primitives/location.move/), [Metadata](../../primitives/metadata.move/), etc.), and deletes the UID.
 
 ---
 
@@ -123,14 +123,14 @@ Authorization in the Assembly module is bifurcated into two main patterns:
 1. **Admin Access (`AdminACL`)**: Used for game-wide configuration and lifecycle management. Functions like `anchor`, `share_assembly`, `update_energy_source`, and `unanchor` require `AdminACL` with sponsored transaction verification.
 2. **Ownership Certificate (`OwnerCap`)**: A unique capability object given to the player who owns the structure. This certificate is required for operational actions like toggling online/offline state.
 
-| Action | Required Authorization | Purpose |
-| --- | --- | --- |
-| Anchor Assembly | `AdminACL` (Sponsor) | Initial deployment of structure. |
-| Share Assembly | `AdminACL` (Sponsor) | Make assembly a shared object. |
-| Toggle Online/Offline | `OwnerCap` | Operational control (reserves/releases energy). |
-| Update Energy Source | `AdminACL` (Sponsor) | Reassign to a different NetworkNode. |
-| Unanchor | `AdminACL` (Sponsor) | Destroy and clean up structure. |
-| Unanchor Orphan | `AdminACL` (Sponsor) | Destroy assembly disconnected from NetworkNode. |
+| Action                | Required Authorization | Purpose                                         |
+| --------------------- | ---------------------- | ----------------------------------------------- |
+| Anchor Assembly       | `AdminACL` (Sponsor)   | Initial deployment of structure.                |
+| Share Assembly        | `AdminACL` (Sponsor)   | Make assembly a shared object.                  |
+| Toggle Online/Offline | `OwnerCap`             | Operational control (reserves/releases energy). |
+| Update Energy Source  | `AdminACL` (Sponsor)   | Reassign to a different NetworkNode.            |
+| Unanchor              | `AdminACL` (Sponsor)   | Destroy and clean up structure.                 |
+| Unanchor Orphan       | `AdminACL` (Sponsor)   | Destroy assembly disconnected from NetworkNode. |
 
 ---
 
@@ -142,10 +142,10 @@ The `assembly.move` module is the glue of the EVE Frontier ecosystem. It standar
 
 ## Related Documentation
 
-* **[Primitives Overview](../../primitives/)**: Explore the Layer 1 building blocks composed by assemblies.
-  * [energy.move](../../primitives/energy.move/) - Power generation and reservation
-  * [fuel.move](../../primitives/fuel.move/) - Resource consumption mechanics
-  * [location.move](../../primitives/location.move/) - Spatial positioning and privacy
-  * [status.move](../../primitives/status.move/) - Operational state management
-  * [metadata.move](../../primitives/metadata.move/) - Descriptive data handling
-  * [inventory.move](../../primitives/inventory.move/) - Item storage and bridging
+- **[Primitives Overview](/develop/world-contracts/primitives/)**: Explore the Layer 1 building blocks composed by assemblies.
+  - [energy.move](/develop/world-contracts/primitives/energy.move/) - Power generation and reservation
+  - [fuel.move](/develop/world-contracts/primitives/fuel.move/) - Resource consumption mechanics
+  - [location.move](/develop/world-contracts/primitives/location.move/) - Spatial positioning and privacy
+  - [status.move](/develop/world-contracts/primitives/status.move/) - Operational state management
+  - [metadata.move](/develop/world-contracts/primitives/metadata.move/) - Descriptive data handling
+  - [inventory.move](/develop/world-contracts/primitives/inventory.move/) - Item storage and bridging

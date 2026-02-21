@@ -11,8 +11,8 @@ Some EVE Frontier smart assemblies are **programmable** — you can customize th
 
 Prerequisites to customize a smart assembly:
 
-1. **Create a Character** — your on-chain identity that owns all your assemblies. See [`character.move`](/develop/world-contracts/character/character.move/).
-2. **Build a Network Node** — anchor a network node at a Lagrange point. This is the power source for your base. See [`network_node.move`](/develop/world-contracts/network-node/network_node.move/).
+1. **Create a Character** — your on-chain identity that owns all your assemblies. See [`character.move`](/develop/world-contracts/entities/character/character.move/).
+2. **Build a Network Node** — anchor a network node at a Lagrange point. This is the power source for your base. See [`network_node.move`](/develop/world-contracts/assemblies/network-node/network_node.move/).
 3. **Deposit Fuel and Go Online** — deposit fuel into the network node and bring it online to start generating energy.
 4. **Anchor a Smart Assembly** — create a smart assembly (e.g., Storage Unit, Gate) in your base. It automatically connects to the network node for energy.
 5. **Bring the Assembly Online** — the assembly reserves energy from the network node and becomes operational.
