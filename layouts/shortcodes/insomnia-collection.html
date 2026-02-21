@@ -1,0 +1,11 @@
+{{/* insomnia-collection.html – displays the auto-generated Insomnia YAML from static/insomnia-collection.yaml */}}
+{{- $path := "static/insomnia-collection.yaml" -}}
+{{- $content := "" -}}
+{{- with os.ReadFile $path -}}
+  {{- $content = . -}}
+{{- end -}}
+{{- if $content -}}
+{{- highlight $content "yaml" "" -}}
+{{- else -}}
+<p><strong>Error:</strong> Could not read <code>{{ $path }}</code>. Run <code>make generate-insomnia</code> to generate it.</p>
+{{- end -}}

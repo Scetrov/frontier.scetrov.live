@@ -70,3 +70,28 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--MENU-HEADER-color);
   padding: 0;
 }
+
+/* ── Swagger / API Reference Styles ── */
+.swagger-version {
+  font-size: 0.9em;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+.swagger-method {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  border-radius: 3px;
+  font-family: 'Disket Mono', monospace;
+  font-size: 0.75em;
+  font-weight: bold;
+  color: #fff;
+  vertical-align: middle;
+  margin-right: 0.4em;
+}
+
+.swagger-method-get    { background-color: #2e7d32; }
+.swagger-method-post   { background-color: #1565c0; }
+.swagger-method-put    { background-color: #e65100; }
+.swagger-method-patch  { background-color: #7b1fa2; }
+.swagger-method-delete { background-color: #c62828; }

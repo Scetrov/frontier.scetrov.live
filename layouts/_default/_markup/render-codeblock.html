@@ -1,0 +1,9 @@
+{{- $type := .Type -}}
+{{- if eq $type "move" }}{{ $type = "rust" }}{{ end -}}
+{{- partial "shortcodes/highlight.html" (dict
+  "page"       .Page
+  "attributes" .Attributes
+  "content"    .Inner
+  "options"    .Options
+  "type"       $type
+) }}

@@ -1,4 +1,4 @@
-.PHONY: help build serve validate-docs lint-md precommit install-tools podman-policy devcontainer-rebuild clean
+.PHONY: help build serve validate-docs lint-md precommit install-tools podman-policy devcontainer-rebuild generate-insomnia clean
 
 SHELL := /bin/bash
 
@@ -19,7 +19,13 @@ help: ## Show available make targets
 	@echo "  install-tools       Try to install common tools (apt-based systems)"
 	@echo "  podman-policy       Run the Podman policy helper script (if present)"
 	@echo "  devcontainer-rebuild Rebuild devcontainer using devcontainer CLI"
+	@echo "  generate-insomnia   Regenerate Insomnia collection YAML from Swagger spec"
 	@echo "  clean               Remove generated public/ directory"
+
+generate-insomnia: ## Regenerate Insomnia collection YAML from the Swagger spec
+	@echo "Running: python3 $(SCRIPTS_DIR)/generate-insomnia-collection.py"
+	python3 $(SCRIPTS_DIR)/generate-insomnia-collection.py > static/insomnia-collection.yaml
+	@echo "Generated static/insomnia-collection.yaml"
 
 build: ## Build the Hugo site (minified)
 	@echo "Running: $(HUGO) --minify"

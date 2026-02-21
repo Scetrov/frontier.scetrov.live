@@ -1,0 +1,319 @@
+{{/* swagger-docs.html – auto-generates API reference from data/world-api-stillness.json */}}
+{{ $spec := index .Site.Data "world-api-stillness" }}
+{{ if not $spec }}
+  <p><strong>Error:</strong> Could not load Swagger spec from <code>data/world-api-stillness.json</code>.</p>
+{{ else }}
+
+{{/* ── Collect all tags so we can group endpoints ── */}}
+{{ $scratch := newScratch }}
+{{ range $path, $methods := $spec.paths }}
+  {{ range $method, $op := $methods }}
+    {{ if reflect.IsMap $op }}
+      {{ $tags := $op.tags | default (slice "other") }}
+      {{ range $tag := $tags }}
+        {{ $entry := dict "path" $path "method" $method "op" $op }}
+        {{ $key := printf "tag_%s" $tag }}
+        {{ $scratch.Add $key (slice $entry) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<p class="swagger-version">
+  <strong>API Version:</strong> {{ $spec.info.version }}&ensp;|&ensp;
+  <strong>Spec:</strong> Swagger {{ $spec.swagger }}
+</p>
+
+{{/* ── Render each tag group ── */}}
+{{ $tagOrder := slice "meta" "chain" "game" }}
+
+{{ range $tag := $tagOrder }}
+  {{ $endpoints := $scratch.Get (printf "tag_%s" $tag) }}
+  {{ if $endpoints }}
+    {{ $scratch.SetInMap "rendered" $tag true }}
+
+<h2 id="tag-{{ $tag }}">{{ $tag | humanize | title }}</h2>
+
+{{ range $endpoints }}
+  {{ $path   := .path }}
+  {{ $method := .method }}
+  {{ $op     := .op }}
+
+  {{ $anchor := printf "%s-%s" $method (replace (replace $path "/" "-" ) "{" "" | replace "}" "") }}
+
+<h3 id="{{ $anchor }}">
+  <span class="swagger-method swagger-method-{{ $method }}">{{ upper $method }}</span>
+  <code>{{ $path }}</code>
+</h3>
+
+{{ with $op.summary }}<p><strong>{{ . }}</strong></p>{{ end }}
+{{ with $op.description }}{{ . | markdownify }}{{ end }}
+
+{{/* ── Authentication ── */}}
+{{ with $op.security }}
+<p>🔐 <strong>Authentication required</strong> — Bearer token via <code>Authorization</code> header.</p>
+{{ end }}
+
+{{/* ── Parameters ── */}}
+{{ with $op.parameters }}
+<h4>Parameters</h4>
+<table>
+<thead><tr><th>Name</th><th>In</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+<tbody>
+{{ range . }}
+  {{ $type := .type | default "" }}
+  {{ if and (not $type) .schema }}
+    {{/* Body parameter – extract ref name */}}
+    {{ if (index .schema "$ref") }}
+      {{ $ref := index .schema "$ref" }}
+      {{ $type = replaceRE `^#/definitions/` "" $ref }}
+    {{ else }}
+      {{ $type = "object" }}
+    {{ end }}
+  {{ end }}
+<tr>
+  <td><code>{{ .name }}</code></td>
+  <td><code>{{ .in }}</code></td>
+  <td>{{ with $type }}<code>{{ . }}</code>{{ end }}{{ with .enum }} <br/>Enum: {{ range $i, $v := . }}{{ if $i }}, {{ end }}<code>{{ $v }}</code>{{ end }}{{ end }}</td>
+  <td>{{ if .required }}✅{{ else }}❌{{ end }}</td>
+  <td>{{ .description | default "" | markdownify }}{{ with .example }} <br/>Example: <code>{{ . }}</code>{{ end }}{{ with .minimum }} <br/>Min: <code>{{ . }}</code>{{ end }}{{ with .maximum }} <br/>Max: <code>{{ . }}</code>{{ end }}</td>
+</tr>
+{{ end }}
+</tbody>
+</table>
+{{ end }}
+
+{{/* ── Responses ── */}}
+{{ with $op.responses }}
+<h4>Responses</h4>
+<table>
+<thead><tr><th>Status</th><th>Description</th><th>Schema</th></tr></thead>
+<tbody>
+{{ range $code, $resp := . }}
+<tr>
+  <td><code>{{ $code }}</code></td>
+  <td>{{ $resp.description | default "" }}</td>
+  <td>
+  {{ with $resp.schema }}
+    {{ if (index . "$ref") }}
+      {{ $ref := index . "$ref" }}
+      {{ $defName := replaceRE `^#/definitions/` "" $ref }}
+      <code>{{ $defName }}</code>
+    {{ else if eq .type "array" }}
+      {{ with .items }}
+        {{ if (index . "$ref") }}
+          {{ $ref := index . "$ref" }}
+          {{ $defName := replaceRE `^#/definitions/` "" $ref }}
+          <code>[]{{ $defName }}</code>
+        {{ else }}
+          <code>[]{{ .type | default "object" }}</code>
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      <code>{{ .type | default "object" }}</code>
+    {{ end }}
+  {{ else }}
+    —
+  {{ end }}
+  </td>
+</tr>
+{{ end }}
+</tbody>
+</table>
+{{ end }}
+
+<hr/>
+
+{{ end }}{{/* range endpoints */}}
+{{ end }}{{/* if endpoints */}}
+{{ end }}{{/* range tagOrder */}}
+
+{{/* ── Catch any tags not in tagOrder ── */}}
+{{ range $path, $methods := $spec.paths }}
+  {{ range $method, $op := $methods }}
+    {{ if reflect.IsMap $op }}
+      {{ $tags := $op.tags | default (slice "other") }}
+      {{ range $tag := $tags }}
+        {{ $renderedMap := $scratch.Get "rendered" | default dict }}
+        {{ if not (index $renderedMap $tag) }}
+          {{ $scratch.SetInMap "extra_tags" $tag true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ range $tag, $_ := $scratch.Get "extra_tags" }}
+  {{ $endpoints := $scratch.Get (printf "tag_%s" $tag) }}
+  {{ if $endpoints }}
+
+<h2 id="tag-{{ $tag }}">{{ $tag | humanize | title }}</h2>
+
+{{ range $endpoints }}
+  {{ $path   := .path }}
+  {{ $method := .method }}
+  {{ $op     := .op }}
+  {{ $anchor := printf "%s-%s" $method (replace (replace $path "/" "-" ) "{" "" | replace "}" "") }}
+
+<h3 id="{{ $anchor }}">
+  <span class="swagger-method swagger-method-{{ $method }}">{{ upper $method }}</span>
+  <code>{{ $path }}</code>
+</h3>
+
+{{ with $op.summary }}<p><strong>{{ . }}</strong></p>{{ end }}
+{{ with $op.description }}{{ . | markdownify }}{{ end }}
+{{ with $op.security }}
+<p>🔐 <strong>Authentication required</strong> — Bearer token via <code>Authorization</code> header.</p>
+{{ end }}
+
+{{ with $op.parameters }}
+<h4>Parameters</h4>
+<table>
+<thead><tr><th>Name</th><th>In</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+<tbody>
+{{ range . }}
+  {{ $type := .type | default "" }}
+  {{ if and (not $type) .schema }}
+    {{ if (index .schema "$ref") }}
+      {{ $ref := index .schema "$ref" }}
+      {{ $type = replaceRE `^#/definitions/` "" $ref }}
+    {{ else }}
+      {{ $type = "object" }}
+    {{ end }}
+  {{ end }}
+<tr>
+  <td><code>{{ .name }}</code></td>
+  <td><code>{{ .in }}</code></td>
+  <td>{{ with $type }}<code>{{ . }}</code>{{ end }}{{ with .enum }} <br/>Enum: {{ range $i, $v := . }}{{ if $i }}, {{ end }}<code>{{ $v }}</code>{{ end }}{{ end }}</td>
+  <td>{{ if .required }}✅{{ else }}❌{{ end }}</td>
+  <td>{{ .description | default "" | markdownify }}{{ with .example }} <br/>Example: <code>{{ . }}</code>{{ end }}{{ with .minimum }} <br/>Min: <code>{{ . }}</code>{{ end }}{{ with .maximum }} <br/>Max: <code>{{ . }}</code>{{ end }}</td>
+</tr>
+{{ end }}
+</tbody>
+</table>
+{{ end }}
+
+{{ with $op.responses }}
+<h4>Responses</h4>
+<table>
+<thead><tr><th>Status</th><th>Description</th><th>Schema</th></tr></thead>
+<tbody>
+{{ range $code, $resp := . }}
+<tr>
+  <td><code>{{ $code }}</code></td>
+  <td>{{ $resp.description | default "" }}</td>
+  <td>
+  {{ with $resp.schema }}
+    {{ if (index . "$ref") }}
+      {{ $ref := index . "$ref" }}
+      {{ $defName := replaceRE `^#/definitions/` "" $ref }}
+      <code>{{ $defName }}</code>
+    {{ else if eq .type "array" }}
+      {{ with .items }}
+        {{ if (index . "$ref") }}
+          {{ $ref := index . "$ref" }}
+          {{ $defName := replaceRE `^#/definitions/` "" $ref }}
+          <code>[]{{ $defName }}</code>
+        {{ else }}
+          <code>[]{{ .type | default "object" }}</code>
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      <code>{{ .type | default "object" }}</code>
+    {{ end }}
+  {{ else }}
+    —
+  {{ end }}
+  </td>
+</tr>
+{{ end }}
+</tbody>
+</table>
+{{ end }}
+
+<hr/>
+
+{{ end }}
+{{ end }}{{/* if endpoints */}}
+{{ end }}{{/* range extra_tags */}}
+
+{{/* ══════════════════════════════════════════════════ */}}
+{{/* ── Data Models / Definitions                    ── */}}
+{{/* ══════════════════════════════════════════════════ */}}
+<h2 id="models">Data Models</h2>
+
+{{ range $name, $def := $spec.definitions }}
+
+<h3 id="model-{{ $name }}"><code>{{ $name }}</code></h3>
+
+{{ if $def.description }}
+<p>{{ $def.description }}</p>
+{{ end }}
+
+{{ if $def.enum }}
+<p><strong>Type:</strong> <code>{{ $def.type | default "string" }}</code> (enum)</p>
+<p><strong>Values:</strong>
+{{ range $i, $v := $def.enum }}{{ if $i }}, {{ end }}<code>{{ $v }}</code>{{ end }}
+</p>
+{{ else if $def.properties }}
+<table>
+<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+{{ range $field, $prop := $def.properties }}
+<tr>
+  <td><code>{{ $field }}</code></td>
+  <td>
+    {{ if (index $prop "$ref") }}
+      {{ $ref := index $prop "$ref" }}
+      {{ $refName := replaceRE `^#/definitions/` "" $ref }}
+      <a href="#model-{{ $refName }}"><code>{{ $refName }}</code></a>
+    {{ else if eq ($prop.type | default "") "array" }}
+      {{ with $prop.items }}
+        {{ if (index . "$ref") }}
+          {{ $ref := index . "$ref" }}
+          {{ $refName := replaceRE `^#/definitions/` "" $ref }}
+          <code>[]</code><a href="#model-{{ $refName }}"><code>{{ $refName }}</code></a>
+        {{ else }}
+          <code>[]{{ .type | default "object" }}</code>
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      <code>{{ $prop.type | default "object" }}</code>
+    {{ end }}
+  </td>
+  <td>{{ $prop.description | default "" }}</td>
+</tr>
+{{ end }}
+</tbody>
+</table>
+{{ else if $def.additionalProperties }}
+  {{ if (index $def.additionalProperties "$ref") }}
+    {{ $ref := index $def.additionalProperties "$ref" }}
+    {{ $refName := replaceRE `^#/definitions/` "" $ref }}
+    <p><strong>Type:</strong> <code>map[string]</code><a href="#model-{{ $refName }}"><code>{{ $refName }}</code></a></p>
+  {{ else }}
+    <p><strong>Type:</strong> <code>map[string]{{ $def.additionalProperties.type | default "object" }}</code></p>
+  {{ end }}
+{{ else }}
+<p><strong>Type:</strong> <code>{{ $def.type | default "object" }}</code></p>
+{{ end }}
+
+{{ end }}{{/* range definitions */}}
+
+{{/* ── Authentication section ── */}}
+{{ with $spec.securityDefinitions }}
+<h2 id="authentication">Authentication</h2>
+{{ range $name, $def := . }}
+<h3 id="auth-{{ $name }}"><code>{{ $name }}</code></h3>
+<table>
+<thead><tr><th>Property</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Type</td><td><code>{{ $def.type }}</code></td></tr>
+<tr><td>Name</td><td><code>{{ $def.name }}</code></td></tr>
+<tr><td>In</td><td><code>{{ $def.in }}</code></td></tr>
+</tbody>
+</table>
+{{ end }}
+{{ end }}
+
+{{ end }}{{/* if $spec */}}
