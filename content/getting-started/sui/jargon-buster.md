@@ -1,7 +1,7 @@
 +++
 date = '2025-10-10T19:08:00+01:00'
 title = 'Jargon Buster'
-weight = 30
+weight = 90
 +++
 
 As with all of blockchain Sui comes with it's own buzzwords and jargon that confuse new users:
