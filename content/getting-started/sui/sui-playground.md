@@ -20,7 +20,7 @@ This guide provides step-by-step instructions to manually set up a local Sui dev
 - **Sui CLI** (optional on host, but required if you want to interact without `docker exec`).
 
 > [!IMPORTANT]
-> Windows users should ensure that they are using Docker Desktop with the WSL2 backend for best compatibility. Additionally avoid using `cmd.exe` or `Windows Powershell` for running commands, instead use Windows Terminal and Powershell as these are less likely to mangle command output.
+> Windows users should ensure that they are using Docker Desktop with the WSL2 backend for best compatibility. Additionally avoid using `cmd.exe` or `Windows PowerShell` for running commands, instead use Windows Terminal and PowerShell as these are less likely to mangle command output.
 >
 > If you don't have these installed use the following commands:
 >
@@ -192,7 +192,7 @@ Finally deploy the world package:
 pnpm install && pnpm deploy-world
 ```
 
-Stay in the container for the next steps, if you exit you will need to `docker exec --it sui-playground /bin/bash` back in to run the configuration and seeding scripts.
+Stay in the container for the next steps, if you exit you will need to `docker exec -it sui-playground /bin/bash` back in to run the configuration and seeding scripts.
 
 ### 5.2 Fix Dependency Resolution (Crucial)
 
@@ -252,7 +252,7 @@ sui client objects $ADMIN_ADDRESS
 
 #### 7.1.2 Check the status of the Gate
 
-extract ID from `deployments/localnet/extracted-object-ids.json`:
+Extract ID from `deployments/localnet/extracted-object-ids.json`:
 
 ```bash
 GATE_ID=$(cat deployments/localnet/extracted-object-ids.json | jq -r '.world.gateConfig')
