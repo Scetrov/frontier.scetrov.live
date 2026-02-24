@@ -18,6 +18,10 @@ This guide provides instructions to extend the [Sui Playground setup](../sui-pla
 Rather than modify the base `compose.yml` we just apply an override, docker compose will automatically merge this with the base compose file when you run `docker compose` commands.
 
 ```yaml
+# Adds PostgreSQL indexer and GraphQL support to the Sui dev environment.
+# Note: The database is automatically reset on each container start to match
+# the --force-regenesis behavior, ensuring blockchain and indexer stay in sync.
+
 services:
   postgres:
     image: docker.io/library/postgres:16
@@ -58,32 +62,46 @@ postgresql-client \
 
 ### 2.3 Update `entrypoint.sh`
 
-Before `# ---------- start local node ----------` add the following lines to wait until Postgres is available, then run the database migrations for the Sui Indexer:
+Before `# ---------- start local node ----------` add the following lines to wait until Postgres is available, reset the database to match the `--force-regenesis` behavior, and ensure blockchain and indexer state stay synchronized:
 
 ```bash
 # ---------- wait for postgres ----------
 if [ -n "${SUI_INDEXER_DB_URL:-}" ]; then
   echo "[sui-dev] Waiting for Postgres to be ready..."
+  POSTGRES_READY=0
   for i in {1..60}; do
     if pg_isready -d "$SUI_INDEXER_DB_URL" >/dev/null 2>&1; then
       echo "[sui-dev] Postgres is ready."
+      POSTGRES_READY=1
       break
     fi
     sleep 1
   done
+
+  if [ "$POSTGRES_READY" -ne 1 ]; then
+    echo "[sui-dev] ERROR: Postgres did not become ready" >&2
+    exit 1
+  fi
+
+  # Reset database to match --force-regenesis behavior
+  echo "[sui-dev] Resetting indexer database to match fresh blockchain state..."
+  DB_NAME=$(echo "$SUI_INDEXER_DB_URL" | sed -n 's|.*/\([^/?]*\).*|\1|p')
+  DB_BASE_URL=$(echo "$SUI_INDEXER_DB_URL" | sed 's|/[^/]*$|/postgres|')
+
+  psql "$DB_BASE_URL" -c "DROP DATABASE IF EXISTS $DB_NAME;" 2>/dev/null || true
+  psql "$DB_BASE_URL" -c "CREATE DATABASE $DB_NAME;" 2>/dev/null
+  echo "[sui-dev] Indexer database reset complete."
 fi
 ```
 
-Change line 42 from:
+Change the `sui start` command (around line 42) to conditionally start with indexer support:
 
 ```bash
-sui start --with-faucet --force-regenesis &
-```
-
-```bash
-sui start --with-faucet --force-regenesis \
-  --with-indexer="${SUI_INDEXER_DB_URL}" \
-  --with-graphql=0.0.0.0:9125 &
+if [ -n "${SUI_INDEXER_DB_URL:-}" ]; then
+  sui start --with-faucet --force-regenesis --with-indexer="$SUI_INDEXER_DB_URL" --with-graphql=0.0.0.0:9125 &
+else
+  sui start --with-faucet --force-regenesis &
+fi
 ```
 
 In the next loop change the number of attempts from 30 to 60 to give more time for the indexer to initialize:
@@ -109,6 +127,11 @@ sleep 5
 echo "[sui-dev] Node ready."
 ```
 
+### 2.4 Important Notes
+
+- The indexer database is **automatically reset** on each container start to match the `--force-regenesis` behavior, ensuring the blockchain and indexer state stay synchronized.
+- The conditional startup logic means the container works both with and without the indexer configuration.
+
 The full diff is below:
 
 ```diff
@@ -116,28 +139,46 @@ diff --git a/docker/scripts/entrypoint.sh b/docker/scripts/entrypoint.sh
 index 54a2a1e..222373d 100644
 --- a/docker/scripts/entrypoint.sh
 +++ b/docker/scripts/entrypoint.sh
-@@ -37,24 +37,39 @@ EOF
+@@ -37,24 +37,67 @@ EOF
    echo "[sui-dev] Keys created."
  fi
  
 +# ---------- wait for postgres ----------
 +if [ -n "${SUI_INDEXER_DB_URL:-}" ]; then
 +  echo "[sui-dev] Waiting for Postgres to be ready..."
++  POSTGRES_READY=0
 +  for i in {1..60}; do
 +    if pg_isready -d "$SUI_INDEXER_DB_URL" >/dev/null 2>&1; then
 +      echo "[sui-dev] Postgres is ready."
++      POSTGRES_READY=1
 +      break
 +    fi
 +    sleep 1
 +  done
++
++  if [ "$POSTGRES_READY" -ne 1 ]; then
++    echo "[sui-dev] ERROR: Postgres did not become ready" >&2
++    exit 1
++  fi
++
++  # Reset database to match --force-regenesis behavior
++  echo "[sui-dev] Resetting indexer database to match fresh blockchain state..."
++  DB_NAME=$(echo "$SUI_INDEXER_DB_URL" | sed -n 's|.*/\([^/?]*\).*|\1|p')
++  DB_BASE_URL=$(echo "$SUI_INDEXER_DB_URL" | sed 's|/[^/]*$|/postgres|')
++
++  psql "$DB_BASE_URL" -c "DROP DATABASE IF EXISTS $DB_NAME;" 2>/dev/null || true
++  psql "$DB_BASE_URL" -c "CREATE DATABASE $DB_NAME;" 2>/dev/null
++  echo "[sui-dev] Indexer database reset complete."
 +fi
 +
  # ---------- start local node ----------
  echo "[sui-dev] Starting local Sui node..."
 -sui start --with-faucet --force-regenesis &
-+sui start --with-faucet --force-regenesis \
-+  --with-indexer="${SUI_INDEXER_DB_URL}" \
-+  --with-graphql=0.0.0.0:9125 &
++if [ -n "${SUI_INDEXER_DB_URL:-}" ]; then
++  sui start --with-faucet --force-regenesis --with-indexer="$SUI_INDEXER_DB_URL" --with-graphql=0.0.0.0:9125 &
++else
++  sui start --with-faucet --force-regenesis &
++fi
  NODE_PID=$!
  trap 'kill "$NODE_PID" 2>/dev/null || true' EXIT
  
@@ -169,17 +210,27 @@ The rest of the steps are the same as the normal playground setup, just with the
 
 ## 4. Using the Indexer and GraphQL API
 
-Once your playground is running with the indexer, you can connect to the GraphQL API at `http://localhost:9125/graphql` to query on-chain data. You can use tools like [GraphiQL](https://github.com/graphql/graphiql) or [Postman](https://www.postman.com/) to interact with the API.
+Once your playground is running with the indexer, the GraphQL endpoint is available at `http://localhost:9125`. You can use GraphQL clients like [Altair](https://altairgraphql.dev/) or [Insomnia](https://insomnia.rest/) to interact with the API.
 
-### 4.1. Example GraphQL Query
+### 4.1. Example GraphQL Queries
 
-```sh
-curl -X POST http://127.0.0.1:9125/graphql \
-  -H 'Content-Type: application/json' \
-  --data '{"query":"query { epoch { referenceGasPrice } }"}'
+Query the chain identifier:
+
+```bash
+curl -X POST http://localhost:9125 \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ chainIdentifier }"}'
 ```
 
-This query retrieves the current reference gas price from the Sui blockchain. You can explore the GraphQL schema to find more queries and mutations to interact with the indexed data.
+Query the current epoch and reference gas price:
+
+```bash
+curl -X POST http://localhost:9125 \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ epoch { referenceGasPrice } }"}'
+```
+
+You can explore the GraphQL schema to find more queries and mutations to interact with the indexed data.
 
 ### 4.2. Insomnia Queries
 
