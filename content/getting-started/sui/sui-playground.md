@@ -76,13 +76,6 @@ sui-frontier/
 
 ## 3. Environment Setup
 
-> [!NOTE]
-> Until [`builder-scaffold#31`](https://github.com/evefrontier/builder-scaffold/pull/31) is merged you will need to tweak `builder-scaffold/docker/Dockerfile` to include a fully qualified image **if you are using anything other than Docker**. Change the `FROM` line to:
->
-> ```dockerfile
-> FROM docker.io/library/ubuntu:22.04
-> ```
-
 ### 3.1 Verify Volume Mounts
 
 Ensure `builder-scaffold/docker/compose.yml` correctly points to the `world-contracts` directory. It should look like this:
