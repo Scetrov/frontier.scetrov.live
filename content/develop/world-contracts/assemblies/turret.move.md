@@ -80,7 +80,7 @@ Represents a potential target in the turret's proximity.
 ## Related Documentation
 
 * [Assembly Framework](../assembly.move/) — Base assembly lifecycle
-* [Network Node](../network-node/) — Providing energy to turrets
+* [Network Node](../network-node/network_node.move) — Providing energy to turrets
 * [Extension Examples](../../extension-examples/) — Examples of custom logic
 
 {{% tip-menu-search %}}
