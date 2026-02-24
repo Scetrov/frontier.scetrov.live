@@ -43,7 +43,7 @@ Custom rules for item deposits and withdrawals (e.g., vending machines, trade hu
 
 Custom targeting logic for defense structures.
 
-* Code reference: [`turret.move`](world-contracts/assemblies/turret.move/) (stub — upstream documentation pending)
+* Code reference: [`turret.move`](world-contracts/assemblies/turret.move/) (draft — based on PR #95)
 
 ---
 

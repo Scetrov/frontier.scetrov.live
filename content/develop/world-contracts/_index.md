@@ -11,22 +11,25 @@ The solution adopts a three-layer architecture to balance core "digital physics"
 
 ```mermaid
 graph TD
-    subgraph Layer3 [Layer 3: Player Extensions]
-        Mod[Third-Party Smart Contracts]
+    subgraph Layer3 ["Layer 3: Player Extensions"]
+        Mod["Third-Party Smart Contracts"]
     end
 
-    subgraph Layer2 [Layer 2: Game-Defined Assemblies]
-        SU[Storage Unit]
-        Gate[Stargate]
-        MU[Manufacturing Unit]
+    subgraph Layer2 ["Layer 2: Game-Defined Assemblies"]
+        SU["Storage Unit"]
+        Gate["Stargate"]
+        Turret["Smart Turret (Draft)"]
+        MU["Manufacturing Unit"]
     end
 
-    subgraph Layer1 [Layer 1: Composable Primitives]
-        Loc[location.move]
-        Inv[inventory.move]
-        Fuel[fuel.move]
-        Stat[status.move]
-        Energy[energy.move]
+    subgraph Layer1 ["Layer 1: Composable Primitives"]
+        Loc["location.move"]
+        Inv["inventory.move"]
+        Fuel["fuel.move"]
+        Stat["status.move"]
+        Energy["energy.move"]
+        Meta["metadata.move"]
+        ID["in_game_id.move"]
     end
 
     Layer3 -- Authenticated via Witness --> Layer2

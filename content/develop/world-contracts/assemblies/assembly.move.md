@@ -70,7 +70,7 @@ One of the most innovative features of the Assembly architecture is how it handl
 ```mermaid
 sequenceDiagram
     participant Owner as Assembly Owner
-    participant Assembly as StorageUnit / Gate
+    participant Assembly as StorageUnit / Gate / Turret
     participant Extension as 3rd Party Extension
 
     Note over Owner, Assembly: Registration Phase
