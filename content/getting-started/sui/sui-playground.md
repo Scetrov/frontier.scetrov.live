@@ -274,6 +274,7 @@ pnpm tsx ts-scripts/gate/jump.ts
 - **Faucet Failure**: If the container fails to fund accounts on startup, ensure you have an internet connection (the local faucet inside the container is self-contained but initial `suiup` installation requires it).
 - **Error: creating container storage: the container name "sui-playground" is already in use by ...**: This means a container with the name `sui-playground` already exists. Cleanup the existing container with `docker rm sui-playground` and try again.
 - **Error: rootlessport listen tcp 0.0.0.0:9000: bind: address already in use**: This means another process is using port 9000 on your host. Stop the process and try again.
+- **Error: line 47: 57 Illegal instruction (core dumped)**: This means the Sui binaries are not compatible with your CPU architecture, add `platform: linux/amd64` to the `sui-dev` service in `compose.yml` to force it to use the correct architecture.
 
 ## 9. Cleanup
 
