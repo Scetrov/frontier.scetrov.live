@@ -1,9 +1,11 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-02-25T00:00:00Z'
 title = 'gate.move (extension)'
 weight = 2
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/gate.move"
 +++
+
+{{% pre-release pr_number="95" description="The standalone gate extension source file was removed in this PR as part of a broader refactor. See tribe_permit.move and corpse_gate_bounty.move for current gate extension examples." %}}
 
 The `gate.move` extension is a **standalone** builder extension example for `world::gate`. It demonstrates how builders can enforce custom jump rules by issuing `JumpPermit`s from extension logic using the typed witness pattern.
 

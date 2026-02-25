@@ -41,9 +41,10 @@ Custom rules for item deposits and withdrawals (e.g., vending machines, trade hu
 
 ### Smart Turret
 
-Custom targeting logic for defense structures.
+Custom targeting logic for defense structures. Turrets evaluate ships and NPCs entering their engagement range and maintain an on-chain **priority queue** for target ranking. Builders control two behaviors — **InProximity** (ships entering range) and **Aggression** (hostile actions) — and can inject custom logic through extension contracts.
 
-* Code reference: [`turret.move`](world-contracts/assemblies/turret.move/) (draft — based on PR #95)
+* Code reference: [`turret.move`](world-contracts/assemblies/turret.move/) (pre-release — [PR #95](https://github.com/evefrontier/world-contracts/pull/95))
+* Extension example: [`turret.move` (extension)](world-contracts/extension-examples/turret.move/)
 
 ---
 
