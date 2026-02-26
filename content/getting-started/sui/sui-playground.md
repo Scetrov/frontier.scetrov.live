@@ -248,7 +248,7 @@ sui client objects $ADMIN_ADDRESS
 Extract ID from `deployments/localnet/extracted-object-ids.json`:
 
 ```bash
-GATE_ID=$(cat deployments/localnet/extracted-object-ids.json | jq -r '.world.gateConfig')
+GATE_ID=$(cat /workspace/world-contracts/deployments/localnet/extracted-object-ids.json | jq -r '.world.gateConfig')
 ```
 
 Then use this in the next step to check the object:
