@@ -5,7 +5,7 @@ weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/turret.move"
 +++
 
-{{% pre-release pr_number="95" description="This extension example is subject to change alongside the turret implementation." %}}
+{{< pre-release pr_number="95" description="This extension example is subject to change alongside the turret implementation." >}}
 
 The `turret.move` extension is a builder extension example for `world::turret`. It demonstrates how builders can implement **custom targeting behavior** by overriding the default priority-list logic using the typed witness pattern.
 
@@ -17,15 +17,15 @@ The extension receives:
 
 * The `Turret` object (read-only)
 * The owner `Character` (read-only)
-* The current priority list as BCS-encoded `vector<u8>`
-* The new target as BCS-encoded `vector<u8>`
+* The current priority list as BCS-encoded `vector<TurretTarget>`
+* The affected targets as BCS-encoded `vector<AffectedTarget>` — describing what changed (entered range, started attack, stopped attack)
 * An `OnlineReceipt` hot potato proving the turret is online
 
 The extension must:
 
 1. Apply custom targeting logic
 2. **Consume the `OnlineReceipt`** by calling `turret::destroy_online_receipt(receipt, auth_witness)`
-3. Return the updated priority list as BCS `vector<u8>`
+3. Return a `vector<ReturnTargetPriorityList>` as BCS `vector<u8>`, containing `(target_item_id, priority_weight)` pairs
 
 ## Extension Flow
 
@@ -38,11 +38,11 @@ sequenceDiagram
 
     Owner->>Turret: authorize_extension of TurretAuth
     Game->>Turret: verify_online() → OnlineReceipt
-    Game->>Ext: get_target_priority_list(turret, character, list, target, receipt)
-    Ext->>Ext: unpack priority list & decode target
+    Game->>Ext: get_target_priority_list(turret, character, list, affected_targets, receipt)
+    Ext->>Ext: unpack priority list & affected targets
     Ext->>Ext: apply custom rules
     Ext->>Turret: destroy_online_receipt(receipt, TurretAuth{})
-    Ext-->>Game: updated priority list (BCS bytes)
+    Ext-->>Game: vector of ReturnTargetPriorityList (BCS bytes)
 ```
 
 ## Key Components
@@ -52,23 +52,23 @@ sequenceDiagram
 
 ## Example Implementation
 
-The reference implementation adds every new target to the priority list regardless of tribe or aggressor status. Builders can modify this logic to implement specialization-aware targeting, conditional filtering, or weighted reordering.
+The reference implementation returns an empty priority list for testing purposes. Builders can modify this logic to implement specialization-aware targeting, conditional filtering, or weighted reordering using the `affected_targets` to adjust priority weights.
 
 ```move
 public fun get_target_priority_list(
     turret: &Turret,
     _: &Character,
     priority_list: vector<u8>,
-    new_target: vector<u8>,
+    _: vector<u8>,
     receipt: OnlineReceipt,
 ): vector<u8> {
     assert!(receipt.turret_id() == object::id(turret), EInvalidOnlineReceipt);
 
-    let mut list = turret::unpack_priority_list(priority_list);
-    let target = turret::peel_turret_target(new_target);
-    vector::push_back(&mut list, target);
+    let _ = turret::unpack_priority_list(priority_list);
+    // Extension can apply custom rules using turret::unpack_affected_targets(affected_targets)
+    let mut return_list = vector::empty<turret::ReturnTargetPriorityList>();
+    let result = bcs::to_bytes(&return_list);
 
-    let result = bcs::to_bytes(&list);
     turret::destroy_online_receipt(receipt, TurretAuth {});
     // emit event, return result
     result
@@ -77,7 +77,7 @@ public fun get_target_priority_list(
 
 ## Turret Specialization Reference
 
-Extensions can use the `target_group_id` field to implement specialization-aware targeting:
+Extensions can use the `group_id` field on `TurretTarget` to implement specialization-aware targeting:
 
 | Turret Type  | Type ID | Specialized Against                         |
 | ------------ | ------- | ------------------------------------------- |
@@ -89,13 +89,15 @@ For example, an Autocannon turret extension could assign higher weight to Shuttl
 
 ## Comparison with Default Behavior
 
-| Aspect              | Default (`world::turret`)                    | Extension (this example)                |
-| ------------------- | -------------------------------------------- | --------------------------------------- |
-| Aggressors          | Always added                                 | Always added                            |
-| Different tribe     | Added                                        | Added                                   |
-| Same tribe          | Ignored                                      | Added (no filtering)                    |
-| Receipt handling    | Destructured internally                      | `destroy_online_receipt` with witness   |
-| Specialization      | Not considered                               | Can be implemented via `target_group_id`|
+| Aspect              | Default (`world::turret`)                                         | Extension (this example)                   |
+| ------------------- | ----------------------------------------------------------------- | ------------------------------------------ |
+| Return type         | `vector<ReturnTargetPriorityList>` (target_item_id + weight)      | Same                                       |
+| Same-tribe non-aggressor | Excluded from return list                                    | Up to extension logic                      |
+| STOPPED_ATTACK      | Excluded from return list                                         | Up to extension logic                      |
+| STARTED_ATTACK      | +10,000 weight                                                    | Up to extension logic                      |
+| ENTERED (diff tribe/aggressor) | +1,000 weight                                          | Up to extension logic                      |
+| Receipt handling    | Destructured internally                                           | `destroy_online_receipt` with witness      |
+| Specialization      | Not considered                                                    | Can be implemented via `group_id`          |
 
 ## Related Documentation
 

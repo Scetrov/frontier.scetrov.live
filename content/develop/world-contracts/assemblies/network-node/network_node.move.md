@@ -154,5 +154,5 @@ The most critical safety feature is the use of `OfflineAssemblies`. Because this
 The Network Node is the central hub of Layer 2 orchestration. It transforms Layer 1 resources into actionable power for the rest of the ecosystem.
 
 * **Layer 1 Primitives:** See `fuel.move` and `energy.move`.
-* **Layer 2 Assemblies:** This module connects to `storage_unit.move` and `gate.move`.
+* **Layer 2 Assemblies:** This module connects to `storage_unit.move`, `gate.move`, and `turret.move`.
 * **Access Control:** Managed via `access_control.move`.

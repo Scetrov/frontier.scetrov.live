@@ -40,7 +40,7 @@ sequenceDiagram
 | **`gate.move`**               | Standalone gate extension — tribe-based jump permit with self-contained rules.                |
 | **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields. |
 | **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                |
-| **`turret.move`**             | Turret extension — custom targeting priority logic using the `OnlineReceipt` hot potato pattern (pre-release). |
+| **`turret.move`**             | Turret extension — custom targeting priority logic using the `OnlineReceipt` hot potato pattern. |
 
 > [!TIP]
 > These examples can be used as starting points for your own extensions. The [builder-scaffold](https://github.com/evefrontier/builder-scaffold) repository provides a complete project template for building and testing extensions locally.

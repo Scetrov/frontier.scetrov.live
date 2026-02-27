@@ -18,7 +18,7 @@ graph TD
     subgraph Layer2 ["Layer 2: Game-Defined Assemblies"]
         SU["Storage Unit"]
         Gate["Stargate"]
-        Turret["Smart Turret (Draft)"]
+        Turret["Smart Turret"]
         MU["Manufacturing Unit"]
     end
 

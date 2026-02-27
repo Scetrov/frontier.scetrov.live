@@ -6,7 +6,7 @@ draft = false
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources/assemblies"
 +++
 
-{{% pre-release pr_number="95" description="The Turret API and architecture are subject to significant changes before the official release." %}}
+{{< pre-release pr_number="95" description="The Turret API and architecture are subject to significant changes before the official release." >}}
 
 The Turret is a **programmable defense structure** in the EVE Frontier world. It is a Sui shared object anchored to a [Network Node](../network-node/network_node.move/), projecting offensive or defensive power over a fixed location based on builder-defined targeting rules.
 
@@ -15,7 +15,11 @@ Builders control two key behaviors:
 * **InProximity** — reacts to ships entering the turret's engagement range.
 * **Aggression** — responds to hostile actions from ships within range.
 
-A configurable on-chain **priority queue** determines how targets are ranked and engaged. Owners can define custom targeting logic through extension contracts using the [typed witness pattern](/develop/smart-assemblies-intro/#extension-pattern).
+A configurable on-chain **priority queue** determines how targets are ranked and engaged. When a change occurs (ship enters range, starts attacking, stops attacking), the game sends the full target list and a set of **affected targets** describing what changed, and receives back a prioritized return list. Owners can define custom targeting logic through extension contracts using the [typed witness pattern](/develop/smart-assemblies-intro/#extension-pattern).
+
+{{< notice warning >}}
+There is a significant change from the Mud implementation of the smart contracts, where the logic will now fire on aggressors even if they are from the same tribe as the owner of the of turret.
+{{< /notice >}}
 
 ## Architecture
 
@@ -36,8 +40,9 @@ flowchart TD
 
     subgraph Targeting
         P["Priority Queue (BCS)"]
-        Rules["Default Rules"]
+        Rules["Default Rules\n(build_return_priority_list)"]
         Ext["Custom Extension"]
+        AT["AffectedTarget Events"]
     end
 
     subgraph Infrastructure
@@ -51,16 +56,17 @@ flowchart TD
     T --> Metadata
     T -->|energy_source_id| NWN
     T --> P
-    Rules -->|apply_target_priority_rules| P
+    Rules -->|build_return_priority_list| P
+    AT -->|weight adjustments| Rules
     Ext -.->|typed witness| T
     Receipt -.->|verify_online| T
 ```
 
 ## Key Concepts
 
-* **Two Behaviors** — The game invokes turret logic through two triggers: **InProximity** (a new ship enters range) and **Aggression** (a hostile action occurs on-grid). Both call `get_target_priority_list` to update the targeting queue.
-* **Priority Queue** — Targets are ranked in a `vector<TurretTarget>` serialized as BCS bytes. The function `get_target_priority_list` receives the current list plus a new target and returns the updated list.
-* **Default Targeting Rules** — When no extension is configured, the built-in `apply_target_priority_rules` function applies: aggressors are always added; non-aggressive targets from a different tribe than the owner are added; same-tribe non-aggressors are ignored.
+* **Two Behaviors** — The game invokes turret logic through two triggers: **InProximity** (a ship enters range) and **Aggression** (a ship starts or stops attacking the base). Both call `get_target_priority_list` which receives the full current target list and the affected targets describing what changed.
+* **Priority Queue** — Targets are provided as a `vector<TurretTarget>` serialized as BCS bytes. The function `get_target_priority_list` receives the current list plus a `vector<AffectedTarget>` describing behavior changes (entered, started attack, stopped attack), and returns a `vector<ReturnTargetPriorityList>` containing `(target_item_id, priority_weight)` pairs. The game shoots the target with the highest `priority_weight`; ties are broken by list order.
+* **Default Targeting Rules** — When no extension is configured, the built-in rules evaluate each target's eligibility and adjust priority weights based on affected target events. Same-tribe non-aggressors are excluded; targets that stopped attacking are excluded; aggressors that started attacking gain +10,000 weight; targets from a different tribe that just entered gain +1,000 weight. Duplicate item IDs are deduplicated.
 * **Energy Dependency** — Turrets must be anchored to a [Network Node](../network-node/network_node.move/) and consume energy from it to remain online.
 * **Extension Pattern** — Uses `authorize_extension<Auth>` to register a typed witness, allowing builders to inject custom targeting priority logic. When an extension is configured, the game resolves the extension package and calls `get_target_priority_list` in that package instead.
 * **OnlineReceipt (Hot Potato)** — Calling `verify_online` returns a non-storable `OnlineReceipt` proving the turret is active. The default `get_target_priority_list` consumes it internally; extensions must call `destroy_online_receipt(receipt, auth_witness)` to destroy it.
@@ -87,18 +93,47 @@ The core shared object representing the turret assembly.
 
 Represents a potential target in the turret's proximity. Serialized via BCS for on-chain priority list management.
 
-| Field                      | Type   | Description                                                       |
-| -------------------------- | ------ | ----------------------------------------------------------------- |
-| `target_id`                | `ID`   | Sui object ID of the target.                                      |
-| `target_type_id`           | `u64`  | Type identifier of the target (ship or NPC).                      |
-| `target_group_id`          | `u64`  | Group ID for ship classification (0 for NPCs); see table below.   |
-| `target_character_id`      | `ID`   | Pilot's character ID (zero-address for NPCs).                     |
-| `target_character_tribe`   | `u32`  | Tribe ID of the target's pilot.                                   |
-| `hp_ratio`                 | `u64`  | Percentage of structure HP remaining (0–100).                     |
-| `shield_ratio`             | `u64`  | Percentage of shield HP remaining (0–100).                        |
-| `armor_ratio`              | `u64`  | Percentage of armor HP remaining (0–100).                         |
-| `is_agressor`              | `bool` | `true` if the target is attacking anything on-grid.               |
-| `weight`                   | `u64`  | Priority weight for queue ordering.                               |
+| Field              | Type   | Description                                                       |
+| ------------------ | ------ | ----------------------------------------------------------------- |
+| `item_id`          | `u64`  | In-game item ID of the target.                                    |
+| `type_id`          | `u64`  | Type identifier of the target (ship or NPC).                      |
+| `group_id`         | `u64`  | Group ID for ship classification (0 for NPCs); see table below.   |
+| `character_id`     | `u32`  | Pilot's character ID (0 for NPCs).                                |
+| `character_tribe`  | `u32`  | Tribe ID of the target's pilot.                                   |
+| `hp_ratio`         | `u64`  | Percentage of structure HP remaining (0–100).                     |
+| `shield_ratio`     | `u64`  | Percentage of shield HP remaining (0–100).                        |
+| `armor_ratio`      | `u64`  | Percentage of armor HP remaining (0–100).                         |
+| `is_aggressor`     | `bool` | `true` if the target is attacking anything on-grid.               |
+| `priority_weight`  | `u64`  | Priority weight for queue ordering.                               |
+
+### `AffectedTargetChangeType` (Enum)
+
+Describes what behavioral change occurred for a target in proximity.
+
+| Variant            | Description                                                          |
+| ------------------ | -------------------------------------------------------------------- |
+| `UNSPECIFIED`      | No specific change (default).                                        |
+| `ENTERED`          | Target entered the proximity of the turret.                          |
+| `STARTED_ATTACK`   | Target started attacking the base.                                   |
+| `STOPPED_ATTACK`   | Target stopped attacking the base.                                   |
+
+### `AffectedTarget`
+
+Describes a single target whose behavior has changed. Passed as a BCS-encoded vector to `get_target_priority_list`.
+
+| Field              | Type                        | Description                                 |
+| ------------------ | --------------------------- | ------------------------------------------- |
+| `target_item_id`   | `u64`                       | The in-game item ID of the affected target. |
+| `change_type`      | `AffectedTargetChangeType`  | What changed (entered, started/stopped attack). |
+
+### `ReturnTargetPriorityList`
+
+The return value from `get_target_priority_list`. Each entry maps a target to its computed priority weight. The game shoots the target with the highest `priority_weight`; ties are broken by list order.
+
+| Field              | Type   | Description                                 |
+| ------------------ | ------ | ------------------------------------------- |
+| `target_item_id`   | `u64`  | The in-game item ID of the target.          |
+| `priority_weight`  | `u64`  | Computed priority weight for this target.   |
 
 ### `OnlineReceipt`
 
@@ -154,10 +189,13 @@ These require a valid `OwnerCap<Turret>` borrowed from the owner's [Character](.
 ### Targeting Functions
 
 * **`verify_online`** — Returns an `OnlineReceipt` (hot potato) proving the turret is online. Aborts with `ENotOnline` if offline.
-* **`get_target_priority_list`** — The default targeting entry point. Accepts the turret, owner character, current priority list (BCS bytes), new target (BCS bytes), and an `OnlineReceipt`. Applies default rules and returns the updated list. Aborts with `EExtensionConfigured` if an extension is registered (the game should call the extension's function instead).
+* **`get_target_priority_list`** — The default targeting entry point. Accepts the turret, owner character, current priority list (BCS `vector<TurretTarget>`), affected targets (BCS `vector<AffectedTarget>`), and an `OnlineReceipt`. Applies default rules and returns BCS `vector<ReturnTargetPriorityList>` with `(target_item_id, priority_weight)` pairs. Aborts with `EExtensionConfigured` if an extension is registered (the game should call the extension's function instead).
 * **`destroy_online_receipt<Auth>`** — Consumes an `OnlineReceipt` using a typed witness. Used by extension contracts after custom targeting logic.
 * **`unpack_priority_list`** — Deserializes `vector<TurretTarget>` from BCS bytes.
+* **`unpack_affected_targets`** — Deserializes `vector<AffectedTarget>` from BCS bytes.
+* **`unpack_return_priority_list`** — Deserializes `vector<ReturnTargetPriorityList>` from BCS bytes.
 * **`peel_turret_target`** — Deserializes a single `TurretTarget` from BCS bytes.
+* **`new_return_target_priority_list`** — Constructs a `ReturnTargetPriorityList` entry (for use in extension contracts and tests).
 
 ### Network Node Integration (Hot Potato)
 
@@ -190,26 +228,37 @@ These require `AdminACL` sponsor verification.
 | `is_extension_configured`  | `bool`               | Whether an extension is registered.               |
 | `type_id`                  | `u64`                | The turret's type identifier.                     |
 
-`TurretTarget` field accessors: `target_id`, `target_type_id`, `target_group_id`, `target_character_id`, `target_character_tribe`, `hp_ratio`, `shield_ratio`, `armor_ratio`, `is_agressor`, `weight`.
+`TurretTarget` field accessors: `item_id`, `target_type_id`, `group_id`, `character_id`, `character_tribe`, `hp_ratio`, `shield_ratio`, `armor_ratio`, `is_aggressor`, `priority_weight`.
+
+`ReturnTargetPriorityList` field accessors: `return_target_item_id`, `return_priority_weight`.
 
 `OnlineReceipt` accessor: `turret_id`.
 
 ## Default Targeting Rules
 
-When no extension is configured, `apply_target_priority_rules` applies these rules to each new target:
+When no extension is configured, `build_return_priority_list` evaluates every target in the current priority list and applies the following per-target rules:
 
 ```mermaid
 flowchart TD
-    A[New Target] --> B{is_agressor?}
-    B -->|Yes| C[Add to priority list]
-    B -->|No| D{Same tribe as owner?}
-    D -->|No| C
-    D -->|Yes| E[Ignore target]
+    A[For each target in priority list] --> B{Same tribe AND\nnot aggressor?}
+    B -->|Yes| X[Exclude from return list]
+    B -->|No| C{Affected target\nchange type?}
+    C -->|STOPPED_ATTACK| X
+    C -->|STARTED_ATTACK| D["weight += 10,000"]
+    C -->|ENTERED + different tribe\nor aggressor| E["weight += 1,000"]
+    C -->|UNSPECIFIED / no match| F[Keep original weight]
+    D --> G{Duplicate item_id\nin return list?}
+    E --> G
+    F --> G
+    G -->|Yes| X
+    G -->|No| H[Add to return list]
 ```
 
-1. **Aggressors** — Any target flagged as `is_agressor` (attacking something on-grid) is always added.
-2. **Different Tribe** — Non-aggressive targets from a different tribe than the turret owner are added.
-3. **Same Tribe** — Non-aggressive same-tribe targets are ignored.
+1. **Same Tribe Non-Aggressors** — Targets from the same tribe as the turret owner that are NOT aggressors are excluded.
+2. **Stopped Attacking** — Targets in the `affected_targets` list with `STOPPED_ATTACK` change type are excluded.
+3. **Started Attacking** — Targets that started attacking gain **+10,000** to their `priority_weight`.
+4. **Entered Proximity** — Targets that just entered range and are either from a different tribe or are aggressors gain **+1,000** to their `priority_weight`.
+5. **Deduplication** — Each `item_id` appears at most once in the return list (first occurrence wins).
 
 ## Lifecycle Example
 
@@ -226,8 +275,8 @@ sequenceDiagram
     Owner->>NWN: deposit fuel & online
     Owner->>Turret: online(nwn, energy_config, owner_cap)
     Game->>Turret: verify_online() → OnlineReceipt
-    Game->>Turret: get_target_priority_list(turret, character, list, target, receipt)
-    Turret-->>Game: updated priority list (BCS bytes)
+    Game->>Turret: get_target_priority_list(turret, character, list, affected_targets, receipt)
+    Turret-->>Game: vector of ReturnTargetPriorityList (BCS bytes)
     Owner->>Turret: offline(nwn, energy_config, owner_cap)
     Admin->>Turret: unanchor(nwn, energy_config)
 ```

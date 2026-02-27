@@ -17,7 +17,7 @@ This folder defines the "Smart Assemblies" that players interact with on-chain. 
 | **`assembly.move`**     | The base logic for all generalized assemblies, handling fundamental lifecycle operations like anchoring, un-anchoring, and toggling online/offline states. |
 | **`storage_unit.move`** | A specialized assembly representing a programmable, on-chain storage structure that allows players to manage items under custom-designed rules.            |
 | **`gate.move`**         | A programmable structure enabling travel across space, with support for linking, distance verification, and extension-controlled access via jump permits.  |
-| **`turret.move`**       | A programmable defense structure for space control, with support for custom targeting priority logic and energy reservation (draft).                    |
+| **`turret.move`**       | A programmable defense structure for space control, with support for custom targeting priority logic and energy reservation.                    |
 
 ---
 
