@@ -38,6 +38,7 @@ User Wallet
             ├── OwnerCap<NetworkNode>
             ├── OwnerCap<Gate>
             ├── OwnerCap<StorageUnit>
+            ├── OwnerCap<Turret>
             └── ...
 ```
 
