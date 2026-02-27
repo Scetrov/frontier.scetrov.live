@@ -6,6 +6,10 @@ weight = 20
 
 This guide provides instructions to extend the [Sui Playground setup](../sui-playground.md) by deploying the Sui Indexer, which allows you to index and query on-chain data from your local Sui development environment into a PostgreSQL database. This is essential for building applications that require access to historical blockchain data or real-time updates. This approach was first demonstrated by [REAP] Tapticc who shared their setup in the Sui Discord.
 
+{{< efctl action="the playground setup including the indexer and GraphQL" command="efctl env up" >}}
+<code>efctl</code> automatically configures the indexer and GraphQL endpoint when starting the environment.
+{{< /efctl >}}
+
 ## 1. Prerequisites
 
 - You will need to make these changes before you complete the steps beyond 2.2 in the [Sui Playground guide](../sui-playground.md) as we will be modifying the Docker setup used in that guide. You can start the playground first and then stop it before making these changes, but it's easier to just make the changes first and then start the playground.

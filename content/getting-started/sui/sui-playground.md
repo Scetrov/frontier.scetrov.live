@@ -6,6 +6,10 @@ weight = 10
 
 This guide provides step-by-step instructions to manually set up a local Sui development environment, deploy the EVE Frontier `world-contracts`, and initialize a Smart Gate infrastructure. Credit to [[WOLF] Lacal](https://ef-map.com/) for the original walkthrough posted in Discord.
 
+{{< efctl action="the entire playground setup, deployment, and gate configuration" command="efctl env up" >}}
+See the <a href="https://github.com/scetrov/efctl/blob/main/USAGE.md">efctl usage guide</a> for all available commands.
+{{< /efctl >}}
+
 ---
 
 ## 1. Prerequisites

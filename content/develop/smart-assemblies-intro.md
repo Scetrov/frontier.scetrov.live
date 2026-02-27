@@ -20,6 +20,8 @@ Prerequisites to customize a smart assembly:
 > [!TIP]
 > For local development and testing, all the above steps can be simulated using scripts. Refer to [builder-scaffold](https://github.com/evefrontier/builder-scaffold) so you have everything you need to directly write custom logic for your smart assembly.
 
+{{< efctl action="local environment setup, world deployment, and gate creation" command="efctl env up" />}}
+
 ---
 
 ## Programmable Assemblies
