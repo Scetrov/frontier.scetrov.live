@@ -1,0 +1,62 @@
+{{- /*
+  og-image.html — Generates a per-page OpenGraph image by overlaying the
+  page title onto the branded template (assets/images/og-template.png)
+  using Hugo's images.Text filter and the Disket Mono Bold font.
+
+  Usage:  {{ $ogImg := partial "og-image.html" . }}
+  Returns: an image resource with .Permalink / .RelPermalink
+*/ -}}
+
+{{- $bg   := resources.Get "images/og-template.png" -}}
+{{- $font := resources.Get "fonts/DisketMono-Bold.ttf" -}}
+
+{{- /* --- Word-wrap the title ----------------------------------------- */ -}}
+{{- /* Disket Mono Bold at 56pt ≈ 39.0px per char; 1080px usable → 27 chars */ -}}
+{{- $maxChars := 27 -}}
+{{- $title := .Title -}}
+{{- $lines := slice -}}
+{{- $remaining := $title -}}
+
+{{- /* Simple word-wrap: split on spaces, accumulate until line full */ -}}
+{{- range $i := seq 4 -}}{{/* max 4 lines */}}
+  {{- if $remaining -}}
+    {{- $line := "" -}}
+    {{- $words := split $remaining " " -}}
+    {{- $rest := slice -}}
+    {{- $filled := false -}}
+    {{- range $j, $word := $words -}}
+      {{- if not $filled -}}
+        {{- $candidate := $word -}}
+        {{- if $line -}}
+          {{- $candidate = printf "%s %s" $line $word -}}
+        {{- end -}}
+        {{- if or (le (len $candidate) $maxChars) (eq $line "") -}}
+          {{- $line = $candidate -}}
+        {{- else -}}
+          {{- $filled = true -}}
+          {{- $rest = $rest | append $word -}}
+        {{- end -}}
+      {{- else -}}
+        {{- $rest = $rest | append $word -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $lines = $lines | append $line -}}
+    {{- $remaining = delimit $rest " " -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $wrappedTitle := delimit $lines "\n" -}}
+
+{{- /* --- Render text onto the template image ------------------------- */ -}}
+{{- /* Position: bottom-left area; y = 380 with larger font */ -}}
+{{- $filter := images.Text $wrappedTitle (dict
+    "color"       "#ffffff"
+    "size"        56
+    "x"           60
+    "y"           380
+    "linespacing" 16
+    "font"        $font
+) -}}
+{{- $img := $bg.Filter $filter -}}
+
+{{- return $img -}}
