@@ -1,5 +1,5 @@
 +++
-date = '2026-02-25T00:00:00Z'
+date = '2026-02-27T00:00:00Z'
 title = 'turret.move'
 weight = 4
 draft = false
@@ -228,7 +228,7 @@ These require `AdminACL` sponsor verification.
 | `is_extension_configured`  | `bool`               | Whether an extension is registered.               |
 | `type_id`                  | `u64`                | The turret's type identifier.                     |
 
-`TurretTarget` field accessors: `item_id`, `target_type_id`, `group_id`, `character_id`, `character_tribe`, `hp_ratio`, `shield_ratio`, `armor_ratio`, `is_aggressor`, `priority_weight`.
+`TurretTarget` field accessors: `item_id`, `target_type_id`, `group_id`, `character_id`, `character_tribe`, `is_aggressor`, `priority_weight`.
 
 `ReturnTargetPriorityList` field accessors: `return_target_item_id`, `return_priority_weight`.
 

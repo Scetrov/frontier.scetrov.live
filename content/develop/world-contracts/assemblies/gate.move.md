@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-02-27T00:00:00Z'
 title = 'gate.move'
 weight = 3
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/gate.move'
@@ -63,8 +63,9 @@ Gates function by linking to another gate to create a transport link. This proce
 
 - **Ownership**: Both gates must be owned by the same character.
 - **Distance**: Gates must be within the maximum distance configured for their type in the `GateConfig` (a shared object mapping `type_id` to `max_distance`). Admins configure distance limits via `set_max_distance`.
-- **Location Proofs**: Linking requires a `distance_proof` (a signature from a trusted server) to verify the gates are within range. The `link_gates` function also requires `AdminACL` sponsor verification as a temporary access check until a location service is available.
+- **Location Proofs**: Linking requires a `distance_proof` (a signature from a trusted server) to verify the gates are within range. The `link_gates` function requires `AdminACL` sponsor verification as a temporary access check until a location service is available. Note that the `Character` parameter has been removed from `link_gates`; authorization is handled entirely via `OwnerCap`s.
 - **Unlinking**: Gates can be unlinked by the owner via `unlink_gates` (requires both `OwnerCap`s) or by an admin via `unlink_gates_by_admin`. Gates must be unlinked before they can be unanchored.
+- **Events**: Linking emits a `GateLinkedEvent` and unlinking emits a `GateUnlinkedEvent`, each containing the IDs and keys of both gates. These events enable off-chain indexers to track the gate network topology in real time.
 - **Energy Integration**: A gate cannot go online unless its connected [`NetworkNode`](../../assemblies/network-node/network_node.move/) has reserved energy for it. If a network node is updated or unanchored, the system uses a **"Hot Potato" pattern** (e.g., `UpdateEnergySources`) to ensure all connected gates are updated atomically in the same transaction block.
 
 ---
@@ -227,6 +228,19 @@ A planner determines if a restricted gate is "open" for a specific player by que
 ## 6. Security and Obfuscation
 
 To support "fog of war" mechanics, Frontier stores locations as cryptographic hashes. This allows for the verification of proximity without revealing exact coordinates on-chain. developers must use the `verify_distance` function within the [`world::location`](../../primitives/location.move/) primitive to prove that two entities are legally interacting based on their private coordinates.
+
+---
+
+## 6.1 Events
+
+The Gate module emits the following events for off-chain indexing and tracking:
+
+| Event | Fields | Emitted When |
+| --- | --- | --- |
+| `GateCreatedEvent` | `assembly_id`, `assembly_key`, `owner_cap_id`, `type_id`, `location_hash`, `status` | A new gate is anchored. |
+| `GateLinkedEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key` | Two gates are linked via `link_gates`. |
+| `GateUnlinkedEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key` | Two gates are unlinked via `unlink_gates` or `unlink_gates_by_admin`. |
+| `JumpEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key`, `character_id`, `character_key` | A character jumps through a gate (default or with permit). |
 
 ---
 
