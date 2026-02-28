@@ -83,4 +83,4 @@ For complete extension examples, see the [Extension Examples](/develop/world-con
 
 * [EVE Frontier World Explainer](/develop/world-contracts/) — Three-layer architecture overview
 * [Ownership Model](/develop/ownership-model/) — Borrow-use-return pattern for `OwnerCap`
-* [builder-scaffold](https://github.com/evefrontier/builder-scaffold) — Project template for building and testing extensions
+* [Builder Scaffold](/develop/builder-scaffold/) — Project template for building and testing extensions (Docker & Host flows, Move contracts, dApp template)

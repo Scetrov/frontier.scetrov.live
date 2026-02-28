@@ -237,7 +237,7 @@ This is useful for running ad-hoc Sui CLI commands or inspecting the container f
 
 ### `efctl env extension init`
 
-Initializes the builder-scaffold by copying world artifacts from `world-contracts/deployments` into the `builder-scaffold` directory and configuring its `.env` file. This automates Steps 6 and 7 of the Builder flow.
+Initializes the builder-scaffold by copying world artifacts from `world-contracts/deployments` into the `builder-scaffold` directory and configuring its `.env` file. This automates Steps 6 and 7 of the [Builder Flow](/develop/builder-scaffold/docker-flow/#6-copy-world-artifacts-into-builder-scaffold).
 
 ```bash
 efctl env extension init

@@ -112,6 +112,7 @@
     "keypair",
     "keyrings",
     "keytool",
+    "keypairs",
     "Killboard",
     "Killboards",
     "killmail",
@@ -156,6 +157,7 @@
     "packagename",
     "Palatinus",
     "pipefail",
+    "pkill",
     "Pavol",
     "Peeranha",
     "permissioned",
@@ -166,6 +168,7 @@
     "projectawakening",
     "psql",
     "ptb",
+    "pubfile",
     "PTB",
     "pwsh",
     "Pyrope",
@@ -243,6 +246,8 @@
     "authorise",
     "colour",
     "yourusername",
-    "Yubi"
+    "Yubi",
+    "zklogin",
+    "zkLogin"
   ]
 }
