@@ -77,104 +77,104 @@ flowchart TD
 
 The core shared object representing the turret assembly.
 
-| Field              | Type                  | Description                                                                 |
-| ------------------ | --------------------- | --------------------------------------------------------------------------- |
-| `id`               | `UID`                 | Unique Sui object identifier.                                               |
-| `key`              | `TenantItemId`        | Composite key derived from the in-game item ID and tenant.                  |
-| `owner_cap_id`     | `ID`                  | ID of the `OwnerCap<Turret>` transferred to the owner's character.          |
-| `type_id`          | `u64`                 | The turret's type identifier (determines energy cost and specialization).   |
-| `status`           | `AssemblyStatus`      | Tracks whether the turret is anchored, online, offline, or unanchored.      |
-| `location`         | `Location`            | The spatial coordinates of the turret (hashed).                             |
-| `energy_source_id` | `Option<ID>`          | The ID of the connected Network Node (empty when orphaned).                |
-| `metadata`         | `Option<Metadata>`    | Optional metadata attached to the turret.                                   |
-| `extension`        | `Option<TypeName>`    | The registered extension's type name, if any.                               |
+| Field              | Type               | Description                                                               |
+| ------------------ | ------------------ | ------------------------------------------------------------------------- |
+| `id`               | `UID`              | Unique Sui object identifier.                                             |
+| `key`              | `TenantItemId`     | Composite key derived from the in-game item ID and tenant.                |
+| `owner_cap_id`     | `ID`               | ID of the `OwnerCap<Turret>` transferred to the owner's character.        |
+| `type_id`          | `u64`              | The turret's type identifier (determines energy cost and specialization). |
+| `status`           | `AssemblyStatus`   | Tracks whether the turret is anchored, online, offline, or unanchored.    |
+| `location`         | `Location`         | The spatial coordinates of the turret (hashed).                           |
+| `energy_source_id` | `Option<ID>`       | The ID of the connected Network Node (empty when orphaned).               |
+| `metadata`         | `Option<Metadata>` | Optional metadata attached to the turret.                                 |
+| `extension`        | `Option<TypeName>` | The registered extension's type name, if any.                             |
 
 ### `TurretTarget`
 
 Represents a potential target in the turret's proximity. Serialized via BCS for on-chain priority list management.
 
-| Field              | Type   | Description                                                       |
-| ------------------ | ------ | ----------------------------------------------------------------- |
-| `item_id`          | `u64`  | In-game item ID of the target.                                    |
-| `type_id`          | `u64`  | Type identifier of the target (ship or NPC).                      |
-| `group_id`         | `u64`  | Group ID for ship classification (0 for NPCs); see table below.   |
-| `character_id`     | `u32`  | Pilot's character ID (0 for NPCs).                                |
-| `character_tribe`  | `u32`  | Tribe ID of the target's pilot.                                   |
-| `hp_ratio`         | `u64`  | Percentage of structure HP remaining (0–100).                     |
-| `shield_ratio`     | `u64`  | Percentage of shield HP remaining (0–100).                        |
-| `armor_ratio`      | `u64`  | Percentage of armor HP remaining (0–100).                         |
-| `is_aggressor`     | `bool` | `true` if the target is attacking anything on-grid.               |
-| `priority_weight`  | `u64`  | Priority weight for queue ordering.                               |
+| Field             | Type   | Description                                                     |
+| ----------------- | ------ | --------------------------------------------------------------- |
+| `item_id`         | `u64`  | In-game item ID of the target.                                  |
+| `type_id`         | `u64`  | Type identifier of the target (ship or NPC).                    |
+| `group_id`        | `u64`  | Group ID for ship classification (0 for NPCs); see table below. |
+| `character_id`    | `u32`  | Pilot's character ID (0 for NPCs).                              |
+| `character_tribe` | `u32`  | Tribe ID of the target's pilot.                                 |
+| `hp_ratio`        | `u64`  | Percentage of structure HP remaining (0–100).                   |
+| `shield_ratio`    | `u64`  | Percentage of shield HP remaining (0–100).                      |
+| `armor_ratio`     | `u64`  | Percentage of armor HP remaining (0–100).                       |
+| `is_aggressor`    | `bool` | `true` if the target is attacking anything on-grid.             |
+| `priority_weight` | `u64`  | Priority weight for queue ordering.                             |
 
 ### `AffectedTargetChangeType` (Enum)
 
 Describes what behavioral change occurred for a target in proximity.
 
-| Variant            | Description                                                          |
-| ------------------ | -------------------------------------------------------------------- |
-| `UNSPECIFIED`      | No specific change (default).                                        |
-| `ENTERED`          | Target entered the proximity of the turret.                          |
-| `STARTED_ATTACK`   | Target started attacking the base.                                   |
-| `STOPPED_ATTACK`   | Target stopped attacking the base.                                   |
+| Variant          | Description                                 |
+| ---------------- | ------------------------------------------- |
+| `UNSPECIFIED`    | No specific change (default).               |
+| `ENTERED`        | Target entered the proximity of the turret. |
+| `STARTED_ATTACK` | Target started attacking the base.          |
+| `STOPPED_ATTACK` | Target stopped attacking the base.          |
 
 ### `AffectedTarget`
 
 Describes a single target whose behavior has changed. Passed as a BCS-encoded vector to `get_target_priority_list`.
 
-| Field              | Type                        | Description                                 |
-| ------------------ | --------------------------- | ------------------------------------------- |
-| `target_item_id`   | `u64`                       | The in-game item ID of the affected target. |
-| `change_type`      | `AffectedTargetChangeType`  | What changed (entered, started/stopped attack). |
+| Field            | Type                       | Description                                     |
+| ---------------- | -------------------------- | ----------------------------------------------- |
+| `target_item_id` | `u64`                      | The in-game item ID of the affected target.     |
+| `change_type`    | `AffectedTargetChangeType` | What changed (entered, started/stopped attack). |
 
 ### `ReturnTargetPriorityList`
 
 The return value from `get_target_priority_list`. Each entry maps a target to its computed priority weight. The game shoots the target with the highest `priority_weight`; ties are broken by list order.
 
-| Field              | Type   | Description                                 |
-| ------------------ | ------ | ------------------------------------------- |
-| `target_item_id`   | `u64`  | The in-game item ID of the target.          |
-| `priority_weight`  | `u64`  | Computed priority weight for this target.   |
+| Field             | Type  | Description                               |
+| ----------------- | ----- | ----------------------------------------- |
+| `target_item_id`  | `u64` | The in-game item ID of the target.        |
+| `priority_weight` | `u64` | Computed priority weight for this target. |
 
 ### `OnlineReceipt`
 
 A **hot potato** (non-storable, non-droppable struct) returned by `verify_online`. It proves the turret was online at call time and must be consumed before the transaction ends.
 
-| Field       | Type | Description                            |
-| ----------- | ---- | -------------------------------------- |
+| Field       | Type | Description                                  |
+| ----------- | ---- | -------------------------------------------- |
 | `turret_id` | `ID` | The turret whose online status was verified. |
 
 ## Turret Specializations
 
 Different turret types are specialized against specific ship classes via `target_group_id`:
 
-| Turret Type        | Type ID | Specialized Against                      |
-| ------------------ | ------- | ---------------------------------------- |
-| Autocannon         | 92402   | Shuttle (group 31), Corvette (group 237) |
-| Plasma             | 92403   | Frigate (group 25), Destroyer (group 420)|
-| Howitzer            | 92484   | Cruiser (group 26), Combat BC (group 419)|
+| Turret Type | Type ID | Specialized Against                       |
+| ----------- | ------- | ----------------------------------------- |
+| Autocannon  | 92402   | Shuttle (group 31), Corvette (group 237)  |
+| Plasma      | 92403   | Frigate (group 25), Destroyer (group 420) |
+| Howitzer    | 92484   | Cruiser (group 26), Combat BC (group 419) |
 
 These group IDs can be used in extension logic to prioritize targets or lower their priority based on the turret's specialization.
 
 ## Error Codes
 
-| Code | Constant                  | Description                                          |
-| ---- | ------------------------- | ---------------------------------------------------- |
-| 0    | `ETurretNotAuthorized`    | Caller's `OwnerCap` does not match the turret.       |
-| 1    | `ENetworkNodeMismatch`    | Provided network node does not match `energy_source_id`. |
-| 2    | `ENotOnline`              | Turret must be online for this operation.             |
-| 3    | `ETurretTypeIdEmpty`      | `type_id` must be non-zero when anchoring.            |
-| 4    | `ETurretItemIdEmpty`      | `item_id` must be non-zero when anchoring.            |
-| 5    | `ETurretAlreadyExists`    | A turret with this item ID is already registered.     |
-| 6    | `ETurretHasEnergySource`  | Cannot unanchor orphan while energy source is set.    |
-| 7    | `EExtensionConfigured`    | Default `get_target_priority_list` cannot run when an extension is configured. |
-| 8    | `EInvalidOnlineReceipt`   | The `OnlineReceipt` turret ID does not match.         |
+| Code | Constant                 | Description                                                                    |
+| ---- | ------------------------ | ------------------------------------------------------------------------------ |
+| 0    | `ETurretNotAuthorized`   | Caller's `OwnerCap` does not match the turret.                                 |
+| 1    | `ENetworkNodeMismatch`   | Provided network node does not match `energy_source_id`.                       |
+| 2    | `ENotOnline`             | Turret must be online for this operation.                                      |
+| 3    | `ETurretTypeIdEmpty`     | `type_id` must be non-zero when anchoring.                                     |
+| 4    | `ETurretItemIdEmpty`     | `item_id` must be non-zero when anchoring.                                     |
+| 5    | `ETurretAlreadyExists`   | A turret with this item ID is already registered.                              |
+| 6    | `ETurretHasEnergySource` | Cannot unanchor orphan while energy source is set.                             |
+| 7    | `EExtensionConfigured`   | Default `get_target_priority_list` cannot run when an extension is configured. |
+| 8    | `EInvalidOnlineReceipt`  | The `OnlineReceipt` turret ID does not match.                                  |
 
 ## Events
 
-| Event                       | Fields                                            | Emitted When                         |
-| --------------------------- | ------------------------------------------------- | ------------------------------------ |
-| `TurretCreatedEvent`        | `turret_id`, `turret_key`, `owner_cap_id`, `type_id` | A new turret is anchored.            |
-| `PriorityListUpdatedEvent`  | `turret_id`, `priority_list`                      | The targeting priority list changes. |
+| Event                      | Fields                                               | Emitted When                         |
+| -------------------------- | ---------------------------------------------------- | ------------------------------------ |
+| `TurretCreatedEvent`       | `turret_id`, `turret_key`, `owner_cap_id`, `type_id` | A new turret is anchored.            |
+| `PriorityListUpdatedEvent` | `turret_id`, `priority_list`                         | The targeting priority list changes. |
 
 ## Core Functions
 
@@ -217,16 +217,16 @@ These require `AdminACL` sponsor verification.
 
 ### View Functions
 
-| Function                   | Returns              | Description                                       |
-| -------------------------- | -------------------- | ------------------------------------------------- |
-| `status`                   | `&AssemblyStatus`    | Current assembly status.                          |
-| `location`                 | `&Location`          | Hashed spatial coordinates.                       |
-| `is_online`                | `bool`               | Whether the turret is online.                     |
-| `owner_cap_id`             | `ID`                 | ID of the turret's `OwnerCap`.                    |
-| `energy_source_id`         | `&Option<ID>`        | Connected network node ID.                        |
-| `extension_type`           | `TypeName`           | The configured extension type (aborts if none).   |
-| `is_extension_configured`  | `bool`               | Whether an extension is registered.               |
-| `type_id`                  | `u64`                | The turret's type identifier.                     |
+| Function                  | Returns           | Description                                     |
+| ------------------------- | ----------------- | ----------------------------------------------- |
+| `status`                  | `&AssemblyStatus` | Current assembly status.                        |
+| `location`                | `&Location`       | Hashed spatial coordinates.                     |
+| `is_online`               | `bool`            | Whether the turret is online.                   |
+| `owner_cap_id`            | `ID`              | ID of the turret's `OwnerCap`.                  |
+| `energy_source_id`        | `&Option<ID>`     | Connected network node ID.                      |
+| `extension_type`          | `TypeName`        | The configured extension type (aborts if none). |
+| `is_extension_configured` | `bool`            | Whether an extension is registered.             |
+| `type_id`                 | `u64`             | The turret's type identifier.                   |
 
 `TurretTarget` field accessors: `item_id`, `target_type_id`, `group_id`, `character_id`, `character_tribe`, `is_aggressor`, `priority_weight`.
 

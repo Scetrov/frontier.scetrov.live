@@ -13,11 +13,11 @@ The `move-contracts/` directory contains custom Smart Assembly extension example
 
 ## Extension Examples
 
-| Package | Purpose |
-|---------|---------|
-| [`smart_gate`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/smart_gate) | Custom rules for space travel — toll gates, tribe-only access, corpse bounty collection. Issues `JumpPermit`s based on arbitrary logic. |
-| [`storage_unit`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/storage_unit) | Custom rules for item deposits and withdrawals — vending machines, trade hubs, item gating. |
-| [`tokens`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/tokens) | Standalone token contracts (e.g. for use with gates or storage units). |
+| Package                                                                                                 | Purpose                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| [`smart_gate`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/smart_gate)     | Custom rules for space travel — toll gates, tribe-only access, corpse bounty collection. Issues `JumpPermit`s based on arbitrary logic. |
+| [`storage_unit`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/storage_unit) | Custom rules for item deposits and withdrawals — vending machines, trade hubs, item gating.                                             |
+| [`tokens`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/tokens)             | Standalone token contracts (e.g. for use with gates or storage units).                                                                  |
 
 More standalone contracts (multisig, DAO, etc.) will be added over time.
 
@@ -69,9 +69,9 @@ Contracts are at `/workspace/builder-scaffold/move-contracts/`. From inside the 
 
 From the publish output, set two environment variables in your `.env`:
 
-| Variable | Source |
-|----------|--------|
-| `BUILDER_PACKAGE_ID` | The package ID from the publish transaction output |
+| Variable              | Source                                                  |
+| --------------------- | ------------------------------------------------------- |
+| `BUILDER_PACKAGE_ID`  | The package ID from the publish transaction output      |
 | `EXTENSION_CONFIG_ID` | The `ExtensionConfig` object ID from the publish output |
 
 Then run the [TypeScript scripts](https://github.com/evefrontier/builder-scaffold/blob/main/ts-scripts/readme.md) in order. Full step-by-step instructions are in the [Docker Flow](../docker-flow/#9-run-scripts) or [Host Flow](../host-flow/#8-run-scripts).

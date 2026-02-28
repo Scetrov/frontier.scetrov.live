@@ -162,12 +162,12 @@ pnpm collect-corpse-bounty
 
 ## Useful Commands
 
-| Task | Command |
-|------|---------|
-| View keys | `cat /workspace/builder-scaffold/docker/.env.sui` |
-| List addresses | `sui client addresses` |
-| Switch network | `sui client switch --env testnet` |
-| Import a key | `sui keytool import <key> ed25519` |
+| Task             | Command                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| View keys        | `cat /workspace/builder-scaffold/docker/.env.sui`                                      |
+| List addresses   | `sui client addresses`                                                                 |
+| Switch network   | `sui client switch --env testnet`                                                      |
+| Import a key     | `sui keytool import <key> ed25519`                                                     |
 | Build a contract | `cd /workspace/builder-scaffold/move-contracts/<example> && sui move build -e testnet` |
 
 See [Docker Environment](../docker-environment/) for container rebuild, cleanup, and troubleshooting details.

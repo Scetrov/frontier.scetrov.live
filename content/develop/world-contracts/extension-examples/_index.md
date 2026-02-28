@@ -34,12 +34,12 @@ sequenceDiagram
 
 ## Modules in This Section
 
-| Module                        | Description                                                                                   |
-| ----------------------------- | --------------------------------------------------------------------------------------------- |
-| **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.            |
-| **`gate.move`**               | Standalone gate extension — tribe-based jump permit with self-contained rules.                |
-| **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields. |
-| **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                |
+| Module                        | Description                                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.               |
+| **`gate.move`**               | Standalone gate extension — tribe-based jump permit with self-contained rules.                   |
+| **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields.    |
+| **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                   |
 | **`turret.move`**             | Turret extension — custom targeting priority logic using the `OnlineReceipt` hot potato pattern. |
 
 > [!TIP]

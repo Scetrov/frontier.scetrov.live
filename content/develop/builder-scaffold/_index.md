@@ -12,14 +12,14 @@ Templates and tools for building on EVE Frontier. The **builder-scaffold** repos
 
 ## What's in the Repo
 
-| Directory | Purpose |
-|-----------|---------|
-| `docker/` | Dev container (Sui CLI + Node.js) — used by the Docker flow. |
+| Directory         | Purpose                                                                                        |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| `docker/`         | Dev container (Sui CLI + Node.js) — used by the Docker flow.                                   |
 | `move-contracts/` | Custom Smart Assembly extension examples (e.g. `smart_gate`, `storage_unit`); build & publish. |
-| `ts-scripts/` | TypeScript scripts to call your contracts; run after publishing. |
-| `setup-world/` | What "deploy world" does and what gets created. |
-| `dapps/` | Reference dApp template (optional next step). |
-| `zklogin/` | zkLogin CLI for OAuth-based signing (optional). |
+| `ts-scripts/`     | TypeScript scripts to call your contracts; run after publishing.                               |
+| `setup-world/`    | What "deploy world" does and what gets created.                                                |
+| `dapps/`          | Reference dApp template (optional next step).                                                  |
+| `zklogin/`        | zkLogin CLI for OAuth-based signing (optional).                                                |
 
 ---
 
@@ -42,10 +42,10 @@ cd builder-scaffold
 
 Then choose a flow:
 
-| Flow | When to Use |
-|------|-------------|
+| Flow                        | When to Use                                                            |
+| --------------------------- | ---------------------------------------------------------------------- |
 | [Docker Flow](docker-flow/) | No Sui/Node on host; run everything in a container (local or testnet). |
-| [Host Flow](host-flow/) | Sui CLI + Node.js installed on your machine; target local or testnet. |
+| [Host Flow](host-flow/)     | Sui CLI + Node.js installed on your machine; target local or testnet.  |
 
 By the end you'll have a deployed world, a published custom contract (e.g. `smart_gate`), and scripts that call it.
 

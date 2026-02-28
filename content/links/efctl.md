@@ -87,15 +87,15 @@ mkdir -p ~/.local/bin && mv efctl ~/.local/bin/
 
 `efctl env up` checks for the following before starting:
 
-| Requirement | Details |
-|---|---|
-| **Node.js** | Version >= 20.0.0 required (24.x recommended) |
-| **Docker or Podman** | Container runtime to run the Sui playground |
-| **Git** | Used to clone the world-contracts repository |
-| **Port 9000** | Must be free (Sui RPC) |
-| **Port 8000** | Must be free if using `--with-graphql` (GraphQL API) |
-| **Port 5432** | Must be free if using `--with-graphql` (PostgreSQL) |
-| **Port 5173** | Must be free if using `--with-frontend` (Vite dev server) |
+| Requirement          | Details                                                   |
+| -------------------- | --------------------------------------------------------- |
+| **Node.js**          | Version >= 20.0.0 required (24.x recommended)             |
+| **Docker or Podman** | Container runtime to run the Sui playground               |
+| **Git**              | Used to clone the world-contracts repository              |
+| **Port 9000**        | Must be free (Sui RPC)                                    |
+| **Port 8000**        | Must be free if using `--with-graphql` (GraphQL API)      |
+| **Port 5432**        | Must be free if using `--with-graphql` (PostgreSQL)       |
+| **Port 5173**        | Must be free if using `--with-frontend` (Vite dev server) |
 
 ---
 
@@ -142,8 +142,8 @@ efctl
 
 ### Global Flags
 
-| Flag | Description |
-|---|---|
+| Flag         | Description               |
+| ------------ | ------------------------- |
 | `-h, --help` | Show help for any command |
 
 ---
@@ -159,11 +159,11 @@ efctl env up --with-frontend
 efctl env up -w /path/to/workspace
 ```
 
-| Flag | Default | Description |
-|---|---|---|
-| `--with-graphql` | `false` | Also start the SQL Indexer, PostgreSQL, and GraphQL API |
+| Flag              | Default | Description                                                                 |
+| ----------------- | ------- | --------------------------------------------------------------------------- |
+| `--with-graphql`  | `false` | Also start the SQL Indexer, PostgreSQL, and GraphQL API                     |
 | `--with-frontend` | `false` | Also start the builder-scaffold web frontend (Vite dev server on port 5173) |
-| `-w, --workspace` | `.` | Path to the workspace directory |
+| `-w, --workspace` | `.`     | Path to the workspace directory                                             |
 
 After a successful deployment, if the Sui client is installed locally, `efctl` will configure it to point at the local environment and print suggested test commands.
 
@@ -181,9 +181,9 @@ efctl env down
 efctl env down -w /path/to/workspace
 ```
 
-| Flag | Default | Description |
-|---|---|---|
-| `-w, --workspace` | `.` | Path to the workspace directory |
+| Flag              | Default | Description                     |
+| ----------------- | ------- | ------------------------------- |
+| `-w, --workspace` | `.`     | Path to the workspace directory |
 
 ---
 
@@ -209,17 +209,17 @@ The dashboard displays:
 
 The dashboard polls every 2 seconds and supports the following keyboard shortcuts:
 
-| Key | Action |
-|---|---|
-| `r` | Restart the environment (`down` → `up`) |
-| `d` | Tear down the environment |
-| `↑` / `k` | Scroll logs up |
-| `↓` / `j` | Scroll logs down |
-| `PgUp` / `PgDn` | Scroll logs by 20 lines |
-| `Home` / `End` | Jump to top / bottom of logs |
-| `g` | Enable GraphQL (if not already running) |
-| `f` | Enable frontend dApp (if not already running) |
-| `q` | Quit the dashboard |
+| Key             | Action                                        |
+| --------------- | --------------------------------------------- |
+| `r`             | Restart the environment (`down` → `up`)       |
+| `d`             | Tear down the environment                     |
+| `↑` / `k`       | Scroll logs up                                |
+| `↓` / `j`       | Scroll logs down                              |
+| `PgUp` / `PgDn` | Scroll logs by 20 lines                       |
+| `Home` / `End`  | Jump to top / bottom of logs                  |
+| `g`             | Enable GraphQL (if not already running)       |
+| `f`             | Enable frontend dApp (if not already running) |
+| `q`             | Quit the dashboard                            |
 
 ---
 
@@ -244,10 +244,10 @@ efctl env extension init
 efctl env extension init -n testnet
 ```
 
-| Flag | Default | Description |
-|---|---|---|
-| `-n, --network` | `localnet` | Network to copy artifacts from (`localnet` or `testnet`) |
-| `-w, --workspace` | `.` | Path to the workspace directory |
+| Flag              | Default    | Description                                              |
+| ----------------- | ---------- | -------------------------------------------------------- |
+| `-n, --network`   | `localnet` | Network to copy artifacts from (`localnet` or `testnet`) |
+| `-w, --workspace` | `.`        | Path to the workspace directory                          |
 
 ---
 
@@ -260,8 +260,8 @@ efctl env extension publish my-extension
 efctl env extension publish my-extension -n testnet
 ```
 
-| Flag | Default | Description |
-|---|---|---|
+| Flag            | Default    | Description           |
+| --------------- | ---------- | --------------------- |
 | `-n, --network` | `localnet` | Network to publish to |
 
 The command outputs `BUILDER_PACKAGE_ID` and `EXTENSION_CONFIG_ID` on success.
@@ -296,8 +296,8 @@ efctl graphql object 0x1234...abcd
 efctl graphql object 0x1234...abcd -e https://sui-graphql.example.com/graphql
 ```
 
-| Flag | Default | Description |
-|---|---|---|
+| Flag             | Default                         | Description              |
+| ---------------- | ------------------------------- | ------------------------ |
 | `-e, --endpoint` | `http://localhost:9125/graphql` | Sui GraphQL RPC endpoint |
 
 ---
@@ -311,8 +311,8 @@ efctl graphql package 0xabcd...1234
 efctl graphql package 0xabcd...1234 -e https://sui-graphql.example.com/graphql
 ```
 
-| Flag | Default | Description |
-|---|---|---|
+| Flag             | Default                         | Description              |
+| ---------------- | ------------------------------- | ------------------------ |
 | `-e, --endpoint` | `http://localhost:9125/graphql` | Sui GraphQL RPC endpoint |
 
 ---

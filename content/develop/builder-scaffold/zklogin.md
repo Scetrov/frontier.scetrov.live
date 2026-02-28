@@ -47,12 +47,12 @@ pnpm zklogin
 
 Edit `zkLoginTransaction.ts` to change:
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `AUTH_URL` | EVE Frontier OAuth | OAuth provider authorization endpoint |
-| `CLIENT_ID` | EVE Frontier client | OAuth client ID |
-| `SUI_NETWORK_URL` | devnet | Target Sui network RPC URL |
-| `PROVER_URL` | Mysten prover | ZK prover endpoint for generating proofs |
+| Setting           | Default             | Description                              |
+| ----------------- | ------------------- | ---------------------------------------- |
+| `AUTH_URL`        | EVE Frontier OAuth  | OAuth provider authorization endpoint    |
+| `CLIENT_ID`       | EVE Frontier client | OAuth client ID                          |
+| `SUI_NETWORK_URL` | devnet              | Target Sui network RPC URL               |
+| `PROVER_URL`      | Mysten prover       | ZK prover endpoint for generating proofs |
 
 ---
 

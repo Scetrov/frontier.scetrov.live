@@ -79,25 +79,25 @@ public fun get_target_priority_list(
 
 Extensions can use the `group_id` field on `TurretTarget` to implement specialization-aware targeting:
 
-| Turret Type  | Type ID | Specialized Against                         |
-| ------------ | ------- | ------------------------------------------- |
-| Autocannon   | 92402   | Shuttle (group 31), Corvette (group 237)    |
-| Plasma       | 92403   | Frigate (group 25), Destroyer (group 420)   |
-| Howitzer     | 92484   | Cruiser (group 26), Combat BC (group 419)   |
+| Turret Type | Type ID | Specialized Against                       |
+| ----------- | ------- | ----------------------------------------- |
+| Autocannon  | 92402   | Shuttle (group 31), Corvette (group 237)  |
+| Plasma      | 92403   | Frigate (group 25), Destroyer (group 420) |
+| Howitzer    | 92484   | Cruiser (group 26), Combat BC (group 419) |
 
 For example, an Autocannon turret extension could assign higher weight to Shuttles and Corvettes, or a Plasma turret could lower the priority of targets outside its specialization.
 
 ## Comparison with Default Behavior
 
-| Aspect              | Default (`world::turret`)                                         | Extension (this example)                   |
-| ------------------- | ----------------------------------------------------------------- | ------------------------------------------ |
-| Return type         | `vector<ReturnTargetPriorityList>` (target_item_id + weight)      | Same                                       |
-| Same-tribe non-aggressor | Excluded from return list                                    | Up to extension logic                      |
-| STOPPED_ATTACK      | Excluded from return list                                         | Up to extension logic                      |
-| STARTED_ATTACK      | +10,000 weight                                                    | Up to extension logic                      |
-| ENTERED (diff tribe/aggressor) | +1,000 weight                                          | Up to extension logic                      |
-| Receipt handling    | Destructured internally                                           | `destroy_online_receipt` with witness      |
-| Specialization      | Not considered                                                    | Can be implemented via `group_id`          |
+| Aspect                         | Default (`world::turret`)                                    | Extension (this example)              |
+| ------------------------------ | ------------------------------------------------------------ | ------------------------------------- |
+| Return type                    | `vector<ReturnTargetPriorityList>` (target_item_id + weight) | Same                                  |
+| Same-tribe non-aggressor       | Excluded from return list                                    | Up to extension logic                 |
+| STOPPED_ATTACK                 | Excluded from return list                                    | Up to extension logic                 |
+| STARTED_ATTACK                 | +10,000 weight                                               | Up to extension logic                 |
+| ENTERED (diff tribe/aggressor) | +1,000 weight                                                | Up to extension logic                 |
+| Receipt handling               | Destructured internally                                      | `destroy_online_receipt` with witness |
+| Specialization                 | Not considered                                               | Can be implemented via `group_id`     |
 
 ## Related Documentation
 
