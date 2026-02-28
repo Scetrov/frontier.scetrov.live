@@ -45,7 +45,7 @@ From there navigate to **Resources** → **WSL Integration** and check the slide
 
 ## Setting up Tools
 
-From here on the [CCP Documentation](https://docs.evefrontier.com/Tools#next-steps) works flawlessly.
+From here on the [CCP Documentation](https://docs.evefrontier.com/tools/environment-setup#next-steps) works flawlessly.
 
 ## Troubleshoot WSL Install Issues
 
@@ -70,7 +70,7 @@ You only want to unregister the **Ubuntu-24.04** distribution with the following
 wsl --unregister Ubuntu-24.04
 ```
 
-You can then re-register the distribution by following [Setting Up Your Tools](https://docs.evefrontier.com/Tools) starting from:
+You can then re-register the distribution by following [Setting Up Your Tools](https://docs.evefrontier.com/tools/environment-setup) starting from:
 
 ```sh
 wsl --install -d Ubuntu-24.04

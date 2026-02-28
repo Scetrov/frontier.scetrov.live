@@ -35,19 +35,7 @@ While the possible uses are still emergent there are some obvious use-cases that
 > [!TIP]
 > Most of the API has been "PODified", which means that data about Gate Jumps, Killmails, Types, Solar Systems and Market Data can be issued by EVE Frontier as the signer.
 
-## Further Reading
-
-I strongly recommend reading the following pages:
-
-1. [Introduction to PODs](https://docs.evefrontier.com/pods)
-2. [Creating and Verifying PODs](https://docs.evefrontier.com/creating-and-verifying-pods)
-3. [Zero Knowledge Proofs](https://docs.evefrontier.com/zero-knowledge-proofs)
-
-> [!TIP]
-> The examples are very good if you want to jump in and start coding.
-
 ## References
 
-1. [Introduction to PODs - EVE Frontier, CCP (2025)](https://docs.evefrontier.com/pods)
-2. [Introduction | pod.org, 0xPARC (2025)](https://pod.org/pod/introduction)
-3. [POD resources for EVE Frontier Hackathon 2025, Gubsheep, 0xPARC (2025)](https://0xparc.notion.site/POD-resources-for-EVE-Frontier-Hackathon-2025-1d971e0a5420809b9142f4c77a08c546)
+1. [Introduction | pod.org, 0xPARC (2025)](https://pod.org/pod/introduction)
+2. [POD resources for EVE Frontier Hackathon 2025, Gubsheep, 0xPARC (2025)](https://0xparc.notion.site/POD-resources-for-EVE-Frontier-Hackathon-2025-1d971e0a5420809b9142f4c77a08c546)

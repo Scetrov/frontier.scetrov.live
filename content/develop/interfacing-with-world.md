@@ -123,7 +123,7 @@ curl -X POST https://fullnode.mainnet.sui.io:443 \
     "id": 1,
     "method": "suix_queryEvents",
     "params": [{
-      "MoveEventType": "0x...::smartgate::JumpEvent"
+      "MoveEventType": "0x...::gate::JumpEvent"
     }, null, 10, false]
   }'
 ```

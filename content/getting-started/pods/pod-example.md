@@ -4,11 +4,11 @@ title = 'Creating and Verifying Pods'
 weight = 10
 +++
 
-CCP have provided an example in the form of [Creating and Verifying PODs](https://docs.evefrontier.com/creating-and-verifying-pods), the below is a slight refinement of these examples I used to understand what was going on.
+CCP have provided an example for creating and verifying PODs. The below is a slight refinement of these examples I used to understand what was going on.
 
 ## Prerequisites
 
-You will need to have setup your tools in line with [Setting Up Your Tools](https://docs.evefrontier.com/Tools) from CCP, specifically you will need the following:
+You will need to have setup your tools in line with [Setting Up Your Tools](https://docs.evefrontier.com/tools/environment-setup) from CCP, specifically you will need the following:
 
 - `node v18` (earlier and later versions are not supported)
 - `pnpm v8` or `v9` (later versions are likely to work but are untested)
