@@ -1,5 +1,5 @@
 +++
-date = '2026-02-27T12:00:00Z'
+date = '2026-03-02T00:00:00Z'
 title = 'Events Index'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources"
@@ -127,6 +127,32 @@ Emitted when a new Storage Unit is anchored.
 | `max_capacity`    | `u64`          | The maximum inventory volume capacity.          |
 | `location_hash`   | `vector<u8>`   | A hash representing the spatial location.       |
 | `status`          | `Status`       | The initial status of the storage unit.         |
+
+### Turret
+
+**Source:** [`assemblies/turret.move`](https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/turret.move)
+
+Full documentation: [turret.move](../assemblies/turret.move/)
+
+#### `TurretCreatedEvent`
+
+Emitted when a new turret is anchored in the world.
+
+| Field          | Type           | Description                                              |
+| -------------- | -------------- | -------------------------------------------------------- |
+| `turret_id`    | `ID`           | The on-chain object ID of the turret.                    |
+| `turret_key`   | `TenantItemId` | The deterministic game-derived key for the turret.       |
+| `owner_cap_id` | `ID`           | The ID of the `OwnerCap` created for the turret owner.   |
+| `type_id`      | `u64`          | The turret type identifier (determines energy cost).     |
+
+#### `PriorityListUpdatedEvent`
+
+Emitted when the turret's targeting priority list is recalculated.
+
+| Field           | Type                     | Description                                                    |
+| --------------- | ------------------------ | -------------------------------------------------------------- |
+| `turret_id`     | `ID`                     | The on-chain object ID of the turret.                          |
+| `priority_list` | `vector<TargetCandidate>`| The full target candidate list at the time of the update.      |
 
 ---
 
@@ -415,7 +441,7 @@ Emitted when an assembly's operational status changes.
 
 ## Quick Reference
 
-A summary table of all **27 events** across the world-contracts:
+A summary table of all **29 events** across the world-contracts:
 
 | Module           | Event                        | Key Trigger                                           |
 | ---------------- | ---------------------------- | ----------------------------------------------------- |
@@ -427,6 +453,8 @@ A summary table of all **27 events** across the world-contracts:
 | `gate`           | `GateUnlinkedEvent`          | Two gates are unlinked                                |
 | `gate`           | `JumpEvent`                  | A character jumps through a gate                      |
 | `storage_unit`   | `StorageUnitCreatedEvent`    | A storage unit is anchored                            |
+| `turret`         | `TurretCreatedEvent`         | A turret is anchored                                  |
+| `turret`         | `PriorityListUpdatedEvent`   | A turret's targeting priority list is recalculated    |
 | `character`      | `CharacterCreatedEvent`      | A player character is created                         |
 | `killmail`       | `KillmailCreatedEvent`       | A combat loss is recorded                             |
 | `network_node`   | `NetworkNodeCreatedEvent`    | A network node is created                             |
@@ -445,4 +473,4 @@ A summary table of all **27 events** across the world-contracts:
 | `metadata`       | `MetadataChangedEvent`       | Assembly metadata is updated                          |
 | `status`         | `StatusChangedEvent`         | Assembly status changes                               |
 
-> **Note:** Extension example contracts (e.g. `tribe_permit`, `corpse_gate_bounty`, and extension `turret` / `gate`) do not emit their own events in the current codebase. The turret assembly documented in [turret.move](../assemblies/turret.move/) is not yet present in the open-source [world-contracts](https://github.com/evefrontier/world-contracts) repository.
+> **Note:** Extension example contracts (e.g. `tribe_permit`, `corpse_gate_bounty`, and the extension `turret`) emit their own events (e.g. `PriorityListUpdatedEvent` in the turret extension), but these are not part of the core world-contracts event index above.

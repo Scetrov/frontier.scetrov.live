@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-02T00:00:00Z'
 title = 'fuel.move'
 weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/fuel.move"
@@ -34,10 +34,10 @@ classDiagram
 
 ### Key Data Structures
 
-* **`FuelConfig`**: A shared object that maps `fuel_type_id` to an efficiency percentage (10–100%). Higher efficiency reduces the actual units consumed over time.
-* **`Fuel`**: A `store`able struct held by [assemblies](../../assemblies/assembly.move/). It tracks the current resource type, quantity, and precise timing data required to calculate consumption across transactions.
+- **`FuelConfig`**: A shared object that maps `fuel_type_id` to an efficiency percentage (10–100%). Higher efficiency reduces the actual units consumed over time.
+- **`Fuel`**: A `store`able struct held by [assemblies](../../assemblies/assembly.move/). It tracks the current resource type, quantity, and precise timing data required to calculate consumption across transactions.
 
-* **`last_updated` (implementation detail)**: The module includes a `last_updated` timestamp (ms) on the `Fuel` struct. `update()` sets `last_updated` after a successful state change; this prevents redundant updates when `update()` is invoked multiple times within the same millisecond and helps cron-style callers skip no-op updates.
+- **`last_updated` (implementation detail)**: The module includes a `last_updated` timestamp (ms) on the `Fuel` struct. `update()` sets `last_updated` after a successful state change; this prevents redundant updates when `update()` is invoked multiple times within the same millisecond and helps cron-style callers skip no-op updates.
 
 ---
 
@@ -63,9 +63,9 @@ stateDiagram-v2
 
 ### Key Operations
 
-* **`deposit`**: Initializes the fuel type or adds to existing quantity if the type matches. It ensures the `max_capacity` is not exceeded.
-* **`start_burning`**: Consumes exactly **1 unit** immediately to "start the clock" and sets the `burn_start_time`.
-* **`update`**: Calculates how many units have been consumed based on elapsed time since the last update and reduces the quantity.
+- **`deposit`**: Initializes the fuel type or adds to existing quantity if the type matches. It ensures the `max_capacity` is not exceeded.
+- **`start_burning`**: Consumes exactly **1 unit** immediately to "start the clock" and sets the `burn_start_time`.
+- **`update`**: Calculates how many units have been consumed based on elapsed time since the last update and reduces the quantity.
 
 ---
 
@@ -86,25 +86,41 @@ flowchart TD
 
 ```
 
-* **Precision**: Because blockchain transactions are discrete, `previous_cycle_elapsed_time` stores leftover milliseconds that didn't sum up to a full fuel unit, ensuring no "burning time" is lost between updates.
-* **Efficiency**: The formula `(burn_rate * efficiency) / 100` determines the interval between unit depletions.
+- **Precision**: Because blockchain transactions are discrete, `previous_cycle_elapsed_time` stores leftover milliseconds that didn't sum up to a full fuel unit, ensuring no "burning time" is lost between updates.
+- **Efficiency**: The formula `(burn_rate * efficiency) / 100` determines the interval between unit depletions.
 
 ---
 
-## 4. Administrative Control
+## 4. View Functions
+
+These `public` functions allow read-only access to fuel state without requiring package-level authorization.
+
+| Function          | Signature                                                      | Description                                                                                                                        |
+| ----------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `quantity`        | `(fuel: &Fuel): u64`                                           | Current fuel quantity.                                                                                                             |
+| `type_id`         | `(fuel: &Fuel): Option<u64>`                                   | The fuel type ID, if set.                                                                                                          |
+| `volume`          | `(fuel: &Fuel): Option<u64>`                                   | The unit volume per fuel item, if set.                                                                                             |
+| `is_burning`      | `(fuel: &Fuel): bool`                                          | Whether fuel is currently burning.                                                                                                 |
+| `has_enough_fuel` | `(fuel: &Fuel, fuel_config: &FuelConfig, clock: &Clock): bool` | Returns `true` if the current quantity covers consumption at the current time.                                                     |
+| `need_update`     | `(fuel: &Fuel, fuel_config: &FuelConfig, clock: &Clock): bool` | Returns `true` if there are units to consume since the last update. Useful for cron-style callers to avoid no-op `update()` calls. |
+| `fuel_efficiency` | `(fuel_config: &FuelConfig, fuel_type_id: u64): u64`           | Reads the configured efficiency percentage for a fuel type. Aborts with `EIncorrectFuelType` if not set.                           |
+
+---
+
+## 5. Administrative Control
 
 Administrative functions are restricted to `AdminACL` holders via sponsored transactions to balance game-wide resource economies.
 
-| Function | Requirement | Action |
-| --- | --- | --- |
-| `set_fuel_efficiency` | `AdminACL` | Configures the burn efficiency (10-100%) for a specific resource type. |
-| `unset_fuel_efficiency` | `AdminACL` | Removes a fuel type's efficiency configuration. |
+| Function                | Requirement | Action                                                                 |
+| ----------------------- | ----------- | ---------------------------------------------------------------------- |
+| `set_fuel_efficiency`   | `AdminACL`  | Configures the burn efficiency (10-100%) for a specific resource type. |
+| `unset_fuel_efficiency` | `AdminACL`  | Removes a fuel type's efficiency configuration.                        |
 
 ---
 
-## 5. Security and Safety Patterns
+## 6. Security and Safety Patterns
 
-* **Package-Level Encapsulation**: Mutation functions like `deposit`, `withdraw`, `start_burning`, and `update` are `public(package)`. Only authorized Layer 2 [Assemblies](../../assemblies/assembly.move/) can trigger these, preventing players from directly "hacking" their fuel levels.
-* **Type Mismatch Protection**: The module prevents depositing different fuel types into the same storage. Users must `withdraw` the old type before switching.
-* **Time-Sync Verification**: `has_enough_fuel` and `need_update` allow [assemblies](../../assemblies/assembly.move/) to check if they have enough resources to continue operating *before* committing to a heavy state change.
-* **Event Enumeration**: The `Action` enum (DEPOSITED, WITHDRAWN, BURNING_STARTED, etc.) provides a clear audit trail for every fuel-related interaction.
+- **Package-Level Encapsulation**: Mutation functions like `deposit`, `withdraw`, `start_burning`, and `update` are `public(package)`. Only authorized Layer 2 [Assemblies](../../assemblies/assembly.move/) can trigger these, preventing players from directly "hacking" their fuel levels.
+- **Type Mismatch Protection**: The module prevents depositing different fuel types into the same storage. Users must `withdraw` the old type before switching.
+- **Time-Sync Verification**: `has_enough_fuel` and `need_update` allow [assemblies](../../assemblies/assembly.move/) to check if they have enough resources to continue operating _before_ committing to a heavy state change.
+- **Event Enumeration**: The `Action` enum (DEPOSITED, WITHDRAWN, BURNING_STARTED, etc.) provides a clear audit trail for every fuel-related interaction.

@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-02T00:00:00Z'
 title = "Primitives"
 type = "chapter"
 weight = 1

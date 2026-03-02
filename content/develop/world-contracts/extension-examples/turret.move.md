@@ -1,5 +1,5 @@
 +++
-date = '2026-02-25T00:00:00Z'
+date = '2026-03-02T00:00:00Z'
 title = 'turret.move (extension)'
 weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/turret.move"
@@ -17,13 +17,12 @@ The extension receives:
 
 * The `Turret` object (read-only)
 * The owner `Character` (read-only)
-* The current priority list as BCS-encoded `vector<TurretTarget>`
-* The affected targets as BCS-encoded `vector<AffectedTarget>` — describing what changed (entered range, started attack, stopped attack)
+* The target candidate list as BCS-encoded `vector<TargetCandidate>` — each candidate already contains a `behaviour_change: BehaviourChangeReason` field describing what changed (entered range, started attack, stopped attack)
 * An `OnlineReceipt` hot potato proving the turret is online
 
 The extension must:
 
-1. Apply custom targeting logic
+1. Apply custom targeting logic using `turret::unpack_candidate_list(target_candidate_list)` to deserialize candidates
 2. **Consume the `OnlineReceipt`** by calling `turret::destroy_online_receipt(receipt, auth_witness)`
 3. Return a `vector<ReturnTargetPriorityList>` as BCS `vector<u8>`, containing `(target_item_id, priority_weight)` pairs
 
@@ -38,8 +37,8 @@ sequenceDiagram
 
     Owner->>Turret: authorize_extension of TurretAuth
     Game->>Turret: verify_online() → OnlineReceipt
-    Game->>Ext: get_target_priority_list(turret, character, list, affected_targets, receipt)
-    Ext->>Ext: unpack priority list & affected targets
+    Game->>Ext: get_target_priority_list(turret, character, target_candidate_list, receipt)
+    Ext->>Ext: unpack_candidate_list & read behaviour_change per candidate
     Ext->>Ext: apply custom rules
     Ext->>Turret: destroy_online_receipt(receipt, TurretAuth{})
     Ext-->>Game: vector of ReturnTargetPriorityList (BCS bytes)
@@ -58,14 +57,14 @@ The reference implementation returns an empty priority list for testing purposes
 public fun get_target_priority_list(
     turret: &Turret,
     _: &Character,
-    priority_list: vector<u8>,
-    _: vector<u8>,
+    target_candidate_list: vector<u8>,
     receipt: OnlineReceipt,
 ): vector<u8> {
     assert!(receipt.turret_id() == object::id(turret), EInvalidOnlineReceipt);
 
-    let _ = turret::unpack_priority_list(priority_list);
-    // Extension can apply custom rules using turret::unpack_affected_targets(affected_targets)
+    let _ = turret::unpack_candidate_list(target_candidate_list);
+    // Extension can inspect candidate.behaviour_change to apply priority rules:
+    // BehaviourChangeReason::ENTERED, STARTED_ATTACK, STOPPED_ATTACK, UNSPECIFIED
     let mut return_list = vector::empty<turret::ReturnTargetPriorityList>();
     let result = bcs::to_bytes(&return_list);
 
@@ -77,7 +76,7 @@ public fun get_target_priority_list(
 
 ## Turret Specialization Reference
 
-Extensions can use the `group_id` field on `TurretTarget` to implement specialization-aware targeting:
+Extensions can use the `group_id` field on `TargetCandidate` to implement specialization-aware targeting:
 
 | Turret Type | Type ID | Specialized Against                       |
 | ----------- | ------- | ----------------------------------------- |
@@ -98,6 +97,7 @@ For example, an Autocannon turret extension could assign higher weight to Shuttl
 | ENTERED (diff tribe/aggressor) | +1,000 weight                                                | Up to extension logic                 |
 | Receipt handling               | Destructured internally                                      | `destroy_online_receipt` with witness |
 | Specialization                 | Not considered                                               | Can be implemented via `group_id`     |
+| Behaviour change source        | `TargetCandidate.behaviour_change` field                     | Same — `unpack_candidate_list`        |
 
 ## Related Documentation
 

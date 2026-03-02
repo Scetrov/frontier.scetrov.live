@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-02T00:00:00Z'
 title = "Extension Examples"
 type = "chapter"
 weight = 9
@@ -37,7 +37,6 @@ sequenceDiagram
 | Module                        | Description                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------------------ |
 | **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.               |
-| **`gate.move`**               | Standalone gate extension — tribe-based jump permit with self-contained rules.                   |
 | **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields.    |
 | **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                   |
 | **`turret.move`**             | Turret extension — custom targeting priority logic using the `OnlineReceipt` hot potato pattern. |
