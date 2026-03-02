@@ -14,6 +14,14 @@ RUN apt-get update && apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 
     libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libxshmfence1 \
     pre-commit
 
+# Install htmltest (link checker) so pre-commit hooks can run inside the devcontainer
+# Use the Go toolchain to install the latest htmltest binary reliably
+RUN apt-get update && apt-get install -y ca-certificates curl && \
+        GOBIN=/usr/local/bin /usr/local/go/bin/go install github.com/wjdp/htmltest@latest && \
+        if [ ! -x /usr/local/bin/htmltest ]; then \
+            echo "htmltest install failed" >&2; exit 1; \
+        fi
+
 # Install mermaid prerequistes
 RUN apt-get install -y chromium
 
