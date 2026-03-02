@@ -9,7 +9,8 @@ if command -v hugo >/dev/null 2>&1; then
     exit 1
   fi
 else
-  echo "hugo not found; skipping Hugo build check. Install Hugo to enable this check." >&2
+  echo "hugo not found; install hugo from https://github.com/gohugoio/hugo/releases" >&2
+  exit 1
 fi
 
 echo "Running markdownlint-cli..."
@@ -50,7 +51,8 @@ if command -v node >/dev/null 2>&1; then
     fi
   fi
 else
-  echo "Node not found; skipping cspell (spellcheck)." >&2
+  echo "Node not found; install Node.js from https://nodejs.org/ to enable cspell (spellcheck)." >&2
+  exit 1
 fi
 
 echo "Running htmltest (full-site link checks against public/)..."
@@ -60,7 +62,8 @@ if command -v htmltest >/dev/null 2>&1; then
     exit 1
   fi
 else
-  echo "htmltest not found; skipping full-site HTML/link checks. Install htmltest (go install github.com/wjdp/htmltest/cmd/htmltest@latest) to enable." >&2
+  echo "htmltest not found; install htmltest (go install github.com/wjdp/htmltest/cmd/htmltest@latest) to enable full-site HTML/link checks." >&2
+  exit 1
 fi
 
 echo "Docs validation passed."
