@@ -3,9 +3,13 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)" || exit 1
 
 echo "Running hugo --minify..."
-if ! hugo --minify >/dev/null 2>&1; then
-  echo "Hugo build failed (run 'hugo --minify' locally to see errors)" >&2
-  exit 1
+if command -v hugo >/dev/null 2>&1; then
+  if ! hugo --minify >/dev/null 2>&1; then
+    echo "Hugo build failed (run 'hugo --minify' locally to see errors)" >&2
+    exit 1
+  fi
+else
+  echo "hugo not found; skipping Hugo build check. Install Hugo to enable this check." >&2
 fi
 
 echo "Running markdownlint-cli..."
