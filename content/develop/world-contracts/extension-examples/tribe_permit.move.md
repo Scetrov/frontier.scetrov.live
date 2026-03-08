@@ -5,7 +5,7 @@ weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/tribe_permit.move"
 +++
 
-The `tribe_permit.move` module is a **config-based** builder extension for `world::gate`. Like [`gate.move`](../gate.move/), it enforces tribe-based jump rules, but instead of managing its own shared objects, it stores configuration as dynamic fields under the shared [`ExtensionConfig`](../config.move/) object.
+The `tribe_permit.move` module is a **config-based** builder extension for `world::gate`. Like [`gate.move`](../assemblies/gate.move/), it enforces tribe-based jump rules, but instead of managing its own shared objects, it stores configuration as dynamic fields under the shared [`ExtensionConfig`](../config.move/) object.
 
 ## 1. Core Component Architecture
 

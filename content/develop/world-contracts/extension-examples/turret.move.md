@@ -103,7 +103,7 @@ For example, an Autocannon turret extension could assign higher weight to Shuttl
 
 * [Turret Assembly](/develop/world-contracts/assemblies/turret.move/) — Core turret contract and data structures
 * [Smart Assemblies Overview](/develop/smart-assemblies-intro/) — Extension pattern overview
-* [Gate Extension](../gate.move/) — Similar pattern for gate jump permits
+* [Tribe Permit Extension](../tribe_permit.move/) — Similar pattern for gate jump permits
 * [Ownership Model](/develop/ownership-model/) — Borrow-use-return pattern for `OwnerCap`
 
 {{% tip-menu-search %}}
