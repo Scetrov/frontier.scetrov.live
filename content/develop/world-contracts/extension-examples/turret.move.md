@@ -5,8 +5,6 @@ weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/turret.move"
 +++
 
-{{< pre-release pr_number="95" description="This extension example is subject to change alongside the turret implementation." >}}
-
 The `turret.move` extension is a builder extension example for `world::turret`. It demonstrates how builders can implement **custom targeting behavior** by overriding the default priority-list logic using the typed witness pattern.
 
 ## How It Works

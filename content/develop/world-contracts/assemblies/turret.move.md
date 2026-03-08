@@ -6,8 +6,6 @@ draft = false
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/turret.move"
 +++
 
-{{< pre-release pr_number="95" description="The Turret API and architecture are subject to significant changes before the official release." >}}
-
 The Turret is a **programmable defense structure** in the EVE Frontier world. It is a Sui shared object anchored to a [Network Node](../network-node/network_node.move/), projecting offensive or defensive power over a fixed location based on builder-defined targeting rules.
 
 Builders control two key behaviors:
