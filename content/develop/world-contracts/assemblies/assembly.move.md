@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'assembly.move'
 weight = 1
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/assembly.move'
@@ -123,14 +123,18 @@ Authorization in the Assembly module is bifurcated into two main patterns:
 1. **Admin Access (`AdminACL`)**: Used for game-wide configuration and lifecycle management. Functions like `anchor`, `share_assembly`, `update_energy_source`, and `unanchor` require `AdminACL` with sponsored transaction verification.
 2. **Ownership Certificate (`OwnerCap`)**: A unique capability object given to the player who owns the structure. This certificate is required for operational actions like toggling online/offline state.
 
-| Action                | Required Authorization | Purpose                                         |
-| --------------------- | ---------------------- | ----------------------------------------------- |
-| Anchor Assembly       | `AdminACL` (Sponsor)   | Initial deployment of structure.                |
-| Share Assembly        | `AdminACL` (Sponsor)   | Make assembly a shared object.                  |
-| Toggle Online/Offline | `OwnerCap`             | Operational control (reserves/releases energy). |
-| Update Energy Source  | `AdminACL` (Sponsor)   | Reassign to a different NetworkNode.            |
-| Unanchor              | `AdminACL` (Sponsor)   | Destroy and clean up structure.                 |
-| Unanchor Orphan       | `AdminACL` (Sponsor)   | Destroy assembly disconnected from NetworkNode. |
+| Action                         | Required Authorization | Purpose                                                          |
+| ------------------------------ | ---------------------- | ---------------------------------------------------------------- |
+| Anchor Assembly                | `AdminACL` (Sponsor)   | Initial deployment of structure.                                 |
+| Share Assembly                 | `AdminACL` (Sponsor)   | Make assembly a shared object.                                   |
+| Toggle Online/Offline          | `OwnerCap`             | Operational control (reserves/releases energy).                  |
+| Update Energy Source           | `AdminACL` (Sponsor)   | Reassign to a different NetworkNode.                             |
+| Update Metadata (name/desc/url)| `OwnerCap`             | Modify the assembly's name, description, or URL.                 |
+| Unanchor                       | `AdminACL` (Sponsor)   | Destroy and clean up structure.                                  |
+| Unanchor Orphan                | `AdminACL` (Sponsor)   | Destroy assembly disconnected from NetworkNode.                  |
+
+> [!NOTE]
+> **Assembly-level metadata updates** — The `update_metadata_name`, `update_metadata_description`, and `update_metadata_url` functions are defined directly on the `Assembly` struct (and on each specialized assembly like `Gate`, `StorageUnit`, and `Turret`). They require a valid `OwnerCap`, assert that metadata has been set (`EMetadataNotSet`), and delegate to the `public(package)` functions in [`metadata.move`](../../primitives/metadata.move/).
 
 ---
 

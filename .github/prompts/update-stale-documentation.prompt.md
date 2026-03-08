@@ -6,6 +6,10 @@ This prompt guides the process of checking and updating documentation that has f
 
 - Authenticated `gh` CLI (`gh auth status` should show logged in)
 - Python 3.10+
+- a `./tmp` directory is created for caching cloned repositories and managing files during the update process.
+
+> [!NOTE]
+> The `./tmp` directory is used to store temporary files and cloned repositories during the documentation update process. It is recommended to clean up this directory after completing the updates to free up disk space. Under no circumstances use the shared `/tmp` directory for this purpose, as it may lead to conflicts with other processes or users on the system.
 
 ## Step 1: Set Up Environment and Run Freshness Check
 
@@ -128,3 +132,11 @@ gh browse evefrontier/world-contracts
 ### Rate limiting
 
 The script makes one API call per page. If rate-limited, the script will fall back to local git clones which are not rate-limited.
+
+### Cleanup
+
+Once complete, remove items from `./tmp` to free up space:
+
+```bash
+rm -rf ./tmp
+```

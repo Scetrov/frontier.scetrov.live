@@ -1,5 +1,5 @@
 +++
-date = '2026-02-27T00:00:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'gate.move'
 weight = 3
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/gate.move'
@@ -65,6 +65,7 @@ Gates function by linking to another gate to create a transport link. This proce
 - **Distance**: Gates must be within the maximum distance configured for their type in the `GateConfig` (a shared object mapping `type_id` to `max_distance`). Admins configure distance limits via `set_max_distance`.
 - **Location Proofs**: Linking requires a `distance_proof` (a signature from a trusted server) to verify the gates are within range. The `link_gates` function requires `AdminACL` sponsor verification as a temporary access check until a location service is available. Note that the `Character` parameter has been removed from `link_gates`; authorization is handled entirely via `OwnerCap`s.
 - **Unlinking**: Gates can be unlinked by the owner via `unlink_gates` (requires both `OwnerCap`s) or by an admin via `unlink_gates_by_admin`. Gates must be unlinked before they can be unanchored.
+- **Unlink and Unanchor**: The `unlink_and_unanchor` function combines unlinking and unanchoring a source gate in a single call (requires `AdminACL`). `unlink_and_unanchor_orphan` handles the same for orphaned gates (no energy source).
 - **Events**: Linking emits a `GateLinkedEvent` and unlinking emits a `GateUnlinkedEvent`, each containing the IDs and keys of both gates. These events enable off-chain indexers to track the gate network topology in real time.
 - **Energy Integration**: A gate cannot go online unless its connected [`NetworkNode`](../../assemblies/network-node/network_node.move/) has reserved energy for it. If a network node is updated or unanchored, the system uses a **"Hot Potato" pattern** (e.g., `UpdateEnergySources`) to ensure all connected gates are updated atomically in the same transaction block.
 
@@ -77,7 +78,7 @@ The true power of Frontier lies in **Moddability**. Owners can define custom jum
 ### Authorization Flow
 
 1. **Extension Development**: A developer deploys a contract defining a witness type (e.g., `XAuth`).
-2. **Registration**: The gate owner calls `authorize_extension<XAuth>`, adding the `TypeName` to the gate's `extension` field.
+2. **Registration**: The gate owner calls `authorize_extension<XAuth>`, adding the `TypeName` to the gate's `extension` field. This emits an `ExtensionAuthorizedEvent` containing the gate ID, the new extension type, the previous extension (if any), and the owner cap ID.
 3. **Enforcement**: Once an extension is configured, the standard `jump` function will **abort**. Travelers (via the game client) must use `jump_with_permit`.
 
 ```mermaid
@@ -241,6 +242,17 @@ The Gate module emits the following events for off-chain indexing and tracking:
 | `GateLinkedEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key` | Two gates are linked via `link_gates`. |
 | `GateUnlinkedEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key` | Two gates are unlinked via `unlink_gates` or `unlink_gates_by_admin`. |
 | `JumpEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key`, `character_id`, `character_key` | A character jumps through a gate (default or with permit). |
+| `ExtensionAuthorizedEvent` | `assembly_id`, `assembly_key`, `extension_type`, `previous_extension`, `owner_cap_id` | An extension is authorized (or replaced) on a gate via `authorize_extension`. |
+
+### Metadata Updates
+
+Gate owners can update their gate's metadata (name, description, URL) using the following functions, each requiring a valid `OwnerCap<Gate>`:
+
+- **`update_metadata_name`** — Updates the gate's display name.
+- **`update_metadata_description`** — Updates the gate's description.
+- **`update_metadata_url`** — Updates the gate's URL.
+
+These functions assert that metadata has been set on the gate (`EMetadataNotSet`) before performing the update.
 
 ---
 

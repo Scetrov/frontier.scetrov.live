@@ -1,5 +1,5 @@
 +++
-date = '2026-03-02T00:00:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'fuel.move'
 weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/fuel.move"
@@ -121,6 +121,6 @@ Administrative functions are restricted to `AdminACL` holders via sponsored tran
 ## 6. Security and Safety Patterns
 
 - **Package-Level Encapsulation**: Mutation functions like `deposit`, `withdraw`, `start_burning`, and `update` are `public(package)`. Only authorized Layer 2 [Assemblies](../../assemblies/assembly.move/) can trigger these, preventing players from directly "hacking" their fuel levels.
-- **Type Mismatch Protection**: The module prevents depositing different fuel types into the same storage. Users must `withdraw` the old type before switching.
+- **Type Mismatch Protection**: The module prevents depositing different fuel types into the same storage. Users must `withdraw` the old type before switching. The `withdraw` function requires a `type_id` parameter and asserts it matches the stored fuel type (`EFuelTypeMismatch`), enforcing explicit type acknowledgment.
 - **Time-Sync Verification**: `has_enough_fuel` and `need_update` allow [assemblies](../../assemblies/assembly.move/) to check if they have enough resources to continue operating _before_ committing to a heavy state change.
 - **Event Enumeration**: The `Action` enum (DEPOSITED, WITHDRAWN, BURNING_STARTED, etc.) provides a clear audit trail for every fuel-related interaction.

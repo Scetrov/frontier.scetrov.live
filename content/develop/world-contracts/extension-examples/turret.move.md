@@ -1,5 +1,5 @@
 +++
-date = '2026-03-02T00:00:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'turret.move (extension)'
 weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/turret.move"

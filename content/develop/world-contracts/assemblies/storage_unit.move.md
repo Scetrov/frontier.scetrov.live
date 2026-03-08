@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'storage_unit.move'
 weight = 2
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/storage_unit.move'
@@ -150,11 +150,14 @@ Access control is enforced through a combination of Capabilities (`OwnerCap`) an
 | `offline` | `OwnerCap<StorageUnit>` | Only the owner can deactivate the unit. |
 | `game_item_to_chain_inventory` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner requests, Game Server (Admin) allows via sponsorship. Sender must match Character address. |
 | `chain_item_to_game_inventory` | `OwnerCap` | Owner can burn their own items to move them in-game. Sender must match Character address. |
-| `deposit_by_owner` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner deposits items, Game Server verifies via sponsorship. Requires same-location check. |
-| `withdraw_by_owner` | `OwnerCap` + `AdminACL` | **Hybrid**: Owner withdraws items, Game Server verifies via sponsorship. |
+| `deposit_by_owner` | `OwnerCap` | Owner deposits items. |
+| `withdraw_by_owner` | `OwnerCap` | Owner withdraws items. |
 | `deposit_item<Auth>` | Extension Witness | Extension-controlled deposit with authorized type. |
 | `withdraw_item<Auth>` | Extension Witness | Extension-controlled withdrawal with authorized type. |
-| `authorize_extension<Auth>` | `OwnerCap<StorageUnit>` | Register an extension type for this unit. |
+| `authorize_extension<Auth>` | `OwnerCap<StorageUnit>` | Register an extension type for this unit. Emits `ExtensionAuthorizedEvent`. |
+| `update_metadata_name` | `OwnerCap<StorageUnit>` | Update the storage unit's display name. |
+| `update_metadata_description` | `OwnerCap<StorageUnit>` | Update the storage unit's description. |
+| `update_metadata_url` | `OwnerCap<StorageUnit>` | Update the storage unit's URL. |
 
 ### The `AdminACL` Role
 

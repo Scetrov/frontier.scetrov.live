@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'inventory.move'
 weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/inventory.move"
@@ -73,9 +73,9 @@ sequenceDiagram
 
 The primitive handles standard storage interactions, ensuring that total volume never exceeds the defined `max_capacity`.
 
-* **`mint_items`**: Adds items to an inventory. If the `type_id` already exists, it simply increases the stack quantity.
+* **`mint_items`**: Adds items to an inventory. If the `type_id` already exists, it simply increases the stack quantity. Uses the stored volume for existing types (volume is static per `type_id`).
 * **`withdraw_item`**: Removes an entire stack of a specific `type_id` and returns the `Item` object.
-* **`deposit_item`**: Places an existing `Item` object into the inventory. If an item with the same `type_id` already exists, volume is asserted to match before merging stacks.
+* **`deposit_item`**: Places an existing `Item` object into the inventory. If an item with the same `type_id` already exists, the stored volume is used for capacity accounting (volume is static per `type_id`).
 * **`burn_items_with_proof`**: Verifies the player's proximity to the inventory before burning items for bridging. Includes a deadline check via `Clock` to prevent stale proofs.
 
 ---
@@ -84,6 +84,7 @@ The primitive handles standard storage interactions, ensuring that total volume 
 
 Capacity management is strictly enforced through volume calculations.
 
+* **Static Volume per `type_id`**: Volume for a given `type_id` is treated as static. The first `mint_items` or `deposit_item` call for a `type_id` establishes its volume. Subsequent operations use the stored volume for capacity accounting, and incoming volume mismatches are silently ignored.
 * **Volume Calculation**: Total volume for a stack is `item.volume * item.quantity`.
 * **Capacity Checks**: Every deposit or minting operation asserts that `required_capacity <= (max_capacity - used_capacity)`.
 * **Location Integrity**: Items are minted with a `location_hash`. Spatial verification via [proximity proofs](./location.move/) is required for sensitive operations like bridging back to the game.
@@ -93,6 +94,6 @@ Capacity management is strictly enforced through volume calculations.
 ## 5. Security and Event Patterns
 
 * **Package-Level Access**: Core mutation functions are `public(package)`, ensuring only authorized Layer 2 [assemblies](../../assemblies/assembly.move/) can modify inventory states.
-* **Volume Mismatch Protection**: When depositing items of an existing `type_id`, the module asserts that `item.volume == existing.volume` to prevent corruption of capacity tracking.
+* **Volume Consistency**: Volume per `type_id` is static — the first mint or deposit sets the volume, and subsequent operations use the stored volume for capacity accounting. Incoming volume mismatches are silently ignored.
 * **Comprehensive Logging**: The module emits specific events for every major action (Minted, Burned, Deposited, Withdrawn, and Destroyed).
 * **Safe Deletion**: When an inventory is deleted, the module iterates through all remaining items and burns them individually, ensuring clean state cleanup and proper event emission.

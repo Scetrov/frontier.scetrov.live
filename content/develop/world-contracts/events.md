@@ -1,5 +1,5 @@
 +++
-date = '2026-03-02T00:00:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'Events Index'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources"
@@ -108,6 +108,18 @@ Emitted when a character successfully jumps through a linked gate.
 | `character_id`         | `ID`           | The on-chain object ID of the jumping character. |
 | `character_key`        | `TenantItemId` | The game-derived key of the jumping character.   |
 
+#### `ExtensionAuthorizedEvent` (Gate)
+
+Emitted when an extension is authorized (or replaced) on a gate.
+
+| Field                | Type              | Description                                          |
+| -------------------- | ----------------- | ---------------------------------------------------- |
+| `assembly_id`        | `ID`              | The on-chain object ID of the gate.                  |
+| `assembly_key`       | `TenantItemId`    | The game-derived key of the gate.                    |
+| `extension_type`     | `TypeName`        | The type name of the newly authorized extension.     |
+| `previous_extension` | `Option<TypeName>`| The previously authorized extension type, if any.    |
+| `owner_cap_id`       | `ID`              | The ID of the `OwnerCap` used for authorization.     |
+
 ### Storage Unit
 
 **Source:** [`assemblies/storage_unit.move`](https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/storage_unit.move)
@@ -127,6 +139,18 @@ Emitted when a new Storage Unit is anchored.
 | `max_capacity`    | `u64`          | The maximum inventory volume capacity.          |
 | `location_hash`   | `vector<u8>`   | A hash representing the spatial location.       |
 | `status`          | `Status`       | The initial status of the storage unit.         |
+
+#### `ExtensionAuthorizedEvent` (Storage Unit)
+
+Emitted when an extension is authorized (or replaced) on a storage unit.
+
+| Field                | Type              | Description                                              |
+| -------------------- | ----------------- | -------------------------------------------------------- |
+| `assembly_id`        | `ID`              | The on-chain object ID of the storage unit.              |
+| `assembly_key`       | `TenantItemId`    | The game-derived key of the storage unit.                |
+| `extension_type`     | `TypeName`        | The type name of the newly authorized extension.         |
+| `previous_extension` | `Option<TypeName>`| The previously authorized extension type, if any.        |
+| `owner_cap_id`       | `ID`              | The ID of the `OwnerCap` used for authorization.         |
 
 ### Turret
 
@@ -153,6 +177,18 @@ Emitted when the turret's targeting priority list is recalculated.
 | --------------- | ------------------------ | -------------------------------------------------------------- |
 | `turret_id`     | `ID`                     | The on-chain object ID of the turret.                          |
 | `priority_list` | `vector<TargetCandidate>`| The full target candidate list at the time of the update.      |
+
+#### `ExtensionAuthorizedEvent` (Turret)
+
+Emitted when an extension is authorized (or replaced) on a turret.
+
+| Field                | Type              | Description                                          |
+| -------------------- | ----------------- | ---------------------------------------------------- |
+| `assembly_id`        | `ID`              | The on-chain object ID of the turret.                |
+| `assembly_key`       | `TenantItemId`    | The game-derived key of the turret.                  |
+| `extension_type`     | `TypeName`        | The type name of the newly authorized extension.     |
+| `previous_extension` | `Option<TypeName>`| The previously authorized extension type, if any.    |
+| `owner_cap_id`       | `ID`              | The ID of the `OwnerCap` used for authorization.     |
 
 ---
 
@@ -441,7 +477,7 @@ Emitted when an assembly's operational status changes.
 
 ## Quick Reference
 
-A summary table of all **29 events** across the world-contracts:
+A summary table of all **32 events** across the world-contracts:
 
 | Module           | Event                        | Key Trigger                                           |
 | ---------------- | ---------------------------- | ----------------------------------------------------- |
@@ -452,9 +488,12 @@ A summary table of all **29 events** across the world-contracts:
 | `gate`           | `GateLinkedEvent`            | Two gates are linked                                  |
 | `gate`           | `GateUnlinkedEvent`          | Two gates are unlinked                                |
 | `gate`           | `JumpEvent`                  | A character jumps through a gate                      |
+| `gate`           | `ExtensionAuthorizedEvent`   | An extension is authorized on a gate                  |
 | `storage_unit`   | `StorageUnitCreatedEvent`    | A storage unit is anchored                            |
+| `storage_unit`   | `ExtensionAuthorizedEvent`   | An extension is authorized on a storage unit          |
 | `turret`         | `TurretCreatedEvent`         | A turret is anchored                                  |
 | `turret`         | `PriorityListUpdatedEvent`   | A turret's targeting priority list is recalculated    |
+| `turret`         | `ExtensionAuthorizedEvent`   | An extension is authorized on a turret                |
 | `character`      | `CharacterCreatedEvent`      | A player character is created                         |
 | `killmail`       | `KillmailCreatedEvent`       | A combat loss is recorded                             |
 | `network_node`   | `NetworkNodeCreatedEvent`    | A network node is created                             |

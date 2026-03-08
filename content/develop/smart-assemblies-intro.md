@@ -33,7 +33,7 @@ Each assembly type has its own extension pattern. The world contracts provide th
 Custom rules for space travel (e.g., toll gates, tribe-only access). The gate owner deploys a custom contract that issues `JumpPermit`s based on arbitrary logic.
 
 * Code reference: [`gate.move`](world-contracts/assemblies/gate.move/)
-* Extension examples: [`gate.move` (extension)](world-contracts/extension-examples/gate.move/), [`tribe_permit.move`](world-contracts/extension-examples/tribe_permit.move/)
+* Extension examples: [`corpse_gate_bounty.move`](world-contracts/extension-examples/corpse_gate_bounty.move/), [`tribe_permit.move`](world-contracts/extension-examples/tribe_permit.move/)
 
 ### Smart Storage Unit
 

@@ -1,5 +1,5 @@
 +++
-date = '2026-01-28T21:01:26Z'
+date = '2026-03-08T00:00:00Z'
 title = 'metadata.move'
 weight = 7
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/metadata.move"
@@ -14,8 +14,10 @@ The module is built around a simple, extensible struct that can be embedded into
 ```mermaid
 classDiagram
     class Metadata {
+        +ID assembly_id
         +String name
         +String description
+        +String url
     }
 ```
 
@@ -25,8 +27,10 @@ classDiagram
 ### Key Data Structures
 
 * **`Metadata`**: A `store`able struct containing basic descriptive fields.
+* **`assembly_id`**: The `ID` of the assembly this metadata is attached to.
 * **`name`**: A `String` representing the human-readable name of the entity.
 * **`description`**: A `String` providing a detailed explanation or lore for the entity.
+* **`url`**: A `String` containing a URL associated with the entity (e.g., an image or external link).
 
 ---
 
@@ -42,6 +46,7 @@ flowchart LR
     Physics --> P2[Fuel]
     Meta --> M1[Name: 'Mining Outpost Alpha']
     Meta --> M2[Desc: 'A deep-space extraction hub.']
+    Meta --> M3[URL: 'https://example.com/outpost.png']
 
 ```
 
@@ -52,11 +57,12 @@ flowchart LR
 
 ## 3. Operations and Usage
 
-As a primitive, `metadata.move` provides functions to initialize and update these descriptive fields.
+As a primitive, `metadata.move` provides `public(package)` functions to initialize and update these descriptive fields. External callers do not invoke metadata updates directly — instead, each [assembly](../../assemblies/assembly.move/) exposes its own `update_metadata_name`, `update_metadata_description`, and `update_metadata_url` functions that perform authorization checks before delegating to this module.
 
-* **`create`**: Initializes a new `Metadata` struct with a name and description.
-* **`update`**: Allows the name or description to be modified, typically by the owner of the [assembly](../../assemblies/assembly.move/) it is attached to.
-* **View Functions**: Provides public access to read the `name` and `description` of an entity.
+* **`create_metadata`**: Initializes a new `Metadata` struct with a name, description, and URL. Emits a `MetadataChangedEvent`.
+* **`update_name` / `update_description` / `update_url`**: `public(package)` functions that update individual fields. Called by assembly-level functions (e.g., `assembly::update_metadata_name`) which handle `OwnerCap` authorization.
+* **`delete`**: Destroys a `Metadata` struct during assembly cleanup.
+* **View Functions**: Test-only accessors for reading `name`, `description`, and `url`.
 
 ---
 

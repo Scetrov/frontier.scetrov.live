@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-08T00:00:00Z'
 title = 'corpse_gate_bounty.move'
 weight = 4
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/corpse_gate_bounty.move"
@@ -57,7 +57,7 @@ sequenceDiagram
    * Their storage unit (containing the corpse)
    * Source and destination gates
    * Their character and `OwnerCap`
-   * The `AdminACL` (for sponsored transaction validation)
+   * The corpse item ID
 3. The extension:
    * Withdraws the corpse from the player's inventory (owner-authorized)
    * Validates the corpse's `type_id` matches the configured bounty type
@@ -83,7 +83,7 @@ flowchart LR
 ```
 
 > [!IMPORTANT]
-> The `collect_corpse_bounty` function requires both `AdminACL` (for the sponsored withdraw operation) and `OwnerCap<T>` (for owner-authenticated withdrawal). This makes it a **sponsored transaction** — the player signs the intent and an authorized sponsor submits it.
+> The `collect_corpse_bounty` function requires `OwnerCap<T>` for owner-authenticated withdrawal from the player's inventory. No `AdminACL` or proximity proof is needed — the withdrawal is authorized purely by ownership.
 
 ---
 
