@@ -21,7 +21,7 @@ if ! command -v npx >/dev/null 2>&1; then
 fi
 
 # run markdownlint; ignore exit code for printing then exit non-zero if issues
-npx markdownlint-cli "content/**/*.md" ".github/**/*.md"
+npx --yes markdownlint-cli@0.47.0 "content/**/*.md" ".github/**/*.md"
 
 echo "Validating TOML frontmatter in content/*.md files..."
 if ! ./.githooks/validate-frontmatter.sh; then
@@ -39,7 +39,7 @@ if command -v node >/dev/null 2>&1; then
     if command -v npx >/dev/null 2>&1; then
       staged_md=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.md$' || true)
       if [ -n "$staged_md" ]; then
-        echo "$staged_md" | xargs -r npx cspell --no-progress || {
+        echo "$staged_md" | xargs -r npx --yes cspell@9.2.1 --no-progress || {
           echo "cspell found spelling issues. Add words to .cspell.json or fix the typos." >&2
           exit 1
         }

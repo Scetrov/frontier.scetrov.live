@@ -8,14 +8,14 @@ repos:
         pass_filenames: false
       - id: cspell
         name: cspell (spell check)
-        entry: npx cspell
-        language: node
-        files: '\.(md|markdown|txt|rst)$'
+        entry: npx --yes cspell@9.2.1 "content/**/*.md"
+        language: system
+        pass_filenames: false
       - id: markdownlint
         name: markdownlint (markdown linter)
-        entry: npx markdownlint-cli
-        language: node
-        files: '\.md$'
+        entry: npx --yes markdownlint-cli@0.47.0 "content/**/*.md" ".github/**/*.md"
+        language: system
+        pass_filenames: false
       - id: lint-mermaid
         name: lint-mermaid (mermaid diagram validation)
         entry: python3 scripts/lint-mermaid.py

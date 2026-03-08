@@ -164,11 +164,11 @@ These group IDs can be used in extension logic to prioritize targets or lower th
 
 ## Events
 
-| Event                       | Fields                                                                             | Emitted When                                                    |
-| --------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `TurretCreatedEvent`        | `turret_id`, `turret_key`, `owner_cap_id`, `type_id`                               | A new turret is anchored.                                       |
-| `PriorityListUpdatedEvent`  | `turret_id`, `priority_list`                                                       | The targeting priority list changes.                            |
-| `ExtensionAuthorizedEvent`  | `assembly_id`, `assembly_key`, `extension_type`, `previous_extension`, `owner_cap_id` | An extension is authorized (or replaced) via `authorize_extension`. |
+| Event                       | Fields                                                                                | Emitted When                                                           |
+| --------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `TurretCreatedEvent`        | `turret_id`, `turret_key`, `owner_cap_id`, `type_id`                                  | A new turret is anchored.                                              |
+| `PriorityListUpdatedEvent`  | `turret_id`, `priority_list`                                                          | The targeting priority list changes.                                   |
+| `ExtensionAuthorizedEvent`  | `assembly_id`, `assembly_key`, `extension_type`, `previous_extension`, `owner_cap_id` | An extension is authorized (or replaced) via `authorize_extension`.    |
 
 ## Core Functions
 
