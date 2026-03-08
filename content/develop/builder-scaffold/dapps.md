@@ -3,6 +3,7 @@ date = '2026-02-28T12:00:00Z'
 title = 'dApp Starter Template'
 weight = 9
 description = "Reference React dApp template for building EVE Frontier frontends — wallet connection, assembly data, sponsored transactions."
+codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
 The `dapps/` directory contains a reference dApp starter template built with React, TypeScript, and Vite. It demonstrates how to connect to wallets, query Smart Assembly data, and interact with the EVE Frontier world from a web frontend.

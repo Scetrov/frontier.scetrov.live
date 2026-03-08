@@ -3,6 +3,7 @@ date = '2026-02-21T12:23:00Z'
 title = "Introduction to Smart Contracts"
 weight = 5
 description = "Overview of smart contracts in EVE Frontier — what they are, how Frontier uses them, and key Move patterns."
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 ## What Are Smart Contracts?

@@ -3,6 +3,7 @@ date = '2026-02-21T12:23:00Z'
 title = "Smart Assemblies Overview"
 weight = 9
 description = "Introduction to modding programmable Smart Assemblies in EVE Frontier — Gates, Storage Units, Turrets, and the extension pattern."
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 Some EVE Frontier smart assemblies are **programmable** — you can customize their behavior in-game by deploying custom Move contracts.

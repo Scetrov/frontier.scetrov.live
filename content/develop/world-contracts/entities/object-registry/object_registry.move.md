@@ -2,7 +2,7 @@
 date = "2026-02-07"
 title = "object_registry.move"
 weight = 80
-codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/registry/object_registry.move"
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/registry/object_registry.move"
 +++
 
 ## Overview

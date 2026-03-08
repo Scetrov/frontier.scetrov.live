@@ -3,6 +3,7 @@ date = '2026-02-28T12:00:00Z'
 title = 'Docker Flow'
 weight = 5
 description = "End-to-end builder-scaffold workflow running entirely inside Docker — no Sui tools needed on your host."
+codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
 Run the full builder-scaffold flow inside a Docker container — no Sui CLI or Node.js required on your host. The same steps work for any extension example (`smart_gate`, `storage_unit`, or your own); this guide uses `smart_gate` for the publish and scripts steps.

@@ -3,7 +3,7 @@ date = 2026-02-07
 title = "killmail.move"
 weight = 30
 description = "Exploration of the killmail tracking system and the on-chain preservation of PvP combat records in EVE Frontier."
-codebase_url = "[https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/killmail/killmail.move](https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/killmail/killmail.move)"
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/killmail/killmail.move"
 +++
 
 ## Overview

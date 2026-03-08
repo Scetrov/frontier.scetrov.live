@@ -3,6 +3,7 @@ date = '2026-02-28T12:00:00Z'
 title = 'Move Contracts'
 weight = 8
 description = "Building, testing, and publishing custom Move extension contracts with builder-scaffold — smart gates, storage units, and more."
+codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
 The `move-contracts/` directory contains custom Smart Assembly extension examples. You build contracts here that change the default behavior of programmable assemblies by defining a typed witness struct and calling the extendable world functions.

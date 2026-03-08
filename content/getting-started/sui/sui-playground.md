@@ -2,6 +2,7 @@
 date = '2026-02-23T18:13:00+00:00'
 title = 'Sui Playground'
 weight = 10
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 This guide provides step-by-step instructions to manually set up a local Sui development environment, deploy the EVE Frontier `world-contracts`, and initialize a Smart Gate infrastructure. Credit to [[WOLF] Lacal](https://ef-map.com/) for the original walkthrough posted in Discord.

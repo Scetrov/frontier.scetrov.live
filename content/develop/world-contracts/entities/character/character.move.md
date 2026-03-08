@@ -3,7 +3,7 @@ date = 2026-02-07
 title = "character.move"
 weight = 50
 description = "Analysis of deterministic identity generation and the decoupled capability-based mutation model for EVE Frontier characters."
-codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/character/character.move"
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/character/character.move"
 +++
 
 ## Overview

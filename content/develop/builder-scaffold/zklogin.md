@@ -3,6 +3,7 @@ date = '2026-02-28T12:00:00Z'
 title = 'zkLogin CLI'
 weight = 10
 description = "Interactive CLI for executing Sui transactions with zkLogin via EVE Frontier OAuth — no private key management required."
+codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
 The `zklogin/` directory contains an interactive CLI tool for executing Sui transactions using [zkLogin](https://docs.sui.io/concepts/cryptography/zklogin) — Sui's OAuth-based signing mechanism. Instead of managing private keys directly, you authenticate with an OAuth provider (e.g. Google, Twitch) and sign transactions with zero-knowledge proofs derived from your login.

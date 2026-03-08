@@ -3,6 +3,7 @@ date = '2026-02-21T12:23:00Z'
 title = "Interfacing with the World"
 weight = 6
 description = "How to read and write on-chain state in the EVE Frontier world using the Sui TypeScript SDK, GraphQL, and gRPC."
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 ## Overview

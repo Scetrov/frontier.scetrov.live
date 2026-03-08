@@ -3,7 +3,7 @@ date = 2026-02-07
 title = "access_control.move"
 weight = 10
 description = "Deep dive into the hierarchical capability model and the digital laws governing object mutation in EVE Frontier."
-codebase_url = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/access/access_control.move"
+codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/access/access_control.move"
 +++
 
 ## Overview

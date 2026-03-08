@@ -3,6 +3,7 @@ date = '2026-02-28T12:00:00Z'
 title = 'Docker Environment'
 weight = 7
 description = "Details on the builder-scaffold Docker dev container — workspace layout, testnet switching, key management, and troubleshooting."
+codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
 The builder-scaffold Docker container provides a self-contained Sui development environment with Sui CLI, Node.js, and pnpm pre-installed. No host tooling is needed — you edit files on your host and run commands in the container.

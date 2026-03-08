@@ -3,6 +3,7 @@ date = '2026-02-21T12:23:00Z'
 title = "Object Model"
 weight = 7
 description = "How in-game items are deterministically mapped to Sui objects using the ObjectRegistry and TenantItemId system."
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 ## Items

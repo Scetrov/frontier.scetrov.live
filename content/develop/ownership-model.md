@@ -3,6 +3,7 @@ date = '2026-02-21T12:23:00Z'
 title = "Ownership Model"
 weight = 8
 description = "Capability-based access control hierarchy in EVE Frontier — GovernorCap, AdminACL, OwnerCap, and the borrow-use-return pattern."
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 EVE Frontier uses a **capability-based** access control system. Instead of relying on wallet addresses for ownership, transferable capability objects (`OwnerCap`) grant access to on-chain objects.

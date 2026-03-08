@@ -3,6 +3,7 @@ title = "Builder Scaffold"
 type = "chapter"
 weight = 10
 description = "Templates and tools for building on EVE Frontier — Docker and host flows, Move contract examples, dApp template, and zkLogin CLI."
+codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
 > [!NOTE]

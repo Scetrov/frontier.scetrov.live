@@ -3,6 +3,7 @@ date = '2026-01-28T20:28:08Z'
 title = "World Contracts"
 type = "chapter"
 weight = 1
+codebase = "https://github.com/evefrontier/world-contracts"
 +++
 
 ## 1. Architectural Strategy: The Three-Layer Model
