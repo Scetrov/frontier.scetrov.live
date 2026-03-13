@@ -11,3 +11,5 @@ IgnoreURLs:
   - '^https://www.phind.com/.*'
   - '^images/.*'
   - '^https://www.blockchain-council.org/.*'
+  - '^../gate.move/$'
+  - '^world-contracts/extension-examples/gate.move/$'
