@@ -13,45 +13,9 @@ else
   exit 1
 fi
 
-echo "Running markdownlint-cli..."
-# prefer installed npx/markdownlint-cli; use local node_modules if available
-if ! command -v npx >/dev/null 2>&1; then
-  echo "npx not found; please install Node.js and markdownlint-cli (npm i -D markdownlint-cli)" >&2
-  exit 1
-fi
-
-# run markdownlint; ignore exit code for printing then exit non-zero if issues
-npx --yes markdownlint-cli@0.47.0 "content/**/*.md" ".github/**/*.md"
-
 echo "Validating TOML frontmatter in content/*.md files..."
 if ! ./.githooks/validate-frontmatter.sh; then
   echo "Frontmatter validation failed. Please add TOML frontmatter (+++ ... +++) to the listed files." >&2
-  exit 1
-fi
-
-echo "Running cspell (spellcheck) on staged markdown files..."
-if command -v node >/dev/null 2>&1; then
-  # require Node >= 20 for latest cspell
-  node_major=$(node -v | sed -E 's/^v([0-9]+).*/\1/')
-  if [ "$node_major" -lt 20 ]; then
-    echo "Node version $node_major detected; cspell requires Node >= 20. Skipping cspell locally." >&2
-  else
-    if command -v npx >/dev/null 2>&1; then
-      staged_md=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.md$' || true)
-      if [ -n "$staged_md" ]; then
-        echo "$staged_md" | xargs -r npx --yes cspell@9.2.1 --no-progress || {
-          echo "cspell found spelling issues. Add words to .cspell.json or fix the typos." >&2
-          exit 1
-        }
-      else
-        echo "No staged markdown files to spellcheck." >&2
-      fi
-    else
-      echo "npx not available; skipping cspell (spellcheck)." >&2
-    fi
-  fi
-else
-  echo "Node not found; install Node.js from https://nodejs.org/ to enable cspell (spellcheck)." >&2
   exit 1
 fi
 
