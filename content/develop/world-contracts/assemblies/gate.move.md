@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-03-13T00:00:00Z'
 title = 'gate.move'
 weight = 3
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/gate.move'
@@ -81,6 +81,8 @@ The true power of Frontier lies in **Moddability**. Owners can define custom jum
 2. **Registration**: The gate owner calls `authorize_extension<XAuth>`, adding the `TypeName` to the gate's `extension` field. This emits an `ExtensionAuthorizedEvent` containing the gate ID, the new extension type, the previous extension (if any), and the owner cap ID.
 3. **Enforcement**: Once an extension is configured, the standard `jump` function will **abort**. Travelers (via the game client) must use `jump_with_permit`.
 
+Owners can permanently lock this extension choice with `freeze_extension_config()`. That one-way action requires an extension to already be configured and prevents any later replacement, which lets players inspect a gate and know its extension policy cannot be swapped after deployment.
+
 ```mermaid
 graph TD
     A[User wants to Jump] --> B{Extension Configured?}
@@ -97,6 +99,12 @@ graph TD
     K --> E
 
 ```
+
+---
+
+### 3.1 Freezing Extension Configuration
+
+Once a gate owner has chosen an extension, they can call `freeze_extension_config()` to make that configuration immutable. The function aborts if no extension has been configured yet, and it also aborts if the gate was already frozen. In practice, this gives builders a way to publish a gate whose access-control logic cannot be changed later.
 
 ---
 

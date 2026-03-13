@@ -1,5 +1,5 @@
 +++
-date = 2026-02-07
+date = 2026-03-13
 title = "character.move"
 weight = 50
 description = "Analysis of deterministic identity generation and the decoupled capability-based mutation model for EVE Frontier characters."

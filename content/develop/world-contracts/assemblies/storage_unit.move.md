@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-03-13T00:00:00Z'
 title = 'storage_unit.move'
 weight = 2
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/storage_unit.move'
@@ -155,6 +155,7 @@ Access control is enforced through a combination of Capabilities (`OwnerCap`) an
 | `deposit_item<Auth>` | Extension Witness | Extension-controlled deposit with authorized type. |
 | `withdraw_item<Auth>` | Extension Witness | Extension-controlled withdrawal with authorized type. |
 | `authorize_extension<Auth>` | `OwnerCap<StorageUnit>` | Register an extension type for this unit. Emits `ExtensionAuthorizedEvent`. |
+| `freeze_extension_config` | `OwnerCap<StorageUnit>` | Permanently lock the current extension type once configured, preventing future changes. |
 | `update_metadata_name` | `OwnerCap<StorageUnit>` | Update the storage unit's display name. |
 | `update_metadata_description` | `OwnerCap<StorageUnit>` | Update the storage unit's description. |
 | `update_metadata_url` | `OwnerCap<StorageUnit>` | Update the storage unit's URL. |
@@ -162,6 +163,8 @@ Access control is enforced through a combination of Capabilities (`OwnerCap`) an
 ### The `AdminACL` Role
 
 The `AdminACL` is crucial specifically for **minting** (Game -> Chain). It acts as a bridge of trust. The Move contract cannot verify game events (like "Player looted Item X"), so it trusts transactions signed/sponsored by the Game Server logic.
+
+Owners can also make extension behavior immutable after setup by calling `freeze_extension_config()`. Once frozen, the storage unit keeps its currently authorized extension and rejects further extension reconfiguration.
 
 ### Dynamic Field Security
 

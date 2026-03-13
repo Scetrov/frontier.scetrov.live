@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-03-13T00:00:00Z'
 title = 'turret.move'
 weight = 4
 draft = false
@@ -159,6 +159,8 @@ These group IDs can be used in extension logic to prioritize targets or lower th
 | 7    | `EExtensionConfigured`   | Default `get_target_priority_list` cannot run when an extension is configured. |
 | 8    | `EInvalidOnlineReceipt`  | The `OnlineReceipt` turret ID does not match.                                  |
 | 9    | `EMetadataNotSet`        | Metadata has not been set on this turret.                                      |
+| 10   | `EExtensionConfigFrozen` | Extension configuration has already been frozen and can no longer change.      |
+| 11   | `EExtensionNotConfigured`| Freezing requires an extension to already be configured.                       |
 
 ## Events
 
@@ -175,6 +177,7 @@ These group IDs can be used in extension logic to prioritize targets or lower th
 These require a valid `OwnerCap<Turret>` borrowed from the owner's [Character](../../entities/character/character.move/).
 
 * **`authorize_extension<Auth>`** — Registers (or replaces) a custom extension witness type on the turret. Emits `ExtensionAuthorizedEvent` with the previous extension type (if any). Once set, the game routes `get_target_priority_list` calls to the extension package.
+* **`freeze_extension_config`** — Permanently locks the current extension configuration after one has been set. This is a one-way action that prevents future extension changes and can be used to build trust in deployed turret logic.
 * **`online`** — Brings the turret online, reserving energy from its connected Network Node.
 * **`offline`** — Takes the turret offline and releases its energy reservation.
 * **`update_metadata_name`** — Updates the turret's display name. Requires `OwnerCap<Turret>` and that metadata is set.

@@ -1,5 +1,5 @@
 +++
-date = 2026-02-07
+date = 2026-03-13
 title = "killmail.move"
 weight = 30
 description = "Exploration of the killmail tracking system and the on-chain preservation of PvP combat records in EVE Frontier."
@@ -26,7 +26,7 @@ The `killmail` module relies on the `TenantItemId` primitive to identify entitie
 
 ### Data Structures
 
-* **Killmail**: A shared object containing the primary combat data, including the identities of the killer and victim, the location of the incident, and the precise timestamp.
+* **Killmail**: A shared object containing the primary combat data, including the identities of the killer, victim, the character that reported the kill, the location of the incident, and the precise timestamp.
 * **LossType**: A Move enum that classifies the destruction as either a `SHIP` or a `STRUCTURE`. This has changed since the previous version which showed all losses as `SHIP` losses.
 * **TenantItemId**: Used to store the unique IDs for the killmail itself, the characters involved, and the solar system where the event occurred.
 
@@ -36,9 +36,10 @@ The `killmail` module relies on the `TenantItemId` primitive to identify entitie
 classDiagram
     class Killmail {
         +UID id
-        +TenantItemId killmail_id
-        +TenantItemId killer_character_id
-        +TenantItemId victim_character_id
+        +TenantItemId key
+        +TenantItemId killer_id
+        +TenantItemId victim_id
+        +TenantItemId reported_by_character_id
         +u64 kill_timestamp
         +LossType loss_type
         +TenantItemId solar_system_id

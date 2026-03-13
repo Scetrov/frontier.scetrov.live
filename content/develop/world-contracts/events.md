@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-03-13T00:00:00Z'
 title = 'Events Index'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources"
@@ -112,13 +112,13 @@ Emitted when a character successfully jumps through a linked gate.
 
 Emitted when an extension is authorized (or replaced) on a gate.
 
-| Field                | Type              | Description                                          |
-| -------------------- | ----------------- | ---------------------------------------------------- |
-| `assembly_id`        | `ID`              | The on-chain object ID of the gate.                  |
-| `assembly_key`       | `TenantItemId`    | The game-derived key of the gate.                    |
-| `extension_type`     | `TypeName`        | The type name of the newly authorized extension.     |
-| `previous_extension` | `Option<TypeName>`| The previously authorized extension type, if any.    |
-| `owner_cap_id`       | `ID`              | The ID of the `OwnerCap` used for authorization.     |
+| Field                | Type               | Description                                       |
+| -------------------- | ------------------ | ------------------------------------------------- |
+| `assembly_id`        | `ID`               | The on-chain object ID of the gate.               |
+| `assembly_key`       | `TenantItemId`     | The game-derived key of the gate.                 |
+| `extension_type`     | `TypeName`         | The type name of the newly authorized extension.  |
+| `previous_extension` | `Option<TypeName>` | The previously authorized extension type, if any. |
+| `owner_cap_id`       | `ID`               | The ID of the `OwnerCap` used for authorization.  |
 
 ### Storage Unit
 
@@ -144,13 +144,13 @@ Emitted when a new Storage Unit is anchored.
 
 Emitted when an extension is authorized (or replaced) on a storage unit.
 
-| Field                | Type              | Description                                              |
-| -------------------- | ----------------- | -------------------------------------------------------- |
-| `assembly_id`        | `ID`              | The on-chain object ID of the storage unit.              |
-| `assembly_key`       | `TenantItemId`    | The game-derived key of the storage unit.                |
-| `extension_type`     | `TypeName`        | The type name of the newly authorized extension.         |
-| `previous_extension` | `Option<TypeName>`| The previously authorized extension type, if any.        |
-| `owner_cap_id`       | `ID`              | The ID of the `OwnerCap` used for authorization.         |
+| Field                | Type               | Description                                       |
+| -------------------- | ------------------ | ------------------------------------------------- |
+| `assembly_id`        | `ID`               | The on-chain object ID of the storage unit.       |
+| `assembly_key`       | `TenantItemId`     | The game-derived key of the storage unit.         |
+| `extension_type`     | `TypeName`         | The type name of the newly authorized extension.  |
+| `previous_extension` | `Option<TypeName>` | The previously authorized extension type, if any. |
+| `owner_cap_id`       | `ID`               | The ID of the `OwnerCap` used for authorization.  |
 
 ### Turret
 
@@ -162,33 +162,33 @@ Full documentation: [turret.move](../assemblies/turret.move/)
 
 Emitted when a new turret is anchored in the world.
 
-| Field          | Type           | Description                                              |
-| -------------- | -------------- | -------------------------------------------------------- |
-| `turret_id`    | `ID`           | The on-chain object ID of the turret.                    |
-| `turret_key`   | `TenantItemId` | The deterministic game-derived key for the turret.       |
-| `owner_cap_id` | `ID`           | The ID of the `OwnerCap` created for the turret owner.   |
-| `type_id`      | `u64`          | The turret type identifier (determines energy cost).     |
+| Field          | Type           | Description                                            |
+| -------------- | -------------- | ------------------------------------------------------ |
+| `turret_id`    | `ID`           | The on-chain object ID of the turret.                  |
+| `turret_key`   | `TenantItemId` | The deterministic game-derived key for the turret.     |
+| `owner_cap_id` | `ID`           | The ID of the `OwnerCap` created for the turret owner. |
+| `type_id`      | `u64`          | The turret type identifier (determines energy cost).   |
 
 #### `PriorityListUpdatedEvent`
 
 Emitted when the turret's targeting priority list is recalculated.
 
-| Field           | Type                     | Description                                                    |
-| --------------- | ------------------------ | -------------------------------------------------------------- |
-| `turret_id`     | `ID`                     | The on-chain object ID of the turret.                          |
-| `priority_list` | `vector<TargetCandidate>`| The full target candidate list at the time of the update.      |
+| Field           | Type                      | Description                                               |
+| --------------- | ------------------------- | --------------------------------------------------------- |
+| `turret_id`     | `ID`                      | The on-chain object ID of the turret.                     |
+| `priority_list` | `vector<TargetCandidate>` | The full target candidate list at the time of the update. |
 
 #### `ExtensionAuthorizedEvent` (Turret)
 
 Emitted when an extension is authorized (or replaced) on a turret.
 
-| Field                | Type              | Description                                          |
-| -------------------- | ----------------- | ---------------------------------------------------- |
-| `assembly_id`        | `ID`              | The on-chain object ID of the turret.                |
-| `assembly_key`       | `TenantItemId`    | The game-derived key of the turret.                  |
-| `extension_type`     | `TypeName`        | The type name of the newly authorized extension.     |
-| `previous_extension` | `Option<TypeName>`| The previously authorized extension type, if any.    |
-| `owner_cap_id`       | `ID`              | The ID of the `OwnerCap` used for authorization.     |
+| Field                | Type               | Description                                       |
+| -------------------- | ------------------ | ------------------------------------------------- |
+| `assembly_id`        | `ID`               | The on-chain object ID of the turret.             |
+| `assembly_key`       | `TenantItemId`     | The game-derived key of the turret.               |
+| `extension_type`     | `TypeName`         | The type name of the newly authorized extension.  |
+| `previous_extension` | `Option<TypeName>` | The previously authorized extension type, if any. |
+| `owner_cap_id`       | `ID`               | The ID of the `OwnerCap` used for authorization.  |
 
 ---
 
@@ -221,14 +221,15 @@ Full documentation: [killmail.move](../entities/killmail/killmail.move/)
 
 Emitted when a new combat loss record is created.
 
-| Field                 | Type           | Description                                                       |
-| --------------------- | -------------- | ----------------------------------------------------------------- |
-| `killmail_id`         | `TenantItemId` | The unique identifier for this killmail.                          |
-| `killer_character_id` | `TenantItemId` | The game-derived key of the character who scored the kill.        |
-| `victim_character_id` | `TenantItemId` | The game-derived key of the character who was destroyed.          |
-| `solar_system_id`     | `TenantItemId` | The game-derived key of the solar system where the kill occurred. |
-| `loss_type`           | `LossType`     | The type of loss — `SHIP` or `STRUCTURE`.                         |
-| `kill_timestamp`      | `u64`          | Unix timestamp (in seconds) of the kill.                          |
+| Field                      | Type           | Description                                                       |
+| -------------------------- | -------------- | ----------------------------------------------------------------- |
+| `key`                      | `TenantItemId` | The unique identifier for this killmail.                          |
+| `killer_id`                | `TenantItemId` | The game-derived key of the character who scored the kill.        |
+| `victim_id`                | `TenantItemId` | The game-derived key of the character who was destroyed.          |
+| `reported_by_character_id` | `TenantItemId` | The game-derived key of the character that reported the killmail. |
+| `solar_system_id`          | `TenantItemId` | The game-derived key of the solar system where the kill occurred. |
+| `loss_type`                | `LossType`     | The type of loss — `SHIP` or `STRUCTURE`.                         |
+| `kill_timestamp`           | `u64`          | Unix timestamp (in seconds) of the kill.                          |
 
 ### Network Node
 

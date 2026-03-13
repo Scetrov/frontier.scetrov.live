@@ -1,5 +1,5 @@
 +++
-date = 2026-02-07
+date = 2026-03-13
 title = "access_control.move"
 weight = 10
 description = "Deep dive into the hierarchical capability model and the digital laws governing object mutation in EVE Frontier."

@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-03-13T00:00:00Z'
 title = 'location.move'
 weight = 6
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/location.move"
@@ -41,6 +41,9 @@ classDiagram
 * **`Location`**: A `store`able struct containing a cryptographic hash of coordinates (Poseidon2 hash). Storing hashes instead of cleartext coordinates allows for on-chain verification of spatial entities (like turrets or rifts) while keeping their exact locations private.
 * **`LocationProofMessage`**: A signed message containing detailed proof information: the server and player addresses, source and target structure IDs with their location hashes, the distance between structures, additional data, and a deadline for expiration.
 * **`LocationProof`**: A wrapper containing the `LocationProofMessage` and its cryptographic signature from an authorized server.
+* **`LocationRegistry`**: A shared registry that maps assembly IDs to revealed `Coordinates`, enabling selective on-chain publication of exact locations.
+* **`Coordinates`**: A revealed coordinate payload storing `solarsystem` as `u64` and `x`, `y`, `z` as `String` values so negative and fractional coordinates can be preserved.
+* **`LocationRevealedEvent`**: Emitted whenever a location is revealed into the registry, carrying the assembly identifiers, hashed location, and cleartext coordinates together.
 
 ---
 
@@ -107,7 +110,23 @@ As a Layer 1 Primitive, `location.move` is composed into larger Layer 2 [Assembl
 
 ---
 
-## 5. Security and Access Patterns
+## 5. Optional On-Chain Location Revelation
+
+Most interactions in Frontier use hashed positions and signed proofs, but the module now also supports selectively publishing exact coordinates on-chain.
+
+### Revealed Coordinates Model
+
+`LocationRegistry` stores a `Table<ID, Coordinates>` keyed by assembly object ID. When a location is revealed, the registry either inserts or replaces the assembly's current coordinates and emits `LocationRevealedEvent`.
+
+| Component | Purpose |
+| --- | --- |
+| `LocationRegistry` | Shared object holding the table of revealed assembly coordinates. |
+| `Coordinates` | Stores `solarsystem`, `x`, `y`, and `z` for an assembly in queryable form. |
+| `LocationRevealedEvent` | Broadcasts the assembly ID, assembly key, type ID, owner cap ID, hashed location, and revealed coordinates. |
+
+This gives the contracts an escape hatch for cases where public coordinates are desirable for gameplay or indexing, while keeping the default privacy-first hashed model intact.
+
+## 6. Security and Access Patterns
 
 * **Trusted Registry**: Proximity verification checks signatures against a `ServerAddressRegistry` to ensure only authorized game servers can vouch for a player's location.
 * **Sender Verification**: Proof messages include a `player_address` field that must match `ctx.sender()`, preventing proofs from being used by unauthorized parties.
