@@ -13,14 +13,15 @@ Templates and tools for building on EVE Frontier. The **builder-scaffold** repos
 
 ## What's in the Repo
 
-| Directory         | Purpose                                                                                        |
-| ----------------- | ---------------------------------------------------------------------------------------------- |
-| `docker/`         | Dev container (Sui CLI + Node.js) — used by the Docker flow.                                   |
-| `move-contracts/` | Custom Smart Assembly extension examples (e.g. `smart_gate`, `storage_unit`); build & publish. |
-| `ts-scripts/`     | TypeScript scripts to call your contracts; run after publishing.                               |
-| `setup-world/`    | What "deploy world" does and what gets created.                                                |
-| `dapps/`          | Reference dApp template (optional next step).                                                  |
-| `zklogin/`        | zkLogin CLI for OAuth-based signing (optional).                                                |
+| Directory         | Purpose                                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `docker/`         | Dev container (Sui CLI + Node.js) — used by the Docker flow.                                                       |
+| `move-contracts/` | Custom Smart Assembly extension examples (e.g. `smart_gate_extension`, `storage_unit_extension`); build & publish. |
+| `ts-scripts/`     | TypeScript scripts to call your contracts; run after publishing.                                                   |
+| `rust-scripts/`   | Same functionality as TypeScript scripts, implemented in Rust.                                                     |
+| `setup-world/`    | What "deploy world" does and what gets created.                                                                    |
+| `dapps/`          | Reference dApp template (optional next step).                                                                      |
+| `zklogin/`        | zkLogin CLI for OAuth-based signing (optional).                                                                    |
 
 ---
 
@@ -43,12 +44,13 @@ cd builder-scaffold
 
 Then choose a flow:
 
-| Flow                        | When to Use                                                            |
-| --------------------------- | ---------------------------------------------------------------------- |
-| [Docker Flow](docker-flow/) | No Sui/Node on host; run everything in a container (local or testnet). |
-| [Host Flow](host-flow/)     | Sui CLI + Node.js installed on your machine; target local or testnet.  |
+| Flow                                        | When to Use                                                                                  |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [Docker Flow](docker-flow/)                 | No Sui/Node on host; run everything in a container (local or testnet).                       |
+| [Host Flow](host-flow/)                     | Sui CLI + Node.js installed on your machine; target local or testnet.                        |
+| Building on an existing world (coming soon) | World already deployed (e.g. shared server, live game); you don't deploy the world yourself. |
 
-By the end you'll have a deployed world, a published custom contract (e.g. `smart_gate`), and scripts that call it.
+By the end you'll have a deployed world, a published custom contract (e.g. `smart_gate_extension`), and scripts that call it.
 
 ---
 

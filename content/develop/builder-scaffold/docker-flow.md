@@ -6,7 +6,7 @@ description = "End-to-end builder-scaffold workflow running entirely inside Dock
 codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
-Run the full builder-scaffold flow inside a Docker container — no Sui CLI or Node.js required on your host. The same steps work for any extension example (`smart_gate`, `storage_unit`, or your own); this guide uses `smart_gate` for the publish and scripts steps.
+Run the full builder-scaffold flow inside a Docker container — no Sui CLI or Node.js required on your host. The same steps work for any extension example (`smart_gate_extension`, `storage_unit_extension`, or your own); this guide uses `smart_gate_extension` for the publish and scripts steps.
 
 <!--more-->
 
@@ -75,7 +75,7 @@ sui client faucet
 
 ```bash
 cd /workspace/world-contracts
-git clone https://github.com/evefrontier/world-contracts.git .
+git clone -b v0.0.18 https://github.com/evefrontier/world-contracts.git .
 /workspace/scripts/generate-world-env.sh   # creates .env from docker/.env.sui keys
 pnpm install
 pnpm deploy-world localnet       # or testnet
@@ -117,10 +117,10 @@ Set the following in `.env`:
 
 ## 8. Publish a Custom Contract
 
-Pick an example (e.g. `smart_gate` or `storage_unit`); use its folder in `move-contracts/`:
+Pick an example (e.g. `smart_gate_extension` or `storage_unit_extension`); use its folder in `move-contracts/`:
 
 ```bash
-cd /workspace/builder-scaffold/move-contracts/smart_gate   # or storage_unit, or your package
+cd /workspace/builder-scaffold/move-contracts/smart_gate_extension   # or storage_unit_extension, or your package
 ```
 
 **Localnet** — use ephemeral publication:
@@ -132,7 +132,7 @@ sui client test-publish --build-env testnet --pubfile-path ../../deployments/loc
 **Testnet** — publish directly:
 
 ```bash
-sui client publish --build-env testnet
+sui client publish -e testnet
 ```
 
 Set `BUILDER_PACKAGE_ID` and `EXTENSION_CONFIG_ID` in `/workspace/builder-scaffold/.env` from the publish output.
@@ -146,14 +146,14 @@ For more details see the [Move Contracts](../move-contracts/) page.
 
 ## 9. Run Scripts
 
-For the `smart_gate` example (scripts are in the repo root):
+For the `smart_gate_extension` example (scripts are in the repo root):
 
 ```bash
 cd /workspace/builder-scaffold
 pnpm install
 pnpm configure-rules
-pnpm authorise-gate
-pnpm authorise-storage-unit
+pnpm authorise-gate-extension
+pnpm authorise-storage-unit-extension
 pnpm issue-tribe-jump-permit
 pnpm jump-with-permit
 pnpm collect-corpse-bounty

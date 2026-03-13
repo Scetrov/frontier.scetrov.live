@@ -6,7 +6,7 @@ description = "End-to-end builder-scaffold workflow running on your host machine
 codebase = "https://github.com/evefrontier/builder-scaffold"
 +++
 
-Run the builder-scaffold flow on your host machine, targeting testnet or a local Sui network. The same steps work for any extension example (`smart_gate`, `storage_unit`, or your own); this guide uses `smart_gate` for the publish and scripts steps.
+Run the builder-scaffold flow on your host machine, targeting testnet or a local Sui network. The same steps work for any extension example (`smart_gate_extension`, `storage_unit_extension`, or your own); this guide uses `smart_gate_extension` for the publish and scripts steps.
 
 <!--more-->
 
@@ -17,7 +17,7 @@ Run the builder-scaffold flow on your host machine, targeting testnet or a local
 
 ## 1. Prerequisites
 
-- **Sui CLI**, **Node.js**, and **pnpm** installed on your host
+- **Sui CLI**, **Node.js**, and **pnpm** installed on your host — [`suiup`](https://github.com/MystenLabs/suiup) is recommended to manage Sui CLI versions
 - For **testnet**: funded accounts (e.g. from [Sui testnet faucet](https://faucet.sui.io/))
 - For **local**: a running Sui local node (see below)
 
@@ -68,7 +68,7 @@ From your workspace directory (parent of `builder-scaffold`), clone `world-contr
 
 ```bash
 cd ..   # workspace (parent of builder-scaffold)
-git clone https://github.com/evefrontier/world-contracts.git
+git clone -b v0.0.18 https://github.com/evefrontier/world-contracts.git
 cd world-contracts
 cp env.example .env
 ```
@@ -79,7 +79,7 @@ Edit `.env` with your keys and addresses:
 SUI_NETWORK=testnet       # or localnet
 ADMIN_PRIVATE_KEY=<your-admin-key>
 ADMIN_ADDRESS=<your-admin-address>
-SPONSOR_ADDRESS=<your-admin-address>    # can be the same as ADMIN for dev
+SPONSOR_ADDRESSES=<your-admin-address>    # can be the same as ADMIN for dev
 GOVERNOR_PRIVATE_KEY=<your-admin-key>   # optional, can match ADMIN
 ```
 
@@ -123,16 +123,16 @@ Set the following in `.env`:
 
 ## 7. Publish a Custom Contract
 
-Pick an example (e.g. `smart_gate` or `storage_unit`); use its folder in `move-contracts/`:
+Pick an example (e.g. `smart_gate_extension` or `storage_unit_extension`); use its folder in `move-contracts/`:
 
 ```bash
-cd move-contracts/smart_gate   # or storage_unit, or your package
+cd move-contracts/smart_gate_extension   # or storage_unit_extension, or your package
 ```
 
 **Testnet** — publish directly:
 
 ```bash
-sui client publish --build-env testnet
+sui client publish -e testnet
 ```
 
 **Localnet** — use ephemeral publication:
@@ -149,14 +149,14 @@ For more details see the [Move Contracts](../move-contracts/) page.
 
 ## 8. Run Scripts
 
-For the `smart_gate` example (scripts are in the repo root):
+For the `smart_gate_extension` example (scripts are in the repo root):
 
 ```bash
 cd ../..   # builder-scaffold root
 pnpm install
 pnpm configure-rules
-pnpm authorise-gate
-pnpm authorise-storage-unit
+pnpm authorise-gate-extension
+pnpm authorise-storage-unit-extension
 pnpm issue-tribe-jump-permit
 pnpm jump-with-permit
 pnpm collect-corpse-bounty
@@ -175,8 +175,8 @@ workspace/
 │   ├── deployments/
 │   │   └── <network>/               # world artifacts copied from world-contracts
 │   ├── move-contracts/
-│   │   ├── smart_gate/               # your published extension
-│   │   └── storage_unit/
+│   │   ├── smart_gate_extension/      # your published extension
+│   │   └── storage_unit_extension/
 │   └── ts-scripts/                   # TypeScript interaction scripts
 └── world-contracts/
     ├── .env                          # keys and network config

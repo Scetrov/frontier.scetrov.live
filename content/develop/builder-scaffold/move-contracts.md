@@ -14,11 +14,10 @@ The `move-contracts/` directory contains custom Smart Assembly extension example
 
 ## Extension Examples
 
-| Package                                                                                                 | Purpose                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| [`smart_gate`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/smart_gate)     | Custom rules for space travel — toll gates, tribe-only access, corpse bounty collection. Issues `JumpPermit`s based on arbitrary logic. |
-| [`storage_unit`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/storage_unit) | Custom rules for item deposits and withdrawals — vending machines, trade hubs, item gating.                                             |
-| [`tokens`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/tokens)             | Standalone token contracts (e.g. for use with gates or storage units).                                                                  |
+| Package                                                                                                                     | Purpose                                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| [`smart_gate_extension`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/smart_gate_extension)     | Custom rules for space travel — toll gates, tribe-only access, corpse bounty collection. Issues `JumpPermit`s based on arbitrary logic. |
+| [`storage_unit_extension`](https://github.com/evefrontier/builder-scaffold/tree/main/move-contracts/storage_unit_extension) | Custom rules for item deposits and withdrawals — vending machines, trade hubs, item gating.                                             |
 
 More standalone contracts (multisig, DAO, etc.) will be added over time.
 
@@ -43,7 +42,7 @@ Custom contracts depend on the world contract being published on either localnet
 On testnet the published world package is automatically resolved when deploying the custom contract:
 
 ```bash
-cd move-contracts/smart_gate
+cd move-contracts/smart_gate_extension
 sui move build -e testnet
 sui client publish -e testnet
 ```
@@ -53,7 +52,7 @@ sui client publish -e testnet
 Since the local network is short-lived, you need to manually resolve to the published world package address by providing the path to the published ephemeral file:
 
 ```bash
-cd move-contracts/smart_gate
+cd move-contracts/smart_gate_extension
 sui client test-publish --build-env testnet --pubfile-path ../../deployments/localnet/Pub.localnet.toml
 ```
 
@@ -83,8 +82,8 @@ Then run the [TypeScript scripts](https://github.com/evefrontier/builder-scaffol
 cd /workspace/builder-scaffold   # or the builder-scaffold root on host
 pnpm install
 pnpm configure-rules
-pnpm authorise-gate
-pnpm authorise-storage-unit
+pnpm authorise-gate-extension
+pnpm authorise-storage-unit-extension
 pnpm issue-tribe-jump-permit
 pnpm jump-with-permit
 pnpm collect-corpse-bounty
