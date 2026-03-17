@@ -27,21 +27,21 @@ description = "Some useful URLs to use for poking around the chain"
 ### Mainnet
 
 - RPC: <https://fullnode.mainnet.sui.io:443>
-- GraphQL: <https://graphql.mainnet.sui.io/graphq>
+- GraphQL: <https://graphql.mainnet.sui.io/graphql>
 - Suiscan: <https://suiscan.xyz/mainnet/home>
 - SuiVision: <https://suivision.xyz/>
 
 ### Testnet
 
 - RPC: <https://fullnode.testnet.sui.io:443>
-- GraphQL: <https://graphql.testnet.sui.io/graphq>
+- GraphQL: <https://graphql.testnet.sui.io/graphql>
 - Suiscan: <https://suiscan.xyz/testnet/home>
 - SuiVision: <https://testnet.suivision.xyz/>
 
 ### Devnet
 
 - RPC: <https://fullnode.devnet.sui.io:443>
-- GraphQL: <https://graphql.testnet.sui.io/graphq>
+- GraphQL: <https://graphql.testnet.sui.io/graphql>
 - Suiscan: <https://suiscan.xyz/devnet/home>
 - Devnet: <https://devnet.suivision.xyz/>
 
