@@ -1,0 +1,17 @@
+{{- $assetBusting := partialCached "assetbusting.gotmpl" . }}
+
+{{- with resources.Get "css/custom.css" }}
+    <link href="{{ .RelPermalink }}{{ $assetBusting }}" rel="stylesheet">
+{{- else }}
+    {{- if (fileExists "/static/css/custom.css") }}
+        <link href="{{ "css/custom.css" | relURL }}{{ $assetBusting }}" rel="stylesheet">
+    {{- end }}
+{{- end }}
+
+{{- with resources.Get "js/custom.js" }}
+    <script src="{{ .RelPermalink }}{{ $assetBusting }}" defer></script>
+{{- else }}
+    {{- if (fileExists "/static/js/custom.js") }}
+        <script src="{{ "js/custom.js" | relURL }}{{ $assetBusting }}" defer></script>
+    {{- end }}
+{{- end }}
