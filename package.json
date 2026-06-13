@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@mermaid-js/mermaid-cli": "^11.12.0",
-    "cspell": "^9.2.1",
+    "@mermaid-js/mermaid-cli": "^11.15.0",
+    "cspell": "^10.0.1",
     "markdownlint-cli": "^0.48.0"
   },
   "scripts": {
