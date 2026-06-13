@@ -1,9 +1,12 @@
 # Use the same base image that was previously specified in devcontainer.json
-FROM mcr.microsoft.com/devcontainers/go:1.25-trixie
+FROM mcr.microsoft.com/devcontainers/go:1.26-trixie
 
 # Install Node.js 24 (LTS) via NodeSource (use GPG-signed repo instead of piping)
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key -o /tmp/nodesource.gpg.key && \
+    echo "b42e0321dabdc24e892115da705cf061167eac12a317f23d329862d0aa0a271d  /tmp/nodesource.gpg.key" | sha256sum -c - && \
+    gpg --dearmor -o /usr/share/keyrings/nodesource.gpg /tmp/nodesource.gpg.key && \
+    rm /tmp/nodesource.gpg.key && \
     echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     apt-get update && apt-get install -y nodejs && \
     npm install -g npm@latest && \
