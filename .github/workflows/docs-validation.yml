@@ -26,12 +26,7 @@ jobs:
           cache: 'npm'
 
       - name: Install devDependencies (markdownlint-cli, cspell)
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm ci
 
       - name: Node & npm versions (debug)
         run: |
@@ -48,13 +43,13 @@ jobs:
         run: hugo build -d public
 
       - name: Run markdownlint
-        run: npx markdownlint-cli "content/**/*.md" ".github/**/*.md"
+        run: npm run lint:md
 
       - name: Validate TOML frontmatter
         run: ./.githooks/validate-frontmatter.sh
 
       - name: Run cspell (spellcheck)
-        run: npx cspell "content/**/*.md"
+        run: npm run spell
 
       - name: Set up Go (for htmltest)
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
@@ -63,8 +58,7 @@ jobs:
 
       - name: Install htmltest
         run: |
-          # install htmltest from the module (cmd path changed in upstream releases)
-          go install github.com/wjdp/htmltest@latest
+          go install github.com/wjdp/htmltest@v0.17.0
           echo "$HOME/go/bin" >> $GITHUB_PATH
 
       - name: Run htmltest (full-site link/HTML checks)
