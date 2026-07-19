@@ -330,3 +330,6 @@ pyrightconfig.json
 /scratch
 /tmp
 
+## agents
+.pi/
+.pi-subagents/
