@@ -8,7 +8,7 @@
     "markdownlint-cli": "^0.49.1"
   },
   "scripts": {
-    "lint:md": "markdownlint-cli \"content/**/*.md\" \".github/**/*.md\"",
+    "lint:md": "markdownlint \"content/**/*.md\" \".github/**/*.md\"",
     "lint:mermaid": "python3 scripts/lint-mermaid.py",
     "spell": "cspell \"content/**/*.md\""
   }

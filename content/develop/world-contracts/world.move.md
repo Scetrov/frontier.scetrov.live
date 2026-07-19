@@ -32,13 +32,13 @@ The `GovernorCap` is the top-level authority in the EVE Frontier access control 
 ```mermaid
 sequenceDiagram
     participant Deployer
-    participant init()
+    participant Init as init()
     participant Sui Runtime
 
-    Deployer->>init(): Package published
-    init()->>Sui Runtime: object::new(ctx) → UID
-    init()->>Sui Runtime: Create GovernorCap{id, governor: sender}
-    init()->>Sui Runtime: transfer::transfer(gov_cap, sender)
+    Deployer->>Init: Package published
+    Init->>Sui Runtime: object::new(ctx) → UID
+    Init->>Sui Runtime: Create GovernorCap{id, governor: sender}
+    Init->>Sui Runtime: transfer::transfer(gov_cap, sender)
     Note over Deployer: GovernorCap now owned by deployer
 ```
 

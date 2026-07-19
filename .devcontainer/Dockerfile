@@ -1,5 +1,5 @@
 # Use the same base image that was previously specified in devcontainer.json
-FROM mcr.microsoft.com/devcontainers/go:2.1-trixie
+FROM mcr.microsoft.com/devcontainers/go:2.1-trixie@sha256:8a3898b2f993dbf1fa2aa98f7be8d2b8f36a114bf35bc3525800f7c99f3a3480
 
 # Install Node.js 24 (LTS) via NodeSource (use GPG-signed repo instead of piping)
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
     rm /tmp/nodesource.gpg.key && \
     echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     apt-get update && apt-get install -y nodejs && \
-    npm install -g npm@latest && \
-    npm install -g markdownlint-cli
+    npm install -g npm@12.0.1 && \
+    npm install -g markdownlint-cli@0.49.1
 
 # Instll prerequisites for pre-commit hooks
 RUN apt-get update && apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libx11-xcb1 \
@@ -18,9 +18,8 @@ RUN apt-get update && apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 
     pre-commit
 
 # Install htmltest (link checker) so pre-commit hooks can run inside the devcontainer
-# Use the Go toolchain to install the latest htmltest binary reliably
 RUN apt-get update && apt-get install -y ca-certificates curl && \
-        GOBIN=/usr/local/bin /usr/local/go/bin/go install github.com/wjdp/htmltest@latest && \
+        GOBIN=/usr/local/bin /usr/local/go/bin/go install github.com/wjdp/htmltest@v0.17.0 && \
         if [ ! -x /usr/local/bin/htmltest ]; then \
             echo "htmltest install failed" >&2; exit 1; \
         fi
