@@ -22,5 +22,5 @@
 
 - [x] 4.1 Run the affected documentation validation, Mermaid validation, dependency-tree inspection, and dependency audit commands.
 - [x] 4.2 Confirm CodeQL can upload results with the narrowed job permission.
-- [ ] 4.3 Confirm the next Scorecard run clears the actionable workflow/container/dependency findings or record any scanner limitation.
+- [x] 4.3 Confirm the next Scorecard run clears the actionable workflow/container/dependency findings or record any scanner limitation.
 - [x] 4.4 Dismiss the intentional Scorecard findings in GitHub with the version-controlled triage rationale.
