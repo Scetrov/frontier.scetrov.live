@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = "Extension Examples"
 type = "chapter"
 weight = 9
@@ -34,12 +34,12 @@ sequenceDiagram
 
 ## Modules in This Section
 
-| Module                        | Description                                                                                      |
-| ----------------------------- | ------------------------------------------------------------------------------------------------ |
-| **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.               |
-| **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits with dynamic fields.    |
-| **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access.                   |
-| **`turret.move`**             | Turret extension — custom targeting priority logic using the `OnlineReceipt` hot potato pattern. |
+| Module                        | Description                                                                                                                               |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **`config.move`**             | Shared configuration object with dynamic field helpers for extension rule storage.                                                        |
+| **`tribe_permit.move`**       | Gate extension using shared `ExtensionConfig` — tribe-based jump permits that return permit IDs and can be revoked through the extension. |
+| **`corpse_gate_bounty.move`** | Combined Storage Unit + Gate extension — bounty collection grants gate access and returns the permit ID.                                  |
+| **`turret.move`**             | Turret extension — custom targeting priority logic using the `OnlineReceipt` hot potato pattern.                                          |
 
 > [!TIP]
 > These examples can be used as starting points for your own extensions. The [builder-scaffold](https://github.com/evefrontier/builder-scaffold) repository provides a complete project template for building and testing extensions locally.

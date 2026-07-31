@@ -1,5 +1,5 @@
 +++
-date = 2026-03-13
+date = '2026-07-31T00:00:00Z'
 title = "access_control.move"
 weight = 10
 description = "Deep dive into the hierarchical capability model and the digital laws governing object mutation in EVE Frontier."
@@ -86,7 +86,6 @@ The module utilizes [**Capability-Based Security**](https://move-book.com/progra
 | **Transfer OwnerCap** | Possession of `OwnerCap` | Allows users to trade or delegate mutation rights. |
 | **Mutate Object** | `is_authorized(OwnerCap, ID)` | Ensures the "KeyCard" matches the target object. |
 | **Register Server** | `GovernorCap` | Maintains the integrity of off-chain data signed by trusted servers. |
-| **Register Server** | `GovernorCap` | Maintains the integrity of off-chain data signed by trusted servers. |
 
 ## Section 4: Security and Safety Patterns
 
@@ -102,6 +101,10 @@ The `OwnerCap<phantom T>` uses Move's generics to ensure that a capability meant
 > In Move, **phantom types** are type parameters that are not used within any of the struct's fields. They act as a compile-time "tag" or "label" that differentiates instances of the same generic struct based on their intended purpose without adding extra data to the object’s footprint. For example, in the `OwnerCap<phantom T>` struct, the `T` parameter ensures that a capability meant for a `Character` assembly cannot be mistakenly used to authorize actions on a `StorageUnit`, even if the underlying data structures of the capabilities are identical.
 >
 > This pattern is essential for **Type Safety** and authorization in complex systems like the EVE Frontier world contracts. By using phantom types, the runtime can enforce that functions only accept the correct "flavor" of a capability, preventing cross-type authorization attacks. It allows developers to create specialized, type-checked logic for different game objects while reusing a single, standardized access control implementation.
+
+### Public Object and Capability Access
+
+`admin_acl_id` and `server_address_registry_id` return the IDs of their respective shared objects. `receive_owner_cap` is public: a caller that holds a `Receiving<OwnerCap<T>>` ticket can receive the capability through the intended character flow; the capability remains type-bound to `T`.
 
 ### Event-Driven Transparency
 

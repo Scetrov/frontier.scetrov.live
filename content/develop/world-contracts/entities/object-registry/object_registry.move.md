@@ -1,5 +1,5 @@
 +++
-date = "2026-02-07"
+date = '2026-07-31T00:00:00Z'
 title = "object_registry.move"
 weight = 80
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/registry/object_registry.move"
@@ -63,6 +63,7 @@ The `ObjectRegistry` utilizes **Package-Level Encapsulation** to ensure that onl
 
 | Action               | Required Authorization | Purpose                                                                   |
 | -------------------- | ---------------------- | ------------------------------------------------------------------------- |
+| `id`                 | Public                 | Returns the Sui object ID of the registry.                                |
 | `object_exists`      | Public                 | Allows any module or off-chain client to verify if an ID is taken.        |
 | `borrow_registry_id` | `public(package)`      | Restricts the ability to claim new IDs to the `world` package modules.    |
 | `init`               | Private (Internal)     | Ensures the registry is only instantiated once during package deployment. |

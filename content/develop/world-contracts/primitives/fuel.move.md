@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'fuel.move'
 weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/fuel.move"
@@ -97,6 +97,7 @@ These `public` functions allow read-only access to fuel state without requiring 
 
 | Function          | Signature                                                      | Description                                                                                                                        |
 | ----------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `id`              | `(fuel_config: &FuelConfig): ID`                               | Returns the Sui object ID of the shared fuel-efficiency configuration.                                                             |
 | `quantity`        | `(fuel: &Fuel): u64`                                           | Current fuel quantity.                                                                                                             |
 | `type_id`         | `(fuel: &Fuel): Option<u64>`                                   | The fuel type ID, if set.                                                                                                          |
 | `volume`          | `(fuel: &Fuel): Option<u64>`                                   | The unit volume per fuel item, if set.                                                                                             |

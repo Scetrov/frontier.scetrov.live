@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'Events Index'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources"
@@ -108,6 +108,20 @@ Emitted when a character successfully jumps through a linked gate.
 | `character_id`         | `ID`           | The on-chain object ID of the jumping character. |
 | `character_key`        | `TenantItemId` | The game-derived key of the jumping character.   |
 
+#### `JumpPermitIssuedEvent`
+
+Emitted when a gate extension issues a jump permit.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `jump_permit_id` | `ID` | New permit object ID. |
+| `source_gate_id` / `destination_gate_id` | `ID` | The route's gate IDs. |
+| `source_gate_key` / `destination_gate_key` | `TenantItemId` | The route's game-derived keys. |
+| `character_id` / `character_key` | `ID` / `TenantItemId` | Permit recipient identifiers. |
+| `route_hash` | `vector<u8>` | Direction-agnostic route hash. |
+| `expires_at_timestamp_ms` | `u64` | Permit expiry timestamp in milliseconds. |
+| `extension_type` | `TypeName` | Authorized extension witness type. |
+
 #### `ExtensionAuthorizedEvent` (Gate)
 
 Emitted when an extension is authorized (or replaced) on a gate.
@@ -119,6 +133,10 @@ Emitted when an extension is authorized (or replaced) on a gate.
 | `extension_type`     | `TypeName`         | The type name of the newly authorized extension.  |
 | `previous_extension` | `Option<TypeName>` | The previously authorized extension type, if any. |
 | `owner_cap_id`       | `ID`               | The ID of the `OwnerCap` used for authorization.  |
+
+#### `ExtensionRevokedEvent` (Gate)
+
+Emitted when an owner clears an unfrozen gate extension authorization. Its fields are `assembly_id`, `assembly_key`, `revoked_extension`, and `owner_cap_id`.
 
 ### Storage Unit
 
@@ -151,6 +169,10 @@ Emitted when an extension is authorized (or replaced) on a storage unit.
 | `extension_type`     | `TypeName`         | The type name of the newly authorized extension.  |
 | `previous_extension` | `Option<TypeName>` | The previously authorized extension type, if any. |
 | `owner_cap_id`       | `ID`               | The ID of the `OwnerCap` used for authorization.  |
+
+#### `ExtensionRevokedEvent` (Storage Unit)
+
+Emitted when an owner clears an unfrozen storage-unit extension authorization. Its fields are `assembly_id`, `assembly_key`, `revoked_extension`, and `owner_cap_id`.
 
 ### Turret
 
@@ -189,6 +211,10 @@ Emitted when an extension is authorized (or replaced) on a turret.
 | `extension_type`     | `TypeName`         | The type name of the newly authorized extension.  |
 | `previous_extension` | `Option<TypeName>` | The previously authorized extension type, if any. |
 | `owner_cap_id`       | `ID`               | The ID of the `OwnerCap` used for authorization.  |
+
+#### `ExtensionRevokedEvent` (Turret)
+
+Emitted when an owner clears an unfrozen turret extension authorization. Its fields are `assembly_id`, `assembly_key`, `revoked_extension`, and `owner_cap_id`.
 
 ---
 
@@ -250,6 +276,31 @@ Emitted when a new Network Node is created.
 | `fuel_max_capacity`     | `u64`          | The maximum fuel the node can hold.                           |
 | `fuel_burn_rate_in_ms`  | `u64`          | The rate at which fuel is consumed, in milliseconds per unit. |
 | `max_energy_production` | `u64`          | The maximum energy this node can produce.                     |
+
+### Rift
+
+**Source:** [`rift/rift.move`](https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/rift/rift.move)
+
+#### `RiftSpawnedEvent`
+
+Emitted when an authorized sponsor creates a Rift.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `rift_id` | `ID` | On-chain object ID of the Rift. |
+| `rift_key` | `TenantItemId` | Deterministic in-game Rift key. |
+| `location_hash` | `vector<u8>` | Hash of the Rift's initial location. |
+
+#### `RiftLocationBroadcastEvent`
+
+Emitted when an authorized sponsor publishes a Rift's plaintext coordinates.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `rift_id` / `rift_key` | `ID` / `TenantItemId` | Rift identifiers. |
+| `location_hash` | `vector<u8>` | Hash of the Rift location. |
+| `solarsystem` | `u64` | Solar-system identifier. |
+| `x`, `y`, `z` | `String` | Published coordinate components. |
 
 ---
 
@@ -382,33 +433,35 @@ Emitted when items are burned (bridged from chain back to game).
 | `type_id`       | `u64`          | The item type identifier.                |
 | `quantity`      | `u32`          | The number of items burned.              |
 
-#### `ItemDepositedEvent`
+#### `ItemDepositedEventV2`
 
-Emitted when items are deposited into an assembly's inventory.
+Emitted when items are deposited into an assembly's inventory. This replaces the emitted `ItemDepositedEvent` schema and adds the inventory discriminator.
 
-| Field           | Type           | Description                              |
-| --------------- | -------------- | ---------------------------------------- |
-| `assembly_id`   | `ID`           | The on-chain object ID of the assembly.  |
-| `assembly_key`  | `TenantItemId` | The game-derived key of the assembly.    |
-| `character_id`  | `ID`           | The on-chain object ID of the character. |
-| `character_key` | `TenantItemId` | The game-derived key of the character.   |
-| `item_id`       | `u64`          | The unique identifier of the item.       |
-| `type_id`       | `u64`          | The item type identifier.                |
-| `quantity`      | `u32`          | The number of items deposited.           |
+| Field           | Type           | Description                                |
+| --------------- | -------------- | ------------------------------------------ |
+| `assembly_id`   | `ID`           | The on-chain object ID of the assembly.    |
+| `assembly_key`  | `TenantItemId` | The game-derived key of the assembly.      |
+| `inventory_key` | `ID`           | The specific inventory receiving the item. |
+| `character_id`  | `ID`           | The on-chain object ID of the character.   |
+| `character_key` | `TenantItemId` | The game-derived key of the character.     |
+| `item_id`       | `u64`          | The unique identifier of the item.         |
+| `type_id`       | `u64`          | The item type identifier.                  |
+| `quantity`      | `u32`          | The number of items deposited.             |
 
-#### `ItemWithdrawnEvent`
+#### `ItemWithdrawnEventV2`
 
-Emitted when items are withdrawn from an assembly's inventory.
+Emitted when items are withdrawn from an assembly's inventory. This replaces the emitted `ItemWithdrawnEvent` schema and adds the inventory discriminator.
 
-| Field           | Type           | Description                              |
-| --------------- | -------------- | ---------------------------------------- |
-| `assembly_id`   | `ID`           | The on-chain object ID of the assembly.  |
-| `assembly_key`  | `TenantItemId` | The game-derived key of the assembly.    |
-| `character_id`  | `ID`           | The on-chain object ID of the character. |
-| `character_key` | `TenantItemId` | The game-derived key of the character.   |
-| `item_id`       | `u64`          | The unique identifier of the item.       |
-| `type_id`       | `u64`          | The item type identifier.                |
-| `quantity`      | `u32`          | The number of items withdrawn.           |
+| Field           | Type           | Description                                |
+| --------------- | -------------- | ------------------------------------------ |
+| `assembly_id`   | `ID`           | The on-chain object ID of the assembly.    |
+| `assembly_key`  | `TenantItemId` | The game-derived key of the assembly.      |
+| `inventory_key` | `ID`           | The specific inventory supplying the item. |
+| `character_id`  | `ID`           | The on-chain object ID of the character.   |
+| `character_key` | `TenantItemId` | The game-derived key of the character.     |
+| `item_id`       | `u64`          | The unique identifier of the item.         |
+| `type_id`       | `u64`          | The item type identifier.                  |
+| `quantity`      | `u32`          | The number of items withdrawn.             |
 
 #### `ItemDestroyedEvent`
 
@@ -478,7 +531,7 @@ Emitted when an assembly's operational status changes.
 
 ## Quick Reference
 
-A summary table of all **32 events** across the world-contracts:
+A summary table of current core events across the world-contracts:
 
 | Module           | Event                        | Key Trigger                                           |
 | ---------------- | ---------------------------- | ----------------------------------------------------- |
@@ -490,14 +543,20 @@ A summary table of all **32 events** across the world-contracts:
 | `gate`           | `GateUnlinkedEvent`          | Two gates are unlinked                                |
 | `gate`           | `JumpEvent`                  | A character jumps through a gate                      |
 | `gate`           | `ExtensionAuthorizedEvent`   | An extension is authorized on a gate                  |
+| `gate`           | `ExtensionRevokedEvent`      | An unfrozen extension authorization is cleared        |
+| `gate`           | `JumpPermitIssuedEvent`      | A gate extension issues a jump permit                 |
 | `storage_unit`   | `StorageUnitCreatedEvent`    | A storage unit is anchored                            |
 | `storage_unit`   | `ExtensionAuthorizedEvent`   | An extension is authorized on a storage unit          |
+| `storage_unit`   | `ExtensionRevokedEvent`      | An unfrozen extension authorization is cleared        |
 | `turret`         | `TurretCreatedEvent`         | A turret is anchored                                  |
 | `turret`         | `PriorityListUpdatedEvent`   | A turret's targeting priority list is recalculated    |
 | `turret`         | `ExtensionAuthorizedEvent`   | An extension is authorized on a turret                |
+| `turret`         | `ExtensionRevokedEvent`      | An unfrozen extension authorization is cleared        |
 | `character`      | `CharacterCreatedEvent`      | A player character is created                         |
 | `killmail`       | `KillmailCreatedEvent`       | A combat loss is recorded                             |
 | `network_node`   | `NetworkNodeCreatedEvent`    | A network node is created                             |
+| `rift`           | `RiftSpawnedEvent`           | An authorized sponsor creates a Rift                  |
+| `rift`           | `RiftLocationBroadcastEvent` | A Rift location is published                          |
 | `energy`         | `StartEnergyProductionEvent` | Energy production starts                              |
 | `energy`         | `StopEnergyProductionEvent`  | Energy production stops                               |
 | `energy`         | `EnergyReservedEvent`        | Energy is reserved by an assembly                     |
@@ -507,8 +566,8 @@ A summary table of all **32 events** across the world-contracts:
 | `fuel`           | `FuelEfficiencyRemovedEvent` | A fuel efficiency config is removed                   |
 | `inventory`      | `ItemMintedEvent`            | Items are minted (game → chain)                       |
 | `inventory`      | `ItemBurnedEvent`            | Items are burned (chain → game)                       |
-| `inventory`      | `ItemDepositedEvent`         | Items are deposited into inventory                    |
-| `inventory`      | `ItemWithdrawnEvent`         | Items are withdrawn from inventory                    |
+| `inventory`      | `ItemDepositedEventV2`       | Items are deposited into inventory                    |
+| `inventory`      | `ItemWithdrawnEventV2`       | Items are withdrawn from inventory                    |
 | `inventory`      | `ItemDestroyedEvent`         | Items are destroyed during cleanup                    |
 | `metadata`       | `MetadataChangedEvent`       | Assembly metadata is updated                          |
 | `status`         | `StatusChangedEvent`         | Assembly status changes                               |

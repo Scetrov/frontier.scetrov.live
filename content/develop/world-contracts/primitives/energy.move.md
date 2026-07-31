@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'energy.move'
 weight = 2
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/energy.move"
@@ -83,7 +83,11 @@ flowchart TD
 
 ---
 
-## 4. Administrative Control
+## 4. Public View Function
+
+`id(energy_config: &EnergyConfig): ID` returns the Sui object ID of the shared `EnergyConfig`.
+
+## 5. Administrative Control
 
 Management of energy requirements is restricted to holders of the `AdminACL` via sponsored transactions.
 
@@ -94,7 +98,7 @@ Management of energy requirements is restricted to holders of the `AdminACL` via
 
 ---
 
-## 5. Security and Safety Patterns
+## 6. Security and Safety Patterns
 
 * **Package-Only Mutation**: Critical functions like `reserve_energy`, `start_energy_production`, and `create` are marked `public(package)`. This ensures that only authorized game-defined [assemblies](../../assemblies/assembly.move/) (Layer 2) can modify energy states, preventing third-party contracts from directly manipulating power levels.
 * **Assert-First Design**: Every function begins with strict assertions to prevent invalid states, such as energy requirements of zero or reserving energy from a source that is offline.

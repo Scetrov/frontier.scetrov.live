@@ -565,6 +565,6 @@ environments:
         isPrivate: false
         sortKey: 1749660554120
       data:
-        host: blockchain-gateway-stillness.live.tech.evefrontier.com
+        host: world-api-stillness.live.pub.evefrontier.com
         api_key: eyABC.123
       color: "#ff4a00"

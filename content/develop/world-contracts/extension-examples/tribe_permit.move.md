@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'tribe_permit.move'
 weight = 3
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/tribe_permit.move"
@@ -54,6 +54,8 @@ sequenceDiagram
     Ext->>Gate: gate::issue_jump_permit of XAuth (5-day expiry)
     Gate-->>Player: JumpPermit transferred
 ```
+
+`issue_jump_permit` returns the new `JumpPermit` object ID. `delete_jump_permit` lets a permit holder pass a permit to the extension for destruction through the authorized gate API.
 
 ### Compared to `gate.move`
 
