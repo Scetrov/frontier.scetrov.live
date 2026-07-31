@@ -1,5 +1,5 @@
 # Use the same base image that was previously specified in devcontainer.json
-FROM mcr.microsoft.com/devcontainers/go:2.1-trixie@sha256:8a3898b2f993dbf1fa2aa98f7be8d2b8f36a114bf35bc3525800f7c99f3a3480
+FROM mcr.microsoft.com/devcontainers/go:2-1.26-trixie@sha256:a05706c25c951718fec16e6fed496218b01f8fdb0b0b6d16bb45fdda62645c5c
 
 # Install Node.js 24 (LTS) via NodeSource (use GPG-signed repo instead of piping)
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
     rm /tmp/nodesource.gpg.key && \
     echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     apt-get update && apt-get install -y nodejs && \
-    npm install -g npm@12.0.1 && \
+    npm install -g npm@12.0.2 && \
     npm install -g markdownlint-cli@0.49.1
 
-# Instll prerequisites for pre-commit hooks
+# Install prerequisites for pre-commit hooks
 RUN apt-get update && apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libx11-xcb1 \
     libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libxshmfence1 \
     pre-commit
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y ca-certificates curl && \
             echo "htmltest install failed" >&2; exit 1; \
         fi
 
-# Install mermaid prerequistes
+# Install Mermaid prerequisites
 RUN apt-get install -y chromium
 
 # Ensure the directory exists before changing ownership

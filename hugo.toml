@@ -1,5 +1,5 @@
 baseURL = 'https://frontier.scetrov.live/'
-languageCode = 'en-us'
+locale = 'en-US'
 title = 'Unofficial EVE Frontier Development Notes'
 
 [module]
