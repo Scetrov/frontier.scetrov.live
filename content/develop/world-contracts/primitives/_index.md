@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = "Primitives"
 type = "chapter"
 weight = 1
@@ -43,7 +43,7 @@ The design of a Primitive follows strict principles to ensure the game remains s
 
 * **Composition over Inheritance:** Primitives are small, focused Move modules grouped by functionality. They do not inherit from each other; instead, they are combined within an "Assembly" structure.
 * **Encapsulation:** Primitives typically expose `public(package)` functions, meaning they can only be mutated by other modules within the same package (the core game contracts).
-* **Atomic Logic:** Each module handles one specific job (e.g., `fuel.move` only handles fuel consumption; `energy.move` only handles power reservation).
+* **Atomic Logic:** Each module handles one specific job (e.g., `fuel.move` only handles fuel consumption; `energy.move` only handles power reservation). Inventory deposit and withdrawal event schemas include an `inventory_key`, allowing indexers to distinguish inventories on the same assembly.
 * **Circular Dependency Prevention:** They are designed to be independent so they can be reused across various assemblies without creating complex code loops.
 
 ## 3. Common Primitives and Their Functions

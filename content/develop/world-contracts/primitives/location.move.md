@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'location.move'
 weight = 6
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/location.move"
@@ -120,8 +120,8 @@ Most interactions in Frontier use hashed positions and signed proofs, but the mo
 
 | Component | Purpose |
 | --- | --- |
-| `LocationRegistry` | Shared object holding the table of revealed assembly coordinates. |
-| `Coordinates` | Stores `solarsystem`, `x`, `y`, and `z` for an assembly in queryable form. |
+| `LocationRegistry` | Shared object holding revealed coordinates keyed by world-object ID. |
+| `Coordinates` | Stores `solarsystem`, `x`, `y`, and `z` for a world object in queryable form. |
 | `LocationRevealedEvent` | Broadcasts the assembly ID, assembly key, type ID, owner cap ID, hashed location, and revealed coordinates. |
 
 This gives the contracts an escape hatch for cases where public coordinates are desirable for gameplay or indexing, while keeping the default privacy-first hashed model intact.
@@ -131,5 +131,6 @@ This gives the contracts an escape hatch for cases where public coordinates are 
 * **Trusted Registry**: Proximity verification checks signatures against a `ServerAddressRegistry` to ensure only authorized game servers can vouch for a player's location.
 * **Sender Verification**: Proof messages include a `player_address` field that must match `ctx.sender()`, preventing proofs from being used by unauthorized parties.
 * **Deadline Enforcement**: All proofs carry a `deadline_ms` timestamp. The module rejects proofs where the deadline has passed, mitigating replay attacks.
-* **Package-Level Encapsulation**: Like other primitives, critical state-altering functions (`attach` and `remove`) are `public(package)`, meaning third-party builders must interact through authorized [Assembly](../../assemblies/assembly.move/) entry points.
+* **Rift Support**: Package code can record coordinates for objects without an `OwnerCap`, such as server-controlled Rifts; callers must enforce their own authorization before using that package-only helper.
+* **Package-Level Encapsulation**: Like other primitives, critical state-altering functions (`attach`, `remove`, and coordinate recording) are `public(package)`, meaning third-party builders must interact through authorized [Assembly](../../assemblies/assembly.move/) entry points.
 * **Digital Physics Enforcement**: By requiring a proof for interactions, the module prevents "teleportation hacks" or remote manipulation of objects that require physical presence.

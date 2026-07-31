@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'gate.move'
 weight = 3
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/gate.move'
@@ -108,6 +108,10 @@ Once a gate owner has chosen an extension, they can call `freeze_extension_confi
 
 ---
 
+### 3.2 Revoking Extension Authorization
+
+Before `freeze_extension_config` is called, the owner may call `revoke_extension_authorization` to clear the gate’s configured witness type and restore default gate behavior. The call requires the matching `OwnerCap` and emits `ExtensionRevokedEvent`; it aborts if no extension is configured or if configuration is frozen.
+
 ## 4. Logic Deep Dive: Jumps and Permits
 
 There are two primary ways to traverse a gate:
@@ -123,6 +127,7 @@ Required when an extension is authorized. The extension logic (Layer 3) issues a
 - **Route Hashing**: Permits are bound to a specific source/destination pair via a `route_hash`.
 - **Direction Agnostic**: The hash is computed from concatenated IDs (A+B) using `blake2b256`, ensuring one permit works for both A→B and B→A.
 - **Single-Use**: The `JumpPermit` object is deleted upon a successful jump to prevent replay attacks.
+- **Issuance IDs and events**: `issue_jump_permit_with_id` returns the newly created permit ID, while `issue_jump_permit` remains available for callers that do not need it. Both issue paths emit `JumpPermitIssuedEvent`, including the route, character, expiry, and extension type.
 
 ---
 
@@ -230,7 +235,7 @@ A planner determines if a restricted gate is "open" for a specific player by que
 2. **Validate Metadata**:
    - **Character ID**: `permit.character_id` must match the player’s `Character` ID.
    - **Route Hash**: Match against the hash of the intended source and destination.
-   - **Expiry**: `permit.validity_period` must be greater than current `clock` time.
+   - **Expiry**: `permit.expires_at_timestamp_ms` must be greater than the current `Clock` time.
 
 ---
 
@@ -251,6 +256,8 @@ The Gate module emits the following events for off-chain indexing and tracking:
 | `GateUnlinkedEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key` | Two gates are unlinked via `unlink_gates` or `unlink_gates_by_admin`. |
 | `JumpEvent` | `source_gate_id`, `source_gate_key`, `destination_gate_id`, `destination_gate_key`, `character_id`, `character_key` | A character jumps through a gate (default or with permit). |
 | `ExtensionAuthorizedEvent` | `assembly_id`, `assembly_key`, `extension_type`, `previous_extension`, `owner_cap_id` | An extension is authorized (or replaced) on a gate via `authorize_extension`. |
+| `ExtensionRevokedEvent` | `assembly_id`, `assembly_key`, `revoked_extension`, `owner_cap_id` | An owner clears an unfrozen extension authorization. |
+| `JumpPermitIssuedEvent` | `jump_permit_id`, source/destination gate IDs and keys, character ID/key, `route_hash`, expiry, `extension_type` | A permit is minted by either permit-issuance function. |
 
 ### Metadata Updates
 

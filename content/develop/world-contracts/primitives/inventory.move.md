@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'inventory.move'
 weight = 5
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/inventory.move"
@@ -95,5 +95,5 @@ Capacity management is strictly enforced through volume calculations.
 
 * **Package-Level Access**: Core mutation functions are `public(package)`, ensuring only authorized Layer 2 [assemblies](../../assemblies/assembly.move/) can modify inventory states.
 * **Volume Consistency**: Volume per `type_id` is static — the first mint or deposit sets the volume, and subsequent operations use the stored volume for capacity accounting. Incoming volume mismatches are silently ignored.
-* **Comprehensive Logging**: The module emits specific events for every major action (Minted, Burned, Deposited, Withdrawn, and Destroyed).
+* **Comprehensive Logging**: The module emits specific events for every major action. Deposits and withdrawals emit `ItemDepositedEventV2` and `ItemWithdrawnEventV2`, which add `inventory_key` so indexers can distinguish inventories attached to the same assembly; mint, burn, and destroy events are unchanged.
 * **Safe Deletion**: When an inventory is deleted, the module iterates through all remaining items and burns them individually, ensuring clean state cleanup and proper event emission.

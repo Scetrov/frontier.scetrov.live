@@ -298,7 +298,7 @@ def generate_collection(spec: dict) -> str:
     lines.append("        sortKey: 1749660554120")
     lines.append("      data:")
     lines.append(
-        "        host: blockchain-gateway-stillness.live.tech.evefrontier.com"
+        "        host: world-api-stillness.live.pub.evefrontier.com"
     )
     lines.append("        api_key: eyABC.123")
     lines.append('      color: "#ff4a00"')

@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'world.move'
 weight = 0
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/world.move"
@@ -67,5 +67,9 @@ The `GovernorCap` sits at the apex of the capability hierarchy defined in [`acce
 
 > [!IMPORTANT]
 > Loss of the `GovernorCap` would mean loss of administrative control over the entire world contract deployment. In practice, this capability is held by the game operator.
+
+## Public View Function
+
+`id(cap: &GovernorCap): ID` returns the Sui object ID of a `GovernorCap`, allowing clients to identify the owned root capability without unpacking it.
 
 {{% tip-menu-search %}}

@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = "Assemblies"
 type = "chapter"
 weight = 2
@@ -55,7 +55,7 @@ The Storage Unit is the primary example of a complex assembly that utilizes almo
 ## Key Architectural Patterns in this Folder
 
 - **Composition over Inheritance**: Assemblies are built by wrapping primitives (e.g., `Assembly` contains a `Location`, `Metadata`, and `AssemblyStatus` struct).
-- **Moddability**: The use of `Option<TypeName>` (in `StorageUnit`) or allowlists allows owners to dynamically register player-made extensions to control the structure's behavior.
+- **Moddability**: The use of `Option<TypeName>` allows owners to dynamically register player-made extensions to control storage-unit, gate, and turret behavior. Before its configuration is frozen, an owner can revoke the configured extension and return the assembly to its default behavior.
 - **Digital Physics Enforcement**: Assemblies verify "physics" requirements, such as proximity proofs via the `location` primitive, before allowing sensitive actions like withdrawing items.
 
 ---

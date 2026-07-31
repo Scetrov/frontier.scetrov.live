@@ -1,5 +1,5 @@
 +++
-date = '2025-06-29T13:10:00+01:00'
+date = '2026-07-31T00:00:00Z'
 title = 'Static Data'
 weight = 70
 +++
@@ -15,7 +15,7 @@ Inherently static data is unchanging, and is stored on-disk in an immutable form
 
 The easiest way to find files is through a text search of the contents of `C:\CCP\EVE Frontier` with Visual Studio Code or `grep`. There are a couple of key locations to extract filenames from.
 
-The following contain server specific information, i.e. where `{server}` is `stillness` it's for the live server, if you have access to `{nova}` then you will also have these files too.
+The following contain server-specific information. For the live server, `{server}` is `stillness`.
 
 - `/index_{server}.txt`
 - `/{server}/resfileindex.txt`

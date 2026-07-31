@@ -1,5 +1,5 @@
 +++
-date = 2026-03-13
+date = '2026-07-31T00:00:00Z'
 title = "killmail.move"
 weight = 30
 description = "Exploration of the killmail tracking system and the on-chain preservation of PvP combat records in EVE Frontier."
@@ -93,6 +93,10 @@ The security of the killmail system is governed by the `AdminACL`, ensuring that
 ### Assert-First Validation
 
 The module enforces rigorous checks on all input data before generating the shared object. This includes verifying that character IDs, solar system IDs, and the killmail ID itself are not empty (non-zero).
+
+### Public Read Access
+
+The module exposes public accessors for a killmail’s ID, key, participant IDs, reporter, timestamp, loss type, and solar-system ID, plus `is_ship_loss` and `is_structure_loss` helpers.
 
 ### Event-Driven Transparency
 

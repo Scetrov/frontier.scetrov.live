@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'metadata.move'
 weight = 7
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/primitives/metadata.move"
@@ -62,7 +62,7 @@ As a primitive, `metadata.move` provides `public(package)` functions to initiali
 * **`create_metadata`**: Initializes a new `Metadata` struct with a name, description, and URL. Emits a `MetadataChangedEvent`.
 * **`update_name` / `update_description` / `update_url`**: `public(package)` functions that update individual fields. Called by assembly-level functions (e.g., `assembly::update_metadata_name`) which handle `OwnerCap` authorization.
 * **`delete`**: Destroys a `Metadata` struct during assembly cleanup.
-* **View Functions**: Test-only accessors for reading `name`, `description`, and `url`.
+* **View Functions**: Public `name`, `description`, and `url` accessors return copies of the corresponding metadata strings for clients and extension code.
 
 ---
 

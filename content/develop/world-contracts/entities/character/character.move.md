@@ -1,5 +1,5 @@
 +++
-date = 2026-03-13
+date = '2026-07-31T00:00:00Z'
 title = "character.move"
 weight = 50
 description = "Analysis of deterministic identity generation and the decoupled capability-based mutation model for EVE Frontier characters."
@@ -78,6 +78,10 @@ flowchart TD
     I --> J[User: return_owner_cap]
 
 ```
+
+## Public View Function
+
+`player_profile_id(profile: &PlayerProfile): ID` returns the Sui object ID of a player profile.
 
 ## Section 3: Security and Authorization Model
 

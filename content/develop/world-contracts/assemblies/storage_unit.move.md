@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'storage_unit.move'
 weight = 2
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/storage_unit.move'
@@ -156,9 +156,12 @@ Access control is enforced through a combination of Capabilities (`OwnerCap`) an
 | `withdraw_item<Auth>` | Extension Witness | Extension-controlled withdrawal with authorized type. |
 | `authorize_extension<Auth>` | `OwnerCap<StorageUnit>` | Register an extension type for this unit. Emits `ExtensionAuthorizedEvent`. |
 | `freeze_extension_config` | `OwnerCap<StorageUnit>` | Permanently lock the current extension type once configured, preventing future changes. |
+| `revoke_extension_authorization<Auth>` | `OwnerCap<StorageUnit>` | Clear the configured extension and restore default behavior before the configuration is frozen; emits `ExtensionRevokedEvent`. |
 | `update_metadata_name` | `OwnerCap<StorageUnit>` | Update the storage unit's display name. |
 | `update_metadata_description` | `OwnerCap<StorageUnit>` | Update the storage unit's description. |
 | `update_metadata_url` | `OwnerCap<StorageUnit>` | Update the storage unit's URL. |
+
+Deposits and withdrawals now emit the inventory primitive’s V2 events, which include the storage unit inventory key for unambiguous indexing.
 
 ### The `AdminACL` Role
 

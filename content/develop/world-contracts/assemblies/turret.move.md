@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'turret.move'
 weight = 4
 draft = false
@@ -161,6 +161,9 @@ These group IDs can be used in extension logic to prioritize targets or lower th
 | 9    | `EMetadataNotSet`        | Metadata has not been set on this turret.                                      |
 | 10   | `EExtensionConfigFrozen` | Extension configuration has already been frozen and can no longer change.      |
 | 11   | `EExtensionNotConfigured`| Freezing requires an extension to already be configured.                       |
+| 12   | `ENoExtensionToRevoke`   | Extension revocation requires an extension to be configured.                   |
+
+An owner can call `revoke_extension_authorization` before configuration is frozen to restore default targeting behavior; the call requires the matching `OwnerCap` and emits `ExtensionRevokedEvent`. Public view functions also expose the turret ID, key, optional extension and metadata, and the candidate HP, shield, and armor ratios.
 
 ## Events
 
@@ -169,6 +172,7 @@ These group IDs can be used in extension logic to prioritize targets or lower th
 | `TurretCreatedEvent`        | `turret_id`, `turret_key`, `owner_cap_id`, `type_id`                                  | A new turret is anchored.                                              |
 | `PriorityListUpdatedEvent`  | `turret_id`, `priority_list`                                                          | The targeting priority list changes.                                   |
 | `ExtensionAuthorizedEvent`  | `assembly_id`, `assembly_key`, `extension_type`, `previous_extension`, `owner_cap_id` | An extension is authorized (or replaced) via `authorize_extension`.    |
+| `ExtensionRevokedEvent`     | `assembly_id`, `assembly_key`, `revoked_extension`, `owner_cap_id`                    | An owner clears an unfrozen extension authorization.                   |
 
 ## Core Functions
 

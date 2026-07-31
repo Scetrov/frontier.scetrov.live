@@ -1,5 +1,5 @@
 +++
-date = '2026-03-08T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'corpse_gate_bounty.move'
 weight = 4
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/corpse_gate_bounty.move"
@@ -65,6 +65,8 @@ sequenceDiagram
    * Issues a 5-day `JumpPermit` for the specified gate route
 
 ---
+
+`collect_corpse_bounty` returns the new `JumpPermit` object ID after issuing the permit, allowing callers and indexers to correlate the bounty action with the resulting permit.
 
 ## 3. Cross-Assembly Interaction
 

@@ -1,5 +1,5 @@
 +++
-date = "2026-03-13"
+date = '2026-07-31T00:00:00Z'
 title = "network_node.move"
 weight = 60
 description = "The Network Node module represents the primary energy infrastructure of the EVE Frontier universe. Positioned as a Layer 2 (Assembly), it acts as the 'Standardized Glue' that orchestrates the relationship between raw energy primitives and functional assemblies like Storage Units and Gates. By converting fuel into usable energy (GJ), the Network Node serves as the lifeblood of any celestial installation, enforcing the 'Digital Physics' of resource consumption and power distribution."
@@ -118,6 +118,10 @@ stateDiagram-v2
     Idle --> [*]: Unanchor & Destroy
 
 ```
+
+## Public View Function
+
+`id(nwn: &NetworkNode): ID` returns the Network Node’s Sui object ID.
 
 ## Section 3: Security and Authorization Model
 

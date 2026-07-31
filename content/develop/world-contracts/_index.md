@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = "World Contracts"
 type = "chapter"
 weight = 1
@@ -104,7 +104,7 @@ flowchart LR
 
 ## 4. Object Registry and Identity
 
-The `object_registry` module acts as a unified system to derive deterministic IDs for all game assets, such as characters and network nodes. It uses a `TenantItemId` (combining a tenant ID and an item ID) to guarantee that each in-game ID is unique across all object types.
+The `object_registry` module acts as a unified system to derive deterministic IDs for all game assets, such as characters, network nodes, and server-controlled Rifts. Rifts begin with a hashed location and authorized gameplay servers can broadcast their plaintext coordinates when gameplay requires it. It uses a `TenantItemId` (combining a tenant ID and an item ID) to guarantee that each in-game ID is unique across all object types.
 
 ---
 

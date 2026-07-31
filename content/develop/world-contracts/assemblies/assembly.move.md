@@ -1,5 +1,5 @@
 +++
-date = '2026-03-13T00:00:00Z'
+date = '2026-07-31T00:00:00Z'
 title = 'assembly.move'
 weight = 1
 codebase = 'https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/assemblies/assembly.move'
@@ -116,7 +116,11 @@ stateDiagram-v2
 
 ---
 
-## 5. Security and Capability Model
+## 5. Public View Function
+
+`id(assembly: &Assembly): ID` returns the Sui object ID of a generic assembly.
+
+## 6. Security and Capability Model
 
 Authorization in the Assembly module is bifurcated into two main patterns:
 

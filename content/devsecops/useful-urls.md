@@ -1,6 +1,6 @@
 +++
 title = "Useful URLs"
-date = 2026-03-13T11:00:00Z
+date = 2026-07-31T00:00:00Z
 draft = false
 type = "doc"
 weight = 200
@@ -16,7 +16,7 @@ description = "Some useful URLs to use for poking around the chain"
 
 ### Stillness
 
-- World API: <https://world-api-stillness.live.tech.evefrontier.com/docs/index.html>
+- World API: <https://world-api-stillness.live.pub.evefrontier.com/docs/index.html>
 
 ### Utopia
 
