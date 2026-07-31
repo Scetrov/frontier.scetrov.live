@@ -1,5 +1,5 @@
 {{/* swagger-docs.html – auto-generates API reference from data/world-api-stillness.json */}}
-{{ $spec := index .Site.Data "world-api-stillness" }}
+{{ $spec := index hugo.Data "world-api-stillness" }}
 {{ if not $spec }}
   <p><strong>Error:</strong> Could not load Swagger spec from <code>data/world-api-stillness.json</code>.</p>
 {{ else }}

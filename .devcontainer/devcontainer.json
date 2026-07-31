@@ -7,9 +7,8 @@
 	"features": {
 		"ghcr.io/devcontainers/features/hugo:1": {
 			"extended": true,
-			"version": "latest"
-		},
-		"ghcr.io/prulloac/devcontainer-features/pre-commit:1": {}
+			"version": "0.164.0"
+		}
 	},
 	"remoteUser": "vscode",
 	"containerUser": "vscode",
