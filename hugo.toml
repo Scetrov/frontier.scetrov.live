@@ -12,5 +12,8 @@ title = 'Unofficial EVE Frontier Development Notes'
   images = ['images/hero.png']
 
 [markup]
+  [markup.goldmark.parser.attribute]
+    block = true
+
   [markup.highlight]
     noClasses = false

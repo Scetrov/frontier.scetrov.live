@@ -1,0 +1,24 @@
+{
+  "candidates": {
+    "merge_base": "db577cf9fd85c2310f6449a1cf42a4a84ba9d20b",
+    "v0": "843f706efe74b0c5b818d4282587f4a58893107c",
+    "v1": "485740eae181638f494bd574e18a10ba0c991303"
+  },
+  "mode": "incremental",
+  "previous": {
+    "merge_base_commit": "db577cf9fd85c2310f6449a1cf42a4a84ba9d20b",
+    "path": "content/develop/world-contracts/version-comparison/_index.md",
+    "review_status": "complete",
+    "reviewed_at": "2026-08-10T18:00:00Z",
+    "upstream_repository": "evefrontier/world-contracts",
+    "v0_ref": "main",
+    "v0_reviewed_commit": "843f706efe74b0c5b818d4282587f4a58893107c",
+    "v1_ref": "dev",
+    "v1_reviewed_commit": "485740eae181638f494bd574e18a10ba0c991303"
+  },
+  "ranges": {
+    "tip_to_tip": "843f706efe74b0c5b818d4282587f4a58893107c...485740eae181638f494bd574e18a10ba0c991303",
+    "v0": "843f706efe74b0c5b818d4282587f4a58893107c..843f706efe74b0c5b818d4282587f4a58893107c",
+    "v1": "485740eae181638f494bd574e18a10ba0c991303..485740eae181638f494bd574e18a10ba0c991303"
+  }
+}

@@ -39,6 +39,9 @@ jobs:
           hugo-version: '0.164.0'
           extended: true
 
+      - name: Run World Contracts comparison helper tests
+        run: python3 -m unittest scripts/tests/test_update_world_contracts_version_comparison.py
+
       - name: Build site
         run: hugo build -d public
 
