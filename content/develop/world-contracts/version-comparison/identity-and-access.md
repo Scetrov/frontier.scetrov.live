@@ -1,0 +1,10 @@
++++
+title = "Identity, access, and location"
+weight = 30
++++
+
+v0 [`Character`](https://github.com/evefrontier/world-contracts/blob/843f706efe74b0c5b818d4282587f4a58893107c/contracts/world/sources/character/character.move) is a dedicated deterministic shared object carrying tenant identity, tribe, wallet, metadata, and owner-cap identity. v1 uses a generic [`Entity`](https://github.com/evefrontier/world-contracts/blob/485740eae181638f494bd574e18a10ba0c991303/contracts/core/sources/entity.move) with an installable [`Identity`](https://github.com/evefrontier/world-contracts/blob/485740eae181638f494bd574e18a10ba0c991303/contracts/character/sources/identity.move) module. Package IDs, layouts, capabilities, and event contracts are therefore incompatible.
+
+v0 combines `GovernorCap`, sponsor-aware `AdminACL`, and typed `OwnerCap`; see [`access_control`](https://github.com/evefrontier/world-contracts/blob/843f706efe74b0c5b818d4282587f4a58893107c/contracts/world/sources/access/access_control.move). v1 represents authorization as requirements consumed while completing an Entity request and uses [`AccessCap`](https://github.com/evefrontier/world-contracts/blob/485740eae181638f494bd574e18a10ba0c991303/contracts/core/sources/services/access_cap.move). A caller cap records the authorized entity for downstream routing; it must not be described as ownership of an action target.
+
+Location is a security-significant difference. v0 validates server identity, sender, target hash, signature, and deadline using [`location`](https://github.com/evefrontier/world-contracts/blob/843f706efe74b0c5b818d4282587f4a58893107c/contracts/world/sources/primitives/location.move). Active v1 [`location_service`](https://github.com/evefrontier/world-contracts/blob/485740eae181638f494bd574e18a10ba0c991303/contracts/core/sources/services/location_service.move) injects proximity but currently compares a supplied hash and includes a TODO for server/player/target/deadline/signature checks. This observes a changed trust boundary in source; it is not a runtime or security-quality verdict.

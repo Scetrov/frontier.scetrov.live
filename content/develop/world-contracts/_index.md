@@ -6,6 +6,8 @@ weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources"
 +++
 
+> **Version scope:** This chapter and its existing module pages document the assembly-first **v0/`main`** World Contracts model. They retain their stable URLs. For the divergent modular architecture on `dev`, including active-versus-archived coverage and migration implications, read the [v0 and v1 comparison](version-comparison/).
+
 ## 1. Architectural Strategy: The Three-Layer Model
 
 The solution adopts a three-layer architecture to balance core "digital physics" with player-driven moddability. This design emphasizes **composition over inheritance**.

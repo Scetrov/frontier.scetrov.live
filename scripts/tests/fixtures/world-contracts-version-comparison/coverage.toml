@@ -1,0 +1,1684 @@
+[[v0_module]]
+path = "contracts/assets/sources/EVE.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/extension_examples/sources/config.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/extension_examples/sources/corpse_gate_bounty.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/extension_examples/sources/tribe_permit.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/extension_examples/sources/turret.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/access/access_control.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/assemblies/assembly.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/assemblies/extension_freeze.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/assemblies/gate.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/assemblies/storage_unit.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/assemblies/turret.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/character/character.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/crypto/sig_verify.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/killmail/killmail.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/network_node/network_node.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/energy.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/fuel.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/in_game_id.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/inventory.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/location.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/metadata.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/primitives/status.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/registry/killmail_registry.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/registry/object_registry.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/rift/rift.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[v0_module]]
+path = "contracts/world/sources/world.move"
+state = "main-only"
+disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/character/sources/identity.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/action.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/entity.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/entity_key.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/mod.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/object_registry.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/request.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/requirement.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/services/access_cap.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/services/admin_service.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/core/sources/services/location_service.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/inventory/sources/inventory.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[active_module]]
+path = "contracts/inventory/sources/item.move"
+state = "active-v1"
+disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+
+[[archived_module]]
+path = "contracts/archive/assets/sources/EVE.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/assets/tests/EVE_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/extension_examples/sources/config.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/extension_examples/sources/corpse_gate_bounty.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/extension_examples/sources/tribe_permit.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/extension_examples/sources/turret.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/extension_examples/tests/gate_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/access/access_control.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/assemblies/assembly.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/assemblies/extension_freeze.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/assemblies/gate.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/assemblies/storage_unit.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/assemblies/turret.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/character/character.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/crypto/sig_verify.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/killmail/killmail.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/network_node/network_node.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/energy.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/fuel.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/in_game_id.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/inventory.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/location.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/metadata.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/primitives/status.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/registry/killmail_registry.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/registry/object_registry.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/sources/world.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/access/access_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/assemblies/assembly_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/assemblies/gate_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/assemblies/storage_unit_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/assemblies/turret_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/character/character_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/crypto/sig_verify_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/killmail/killmail_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/network_node/network_node_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/primitives/energy_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/primitives/fuel_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/primitives/inventory_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/primitives/location_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/primitives/metadata_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/primitives/status_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/registry/killmail_registry_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/test_helpers.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[archived_module]]
+path = "contracts/archive/world/tests/world_tests.move"
+state = "archived-only"
+disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+
+[[changed_path]]
+path = ".cursor/rules/move-conventions.mdc"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".cursor/rules/npm-publishing.mdc"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".cursor/rules/references.mdc"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".cursor/rules/typescript.mdc"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/ISSUE_TEMPLATE/feature_request.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/copilot-instructions.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/dependabot.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/docs-mapping.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/instructions/sui-move-tests.instructions.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/instructions/sui-move.instructions.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/deploy-decoder.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/deploy.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/docs-update.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/integration.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/pr.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/publish-integration-image.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".github/workflows/release.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".gitignore"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".husky/pre-commit"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = ".npmrc"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "CLAUDE.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "CONTEXT.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "CONTRIBUTING.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "README.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "biome.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/assets/.gitignore"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/assets/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/assets/Move.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/assets/Published.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/assets/sources/EVE.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/assets/tests/EVE_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/.gitignore"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/Move.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/sources/config.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/sources/corpse_gate_bounty.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/sources/tribe_permit.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/sources/turret.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/extension_examples/tests/gate_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/Move.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/Published.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/access/access_control.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/assemblies/assembly.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/assemblies/extension_freeze.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/assemblies/gate.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/assemblies/storage_unit.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/assemblies/turret.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/character/character.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/crypto/sig_verify.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/killmail/killmail.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/network_node/network_node.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/energy.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/fuel.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/in_game_id.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/inventory.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/location.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/metadata.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/primitives/status.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/registry/killmail_registry.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/registry/object_registry.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/sources/world.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/access/access_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/assemblies/assembly_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/assemblies/gate_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/assemblies/storage_unit_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/assemblies/turret_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/character/character_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/crypto/sig_verify_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/killmail/killmail_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/network_node/network_node_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/primitives/energy_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/primitives/fuel_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/primitives/inventory_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/primitives/location_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/primitives/metadata_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/primitives/status_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/registry/killmail_registry_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/test_helpers.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/archive/world/tests/world_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/character/.gitignore"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/character/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/character/Move.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/character/Published.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/character/sources/identity.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/character/tests/character_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/.gitignore"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/Move.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/Published.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/action.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/entity.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/entity_key.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/mod.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/object_registry.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/request.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/requirement.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/services/access_cap.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/services/admin_service.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/sources/services/location_service.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/access_cap_borrow_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/access_cap_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/admin_service_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/core_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/entity_key_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/entity_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/object_registry_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/core/tests/test_helpers.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/extension_examples/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/.gitignore"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/Move.lock"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/Move.toml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/sources/inventory.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/sources/item.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/tests/inventory_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/inventory/tests/item_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/world/sources/rift/rift.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "contracts/world/tests/rift/rift_tests.move"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "deployments/dev/world.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/Dockerfile"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/Dockerfile.integration"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/README.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/compose.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/docker-compose-snapshot-image.yml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/entrypoint-integration.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/entrypoint-snapshot-image.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/entrypoint.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/genesis/accounts.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docker/genesis/genesis-config.yaml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docs/adr/0001-assembly-architecture.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docs/adr/0002-modular-architecture.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "docs/move-conventions.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "env.example"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "package-lock.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "package.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "pnpm-lock.yaml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "pnpm-workspace.yaml"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/bake-snapshot-image.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/ci-deploy.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/configure-world.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/create-multiarch-manifests.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/deploy-assets.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/deploy-builder-ext.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/deploy-world.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/export-base-digest.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/lib.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/mvr-lib.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/mvr.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/reset-published.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/run-integration-test.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/seed-world.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "scripts/verify-multiarch-manifests.sh"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/LICENSE"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/README.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/env.example"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/package.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/configure-admins.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/context.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/copy-presets.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/seed-characters.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/seed-files.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/seed-storage-units.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/tsconfig.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/character.test.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/helpers.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/inventory-ephemeral.test.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/inventory-owner-via-character.test.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/inventory-swap.test.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/inventory.test.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/mint-access.test.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/client.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/config/env.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/config/load.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/config/presets.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/config/shared-objects.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/config/types.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/index.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/character.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/core.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/inventory.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/tsconfig.build.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/tsconfig.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/vitest.config.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "sdk/world-sdk/vitest.integration.config.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "test-resources.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "tools/error-decoder/app.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "tools/error-decoder/decoder.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "tools/error-decoder/error-extractor.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "tools/error-decoder/error-map.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "tools/error-decoder/parser.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/access/setup-access.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/assembly/create-assembly.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/assembly/online.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/assets/finalize-eve-currency.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/assets/transfer-eve.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/build-manifest.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/authorise-gate.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/authorise-storage-unit.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/authorize-turret.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/collect-corpse-bounty.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/configure-rules.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/delete-jump-permit-extension.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/delete-jump-permit.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/issue-tribe-jump-permit.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/jump-with-permit.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/builder_extension/modules.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/character/create-character.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/character/helper.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/clear-published.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/crypto/sig-verify.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/crypto/signMessage.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/gate/configure-distance.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/gate/create-gates.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/gate/helper.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/gate/jump.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/gate/link-gates.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/gate/online.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/location/generate-test-signature.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/configure-fuel-energy.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/create-nwn.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/deposit-fuel.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/helper.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/offline-nwn.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/online-nwn.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/unanchor-nwn.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/network-node/update-fuel.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/readme.md"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/chain-item-to-game.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/create-storage-unit.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/deposit-to-ephemeral-inventory.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/game-item-to-chain.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/helper.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/online.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/storage-unit/withdraw-deposit.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/tsconfig.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/turret/anchor.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/turret/get-priority-list.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/turret/helper.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/turret/online.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/builder-extension.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/client.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/config.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/constants.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/delay.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/derive-object-id.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/dev-inspect.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/extract-json.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/extract-object-ids.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/helper.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/proof.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/transaction.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "ts-scripts/utils/world-object-ids.ts"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
+
+[[changed_path]]
+path = "tsconfig.json"
+state = "partial"
+disposition = "Reviewed changed path with a recorded comparison disposition."
