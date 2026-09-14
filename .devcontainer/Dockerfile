@@ -1,5 +1,5 @@
 # Use the same base image that was previously specified in devcontainer.json
-FROM mcr.microsoft.com/devcontainers/go:2-1.26-trixie@sha256:3cdd0c250b4213e950a82aecd0d8d08a8655060163df523c2b9813a38e01faed
+FROM mcr.microsoft.com/devcontainers/go:2.3-1.27-trixie@sha256:17bf9e845391f8dfad8d967f203ecd66e2be1c1b67016e56292ea37001edc23f
 
 # Install Node.js 24 (LTS) via NodeSource (use GPG-signed repo instead of piping)
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
