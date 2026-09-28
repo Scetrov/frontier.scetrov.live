@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-09-28T00:00:00Z'
 title = 'config.move'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/extension_examples/sources/config.move"
@@ -34,7 +34,7 @@ classDiagram
 
 * **`ExtensionConfig`** — A shared object acting as a key-value store for extension rules. Other modules attach their own typed config structs as Sui dynamic fields under this object.
 * **`AdminCap`** — An owned capability object transferred to the deployer at init. Required for all mutation operations on the config.
-* **`XAuth`** — A witness type (`has drop`) used to authenticate extension calls to world assemblies. Any extension module in this package can create `XAuth` instances via `config::x_auth()`.
+* **`XAuth`** — A witness type (`has drop`) used to authenticate extension calls to world assemblies, including `issue_jump_permit` and `issue_jump_permit_with_id`. Any extension module in this package can create `XAuth` instances via `config::x_auth()`.
 
 ---
 

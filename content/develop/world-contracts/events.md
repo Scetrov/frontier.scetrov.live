@@ -1,5 +1,5 @@
 +++
-date = '2026-07-31T00:00:00Z'
+date = '2026-09-28T00:00:00Z'
 title = 'Events Index'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/tree/main/contracts/world/sources"
@@ -302,6 +302,18 @@ Emitted when an authorized sponsor publishes a Rift's plaintext coordinates.
 | `solarsystem` | `u64` | Solar-system identifier. |
 | `x`, `y`, `z` | `String` | Published coordinate components. |
 
+#### `MiningStarted`
+
+Emitted by an authorized sponsor calling `mining_started` with a nonzero `rift_type_id`. This announces a mining start for a character and rift type; it does **not** persist coordinates in `LocationRegistry` or enforce the mining lifecycle on-chain. Unlike `RiftLocationBroadcastEvent`, it has no Rift object ID or location hash.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `rift_type_id` | `TenantItemId` | Rift type ID paired with the supplied tenant. |
+| `character_id` | `ID` | On-chain ID of the supplied character. |
+| `character_key` | `TenantItemId` | In-game key of the supplied character. |
+| `solarsystem` | `u64` | Solar-system identifier. |
+| `x`, `y`, `z` | `String` | Announced coordinate components. |
+
 ---
 
 ## Primitives
@@ -557,6 +569,7 @@ A summary table of current core events across the world-contracts:
 | `network_node`   | `NetworkNodeCreatedEvent`    | A network node is created                             |
 | `rift`           | `RiftSpawnedEvent`           | An authorized sponsor creates a Rift                  |
 | `rift`           | `RiftLocationBroadcastEvent` | A Rift location is published                          |
+| `rift`           | `MiningStarted`              | A sponsor announces mining (event only)               |
 | `energy`         | `StartEnergyProductionEvent` | Energy production starts                              |
 | `energy`         | `StopEnergyProductionEvent`  | Energy production stops                               |
 | `energy`         | `EnergyReservedEvent`        | Energy is reserved by an assembly                     |
