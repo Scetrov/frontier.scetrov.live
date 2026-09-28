@@ -1,1684 +1,1879 @@
 [[v0_module]]
 path = "contracts/assets/sources/EVE.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 assets EVE.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/extension_examples/sources/config.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 extension_examples config.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/extension_examples/sources/corpse_gate_bounty.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 extension_examples corpse_gate_bounty.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/extension_examples/sources/tribe_permit.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 extension_examples tribe_permit.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/extension_examples/sources/turret.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 extension_examples turret.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/access/access_control.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world access_control.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/assemblies/assembly.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world assembly.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/assemblies/extension_freeze.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world extension_freeze.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/assemblies/gate.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world gate.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/assemblies/storage_unit.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world storage_unit.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/assemblies/turret.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world turret.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/character/character.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world character.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/crypto/sig_verify.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world sig_verify.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/killmail/killmail.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world killmail.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/network_node/network_node.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world network_node.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/energy.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world energy.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/fuel.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world fuel.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/in_game_id.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world in_game_id.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/inventory.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world inventory.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/location.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world location.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/metadata.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world metadata.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/primitives/status.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world status.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/registry/killmail_registry.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world killmail_registry.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/registry/object_registry.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world object_registry.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/rift/rift.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world rift.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[v0_module]]
 path = "contracts/world/sources/world.move"
 state = "main-only"
-disposition = "Reviewed v0 source module; see the domain-coverage chapter."
+disposition = "v0 world world.move supplies the fixed-world baseline; not an active modular v1 component."
 
 [[active_module]]
 path = "contracts/character/sources/identity.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 identity.move implements modular character behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/action.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 action.move implements modular core behavior; does not imply v0 API compatibility."
+
+[[active_module]]
+path = "contracts/core/sources/component.move"
+state = "active-v1"
+disposition = "Typed component wrapper stores version and optional display name; slot ID is the dynamic-field key."
+
+[[active_module]]
+path = "contracts/core/sources/generic_module.move"
+state = "active-v1"
+disposition = "Opaque type ID and byte data for components without on-chain behavior; migration can extract data."
+
+[[active_module]]
+path = "contracts/currency/sources/EVE.move"
+state = "active-v1"
+disposition = "EVE token source mints capped supply at initialization and exposes treasury administration."
+
+[[active_module]]
+path = "contracts/metadata/sources/metadata.move"
+state = "active-v1"
+disposition = "Installable entity metadata component with typed edit requirement and change event."
 
 [[active_module]]
 path = "contracts/core/sources/entity.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 entity.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/entity_key.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
-
-[[active_module]]
-path = "contracts/core/sources/mod.move"
-state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 entity_key.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/object_registry.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 object_registry.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/request.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 request.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/requirement.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 requirement.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/services/access_cap.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 access_cap.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/services/admin_service.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 admin_service.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/core/sources/services/location_service.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 location_service.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/inventory/sources/inventory.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 inventory.move implements modular inventory behavior; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/inventory/sources/item.move"
 state = "active-v1"
-disposition = "Reviewed active v1 source module; see the domain-coverage chapter."
+disposition = "Active v1 item.move implements modular inventory behavior; does not imply v0 API compatibility."
 
 [[archived_module]]
 path = "contracts/archive/assets/sources/EVE.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived assets source EVE.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/assets/tests/EVE_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived assets test EVE_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/extension_examples/sources/config.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived extension_examples source config.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/extension_examples/sources/corpse_gate_bounty.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived extension_examples source corpse_gate_bounty.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/extension_examples/sources/tribe_permit.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived extension_examples source tribe_permit.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/extension_examples/sources/turret.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived extension_examples source turret.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/extension_examples/tests/gate_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived extension_examples test gate_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/access/access_control.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source access_control.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/assemblies/assembly.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source assembly.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/assemblies/extension_freeze.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source extension_freeze.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/assemblies/gate.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source gate.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/assemblies/storage_unit.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source storage_unit.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/assemblies/turret.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source turret.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/character/character.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source character.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/crypto/sig_verify.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source sig_verify.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/killmail/killmail.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source killmail.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/network_node/network_node.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source network_node.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/energy.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source energy.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/fuel.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source fuel.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/in_game_id.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source in_game_id.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/inventory.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source inventory.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/location.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source location.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/metadata.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source metadata.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/primitives/status.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source status.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/registry/killmail_registry.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source killmail_registry.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/registry/object_registry.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source object_registry.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/sources/world.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world source world.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/access/access_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test access_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/assemblies/assembly_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test assembly_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/assemblies/gate_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test gate_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/assemblies/storage_unit_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test storage_unit_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/assemblies/turret_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test turret_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/character/character_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test character_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/crypto/sig_verify_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test sig_verify_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/killmail/killmail_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test killmail_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/network_node/network_node_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test network_node_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/primitives/energy_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test energy_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/primitives/fuel_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test fuel_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/primitives/inventory_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test inventory_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/primitives/location_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test location_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/primitives/metadata_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test metadata_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/primitives/status_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test status_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/registry/killmail_registry_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test killmail_registry_tests.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/test_helpers.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test test_helpers.move retains legacy reference; not an active v1 module."
 
 [[archived_module]]
 path = "contracts/archive/world/tests/world_tests.move"
 state = "archived-only"
-disposition = "Reviewed archived v1 source module; it is not active v1 functionality."
+disposition = "Archived world test world_tests.move retains legacy reference; not an active v1 module."
 
 [[changed_path]]
 path = ".cursor/rules/move-conventions.mdc"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository move-conventions.mdc config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".cursor/rules/npm-publishing.mdc"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository npm-publishing.mdc config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".cursor/rules/references.mdc"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository references.mdc config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".cursor/rules/typescript.mdc"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository typescript.mdc config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/ISSUE_TEMPLATE/feature_request.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository feature_request.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/copilot-instructions.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository copilot-instructions.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/dependabot.yml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository dependabot.yml config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/docs-mapping.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository docs-mapping.json config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/instructions/sui-move-tests.instructions.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository sui-move-tests.instructions.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/instructions/sui-move.instructions.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository sui-move.instructions.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".github/workflows/deploy-decoder.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow deploy-decoder.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".github/workflows/deploy.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow deploy.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".github/workflows/docs-update.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow docs-update.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".github/workflows/integration.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow integration.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".github/workflows/pr.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow pr.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".github/workflows/publish-integration-image.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow publish-integration-image.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".github/workflows/release.yml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "CI workflow release.yml defines jobs; successful deployment cannot be inferred from its presence."
 
 [[changed_path]]
 path = ".gitignore"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository .gitignore config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".husky/pre-commit"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository pre-commit config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = ".npmrc"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository .npmrc config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "CLAUDE.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository CLAUDE.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "CONTEXT.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository CONTEXT.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "CONTRIBUTING.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository CONTRIBUTING.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "README.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository README.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "biome.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository biome.json config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "contracts/archive/assets/.gitignore"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact .gitignore; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/assets/Move.lock"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Move.lock; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/assets/Move.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Move.toml; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/assets/Published.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Published.toml; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/assets/sources/EVE.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source EVE.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/assets/tests/EVE_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test EVE_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/.gitignore"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact .gitignore; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/Move.lock"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Move.lock; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/Move.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Move.toml; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/sources/config.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source config.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/sources/corpse_gate_bounty.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source corpse_gate_bounty.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/sources/tribe_permit.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source tribe_permit.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/sources/turret.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source turret.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/extension_examples/tests/gate_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test gate_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/Move.lock"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Move.lock; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/Move.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Move.toml; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/Published.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy package artifact Published.toml; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/access/access_control.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source access_control.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/assemblies/assembly.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source assembly.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/assemblies/extension_freeze.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source extension_freeze.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/assemblies/gate.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source gate.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/assemblies/storage_unit.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source storage_unit.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/assemblies/turret.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source turret.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/character/character.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source character.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/crypto/sig_verify.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source sig_verify.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/killmail/killmail.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source killmail.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/network_node/network_node.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source network_node.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/energy.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source energy.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/fuel.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source fuel.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/in_game_id.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source in_game_id.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/inventory.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source inventory.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/location.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source location.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/metadata.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source metadata.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/primitives/status.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source status.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/registry/killmail_registry.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source killmail_registry.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/registry/object_registry.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source object_registry.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/world.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy source world.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/access/access_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test access_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/assemblies/assembly_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test assembly_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/assemblies/gate_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test gate_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/assemblies/storage_unit_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test storage_unit_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/assemblies/turret_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test turret_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/character/character_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test character_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/crypto/sig_verify_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test sig_verify_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/killmail/killmail_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test killmail_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/network_node/network_node_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test network_node_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/primitives/energy_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test energy_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/primitives/fuel_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test fuel_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/primitives/inventory_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test inventory_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/primitives/location_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test location_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/primitives/metadata_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test metadata_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/primitives/status_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test status_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/registry/killmail_registry_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test killmail_registry_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/test_helpers.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test test_helpers.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/archive/world/tests/world_tests.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "archived-only"
+disposition = "Archived legacy test world_tests.move; historical reference, not active v1 functionality."
 
 [[changed_path]]
 path = "contracts/character/.gitignore"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "character package .gitignore is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/character/Move.lock"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "character package Move.lock is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/character/Move.toml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "character package Move.toml is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/character/Published.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "character publish metadata records IDs, not independently verified runtime state."
 
 [[changed_path]]
 path = "contracts/character/sources/identity.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "redesigned"
+disposition = "Identity install emits CharacterCreated with entity ID, key, tribe ID, and address, not v0 Character layout."
 
 [[changed_path]]
 path = "contracts/character/tests/character_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test character_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/.gitignore"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "core package .gitignore is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/core/Move.lock"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "core package Move.lock is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/core/Move.toml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "core package Move.toml is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/core/Published.toml"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "core publish metadata records IDs, not independently verified runtime state."
 
 [[changed_path]]
 path = "contracts/core/sources/action.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 action.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/entity.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Entity now stores component slots by numeric ID, tracks minted access cap, and supports request-gated deletion with orphan risk."
 
 [[changed_path]]
 path = "contracts/core/sources/entity_key.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
-
-[[changed_path]]
-path = "contracts/core/sources/mod.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 entity_key.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/object_registry.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 object_registry.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/request.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 request.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/requirement.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 requirement.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/services/access_cap.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 access_cap.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/services/admin_service.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Active v1 admin_service.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
 path = "contracts/core/sources/services/location_service.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Compares caller and target location hashes; signed proof validation remains a TODO."
 
 [[changed_path]]
 path = "contracts/core/tests/access_cap_borrow_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test access_cap_borrow_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/access_cap_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test access_cap_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/admin_service_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test admin_service_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/core_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test core_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/entity_key_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test entity_key_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/entity_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test entity_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/object_registry_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test object_registry_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/core/tests/test_helpers.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test test_helpers.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/extension_examples/Move.lock"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "extension_examples package Move.lock is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/inventory/.gitignore"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "inventory package .gitignore is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/inventory/Move.lock"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "inventory package Move.lock is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/inventory/Move.toml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "inventory package Move.toml is build/configuration input, not an active gameplay module."
 
 [[changed_path]]
 path = "contracts/inventory/sources/inventory.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Single inventory per component replaces ephemeral routing; sponsor-gated bridges and lifecycle events differ from v0."
 
 [[changed_path]]
 path = "contracts/inventory/sources/item.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "active-v1"
+disposition = "Standalone Item no longer has store; direct public transfer outside inventory is disallowed."
 
 [[changed_path]]
 path = "contracts/inventory/tests/inventory_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test inventory_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/inventory/tests/item_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test item_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "contracts/world/sources/rift/rift.move"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 Rift adds event-only MiningStarted announcement; absent from active dev packages."
 
 [[changed_path]]
 path = "contracts/world/tests/rift/rift_tests.move"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Active-package Move test rift_tests.move; exercises source but is not an active module or deployment proof."
 
 [[changed_path]]
 path = "deployments/dev/world.json"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Dev manifest now names core, character, inventory, metadata, and currency; no chain verification."
 
 [[changed_path]]
 path = "docker/Dockerfile"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker Dockerfile configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/Dockerfile.integration"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker Dockerfile.integration configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/README.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker README.md configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/compose.yml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker compose.yml configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/docker-compose-snapshot-image.yml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker docker-compose-snapshot-image.yml configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/entrypoint-integration.sh"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker entrypoint-integration.sh configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/entrypoint-snapshot-image.sh"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker entrypoint-snapshot-image.sh configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/entrypoint.sh"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker entrypoint.sh configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/genesis/accounts.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker accounts.json configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docker/genesis/genesis-config.yaml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Docker genesis-config.yaml configures local integration tooling; not evidence of production activation."
 
 [[changed_path]]
 path = "docs/adr/0001-assembly-architecture.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository 0001-assembly-architecture.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "docs/adr/0002-modular-architecture.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository 0002-modular-architecture.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "docs/move-conventions.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository move-conventions.md config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "env.example"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository env.example config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "package-lock.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository package-lock.json config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "package.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository package.json config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "pnpm-lock.yaml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository pnpm-lock.yaml config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "pnpm-workspace.yaml"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository pnpm-workspace.yaml config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "scripts/bake-snapshot-image.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper bake-snapshot-image.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/ci-deploy.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper ci-deploy.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/configure-world.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper configure-world.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/create-multiarch-manifests.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper create-multiarch-manifests.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/deploy-assets.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper deploy-assets.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/deploy-builder-ext.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper deploy-builder-ext.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/deploy-world.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper deploy-world.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/export-base-digest.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper export-base-digest.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/lib.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper lib.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/mvr-lib.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper mvr-lib.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/mvr.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper mvr.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/reset-published.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper reset-published.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/run-integration-test.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper run-integration-test.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/seed-world.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper seed-world.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "scripts/verify-multiarch-manifests.sh"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "deployment-unknown"
+disposition = "Deployment/development helper verify-multiarch-manifests.sh defines tooling steps; execution and chain state are unverified."
 
 [[changed_path]]
 path = "sdk/world-sdk/LICENSE"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper LICENSE supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/README.md"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper README.md supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/env.example"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper env.example supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/package.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper package.json supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/configure-admins.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper configure-admins.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/context.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper context.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/copy-presets.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper copy-presets.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/seed-characters.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper seed-characters.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/seed-files.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper seed-files.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/seed-storage-units.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper seed-storage-units.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/scripts/tsconfig.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper tsconfig.json supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/character.test.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK test character.test.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/helpers.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
-
-[[changed_path]]
-path = "sdk/world-sdk/src/__integration__/inventory-ephemeral.test.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper helpers.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/inventory-owner-via-character.test.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK test inventory-owner-via-character.test.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/inventory-swap.test.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK test inventory-swap.test.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/inventory.test.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK test inventory.test.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/mint-access.test.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK test mint-access.test.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/client.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper client.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/config/env.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper env.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/config/load.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper load.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/config/presets.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper presets.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/config/shared-objects.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper shared-objects.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/config/types.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper types.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/index.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper index.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/packages/character.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper character.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/packages/core.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper core.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/packages/inventory.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper inventory.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/tsconfig.build.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper tsconfig.build.json supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/tsconfig.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper tsconfig.json supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/vitest.config.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper vitest.config.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "sdk/world-sdk/vitest.integration.config.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "SDK example or helper vitest.integration.config.ts supports modular client integration; not Move source or deployment proof."
 
 [[changed_path]]
 path = "test-resources.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Repository test-resources.json config/documentation concerns development workflow, not active Move behavior."
 
 [[changed_path]]
 path = "tools/error-decoder/app.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Tooling file app.ts is not Move source; documentation may lag active package layout."
 
 [[changed_path]]
 path = "tools/error-decoder/decoder.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Tooling file decoder.ts is not Move source; documentation may lag active package layout."
 
 [[changed_path]]
 path = "tools/error-decoder/error-extractor.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Tooling file error-extractor.ts is not Move source; documentation may lag active package layout."
 
 [[changed_path]]
 path = "tools/error-decoder/error-map.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Tooling file error-map.ts is not Move source; documentation may lag active package layout."
 
 [[changed_path]]
 path = "tools/error-decoder/parser.ts"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "Tooling file parser.ts is not Move source; documentation may lag active package layout."
 
 [[changed_path]]
 path = "ts-scripts/access/setup-access.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript setup-access.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/assembly/create-assembly.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript create-assembly.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/assembly/online.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript online.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/assets/finalize-eve-currency.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript finalize-eve-currency.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/assets/transfer-eve.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript transfer-eve.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/build-manifest.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript build-manifest.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/authorise-gate.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript authorise-gate.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/authorise-storage-unit.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript authorise-storage-unit.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/authorize-turret.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript authorize-turret.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/collect-corpse-bounty.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript collect-corpse-bounty.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/configure-rules.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript configure-rules.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/delete-jump-permit-extension.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript delete-jump-permit-extension.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/delete-jump-permit.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript delete-jump-permit.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/issue-tribe-jump-permit.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript issue-tribe-jump-permit.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/jump-with-permit.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript jump-with-permit.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/builder_extension/modules.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript modules.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/character/create-character.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript create-character.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/character/helper.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript helper.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/clear-published.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript clear-published.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/crypto/sig-verify.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript sig-verify.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/crypto/signMessage.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript signMessage.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/gate/configure-distance.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript configure-distance.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/gate/create-gates.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript create-gates.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/gate/helper.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript helper.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/gate/jump.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript jump.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/gate/link-gates.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript link-gates.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/gate/online.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript online.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/location/generate-test-signature.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript generate-test-signature.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/configure-fuel-energy.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript configure-fuel-energy.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/create-nwn.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript create-nwn.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/deposit-fuel.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript deposit-fuel.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/helper.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript helper.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/offline-nwn.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript offline-nwn.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/online-nwn.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript online-nwn.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/unanchor-nwn.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript unanchor-nwn.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/network-node/update-fuel.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript update-fuel.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/readme.md"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript readme.md script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/chain-item-to-game.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript chain-item-to-game.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/create-storage-unit.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript create-storage-unit.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/deposit-to-ephemeral-inventory.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript deposit-to-ephemeral-inventory.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/game-item-to-chain.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript game-item-to-chain.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/helper.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript helper.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/online.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript online.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/storage-unit/withdraw-deposit.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript withdraw-deposit.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/tsconfig.json"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript tsconfig.json script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/turret/anchor.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript anchor.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/turret/get-priority-list.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript get-priority-list.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/turret/helper.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript helper.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/turret/online.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript online.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/builder-extension.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript builder-extension.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/client.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript client.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/config.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript config.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/constants.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript constants.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/delay.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript delay.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/derive-object-id.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript derive-object-id.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/dev-inspect.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript dev-inspect.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/extract-json.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript extract-json.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/extract-object-ids.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript extract-object-ids.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/helper.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript helper.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/proof.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript proof.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/transaction.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript transaction.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "ts-scripts/utils/world-object-ids.ts"
-state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+state = "main-only"
+disposition = "v0 TypeScript world-object-ids.ts script/helper demonstrates direct world-package integration, not an active dev Move module."
 
 [[changed_path]]
 path = "tsconfig.json"
 state = "partial"
-disposition = "Reviewed changed path with a recorded comparison disposition."
+disposition = "TypeScript compiler configuration differs; not evidence of Move behavior."
+
+[[changed_path]]
+path = ".github/workflows/deploy-currency.yml"
+state = "deployment-unknown"
+disposition = "Currency deployment workflow exists; workflow definition alone does not prove execution."
+
+[[changed_path]]
+path = "contracts/core/sources/component.move"
+state = "active-v1"
+disposition = "New typed component wrapper replaces the name-keyed module wrapper."
+
+[[changed_path]]
+path = "contracts/core/sources/generic_module.move"
+state = "active-v1"
+disposition = "Opaque game fitting state can be installed as a component without on-chain logic."
+
+[[changed_path]]
+path = "contracts/core/tests/component_tests.move"
+state = "partial"
+disposition = "Component tests cover wrapper behavior; test files are not active module source."
+
+[[changed_path]]
+path = "contracts/core/tests/generic_module_tests.move"
+state = "partial"
+disposition = "Generic component tests exercise install and extraction; not a gameplay-domain port."
+
+[[changed_path]]
+path = "contracts/currency/.gitignore"
+state = "partial"
+disposition = "Currency package ignore rules are tooling metadata, not deployed functionality."
+
+[[changed_path]]
+path = "contracts/currency/Move.lock"
+state = "partial"
+disposition = "Currency dependency lockfile pins build inputs; no runtime deployment inference."
+
+[[changed_path]]
+path = "contracts/currency/Move.toml"
+state = "active-v1"
+disposition = "New EVE currency package manifest declares build dependencies, not deployment."
+
+[[changed_path]]
+path = "contracts/currency/Published.toml"
+state = "deployment-unknown"
+disposition = "Published metadata records package IDs; source alone cannot verify chain state."
+
+[[changed_path]]
+path = "contracts/currency/sources/EVE.move"
+state = "active-v1"
+disposition = "Native EVE coin implementation has capped supply and admin treasury operations."
+
+[[changed_path]]
+path = "contracts/currency/tests/EVE_tests.move"
+state = "partial"
+disposition = "Currency tests cover initialization and treasury flows, not production activation."
+
+[[changed_path]]
+path = "contracts/inventory/Published.toml"
+state = "deployment-unknown"
+disposition = "Inventory publish metadata records IDs without independent on-chain verification."
+
+[[changed_path]]
+path = "contracts/metadata/.gitignore"
+state = "partial"
+disposition = "Metadata package ignore rules affect tooling only."
+
+[[changed_path]]
+path = "contracts/metadata/Move.lock"
+state = "partial"
+disposition = "Metadata dependency lockfile pins build inputs, not published state."
+
+[[changed_path]]
+path = "contracts/metadata/Move.toml"
+state = "active-v1"
+disposition = "New metadata package manifest declares dependencies for the active module."
+
+[[changed_path]]
+path = "contracts/metadata/Published.toml"
+state = "deployment-unknown"
+disposition = "Metadata publish metadata records IDs; chain status is not verified here."
+
+[[changed_path]]
+path = "contracts/metadata/sources/metadata.move"
+state = "active-v1"
+disposition = "Metadata component stores display fields and routes edits through a typed request."
+
+[[changed_path]]
+path = "contracts/metadata/tests/metadata_tests.move"
+state = "partial"
+disposition = "Metadata tests cover install/edit behavior; tests are not module source."
+
+[[changed_path]]
+path = "contracts/world/Published.toml"
+state = "deployment-unknown"
+disposition = "v0 world publish metadata records IDs, not active modular v1 source."
+
+[[changed_path]]
+path = "deployments/live/world.json"
+state = "deployment-unknown"
+disposition = "Live manifest lists MVR app capabilities only; does not identify published packages."
+
+[[changed_path]]
+path = "deployments/test/world.json"
+state = "deployment-unknown"
+disposition = "Test manifest records named environment artifacts; no independent runtime check."
+
+[[changed_path]]
+path = "deployments/uat/world.json"
+state = "deployment-unknown"
+disposition = "UAT manifest records named environment artifacts; no independent runtime check."
+
+[[changed_path]]
+path = "docs/adr/0003-onchain-inventory-design.md"
+state = "partial"
+disposition = "Inventory design note is contextual; active Move source governs current semantics."
+
+[[changed_path]]
+path = "docs/adr/0004-interaction-proofs.md"
+state = "partial"
+disposition = "Interaction-proof design note does not establish implemented signature checks."
+
+[[changed_path]]
+path = "scripts/ci-deploy-currency.sh"
+state = "deployment-unknown"
+disposition = "CI currency deployment script encodes steps, not proof they ran."
+
+[[changed_path]]
+path = "scripts/ci-deploy-lib.sh"
+state = "deployment-unknown"
+disposition = "Shared CI deployment helper supports scripts; execution remains unverified."
+
+[[changed_path]]
+path = "scripts/deploy-currency.sh"
+state = "deployment-unknown"
+disposition = "Currency deployment helper is available; cannot infer chain publication from it."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/finalize-eve-currency.ts"
+state = "partial"
+disposition = "Currency registration client script describes a transaction, not its execution."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/transfer-eve.ts"
+state = "partial"
+disposition = "EVE transfer script exercises client integration, not deployed availability."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/delete-entity.test.ts"
+state = "partial"
+disposition = "Entity deletion integration test is not production runtime evidence."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/eve-currency.test.ts"
+state = "partial"
+disposition = "Currency integration test is not proof of live deployment."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/generic-module.test.ts"
+state = "partial"
+disposition = "Generic component integration test checks client flows, not gameplay porting."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/metadata.test.ts"
+state = "partial"
+disposition = "Metadata integration test checks client flows, not live deployment."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/component-id.test.ts"
+state = "partial"
+disposition = "Component ID test checks deterministic SDK hashing against expected slots."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/component-id.ts"
+state = "partial"
+disposition = "SDK derives numeric component slots; IDs replace names as storage keys."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/currency.ts"
+state = "partial"
+disposition = "Currency client builders support EVE operations; no runtime inference."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/generic-module.ts"
+state = "partial"
+disposition = "SDK builders install opaque generic components and extract stored data."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/metadata.ts"
+state = "partial"
+disposition = "SDK builders expose metadata install, edit, and uninstall flows."
