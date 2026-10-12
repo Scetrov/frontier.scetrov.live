@@ -194,9 +194,19 @@ state = "active-v1"
 disposition = "Active v1 admin_service.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
-path = "contracts/core/sources/services/location_service.move"
+path = "contracts/core/sources/services/docking.move"
 state = "active-v1"
-disposition = "Active v1 location_service.move implements modular core behavior; does not imply v0 API compatibility."
+disposition = "Active v1 docking.move verifies a server-signed Docking proof (or admin/sponsor attestation) and asserts docked transfers inline; replaces the former hash-comparing location_service.move; does not imply v0 API compatibility."
+
+[[active_module]]
+path = "contracts/core/sources/services/proof.move"
+state = "active-v1"
+disposition = "Active v1 proof.move implements generic server-signed proof verification (kind, sender, deadline, admin server, Ed25519 signature) per ADR 0004; replaces the former location_service.move TODO; does not imply v0 API compatibility."
+
+[[active_module]]
+path = "contracts/core/sources/services/sig_verify.move"
+state = "active-v1"
+disposition = "Active v1 sig_verify.move verifies Sui Ed25519 personal-message signatures (blake2b256 of the 0x030000 intent prefix and message); supports proof.move; does not imply v0 API compatibility."
 
 [[active_module]]
 path = "contracts/inventory/sources/inventory.move"
@@ -924,9 +934,19 @@ state = "active-v1"
 disposition = "Active v1 admin_service.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
-path = "contracts/core/sources/services/location_service.move"
-state = "partial"
-disposition = "Compares caller and target location hashes; signed proof validation remains a TODO."
+path = "contracts/core/sources/services/docking.move"
+state = "active-v1"
+disposition = "Active v1 docking.move verifies a server-signed Docking proof (or admin/sponsor attestation) and asserts docked transfers inline; replaces the former location_service.move."
+
+[[changed_path]]
+path = "contracts/core/sources/services/proof.move"
+state = "active-v1"
+disposition = "Active v1 proof.move implements generic server-signed proof verification (kind, sender, deadline, admin server, Ed25519 signature) per ADR 0004; replaces the former location_service.move TODO."
+
+[[changed_path]]
+path = "contracts/core/sources/services/sig_verify.move"
+state = "active-v1"
+disposition = "Active v1 sig_verify.move verifies Sui Ed25519 personal-message signatures (blake2b256 of the 0x030000 intent prefix and message); supports proof.move."
 
 [[changed_path]]
 path = "contracts/core/tests/access_cap_borrow_tests.move"
@@ -1877,3 +1897,48 @@ disposition = "SDK builders install opaque generic components and extract stored
 path = "sdk/world-sdk/src/packages/metadata.ts"
 state = "partial"
 disposition = "SDK builders expose metadata install, edit, and uninstall flows."
+
+[[changed_path]]
+path = "agentictools/README.md"
+state = "partial"
+disposition = "Agent tooling README for localnet integration; developer documentation, not Move source or deployment proof."
+
+[[changed_path]]
+path = "agentictools/skills/localnet-integration/SKILL.md"
+state = "partial"
+disposition = "Agent skill describing localnet integration steps; developer documentation, not Move source or deployment proof."
+
+[[changed_path]]
+path = "agentictools/skills/localnet-integration/run.sh"
+state = "partial"
+disposition = "Agent skill shell runner for localnet integration; developer tooling, not Move source or deployment proof."
+
+[[changed_path]]
+path = "contracts/core/tests/docking_tests.move"
+state = "partial"
+disposition = "Move test docking_tests.move exercises the new docking proof verification; test coverage, not active source or deployment proof."
+
+[[changed_path]]
+path = "contracts/core/tests/sig_verify_tests.move"
+state = "partial"
+disposition = "Move test sig_verify_tests.move exercises Ed25519 personal-message signature verification; test coverage, not active source or deployment proof."
+
+[[changed_path]]
+path = "docs/adr/0004-onchain-power-network.md"
+state = "partial"
+disposition = "ADR 0004 design note for the on-chain power network; a design record, not evidence of implemented or deployed behavior."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/inventory-uninstall.test.ts"
+state = "partial"
+disposition = "SDK integration test inventory-uninstall.test.ts supports modular client integration; not Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/personal-message.ts"
+state = "partial"
+disposition = "SDK personal-message.ts helper builds Sui personal-message signatures for proof flows; client support, not Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/proof.ts"
+state = "partial"
+disposition = "SDK proof.ts helper constructs and parses server-signed proofs (ADR 0004); client support, not Move source or deployment proof."
