@@ -8,15 +8,15 @@ comparison_mode = "tip-to-tip"
 v0_ref = "main"
 v0_reviewed_commit = "d33ff232bd3878e8f9ad0721e18564b21facc925"
 v1_ref = "dev"
-v1_reviewed_commit = "8bf651194898b693211614632561a3926c6de99c"
+v1_reviewed_commit = "d2027030ac168faa3da86dbaedd17c1f2d0a3845"
 merge_base_commit = "db577cf9fd85c2310f6449a1cf42a4a84ba9d20b"
-reviewed_at = "2026-09-28T17:39:00Z"
+reviewed_at = "2026-10-12T09:15:58Z"
 review_status = "complete"
 +++
 
 ## Scope
 
-This chapter compares the reviewed `main` tree (**v0**) with the modular architecture in the reviewed `dev` tree (**v1 architecture**). These are divergent development branches—not a linear release history, semantic-version promise, production-readiness statement, or evidence that either source tree is deployed or active in game. The reviewed candidates have 25 `main`-only and 53 `dev`-only commits after their merge base.
+This chapter compares the reviewed `main` tree (**v0**) with the modular architecture in the reviewed `dev` tree (**v1 architecture**). These are divergent development branches—not a linear release history, semantic-version promise, production-readiness statement, or evidence that either source tree is deployed or active in game. The reviewed candidates have 25 `main`-only and 59 `dev`-only commits after their merge base.
 
 The existing World Contracts pages remain v0/`main` material. They are not relocated by this comparison.
 
@@ -28,6 +28,6 @@ The comparison is source and test review only. Manifests establish only the arti
 
 ## Method and provenance
 
-Every upstream factual link uses one of the immutable commits in this page's metadata. Review three relationships: recorded v0 to `main`, recorded v1 to `dev`, and the pinned tips against each other. The sole cursor is here so child pages cannot drift. This review finds 26 v0 source modules and 21 v0 Move tests, plus 16 active v1 source modules, 35 v1 Move tests (including archived tests), and 45 archived v1 Move files. Tests and archive paths are not counted as active source coverage.
+Every upstream factual link uses one of the immutable commits in this page's metadata. Review three relationships: recorded v0 to `main`, recorded v1 to `dev`, and the pinned tips against each other. The sole cursor is here so child pages cannot drift. This review finds 26 v0 source modules and 21 v0 Move tests, plus 18 active v1 source modules, 37 v1 Move tests (including archived tests), and 45 archived v1 Move files. Tests and archive paths are not counted as active source coverage.
 
 {{% children sort="weight" %}}
