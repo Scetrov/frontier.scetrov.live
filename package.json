@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^12.0.0",
-    "cspell": "^10.3.6",
+    "cspell": "^10.4.0",
     "markdownlint-cli": "^0.49.1"
   },
   "overrides": {
