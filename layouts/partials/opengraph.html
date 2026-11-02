@@ -13,7 +13,7 @@
     <meta property="og:description" content="{{ . }}">
 {{- end }}
 
-{{- with site.Language.Locale }}
+{{- with site.Language.Lang }}
     <meta property="og:locale" content="{{ replace . `-` `_` }}">
 {{- end }}
 

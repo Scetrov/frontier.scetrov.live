@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '24'
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install devDependencies (markdownlint-cli, cspell)
@@ -36,7 +36,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
         with:
-          hugo-version: '0.164.0'
+          hugo-version: '0.169.0'
           extended: true
 
       - name: Run World Contracts comparison helper tests
@@ -47,6 +47,13 @@ jobs:
 
       - name: Run markdownlint
         run: npm run lint:md
+
+      - name: Run Mermaid lint
+        # Use the runner-installed Chrome, whose sandbox is supported by Ubuntu's
+        # AppArmor policy, rather than Puppeteer's downloaded Chrome for Testing.
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
+        run: npm run lint:mermaid
 
       - name: Validate TOML frontmatter
         run: ./.githooks/validate-frontmatter.sh

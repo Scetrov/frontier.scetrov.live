@@ -8,12 +8,12 @@ repos:
         pass_filenames: false
       - id: cspell
         name: cspell (spell check)
-        entry: npx --yes cspell@9.2.1 "content/**/*.md"
+        entry: npm exec -- cspell "content/**/*.md"
         language: system
         pass_filenames: false
       - id: markdownlint
         name: markdownlint (markdown linter)
-        entry: npx --yes markdownlint-cli@0.47.0 "content/**/*.md" ".github/**/*.md"
+        entry: npm exec -- markdownlint "content/**/*.md" ".github/**/*.md"
         language: system
         pass_filenames: false
       - id: lint-mermaid

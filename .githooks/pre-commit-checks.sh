@@ -9,7 +9,7 @@ if command -v hugo >/dev/null 2>&1; then
     exit 1
   fi
 else
-  echo "hugo not found; install hugo from https://github.com/gohugoio/hugo/releases" >&2
+  echo "hugo not found; install Hugo 0.169.0 from https://github.com/gohugoio/hugo/releases" >&2
   exit 1
 fi
 
