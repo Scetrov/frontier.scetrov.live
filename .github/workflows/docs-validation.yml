@@ -49,6 +49,10 @@ jobs:
         run: npm run lint:md
 
       - name: Run Mermaid lint
+        # Use the runner-installed Chrome, whose sandbox is supported by Ubuntu's
+        # AppArmor policy, rather than Puppeteer's downloaded Chrome for Testing.
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
         run: npm run lint:mermaid
 
       - name: Validate TOML frontmatter

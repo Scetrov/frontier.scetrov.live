@@ -56,15 +56,9 @@ def validate_diagram(diagram, tmpdir, idx):
             timeout=60,
         )
         if result.returncode != 0:
-            lines = [
-                l
-                for l in result.stderr.strip().split("\n")
-                if any(
-                    kw in l.lower()
-                    for kw in ("error", "parse", "expect", "syntax", "token")
-                )
-            ]
-            return "\n".join(lines[:5]) if lines else result.stderr.strip()[:300]
+            # Browser startup details (missing libraries, sandbox failures) may
+            # not contain "error"; retain context instead of filtering them out.
+            return result.stderr.strip()[:3000] or result.stdout.strip()[:3000]
         return None
     except FileNotFoundError:
         print(
