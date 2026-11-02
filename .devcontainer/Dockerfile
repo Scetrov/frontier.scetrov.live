@@ -1,15 +1,15 @@
 # Use the same base image that was previously specified in devcontainer.json
 FROM mcr.microsoft.com/devcontainers/go:2.3-1.27-trixie@sha256:17bf9e845391f8dfad8d967f203ecd66e2be1c1b67016e56292ea37001edc23f
 
-# Install Node.js 24 (LTS) via NodeSource (use GPG-signed repo instead of piping)
+# Install Node.js 26 (LTS) via NodeSource (use GPG-signed repo instead of piping)
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key -o /tmp/nodesource.gpg.key && \
     echo "b42e0321dabdc24e892115da705cf061167eac12a317f23d329862d0aa0a271d  /tmp/nodesource.gpg.key" | sha256sum -c - && \
     gpg --dearmor -o /usr/share/keyrings/nodesource.gpg /tmp/nodesource.gpg.key && \
     rm /tmp/nodesource.gpg.key && \
-    echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_26.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     apt-get update && apt-get install -y nodejs && \
-    npm install -g npm@12.0.2 && \
+    npm install -g npm@11.20.0 && \
     npm install -g markdownlint-cli@0.49.1
 
 # Install prerequisites for pre-commit hooks
