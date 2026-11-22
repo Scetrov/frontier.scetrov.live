@@ -1,5 +1,5 @@
 # Use the same base image that was previously specified in devcontainer.json
-FROM mcr.microsoft.com/devcontainers/go:2.3-1.27-trixie@sha256:c83c320b68e27dc36903cd5ee07394870c5330dfd77b0897e78c7e1aa00ddfd0
+FROM mcr.microsoft.com/devcontainers/go:2.3-1.27-trixie@sha256:74f45fc4c2abe0de9a9acdb4225ffb3e58e6b28f9af2e209afaa8920a3d3b623
 
 # Install Node.js 26 (LTS) via NodeSource (use GPG-signed repo instead of piping)
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg && \
