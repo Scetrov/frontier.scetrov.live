@@ -6,8 +6,8 @@
 	"dockerFile": "Dockerfile",
 	"features": {
 		"ghcr.io/devcontainers/features/hugo:1": {
-			"extended": true,
-			"version": "0.164.0"
+			"extended": false,
+			"version": "0.170.1"
 		}
 	},
 	"remoteUser": "vscode",

@@ -36,8 +36,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@d1c81a15d4e6dca7086a17b9c2565cb70fd576bf # v3
         with:
-          hugo-version: '0.169.0'
-          extended: true
+          hugo-version: '0.170.1'
 
       - name: Run World Contracts comparison helper tests
         run: python3 -m unittest scripts/tests/test_update_world_contracts_version_comparison.py
