@@ -85,7 +85,7 @@ You will then be asked some additional questions about setting up GNOME (or KDE 
 
 ## Install System Services
 
-We will be using the command line to install additional tools, as this works across basically any Debian based distribution and aligns with CCPs own documentation.
+We will be using the command line to install additional tools, as this works across basically any Debian based distribution and aligns with Fenris’s own documentation.
 
 ### Running Commands as Superuser (`sudo`)
 

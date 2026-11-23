@@ -9,7 +9,7 @@ Static Data is the data that is downloaded by the EVE Frontier Launcher and used
 Inherently static data is unchanging, and is stored on-disk in an immutable form, however the use of that data will vary with patches.
 
 > [!IMPORTANT]
-> The availability and correctness of these files is entirely down to CCP, if they choose to remove something from static data, change the format or use it in a different way they will likely do so without informing the community. These are effectively internal data structures and not intended to be destructured and read.
+> The availability and correctness of these files is entirely down to Fenris. If they choose to remove something from static data, change the format or use it in a different way they will likely do so without informing the community. These are effectively internal data structures and not intended to be destructured and read.
 
 ## Finding Files
 
