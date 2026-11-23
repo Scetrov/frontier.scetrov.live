@@ -15,7 +15,7 @@ There are five distinct sources of three dimensional coordinates:
 5. The `mapObjects.db` resource file contains the relative (to the star) position of celestial objects (Planets, Moons) again as they are in the `ResFiles` and needs to be read using a SQLite database browser or by writing code to extract the rows from the tables.
 
 > [!NOTE]
-> Many tools struggle with the axes employed by the CCP data as it results in the stars being rended with the plane of the galaxy in an Up-Down orientation which seems unnatural and can result in [Gimbal Lock](https://en.wikipedia.org/wiki/Gimbal_lock). This fairly easy to fix, as **[WOLF] lacal** found out on Discord:
+> Many tools struggle with the axes employed by the Fenris data as it results in the stars being rended with the plane of the galaxy in an Up-Down orientation which seems unnatural and can result in [Gimbal Lock](https://en.wikipedia.org/wiki/Gimbal_lock). This fairly easy to fix, as **[WOLF] lacal** found out on Discord:
 >
 > (x, y, z) → (x, z, -y) = rotate −90° about X (Rx-90).
 > or, alternatively, Swap the Z and Y components, then invert Y, leave X unchanged.
@@ -25,7 +25,7 @@ There are five distinct sources of three dimensional coordinates:
 The API sources are of low precision and depending on the endpoint are either absolute or relative to the star, historically low precision caused banding when zoomed in as the locations of stars are rounded to the nearest 100,000 km, the precision has been increased in recent cycles largely avoiding this problem. It is important to parse the values using a sufficiently high precision type as for example a `single` precision (4-byte) number will cut off a significant amount.
 
 > [!IMPORTANT]
-> Many of the absolute numbers provided by CCP cannot be accurately parsed by JavaScript's default JSON Parser as they exceed `MAX_SAFE_INTEGER` for the JavaScript engine. This can be circumvented by pre-processing the JSON file and matching any excessively long integers with a RegEx and surrounding them with strings then parsing the strings as `Big` or `BigInt`.
+> Many of the absolute numbers provided by Fenris cannot be accurately parsed by JavaScript's default JSON Parser as they exceed `MAX_SAFE_INTEGER` for the JavaScript engine. This can be circumvented by pre-processing the JSON file and matching any excessively long integers with a RegEx and surrounding them with strings then parsing the strings as `Big` or `BigInt`.
 
 ## On-chain Sources
 
@@ -39,4 +39,4 @@ The on-chain sources are the highest possible precision however depending on how
 
 ## ResFile Sources
 
-The ResFile sources are somewhat risky to use as CCP may without notice remove them or change the format and/or structure of the files. However if you are willing to do the extra work these give you the highest precision static locations in the world in either absolute (for solar systems) or relative (for celestials). You can use tools such as [Pickle](https://docs.python.org/3/library/pickle.html) and [DB Browser for SQLite](https://sqlitebrowser.org/) to inspect the contents of the files, be careful not to change them.
+The ResFile sources are somewhat risky to use as Fenris may without notice remove them or change the format and/or structure of the files. However if you are willing to do the extra work these give you the highest precision static locations in the world in either absolute (for solar systems) or relative (for celestials). You can use tools such as [Pickle](https://docs.python.org/3/library/pickle.html) and [DB Browser for SQLite](https://sqlitebrowser.org/) to inspect the contents of the files, be careful not to change them.

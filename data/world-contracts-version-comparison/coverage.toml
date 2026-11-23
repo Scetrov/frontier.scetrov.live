@@ -130,8 +130,8 @@ disposition = "v0 world world.move supplies the fixed-world baseline; not an act
 
 [[active_module]]
 path = "contracts/character/sources/identity.move"
-state = "active-v1"
-disposition = "Active v1 identity.move implements modular character behavior; does not imply v0 API compatibility."
+state = "redesigned"
+disposition = "Installs Identity and supports admin-gated tribe changes with CharacterUpdated on change."
 
 [[active_module]]
 path = "contracts/core/sources/action.move"
@@ -142,11 +142,6 @@ disposition = "Active v1 action.move implements modular core behavior; does not 
 path = "contracts/core/sources/component.move"
 state = "active-v1"
 disposition = "Typed component wrapper stores version and optional display name; slot ID is the dynamic-field key."
-
-[[active_module]]
-path = "contracts/core/sources/generic_module.move"
-state = "active-v1"
-disposition = "Opaque type ID and byte data for components without on-chain behavior; migration can extract data."
 
 [[active_module]]
 path = "contracts/currency/sources/EVE.move"
@@ -161,7 +156,7 @@ disposition = "Installable entity metadata component with typed edit requirement
 [[active_module]]
 path = "contracts/core/sources/entity.move"
 state = "active-v1"
-disposition = "Active v1 entity.move implements modular core behavior; does not imply v0 API compatibility."
+disposition = "Uses numeric component slots, rejects deletion with components installed, stores bilateral docking, and exposes read-only action views."
 
 [[active_module]]
 path = "contracts/core/sources/entity_key.move"
@@ -194,14 +189,9 @@ state = "active-v1"
 disposition = "Active v1 admin_service.move implements modular core behavior; does not imply v0 API compatibility."
 
 [[active_module]]
-path = "contracts/core/sources/services/docking.move"
-state = "active-v1"
-disposition = "Active v1 docking.move verifies a server-signed Docking proof (or admin/sponsor attestation) and asserts docked transfers inline; replaces the former hash-comparing location_service.move; does not imply v0 API compatibility."
-
-[[active_module]]
 path = "contracts/core/sources/services/proof.move"
 state = "active-v1"
-disposition = "Active v1 proof.move implements generic server-signed proof verification (kind, sender, deadline, admin server, Ed25519 signature) per ADR 0004; replaces the former location_service.move TODO; does not imply v0 API compatibility."
+disposition = "Verifies a server-signed proof independently of the admin-gated Entity docking operations."
 
 [[active_module]]
 path = "contracts/core/sources/services/sig_verify.move"
@@ -211,12 +201,62 @@ disposition = "Active v1 sig_verify.move verifies Sui Ed25519 personal-message s
 [[active_module]]
 path = "contracts/inventory/sources/inventory.move"
 state = "active-v1"
-disposition = "Active v1 inventory.move implements modular inventory behavior; does not imply v0 API compatibility."
+disposition = "Uses one inventory per component, with power grants, sponsor-gated bridges, docking checks on deposits, and batch moves."
 
 [[active_module]]
 path = "contracts/inventory/sources/item.move"
 state = "active-v1"
-disposition = "Active v1 item.move implements modular inventory behavior; does not imply v0 API compatibility."
+disposition = "Items carry a source Entity ID and lack store; movement and teardown events carry inventory attribution."
+
+[[active_module]]
+path = "contracts/creation/sources/layout.move"
+state = "active-v1"
+disposition = "Indexes installed module IDs by creation section and tracks the Shell."
+
+[[active_module]]
+path = "contracts/generic_module/sources/generic_module.move"
+state = "active-v1"
+disposition = "Standalone package for opaque fitting type IDs and bytes, not fitting behavior."
+
+[[active_module]]
+path = "contracts/killmail/sources/record.move"
+state = "redesigned"
+disposition = "Installs game-reported loss records on dedicated Entities through an admin-gated request."
+
+[[active_module]]
+path = "contracts/power/sources/fuel_bay.move"
+state = "active-v1"
+disposition = "Defines fuel bay component configuration and lifecycle."
+
+[[active_module]]
+path = "contracts/power/sources/fuel_math.move"
+state = "active-v1"
+disposition = "Implements the fuel arithmetic used by the grid."
+
+[[active_module]]
+path = "contracts/power/sources/generator.move"
+state = "active-v1"
+disposition = "Defines the generator component and its configuration."
+
+[[active_module]]
+path = "contracts/power/sources/grid_fuel.move"
+state = "active-v1"
+disposition = "Handles fuel bay attachment, fuel movement, and admin deposits."
+
+[[active_module]]
+path = "contracts/power/sources/grid_generator.move"
+state = "active-v1"
+disposition = "Connects grid generators and manages their selected fuel."
+
+[[active_module]]
+path = "contracts/power/sources/grid_load.move"
+state = "active-v1"
+disposition = "Connects loads and checks online grants used by powered modules."
+
+[[active_module]]
+path = "contracts/power/sources/power_grid.move"
+state = "active-v1"
+disposition = "Settles generation, load grants and per-type fuel pools, with overload trips, a Shell gate and snapshot views."
 
 [[archived_module]]
 path = "contracts/archive/assets/sources/EVE.move"
@@ -696,7 +736,7 @@ disposition = "Archived legacy source sig_verify.move; historical reference, not
 [[changed_path]]
 path = "contracts/archive/world/sources/killmail/killmail.move"
 state = "archived-only"
-disposition = "Archived legacy source killmail.move; historical reference, not active v1 functionality."
+disposition = "Legacy killmail source retains historical reference; the active redesign is in contracts/killmail."
 
 [[changed_path]]
 path = "contracts/archive/world/sources/network_node/network_node.move"
@@ -866,7 +906,7 @@ disposition = "character publish metadata records IDs, not independently verifie
 [[changed_path]]
 path = "contracts/character/sources/identity.move"
 state = "redesigned"
-disposition = "Identity install emits CharacterCreated with entity ID, key, tribe ID, and address, not v0 Character layout."
+disposition = "Installs Identity and supports admin-gated tribe changes with CharacterUpdated on change."
 
 [[changed_path]]
 path = "contracts/character/tests/character_tests.move"
@@ -901,7 +941,7 @@ disposition = "Active v1 action.move source; reviewed as part of modular core be
 [[changed_path]]
 path = "contracts/core/sources/entity.move"
 state = "active-v1"
-disposition = "Entity now stores component slots by numeric ID, tracks minted access cap, and supports request-gated deletion with orphan risk."
+disposition = "Uses numeric component slots, rejects deletion with components installed, stores bilateral docking, and exposes read-only action views."
 
 [[changed_path]]
 path = "contracts/core/sources/entity_key.move"
@@ -934,14 +974,9 @@ state = "active-v1"
 disposition = "Active v1 admin_service.move source; reviewed as part of modular core behavior, distinct from archived v0 APIs."
 
 [[changed_path]]
-path = "contracts/core/sources/services/docking.move"
-state = "active-v1"
-disposition = "Active v1 docking.move verifies a server-signed Docking proof (or admin/sponsor attestation) and asserts docked transfers inline; replaces the former location_service.move."
-
-[[changed_path]]
 path = "contracts/core/sources/services/proof.move"
 state = "active-v1"
-disposition = "Active v1 proof.move implements generic server-signed proof verification (kind, sender, deadline, admin server, Ed25519 signature) per ADR 0004; replaces the former location_service.move TODO."
+disposition = "Verifies a server-signed proof independently of the admin-gated Entity docking operations."
 
 [[changed_path]]
 path = "contracts/core/sources/services/sig_verify.move"
@@ -1011,12 +1046,12 @@ disposition = "inventory package Move.toml is build/configuration input, not an 
 [[changed_path]]
 path = "contracts/inventory/sources/inventory.move"
 state = "active-v1"
-disposition = "Single inventory per component replaces ephemeral routing; sponsor-gated bridges and lifecycle events differ from v0."
+disposition = "Uses one inventory per component, with power grants, sponsor-gated bridges, docking checks on deposits, and batch moves."
 
 [[changed_path]]
 path = "contracts/inventory/sources/item.move"
 state = "active-v1"
-disposition = "Standalone Item no longer has store; direct public transfer outside inventory is disallowed."
+disposition = "Items carry a source Entity ID and lack store; movement and teardown events carry inventory attribution."
 
 [[changed_path]]
 path = "contracts/inventory/tests/inventory_tests.move"
@@ -1041,7 +1076,7 @@ disposition = "Active-package Move test rift_tests.move; exercises source but is
 [[changed_path]]
 path = "deployments/dev/world.json"
 state = "deployment-unknown"
-disposition = "Dev manifest now names core, character, inventory, metadata, and currency; no chain verification."
+disposition = "Dev manifest lists package and MVR entries for all nine active packages; no chain verification."
 
 [[changed_path]]
 path = "docker/Dockerfile"
@@ -1111,7 +1146,7 @@ disposition = "Repository move-conventions.md config/documentation concerns deve
 [[changed_path]]
 path = "env.example"
 state = "partial"
-disposition = "Repository env.example config/documentation concerns development workflow, not active Move behavior."
+disposition = "Main sample lists four gate configurations; example values are not deployment evidence."
 
 [[changed_path]]
 path = "package-lock.json"
@@ -1719,19 +1754,9 @@ state = "active-v1"
 disposition = "New typed component wrapper replaces the name-keyed module wrapper."
 
 [[changed_path]]
-path = "contracts/core/sources/generic_module.move"
-state = "active-v1"
-disposition = "Opaque game fitting state can be installed as a component without on-chain logic."
-
-[[changed_path]]
 path = "contracts/core/tests/component_tests.move"
 state = "partial"
 disposition = "Component tests cover wrapper behavior; test files are not active module source."
-
-[[changed_path]]
-path = "contracts/core/tests/generic_module_tests.move"
-state = "partial"
-disposition = "Generic component tests exercise install and extraction; not a gameplay-domain port."
 
 [[changed_path]]
 path = "contracts/currency/.gitignore"
@@ -1914,19 +1939,9 @@ state = "partial"
 disposition = "Agent skill shell runner for localnet integration; developer tooling, not Move source or deployment proof."
 
 [[changed_path]]
-path = "contracts/core/tests/docking_tests.move"
-state = "partial"
-disposition = "Move test docking_tests.move exercises the new docking proof verification; test coverage, not active source or deployment proof."
-
-[[changed_path]]
 path = "contracts/core/tests/sig_verify_tests.move"
 state = "partial"
 disposition = "Move test sig_verify_tests.move exercises Ed25519 personal-message signature verification; test coverage, not active source or deployment proof."
-
-[[changed_path]]
-path = "docs/adr/0004-onchain-power-network.md"
-state = "partial"
-disposition = "ADR 0004 design note for the on-chain power network; a design record, not evidence of implemented or deployed behavior."
 
 [[changed_path]]
 path = "sdk/world-sdk/src/__integration__/inventory-uninstall.test.ts"
@@ -1942,3 +1957,293 @@ disposition = "SDK personal-message.ts helper builds Sui personal-message signat
 path = "sdk/world-sdk/src/packages/proof.ts"
 state = "partial"
 disposition = "SDK proof.ts helper constructs and parses server-signed proofs (ADR 0004); client support, not Move source or deployment proof."
+
+[[changed_path]]
+path = "contracts/creation/Move.lock"
+state = "partial"
+disposition = "creation package Move.lock configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/creation/Move.toml"
+state = "partial"
+disposition = "creation package Move.toml configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/creation/Published.toml"
+state = "deployment-unknown"
+disposition = "creation publication metadata records named artifacts, not observed chain state."
+
+[[changed_path]]
+path = "contracts/creation/sources/layout.move"
+state = "active-v1"
+disposition = "Indexes installed module IDs by creation section and tracks the Shell."
+
+[[changed_path]]
+path = "contracts/creation/tests/layout_tests.move"
+state = "partial"
+disposition = "creation test or fixture layout_tests.move covers layout; not active source."
+
+[[changed_path]]
+path = "contracts/generic_module/.gitignore"
+state = "partial"
+disposition = "generic_module package .gitignore configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/generic_module/Move.lock"
+state = "partial"
+disposition = "generic_module package Move.lock configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/generic_module/Move.toml"
+state = "partial"
+disposition = "generic_module package Move.toml configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/generic_module/Published.toml"
+state = "deployment-unknown"
+disposition = "generic_module publication metadata records named artifacts, not observed chain state."
+
+[[changed_path]]
+path = "contracts/generic_module/sources/generic_module.move"
+state = "active-v1"
+disposition = "Standalone package for opaque fitting type IDs and bytes, not fitting behavior."
+
+[[changed_path]]
+path = "contracts/generic_module/tests/generic_module_tests.move"
+state = "partial"
+disposition = "generic_module test or fixture generic_module_tests.move covers generic module; not active source."
+
+[[changed_path]]
+path = "contracts/killmail/Move.lock"
+state = "partial"
+disposition = "killmail package Move.lock configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/killmail/Move.toml"
+state = "partial"
+disposition = "killmail package Move.toml configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/killmail/Published.toml"
+state = "deployment-unknown"
+disposition = "killmail publication metadata records named artifacts, not observed chain state."
+
+[[changed_path]]
+path = "contracts/killmail/sources/record.move"
+state = "redesigned"
+disposition = "Installs game-reported loss records on dedicated Entities through an admin-gated request."
+
+[[changed_path]]
+path = "contracts/killmail/tests/record_tests.move"
+state = "partial"
+disposition = "killmail test or fixture record_tests.move covers record; not active source."
+
+[[changed_path]]
+path = "contracts/power/.gitignore"
+state = "partial"
+disposition = "power package .gitignore configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/power/Move.lock"
+state = "partial"
+disposition = "power package Move.lock configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/power/Move.toml"
+state = "partial"
+disposition = "power package Move.toml configures build, dependency or working-tree handling, not gameplay or deployment."
+
+[[changed_path]]
+path = "contracts/power/Published.toml"
+state = "deployment-unknown"
+disposition = "power publication metadata records named artifacts, not observed chain state."
+
+[[changed_path]]
+path = "contracts/power/sources/fuel_bay.move"
+state = "active-v1"
+disposition = "Defines fuel bay component configuration and lifecycle."
+
+[[changed_path]]
+path = "contracts/power/sources/fuel_math.move"
+state = "active-v1"
+disposition = "Implements the fuel arithmetic used by the grid."
+
+[[changed_path]]
+path = "contracts/power/sources/generator.move"
+state = "active-v1"
+disposition = "Defines the generator component and its configuration."
+
+[[changed_path]]
+path = "contracts/power/sources/grid_fuel.move"
+state = "active-v1"
+disposition = "Handles fuel bay attachment, fuel movement, and admin deposits."
+
+[[changed_path]]
+path = "contracts/power/sources/grid_generator.move"
+state = "active-v1"
+disposition = "Connects grid generators and manages their selected fuel."
+
+[[changed_path]]
+path = "contracts/power/sources/grid_load.move"
+state = "active-v1"
+disposition = "Connects loads and checks online grants used by powered modules."
+
+[[changed_path]]
+path = "contracts/power/sources/power_grid.move"
+state = "active-v1"
+disposition = "Settles generation, load grants and per-type fuel pools, with overload trips, a Shell gate and snapshot views."
+
+[[changed_path]]
+path = "contracts/power/tests/fits_tests.move"
+state = "partial"
+disposition = "power test or fixture fits_tests.move covers fits; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/fuel_bay_tests.move"
+state = "partial"
+disposition = "power test or fixture fuel_bay_tests.move covers fuel bay; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/generator_tests.move"
+state = "partial"
+disposition = "power test or fixture generator_tests.move covers generator; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/grid_load_tests.move"
+state = "partial"
+disposition = "power test or fixture grid_load_tests.move covers grid load; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/grid_scenario.move"
+state = "partial"
+disposition = "power test or fixture grid_scenario.move covers grid scenario; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/migrate_tests.move"
+state = "partial"
+disposition = "power test or fixture migrate_tests.move covers migrate; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/pool_tests.move"
+state = "partial"
+disposition = "power test or fixture pool_tests.move covers pool; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/power_grid_tests.move"
+state = "partial"
+disposition = "power test or fixture power_grid_tests.move covers power grid; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/scale_tests.move"
+state = "partial"
+disposition = "power test or fixture scale_tests.move covers scale; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/shell_tests.move"
+state = "partial"
+disposition = "power test or fixture shell_tests.move covers shell; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/shut_down_tests.move"
+state = "partial"
+disposition = "power test or fixture shut_down_tests.move covers shut down; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/status_tests.move"
+state = "partial"
+disposition = "power test or fixture status_tests.move covers status; not active source."
+
+[[changed_path]]
+path = "contracts/power/tests/warp_tests.move"
+state = "partial"
+disposition = "power test or fixture warp_tests.move covers warp; not active source."
+
+[[changed_path]]
+path = "docs/adr/0005-onchain-power-network.md"
+state = "partial"
+disposition = "Power-network design record; the active Move implementation is the authority for behavior."
+
+[[changed_path]]
+path = "docs/adr/0006-neotypes-on-chain.md"
+state = "partial"
+disposition = "Records the NeoType representation design; not proof of deployment."
+
+[[changed_path]]
+path = "sdk/world-sdk/scripts/seed-power-grids.ts"
+state = "partial"
+disposition = "SDK seed power grids builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/bring-online.ts"
+state = "partial"
+disposition = "SDK bring online builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/fuel-bays.test.ts"
+state = "partial"
+disposition = "SDK fuel bays builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/fuel-pools.test.ts"
+state = "partial"
+disposition = "SDK fuel pools builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/killmail.test.ts"
+state = "partial"
+disposition = "SDK killmail builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/power-burn.test.ts"
+state = "partial"
+disposition = "SDK power burn builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/power-share.test.ts"
+state = "partial"
+disposition = "SDK power share builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/power-snapshot.test.ts"
+state = "partial"
+disposition = "SDK power snapshot builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/power.test.ts"
+state = "partial"
+disposition = "SDK power builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/sections.test.ts"
+state = "partial"
+disposition = "SDK sections builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/shut-down.test.ts"
+state = "partial"
+disposition = "SDK shut down builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/__integration__/warp.test.ts"
+state = "partial"
+disposition = "SDK warp builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/killmail.ts"
+state = "partial"
+disposition = "SDK killmail builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/layout.ts"
+state = "partial"
+disposition = "SDK layout builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/power.ts"
+state = "partial"
+disposition = "SDK power builder, test or helper supports client integration; not active Move source or deployment proof."
+
+[[changed_path]]
+path = "sdk/world-sdk/src/packages/sections.ts"
+state = "partial"
+disposition = "SDK sections builder, test or helper supports client integration; not active Move source or deployment proof."

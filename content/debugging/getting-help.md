@@ -4,15 +4,15 @@ title = 'Getting Help'
 weight = 80
 +++
 
-Sometimes you will run into problems that you can't solve on your own, when this happens there are several ways to get help from CCP, Mysten Labs or the EVE Frontier Community:
+Sometimes you will run into problems that you can't solve on your own, when this happens there are several ways to get help from Fenris, Mysten Labs or the EVE Frontier Community:
 
 - You may be able to find the answer to your question either in the [official documentation](https://docs.evefrontier.com), [Move Book](https://move-book.com/), [Sui Docs](https://sdk.mystenlabs.com/sui), [Sui SDK](https://sdk.mystenlabs.com/sui) or this site. Use the search to find a specific error message.
 - You can also search the [EVE Frontier Discord](https://discord.gg/evefrontier) as in many cases others have experienced the same issue.
-- CCP Maintain a [#builder-help](https://discord.com/channels/1021714190102175754/1289669595753480242) channel where both CCP and the community frequently answer question.
+- Fenris maintains a [#builder-help](https://discord.com/channels/1021714190102175754/1289669595753480242) channel where both Fenris and the community frequently answer questions.
 - Some questions can be answered by LLMs such as [ChatGPT](https://chatgpt.com/), [Claude](https://claude.ai/) and [Google Gemini](https://gemini.google.com/app).
 
 > [!IMPORTANT]
-> Bad actors will often use "support threads" to phish information from you, CCP will never ask to see your private key, recovery phrase (also known as a mnemonic phrase), EVE Frontier password, etc. While the risk on a Testnet is lower, it is still good practice to avoid giving out any secret information.
+> Bad actors will often use "support threads" to phish information from you. Fenris will never ask to see your private key, recovery phrase (also known as a mnemonic phrase), EVE Frontier password, etc. While the risk on a Testnet is lower, it is still good practice to avoid giving out any secret information.
 > Mostly any help can be provided without sharing your screen, so you should also be very wary of someone insisting on screensharing or taking control of your computer to help you.
 
 ## What Information to Provide

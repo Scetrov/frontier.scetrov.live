@@ -1,5 +1,5 @@
 +++
-date = '2026-02-21T12:23:00Z'
+date = '2026-11-23T00:00:00Z'
 title = 'sig_verify.move'
 weight = 1
 codebase = "https://github.com/evefrontier/world-contracts/blob/main/contracts/world/sources/crypto/sig_verify.move"
@@ -53,12 +53,16 @@ The `verify_signature` function follows a strict validation pipeline:
 
 ```mermaid
 flowchart TD
-    Start([verify_signature called]) --> ParseFlag[Extract scheme flag - byte 0]
+    Start([verify_signature called]) --> Nonempty{At least one byte?}
+    Nonempty -- No --> InvalidLen[abort EInvalidLen]
+    Nonempty -- Yes --> ParseFlag[Extract scheme flag - byte 0]
     ParseFlag --> MatchScheme{Scheme?}
-    MatchScheme -- Ed25519 --> ExtractSig[Extract sig bytes 1..65]
+    MatchScheme -- Ed25519 --> CheckLength{Exactly 97 bytes?}
     MatchScheme -- Other --> Abort[abort EUnsupportedScheme]
-    ExtractSig --> ExtractPK[Extract public key bytes 65..97]
-    ExtractPK --> HashMsg[Hash message with PersonalMessage intent prefix]
+    CheckLength -- No --> InvalidLen
+    CheckLength -- Yes --> ExtractSig[Extract signature bytes 1 through 64]
+    ExtractSig --> ExtractPK[Extract public key bytes 65 through 96]
+    ExtractPK --> HashMsg[Hash intent prefix and message with Blake2b-256]
     HashMsg --> DeriveAddr[Derive address from public key]
     DeriveAddr --> CheckAddr{Address matches?}
     CheckAddr -- No --> ReturnFalse[return false]
@@ -75,7 +79,7 @@ The module uses Sui's `PersonalMessage` intent prefix (`0x030000`) when hashing 
 * `0x00` — `AppId::Sui`
 
 > [!NOTE]
-> The raw message bytes are appended directly without BCS serialization. This matches the Go backend's `SignPersonalMessage` implementation and intentionally differs from the TypeScript SDK's default behavior which BCS-serializes the message.
+> The verifier appends the supplied bytes directly, without adding a BCS encoding step. This matches the Go backend's `SignPersonalMessage` implementation. Callers can still supply bytes they have already serialized, as `location.move` does for proof messages.
 
 ---
 
@@ -83,15 +87,14 @@ The module uses Sui's `PersonalMessage` intent prefix (`0x030000`) when hashing 
 
 This module is essential for scenarios requiring proof of ownership or authorization:
 
-* **Location proofs** — Verifying that a location attestation was signed by an authorized game server (referenced via `ServerAddressRegistry` in `access_control.move`).
-* **Off-chain action authentication** — Validating that an off-chain action was authorized by a specific account holder before executing on-chain operations.
-* **Distance verification** — Gates use server-signed distance proofs to verify that two gates meet the minimum 20km separation requirement.
+* **Location proofs** — `location.move` verifies signatures against the server address in the proof. The caller checks server authorization separately through `ServerAddressRegistry`.
+* **Distance verification** — Gate linking uses a server-signed distance proof and checks the maximum distance configured for the gate type.
 
 ---
 
 ## 4. Security Patterns
 
-* **Assert-First Design** — Input lengths are validated before any processing occurs. Invalid public key length, unsupported signature schemes, and malformed signatures all abort immediately with descriptive error codes.
+* **Input validation** — Address derivation aborts unless the public key is 32 bytes. Signature verification aborts on an empty input, an unsupported scheme, or an Ed25519 envelope whose length is not 97 bytes. A mismatched address or a failed Ed25519 verification returns `false`.
 * **Scheme Extensibility** — The `match` pattern on the flag byte is designed for future extension to additional signature schemes, though currently only Ed25519 is supported.
 * **No State Side Effects** — As a pure utility module with no stored objects, there is no risk of state corruption or reentrancy.
 

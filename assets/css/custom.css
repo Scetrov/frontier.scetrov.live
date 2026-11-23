@@ -58,7 +58,7 @@
 
 .frontier-flow-banner__eyebrow {
   color: rgba(255, 221, 0, 1);
-  font-family: 'Disket Mono', monospace;
+  font-family: 'Confinium Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -73,7 +73,7 @@
 
 .frontier-flow-banner strong {
   color: #fff;
-  font-family: 'Disket Mono', monospace;
+  font-family: 'Confinium Mono', monospace;
   letter-spacing: 0.03em;
 }
 
