@@ -1,6 +1,9 @@
 @import "theme-relearn-dark.css";
 
 :root {
+  --MAIN-font: 'Source Sans 3', system-ui, sans-serif;
+  --MAIN-font-variation-settings: normal;
+  --MAIN-font-weight: 400;
   --PRIMARY-color: #ff4700;
   --MENU-SECTION-ACTIVE-CATEGORY-color: rgba(255, 71, 0, 1);
   --MAIN-LINK-color: rgba(255, 71, 0, 1);
@@ -24,8 +27,9 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Disket Mono', monospace;
+    font-family: 'Confinium Mono', monospace;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -39,8 +43,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo-title {
-    font-family: 'Disket Mono', monospace;
+    font-family: 'Confinium Mono', monospace;
     font-weight: bold;
+}
+
+#R-logo.R-default .logo-title.default-animation {
+  font-size: 1.7em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #R-logo.R-default .logo-title.default-animation {
+    animation: frontier-logo-title-enter 400ms ease-out;
+  }
+}
+
+@keyframes frontier-logo-title-enter {
+  from {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .searchbox {
@@ -65,10 +91,68 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .menu-footer-contributors > h6 {
-  font-family: 'Disket Mono', monospace;
+  font-family: 'Confinium Mono', monospace;
   font-weight: bold;
   color: var(--MENU-HEADER-color);
   padding: 0;
+}
+
+/* Keep the notice tint uniform while retaining the severity-colored border. */
+.box.notices:not(.transparent) {
+  --notice-tint: #211a16;
+  --notice-body-inset: 0.4rem;
+  background-color: var(--notice-tint);
+}
+
+.box.notices:not(.transparent) > .box-label:not(.a11y-only) {
+  position: relative;
+  color: var(--MENU-HEADER-color);
+  font-size: 1.125em;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.65rem 1rem 0.2rem;
+}
+
+.box.notices:not(.transparent):has(> .notice-icon-only) {
+  position: relative;
+}
+
+.box.notices:not(.transparent) > .box-label.notice-icon-only {
+  position: static;
+  display: block;
+  line-height: 0;
+  padding: 0;
+}
+
+#R-body .box.notices:not(.transparent) > .box-content {
+  background-color: var(--notice-tint);
+  padding: var(--notice-body-inset) 1rem 0.85rem;
+}
+
+/* Keep the theme's summary and disclosure control intact; only reposition the notice icon. */
+.box.notices:not(.transparent)[open]:has(> .box-content) > .box-label > i:not(.expander-icon) {
+  position: absolute;
+  inset-block-start: calc(100% + var(--notice-body-inset));
+  inset-inline-start: 1rem;
+  color: #ffb780;
+  font-size: 1.65rem;
+  line-height: 1;
+  inline-size: 1.75rem;
+  text-align: center;
+}
+
+#R-body .box.notices:not(.transparent):has(> .box-label > i:not(.expander-icon)) > .box-content {
+  min-block-size: 3rem;
+  padding-inline-start: 3.5rem;
+}
+
+.box.notices:not(.transparent)[open]:has(> .box-content) > .box-label.notice-icon-only > i:not(.expander-icon) {
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+}
+
+#R-body .box.notices:not(.transparent):has(> .notice-icon-only) > .box-content {
+  padding-block: 1rem;
 }
 
 /* ── Swagger / API Reference Styles ── */
@@ -82,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   padding: 0.15em 0.5em;
   border-radius: 3px;
-  font-family: 'Disket Mono', monospace;
+  font-family: 'Confinium Mono', monospace;
   font-size: 0.75em;
   font-weight: bold;
   color: #fff;
@@ -149,7 +233,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .frontier-flow-banner__eyebrow {
   color: rgba(255, 221, 0, 1);
-  font-family: 'Disket Mono', monospace;
+  font-family: 'Confinium Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -164,7 +248,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .frontier-flow-banner strong {
   color: #fff;
-  font-family: 'Disket Mono', monospace;
+  font-family: 'Confinium Mono', monospace;
   letter-spacing: 0.03em;
 }
 

@@ -4,7 +4,7 @@ title = 'Frontier World API'
 weight = 40
 +++
 
-CCP publishes a REST API for the live Stillness server with an OpenAPI-compliant specification:
+Fenris publishes a REST API for the live Stillness server with an OpenAPI-compliant specification:
 
 - **Stillness**: `https://world-api-stillness.live.pub.evefrontier.com/` ([Swagger](https://world-api-stillness.live.pub.evefrontier.com/docs/doc.json))
 

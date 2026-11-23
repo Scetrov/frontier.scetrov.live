@@ -1,17 +1,23 @@
 @font-face {
-    font-family: 'Disket Mono';
-    src: url('/fonts/disket/DisketMono.woff2') format('woff2'),
-        url('/fonts/disket/DisketMono.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Source Sans 3';
+    src: url('../fonts/source-sans-3/SourceSans3VF-Upright.ttf.woff2') format('woff2');
+    font-weight: 200 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Disket Mono';
-    src: url('/fonts/disket/DisketMono-Bold.woff2') format('woff2'),
-        url('/fonts/disket/DisketMono-Bold.woff') format('woff');
-    font-weight: bold;
+    font-family: 'Source Sans 3';
+    src: url('../fonts/source-sans-3/SourceSans3VF-Italic.ttf.woff2') format('woff2');
+    font-weight: 200 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Confinium Mono';
+    src: url('../fonts/confinium-mono/ConfiniumMono-Variable.woff2') format('woff2');
+    font-weight: 100 700;
     font-style: normal;
     font-display: swap;
 }
